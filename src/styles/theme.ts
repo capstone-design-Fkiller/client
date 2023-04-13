@@ -38,10 +38,13 @@ const colors = {
 
   light_grey_100: '#dfdfdf',
   light_grey_200: '#C1C1C1',
+
+  background_1: '#F7F7F7',
+  background_2: '#F5F4F3',
 };
 
 const shadow = {
-  type_100: 'rgba(0, 0, 0, 0.09) 0px 2px 5px 0px',
+  type_1: 'rgba(0, 0, 0, 0.09) 0px 2px 5px 0px',
 };
 
 const layouts = {
