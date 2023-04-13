@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'NanumSquare';
+  src: local('나눔스퀘어 네오');
+  src: local('NanumSquare Neo');
+  src: url('../assets/fonts/NanumSquareNeo-Variable.woff2') format('woff2');
+  src: url('../assets/fonts/NanumSquareNeo-Variable.woff') format('woff');
+  font-display: block;
+}
