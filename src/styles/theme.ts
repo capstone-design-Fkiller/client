@@ -45,6 +45,7 @@ const colors = {
 
 const shadow = {
   type_1: 'rgba(0, 0, 0, 0.09) 0px 2px 5px 0px',
+  type_2: 'rgba(100, 100, 111, 0.2) 0px -11px 15px -10px',
 };
 
 const layouts = {
