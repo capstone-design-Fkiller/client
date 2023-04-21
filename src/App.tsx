@@ -1,15 +1,18 @@
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import MainPage from './pages/main';
 import { PATH } from './utils/path';
+
+import Loader from '@/components/common/Loader';
+
+const MainPage = lazy(() => import('./pages/main'));
 
 // TODO locker, notice element 변경
 function App() {
   return (
     <BrowserRouter>
       {/* // TODO LOADING 컴포넌트 생성 */}
-      <Suspense fallback={<div>로딩중</div>}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path={PATH.MAIN} element={<MainPage />} />
           <Route path={PATH.LOCKER} element={<MainPage />} />
