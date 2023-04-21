@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import Login from './pages/login';
 import MainPage from './pages/main';
 import { PATH } from './utils/path';
 
@@ -14,6 +15,7 @@ function App() {
           <Route path={PATH.MAIN} element={<MainPage />} />
           <Route path={PATH.LOCKER} element={<MainPage />} />
           <Route path={PATH.NOTICE} element={<MainPage />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
