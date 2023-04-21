@@ -23,7 +23,7 @@ const MainPage = () => {
         <AdminButton variant='contained' css={{ width: '350px', height: '150px', display: 'none' }}>
           OO학과 사물함 배정하기
         </AdminButton>
-        <Styled.MainDiv css={{ marginBottom: '5px' }}>내 사물함 정보</Styled.MainDiv>
+        <Styled.MainDiv css={{ marginBottom: '10px' }}>내 사물함 정보</Styled.MainDiv>
         <SubmitButton variant='outlined'>쉐어하기</SubmitButton>
         {/* <div>페이지 템플릿을 활용해봅니다.</div>
         <Button variant='contained'>Primary</Button>
