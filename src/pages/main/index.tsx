@@ -8,19 +8,7 @@ const MainPage = () => {
     <PageTemplate>
       <Styled.Root>
         <div>페이지 템플릿을 활용해봅니다.</div>
-        <Button variant='contained'>Primary</Button>
-        <hr />
-        <Button variant='contained'>Primary</Button>
-        <Button variant='outlined'>outlined</Button>
-        <Button variant='contained' color='secondary'>
-          Secondary
-        </Button>
-        <Button variant='contained' color='error'>
-          Error
-        </Button>
-        <Button variant='contained' color='warning' css={{ color: 'white' }}>
-          Error
-        </Button>
+        <Button>글씨체가 적용이 되나요?</Button>
       </Styled.Root>
     </PageTemplate>
   );
