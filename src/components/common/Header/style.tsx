@@ -9,6 +9,7 @@ export const Root = styled.header`
 
   width: 400px;
   padding: 10px;
+
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.white_300};
