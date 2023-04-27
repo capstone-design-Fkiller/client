@@ -9,6 +9,9 @@ export const Root = styled.nav`
   width: 400px;
   padding: 15px 20px 30px;
 
+  position: fixed;
+  bottom: 0;
+
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.white_300};
