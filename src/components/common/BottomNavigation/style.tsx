@@ -7,6 +7,7 @@ export const Root = styled.nav`
   place-items: center;
 
   width: 400px;
+  height: 95px;
   padding: 15px 20px 30px;
 
   position: fixed;
