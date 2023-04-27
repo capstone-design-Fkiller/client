@@ -32,7 +32,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/client'>
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path={PATH.MAIN} element={<MainPage />} />
