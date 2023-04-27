@@ -5,12 +5,13 @@ import { PropsWithChildren } from 'react';
 interface ButtonProps extends PropsWithChildren<ButtonBaseProps> {
   className?: string;
 }
-const SubmitButton = styled(MuiButton)<ButtonProps>`
-  width: 30%;
-  padding: 10px;
 
+const Button = styled(MuiButton)<ButtonProps>`
+  width: 100%;
+  padding: 10px;
   border-radius: 5px;
+
+  font-family: 'NanumSquare';
   font-weight: normal;
 `;
-
-export default SubmitButton;
+export default Button;
