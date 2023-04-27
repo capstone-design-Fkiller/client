@@ -49,7 +49,7 @@ const ApplyPage = () => {
     <PageTemplate>
       {qs === 'apply' ? (
         <Styled.Root>
-          <ButtonGroup />
+          <div>테스트</div>
         </Styled.Root>
       ) : (
         <Styled.Root>share</Styled.Root>
