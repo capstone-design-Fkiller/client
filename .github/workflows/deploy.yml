@@ -4,11 +4,6 @@ on:
     branches:
       - develop
       - main
-    paths: 'client/*'
-
-defaults:
-  run:
-    working-directory: client
 
 permissions:
   contents: read
