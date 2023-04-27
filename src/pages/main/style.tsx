@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { Theme, css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Root = styled.section`
@@ -24,4 +24,12 @@ export const MainDiv = styled.div`
     css`
       background-color: ${theme.colors.primary_100};
     `};
+`;
+
+export const MainBtn = (theme: Theme) => css`
+  background-color: ${theme.colors.primary_200};
+`;
+
+export const MainSubmitBtn = (theme: Theme) => css`
+  background-color: ${theme.colors.primary_100};
 `;
