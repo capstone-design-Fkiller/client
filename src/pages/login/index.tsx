@@ -7,19 +7,16 @@ import Button from "@/components/common/Button";
 import PageTemplate from "@/components/common/PageTamplate";
 
 // 로그인 타입 설정
-const enum LoginType { 
-  Student = "student",
-  Admin = "admin",
-}
+type LoginType = "student" | "admin";
 
 function Login() {
   const navigate = useNavigate();
-  const [loginType, setLoginType] = useState<LoginType | null>(null);
+  const [loginType, setLoginType] = useState<LoginType>("student");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+ 
   // 로그인 타입 변경 핸들러
-  const handleLoginTypeChange = (type: LoginType) => setLoginType(type);
+  const handleLoginTypeChange = (type: LoginType) => setLoginType(type as LoginType);
 
   // 아이디 입력창 변경 핸들러
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -48,14 +45,14 @@ function Login() {
         <Styled.FormContainer>
           <Styled.TypeContainer>
             <Styled.TypeButton
-              selected={loginType === LoginType.Student}
-              onClick={() => handleLoginTypeChange(LoginType.Student)}
+              selected={loginType === "student"}
+              onClick={() => handleLoginTypeChange("student")}
             >
               학생 로그인
             </Styled.TypeButton>
             <Styled.TypeButton
-              selected={loginType === LoginType.Admin}
-              onClick={() => handleLoginTypeChange(LoginType.Admin)}
+              selected={loginType === "admin"}
+              onClick={() => handleLoginTypeChange("admin")}
             >
               관리자 로그인
             </Styled.TypeButton>

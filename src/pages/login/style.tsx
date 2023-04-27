@@ -47,12 +47,12 @@ export const TypeButton = styled.button<{ selected: boolean }>`
   margin: 1px;
   width: 53%;
 
-  ${({ theme }) =>
+  ${({ theme, selected }) =>
     css`
       color: ${theme.colors.white_300};
-      background-color: ${theme.colors.primary_100};
+      background-color: ${selected ? theme.colors.secondary_200 : theme.colors.primary_100};
 
-      &.selected, &:focus {
+      &:focus {
       background-color: ${theme.colors.secondary_200};
       }
     `}
