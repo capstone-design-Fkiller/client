@@ -13,6 +13,8 @@ const Button = styled(MuiButton)<ButtonProps>`
 
   font-family: 'NanumSquare';
   font-weight: normal;
+
+  box-shadow: none;
 `;
 
 export default Button;
