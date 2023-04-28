@@ -33,4 +33,4 @@ jobs:
         with:
           message: |
             Preview is ready!
-            https://<USERNAME>.github.io/<REPO-NAME>/preview/
+            https://capstone-design-Fkiller.github.io/client/preview/
