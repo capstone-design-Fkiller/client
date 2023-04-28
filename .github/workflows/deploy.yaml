@@ -46,16 +46,16 @@ jobs:
         id: format_comment_message
         uses: actions/github-script@v3
         with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
 
-          const deployURL = 'https://capstone-design-Fkiller.github.io/client/';
-          const comments = [
-            `## Deploy Preview`,
-            `🔥 **check your project preview here!** : `
-          ].join('\n');
+            const deployURL = 'https://capstone-design-Fkiller.github.io/client/';
+            const comments = [
+              `## Deploy Preview`,
+              `🔥 **check your project preview here!** : `
+            ].join('\n');
 
-          core.setOutput('comment', comments);
+            core.setOutput('comment', comments);
 
       - name: comment PR
         uses: marocchino/sticy-pull-request-comment@v2
