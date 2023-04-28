@@ -5,8 +5,9 @@ import { PATH } from './utils/path';
 
 import Loader from '@/components/common/Loader';
 
-const MainPage = lazy(() => import('@/pages/main'));
 const ApplyPage = lazy(() => import('@/pages/apply'));
+const LoginPage = lazy(() => import('@/pages/login'));
+const MainPage = lazy(() => import('@/pages/main'));
 
 function setScreenSize() {
   const vh = window.innerHeight * 0.01;
