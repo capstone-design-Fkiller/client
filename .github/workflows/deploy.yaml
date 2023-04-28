@@ -9,6 +9,8 @@ permissions:
   issues: write
   pull-requests: write
   id-token: write
+  pages: write
+  deployments: write
 
 jobs:
   build-and-deploy-preview:
