@@ -41,4 +41,4 @@ jobs:
         with:
           message: |
             Preview is ready!
-            https://capstone-design-fkiller.github.io/client/locker
+            https://capstone-design-fkiller.github.io/client
