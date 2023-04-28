@@ -6,8 +6,9 @@ import { PATH } from './utils/path';
 import Loader from '@/components/common/Loader';
 import Login from '@/pages/login';
 
-const MainPage = lazy(() => import('@/pages/main'));
 const ApplyPage = lazy(() => import('@/pages/apply'));
+const LoginPage = lazy(() => import('@/pages/login'));
+const MainPage = lazy(() => import('@/pages/main'));
 
 
 function setScreenSize() {
