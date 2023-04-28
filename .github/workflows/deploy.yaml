@@ -13,11 +13,19 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install Dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Build Preview
-        run: yarn preview
+        run: yarn build
 
       - name: Deploy Preview
         uses: JamesIves/github-pages-deploy-action@4.1.3
@@ -25,3 +33,12 @@ jobs:
           branch: preview
           folder: dist
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add Preview Link to PR
+        uses: unsplash/add-pr-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          message: |
+            Preview is ready!
+            https://capstone-design-fkiller.github.io/client/locker
