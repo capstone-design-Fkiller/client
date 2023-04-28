@@ -41,7 +41,7 @@ function App() {
             <Route path={`${PATH.LOCKER}/*`} element={<ApplyPage />} />
           </Route>
           <Route path={PATH.NOTICE} element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
