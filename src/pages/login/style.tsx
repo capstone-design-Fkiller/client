@@ -7,53 +7,39 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
-export const LoginContainer = styled.div`
+export const Root = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 80vh;
+  min-height: calc(var(--vh, 1vh) * 100 - 95px);
+  padding: 30px;
 `;
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 240px;
   margin: 20px;
-
-  & > * {
-    margin-bottom: 5px;
-  }
-`;
-
-export const TypeContainer = styled.div`
-  display: flex;
-  justify-content: center;
 `;
 
 export const Input = styled.input`
-  display: flex;
-  padding: 10px;
-  margin: 10px;
+  padding: 10px 15px;
+  margin: 5px 30px;
+  max-width: 230px;
   border: none;
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadow.type_1};
 `;
 
-export const TypeButton = styled.button<{ selected: boolean }>`
-  padding: 10px;
-  border-radius: 5px;
-  margin: 1px;
-  width: 53%;
+export const typeContainerStyles = css`
+  display: flex;
+  justify-content: center;
+  max-width: 115px;
+`;
 
-  ${({ theme, selected }) =>
-    css`
-      color: ${theme.colors.white_300};
-      background-color: ${selected ? theme.colors.secondary_200 : theme.colors.primary_100};
-
-      &:focus {
-      background-color: ${theme.colors.secondary_200};
-      }
-    `}
+export const loginButtonStyles = css`
+  margin-top: 10px;
 `;
