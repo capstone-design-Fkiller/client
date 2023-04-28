@@ -5,45 +5,67 @@ on:
     types: [opened, reopened, synchronize]
 
 permissions:
-  contents: write
+  contents: read
   issues: write
   pull-requests: write
+  id-token: write
+  pages: write
+  deployments: write
 
 jobs:
   build-and-deploy-preview:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Cache node_modules
-        uses: actions/cache@v2
+      - name: Setting node
+        uses: actions/setup-node@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: '**/yarn.lock'
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      - name: yarn install & build
+        run: |
+          yarn install
+          yarn build
 
-      - name: Build Preview
-        run: yarn build
+      - name: configure github pages
+        uses: actions/configure-pages@v3
 
-      - name: Deploy Preview
-        uses: JamesIves/github-pages-deploy-action@4.1.3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          branch: preview
-          folder: dist
-          token: ${{ secrets.GITHUB_TOKEN }}
+          path: './dist'
 
-      - name: Add Preview Link to PR
-        uses: unsplash/comment-on-pr@v1.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+
+      - name: Format comment message
+        id: format_comment_message
+        uses: actions/github-script@v3
         with:
-          msg: |
-            Preview is ready!
-            https://capstone-design-fkiller.github.io/client
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+
+            const deployURL = 'https://capstone-design-Fkiller.github.io/client/';
+            const comments = [
+              `## Deploy Preview`,
+              `🔥 **check your project preview here!** : `
+            ].join('\n');
+
+            core.setOutput('comment', comments);
+
+      - name: comment PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          message: |
+            ${{ steps.format_comment_message.outputs.comment}}[${{ steps.deployment.outputs.page_url }}](${{ steps.deployment.outputs.page_url }})
