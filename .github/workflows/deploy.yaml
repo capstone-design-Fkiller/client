@@ -19,7 +19,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setting node
-        uses: actions/setup-node@latest
+        uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: 'npm'
@@ -58,7 +58,7 @@ jobs:
             core.setOutput('comment', comments);
 
       - name: comment PR
-        uses: marocchino/sticy-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           message: |
