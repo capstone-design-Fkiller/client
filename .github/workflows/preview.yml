@@ -8,7 +8,7 @@ on:
 
 permissions:
   contents: write
-  issues: wrhite
+  issues: write
   pull-requests: write
   id-token: write
   pages: write
