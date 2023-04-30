@@ -27,9 +27,7 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         id: preview
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          preview_command: yarn start
-          preview_url: http://localhost:3000
+          source-dir: ./dist/
 
     # - name: Register preview URL as comment
     #   uses: marocchino/sticky-pull-request-comment@v2.10.0
