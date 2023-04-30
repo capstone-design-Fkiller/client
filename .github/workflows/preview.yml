@@ -6,6 +6,12 @@ on:
       - reopened
       - synchronize
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  id-token: write
+
 concurrency: preview-${{ github.ref }}
 
 jobs:
