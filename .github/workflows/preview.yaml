@@ -1,0 +1,71 @@
+name: Build and Deploy Preview
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  id-token: write
+  pages: write
+  deployments: write
+
+jobs:
+  build-and-deploy-preview:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setting node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: '**/yarn.lock'
+
+      - name: yarn install & build
+        run: |
+          yarn install
+          yarn build
+
+      - name: configure github pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+
+      - name: Format comment message
+        id: format_comment_message
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+
+            const deployURL = 'https://capstone-design-Fkiller.github.io/client/';
+            const comments = [
+              `## Deploy Preview`,
+              `🔥 **check your project preview here!** : `
+            ].join('\n');
+
+            core.setOutput('comment', comments);
+
+      - name: comment PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          message: |
+            ${{ steps.format_comment_message.outputs.comment}}[${{ steps.deployment.outputs.page_url }}](${{ steps.deployment.outputs.page_url }})
