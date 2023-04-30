@@ -1,36 +1,39 @@
-name: Deploy PR previews
+name: PR Preview Comment
 
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - closed
-
-permissions:
-  contents: write
-  issues: write
-  pull-requests: write
-  id-token: write
-  pages: write
-  deployments: write
-
-concurrency: preview-${{ github.ref }}
+    types: [opened, reopened, synchronize]
 
 jobs:
-  deploy-preview:
-    runs-on: ubuntu-20.04
+  preview:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Install and Build
-        run: |
-          yarn install
-          yarn build
-
-      - name: Deploy preview
-        uses: rossjrw/pr-preview-action@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          source-dir: dist
+          node-version: 18
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build preview
+        run: yarn build
+
+      - name: Create preview deployment
+        uses: rossjrw/pr-preview-action@v1
+        id: preview
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          preview_command: yarn start
+          preview_url: http://localhost:3000
+
+    # - name: Register preview URL as comment
+    #   uses: marocchino/sticky-pull-request-comment@v2.10.0
+    #   with:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     message: |
+    #       Preview URL: ${{ steps.preview.outputs.url }}
