@@ -7,7 +7,8 @@ on:
       - synchronize
 
 permissions:
-  contents: read
+  contents: write
+  issus: wrhite
   pull-requests: write
   id-token: write
   pages: write
@@ -29,3 +30,6 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: ./dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
