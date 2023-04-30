@@ -8,6 +8,14 @@ on:
       - synchronize
       - closed
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+  pages: write
+  deployments: write
+
 concurrency: preview-${{ github.ref }}
 
 jobs:
@@ -19,8 +27,8 @@ jobs:
 
       - name: Install and Build
         run: |
-          npm install
-          npm run build
+          yarn install
+          yarn build
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
