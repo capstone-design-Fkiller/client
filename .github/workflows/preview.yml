@@ -8,9 +8,10 @@ on:
 
 permissions:
   contents: read
-  issues: write
   pull-requests: write
   id-token: write
+  pages: write
+  deployments: write
 
 concurrency: preview-${{ github.ref }}
 
@@ -27,4 +28,4 @@ jobs:
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: './dist'
+          source-dir: ./dist
