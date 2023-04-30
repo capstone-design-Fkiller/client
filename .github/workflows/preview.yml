@@ -5,6 +5,7 @@ on:
       - opened
       - reopened
       - synchronize
+      - closed
 
 permissions:
   contents: write
@@ -29,7 +30,15 @@ jobs:
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
+          if: contains(['opened', 'reopened', 'synchronize'], github.event.action)
           source-dir: ./dist/
+          action: deploy
           preview-branch: gh-pages
           umbrella-dir: pr-preview
-          action: auto
+
+      - name: Remove preview
+        uses: rossjrw/pr-preview-action@v1
+        if: github.event.action == "closed" && !github.event.pull_request.merged
+        with:
+          source-dir: ./dist/
+          action: remove
