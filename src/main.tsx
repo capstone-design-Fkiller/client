@@ -13,7 +13,7 @@ import { mui_theme, emotion_theme } from '@/styles/theme';
 let basename;
 
 if (import.meta.env.MODE === 'development') basename = 'client';
-else basename = 'client/pr-preview/**';
+else basename = 'client/pr-preview/pr-24';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
