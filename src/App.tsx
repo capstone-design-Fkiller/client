@@ -6,7 +6,9 @@ import { PATH } from './utils/path';
 import Loader from '@/components/common/Loader';
 
 const MainPage = lazy(() => import('@/pages/main'));
-const ApplyPage = lazy(() => import('@/pages/apply'));
+const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
+const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
+const SharePage = lazy(() => import('@/pages/locker-mode/share'));
 
 function setScreenSize() {
   const vh = window.innerHeight * 0.01;
@@ -36,9 +38,9 @@ function App() {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path={PATH.MAIN} element={<MainPage />} />
-          <Route path={PATH.LOCKER} element={<ApplyPage />}>
-            <Route path={`${PATH.LOCKER}/*`} element={<ApplyPage />} />
-          </Route>
+          <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
+          <Route path={PATH.APPLY} element={<ApplyPage />} />
+          <Route path={PATH.SHARE} element={<SharePage />} />
           <Route path={PATH.NOTICE} element={<MainPage />} />
         </Routes>
       </Suspense>
