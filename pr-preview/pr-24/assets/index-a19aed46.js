@@ -1,1 +1,0 @@
-import{c as t,j as e,a}from"./index-fdca42b6.js";import{B as i,P as n}from"./index-4bc20c21.js";const s=t("section",{target:"e377ic80"})({name:"o0iph5",styles:"display:flex;flex-direction:column;align-items:center;padding:120px 30px 0"}),c=()=>e(n,{children:a(s,{children:[e("div",{children:"페이지 템플릿을 활용해봅니다."}),e(i,{children:"글씨체가 적용이 되나요?"})]})});export{c as default};
