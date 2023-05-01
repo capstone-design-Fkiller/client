@@ -1,5 +1,5 @@
-import { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Suspense, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import SelectApplyMode from './pages/locker-mode';
 import ApplyPage from './pages/locker-mode/apply';
@@ -36,7 +36,17 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename='/client/'>
+<<<<<<< HEAD
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path={PATH.MAIN} element={<MainPage />} />
+        <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
+        <Route path={PATH.APPLY} element={<ApplyPage />} />
+        <Route path={PATH.NOTICE} element={<MainPage />} />
+      </Routes>
+    </Suspense>
+=======
+    <BrowserRouter basename='/client'>
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path={PATH.MAIN} element={<MainPage />} />
@@ -46,6 +56,7 @@ function App() {
         </Routes>
       </Suspense>
     </BrowserRouter>
+>>>>>>> origin/build/ci-cd
   );
 }
 
