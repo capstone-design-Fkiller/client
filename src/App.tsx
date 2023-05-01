@@ -36,8 +36,6 @@ function App() {
   }, []);
 
   return (
-<<<<<<< HEAD
-<<<<<<< HEAD
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path={PATH.MAIN} element={<MainPage />} />
@@ -46,20 +44,6 @@ function App() {
         <Route path={PATH.NOTICE} element={<MainPage />} />
       </Routes>
     </Suspense>
-=======
-=======
->>>>>>> origin/build/ci-cd
-    <BrowserRouter basename='/client'>
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path={PATH.MAIN} element={<MainPage />} />
-          <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
-          <Route path={PATH.APPLY} element={<ApplyPage />} />
-          <Route path={PATH.NOTICE} element={<MainPage />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
->>>>>>> origin/build/ci-cd
   );
 }
 
