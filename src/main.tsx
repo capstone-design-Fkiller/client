@@ -10,9 +10,14 @@ import '@/styles/font.css';
 import globalStyle from '@/styles/globalStyle';
 import { mui_theme, emotion_theme } from '@/styles/theme';
 
+let basename;
+
+if (import.meta.env.MODE === 'development') basename = 'client';
+else basename = '';
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter basename='/client/'>
+    <BrowserRouter basename={basename}>
       <ThemeProvider theme={emotion_theme}>
         <MuiThemeProvider theme={mui_theme}>
           <Global styles={globalStyle} />
