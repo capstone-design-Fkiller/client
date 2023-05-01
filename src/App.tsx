@@ -37,6 +37,7 @@ function App() {
 
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path={PATH.MAIN} element={<MainPage />} />
@@ -46,6 +47,8 @@ function App() {
       </Routes>
     </Suspense>
 =======
+=======
+>>>>>>> origin/build/ci-cd
     <BrowserRouter basename='/client'>
       <Suspense fallback={<Loader />}>
         <Routes>
