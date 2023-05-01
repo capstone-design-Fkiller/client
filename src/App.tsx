@@ -1,16 +1,13 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import SelectApplyMode from './pages/locker-mode';
-import ApplyPage from './pages/locker-mode/apply';
-import MainPage from './pages/main';
 import { PATH } from './utils/path';
 
 import Loader from '@/components/common/Loader';
 
-// const MainPage = lazy(() => import('@/pages/main'));
-// const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
-// const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
+const MainPage = lazy(() => import('@/pages/main'));
+const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
+const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
 
 function setScreenSize() {
   const vh = window.innerHeight * 0.01;
