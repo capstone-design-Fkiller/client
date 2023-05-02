@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import * as Styled from './style';
-import Icon from '../Icon';
-import { IconNames } from '../Icon/Icons';
 
+import Icon from '@/components/common/Icon';
+import { IconNames } from '@/components/common/Icon/Icons';
 import { PATH } from '@/utils/path';
 
 interface TopNaviagator {
@@ -20,9 +20,9 @@ const topNavigator: TopNaviagator[] = [
     path: PATH.MAIN,
   },
   {
-    label: '알림',
-    iconName: 'bell',
-    path: PATH.NOTICE,
+    label: '마이페이지',
+    iconName: 'user',
+    path: PATH.MAIN,
   },
   {
     label: '쪽지',
