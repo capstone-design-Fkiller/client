@@ -17,10 +17,6 @@ export const Container = styled.div`
 
   margin: 0 auto;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.white_300};
