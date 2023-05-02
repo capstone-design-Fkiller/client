@@ -2,5 +2,6 @@ export const PATH = {
   MAIN: '/',
   LOCKER: '/locker',
   NOTICE: '/notice',
-  LOGIN: '/login'
+  APPLY: '/locker/apply',
+  SHARE: '/locker/share',
 };
