@@ -13,7 +13,7 @@ export const Root = styled.header`
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.white_300};
-      box-shadow: ${theme.shadow.type_2};
+      box-shadow: ${theme.shadow.type_3};
     `};
 `;
 
@@ -31,10 +31,5 @@ export const ActiveLink = (theme: Theme) => {
         color: ${theme.colors.primary_200};
       }
     }
-
-    /* 로고만 맨 왼쪽에 붙여주고 싶다,, */
-    /* img :first-child {
-      align-self: flex-start;
-    }; */
   `;
 };
