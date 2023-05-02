@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom';
 import { PATH } from './utils/path';
 
 import Loader from '@/components/common/Loader';
-import Login from '@/pages/login';
 
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
