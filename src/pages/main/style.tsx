@@ -6,10 +6,15 @@ export const Root = styled.section`
   flex-direction: column;
   align-items: center;
 
-  padding: 120px 30px 100px 30px;
+  padding: 120px 30px;
+  ${({ theme }) =>
+    css`
+      background-color: ${theme.colors.white_300};
+      box-shadow: ${theme.shadow.type_3};
+    `};
 `;
 
-export const MainDiv = styled.div`
+export const LockkerInfoConatiner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,19 +22,11 @@ export const MainDiv = styled.div`
   width: 100%;
   height: 70vh;
 
-  border-radius: 20px;
+  border-radius: 5px;
   font-size: 20px;
 
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.primary_100};
     `};
-`;
-
-export const MainBtn = (theme: Theme) => css`
-  background-color: ${theme.colors.primary_200};
-`;
-
-export const MainSubmitBtn = (theme: Theme) => css`
-  background-color: ${theme.colors.primary_100};
 `;
