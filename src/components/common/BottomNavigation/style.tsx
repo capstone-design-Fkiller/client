@@ -6,7 +6,9 @@ export const Root = styled.nav`
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
 
-  width: 400px;
+  min-width: 300px;
+  max-width: 400px;
+  width: 100%;
   padding: 15px 20px 30px;
 
   position: fixed;
