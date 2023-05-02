@@ -1,4 +1,4 @@
-import ButtonGroup from "@mui/material/ButtonGroup";
+import { Box, ButtonGroup } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const USER_TYPE = {
 
 type LoginType = typeof USER_TYPE[keyof typeof USER_TYPE];
 
-function Login() {
+function LoginPage() {
   const navigate = useNavigate();
   const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
   const [credentials, setCredentials] = useState<{ username: string; password: string }>({
@@ -24,12 +24,12 @@ function Login() {
   });
  
   // 로그인 타입 변경 핸들러
-  const handleLoginTypeChange = (type: LoginType) => {
+  const handleLoginType = (type: LoginType) => {
     setLoginType(type);
   };
 
   // ID&PW 입력창 변경 핸들러
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCredentials = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setCredentials((prevCredentials) => ({ ...prevCredentials, [name]: value }));
   };
@@ -39,7 +39,6 @@ function Login() {
       alert("아이디와 비밀번호를 다시 입력해주세요.");
       return;
     }
-    console.log(`[${loginType} 로그인 성공]`);
     navigate(`/`); // 로그인 후 메인 페이지 이동
     setCredentials({ username: "", password: "" }); // 입력창 초기화
   };
@@ -49,40 +48,39 @@ function Login() {
       <Styled.Root>
         <Styled.Title>LOGIN</Styled.Title>
         <Styled.FormContainer>
-          <ButtonGroup css={Styled.typeContainerStyles}>
+          <ButtonGroup css={Styled.TypeContainerStyles}>
             <Button
-              variant={loginType === USER_TYPE.STUDENT ? "contained" : "outlined"}
-              className={loginType === USER_TYPE.STUDENT ? "selected" : ""}
-              onClick={() => handleLoginTypeChange(USER_TYPE.STUDENT)}
+              variant={loginType === USER_TYPE.STUDENT ? "contained" : "outlined"}  
+              onClick={() => handleLoginType(USER_TYPE.STUDENT)}
             >
               학생 로그인
             </Button>
             <Button
               variant={loginType === USER_TYPE.ADMIN ? "contained" : "outlined"}
-              className={loginType === USER_TYPE.ADMIN ? "selected" : ""}
-              onClick={() => handleLoginTypeChange(USER_TYPE.ADMIN)}
+              onClick={() => handleLoginType(USER_TYPE.ADMIN)}
             >
               관리자 로그인
             </Button>
           </ButtonGroup>
-          <div>
-            <Styled.Input
+          <Box>
+            <Styled.IdpwInput
               type="text"
               placeholder="아이디"
               value={credentials.username}
               name="username"
-              onChange={handleInputChange}
+              autoFocus
+              onChange={handleCredentials}
             />
-            <Styled.Input
+            <Styled.IdpwInput
               type="password"
               placeholder="비밀번호"
               value={credentials.password}
               name="password"
-              onChange={handleInputChange}
+              onChange={handleCredentials}
             />
-          </div>
+          </Box>
           <Button
-          css = {Styled.loginButtonStyles}
+          css = {Styled.LoginButtonStyles}
           variant="outlined"
           onClick={handleLogin}
           >
@@ -94,4 +92,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

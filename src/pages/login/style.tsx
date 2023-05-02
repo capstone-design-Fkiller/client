@@ -12,8 +12,12 @@ export const Root = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  min-height: calc(var(--vh, 1vh) * 100 - 95px);
   padding: 30px;
+
+  ${({ theme }) =>
+    css`
+      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.bottomNavHeight});
+    `};
 `;
 
 export const FormContainer = styled.form`
@@ -24,22 +28,21 @@ export const FormContainer = styled.form`
   max-width: 240px;
   margin: 20px;
 `;
-
-export const Input = styled.input`
+  
+export const IdpwInput = styled.input`
   padding: 10px 15px;
   margin: 5px 30px;
-  max-width: 230px;
   border: none;
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadow.type_1};
 `;
 
-export const typeContainerStyles = css`
+export const TypeContainerStyles = css`
   display: flex;
   justify-content: center;
-  max-width: 115px;
+  max-width: 120px;
 `;
 
-export const loginButtonStyles = css`
+export const LoginButtonStyles = css`
   margin-top: 10px;
 `;
