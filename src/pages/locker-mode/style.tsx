@@ -13,7 +13,4 @@ export const Root = styled.section`
     css`
       min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.bottomNavHeight});
     `};
-
-  & button {
-  }
 `;
