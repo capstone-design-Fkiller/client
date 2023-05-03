@@ -1,3 +1,5 @@
+import { Style } from '@mui/icons-material';
+import { Box } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -36,23 +38,34 @@ const Header = () => {
       {
         label: 'Email',
         iconName: 'email',
-        //나중에 모달이랑 연결 필요
+        //경로 임의 설정
         path: PATH.NOTICE,
       },
       {
         label: 'Profile',
         iconName: 'user',
-        //임시로 프로필 버튼 공지 화면으로 연결
-        path: PATH.NOTICE,
+        //경로 임의 설정
+        path: PATH.APPLY,
       },
     ],
   };
 
   return (
     <Styled.Root>
-      <Link to={logoBox.items[0].path} css={Styled.LogoStyle}>
-        <Icon iconName={logoBox.iconName} size='40' />
-      </Link>
+      <Box css={Styled.LogoStyle}>
+        {/* 이렇게 말고 PATH.MAIN 이런 식으로 표기하는 게 좋은지 고민 */}
+        <Link to={logoBox.items[0].path}>
+          <Icon iconName={logoBox.items[0].iconName} size='40' />
+        </Link>
+      </Box>
+      <Box css={Styled.IconStyle}>
+        <Link to={iconBox.items[0].path}>
+          <Icon iconName={iconBox.items[0].iconName} size='40' />
+        </Link>
+        <Link to={iconBox.items[1].path}>
+          <Icon iconName={logoBox.items[1].iconName} size='40' />
+        </Link>
+      </Box>
     </Styled.Root>
   );
 };
