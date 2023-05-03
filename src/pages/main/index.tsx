@@ -13,7 +13,7 @@ const MainPage = ({ userType }) => {
       <PageTemplate>
         <Styled.Root>
           <Styled.LockerInfoConatiner>내 사물함 정보</Styled.LockerInfoConatiner>
-            내 사물함 정보
+          <Button variant='outlined' css={Styled.ShareButton}>
           </Styled.LockkerInfoConatiner>
           <Button variant='outlined' css={{ width: '30%' }}>
             쉐어하기
