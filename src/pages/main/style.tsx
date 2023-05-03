@@ -1,4 +1,4 @@
-import { Theme, css } from '@emotion/react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Root = styled.section`
@@ -14,7 +14,7 @@ export const Root = styled.section`
     `};
 `;
 
-export const LockkerInfoConatiner = styled.div`
+export const LockerInfoConatiner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,5 +28,10 @@ export const LockkerInfoConatiner = styled.div`
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.primary_100};
+      margin-bottom: 10px;
     `};
+`;
+
+export const ShareButton = styled.button`
+  width: 30%;
 `;
