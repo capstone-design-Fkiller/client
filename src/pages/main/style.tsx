@@ -14,7 +14,7 @@ export const Root = styled.section`
     `};
 `;
 
-export const LockerInfoConatiner = styled.div`
+export const LockerInfoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
