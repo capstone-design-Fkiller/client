@@ -1,4 +1,3 @@
-import { Style } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -63,7 +62,7 @@ const Header = () => {
           <Icon iconName={iconBox.items[0].iconName} size='40' />
         </Link>
         <Link to={iconBox.items[1].path}>
-          <Icon iconName={logoBox.items[1].iconName} size='40' />
+          <Icon iconName={iconBox.items[1].iconName} size='40' />
         </Link>
       </Box>
     </Styled.Root>
