@@ -23,13 +23,5 @@ export const ActiveLink = (theme: Theme) => {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-
-    //클릭할 때만 색 바뀌게 설정
-    &:active {
-      path {
-        stroke: ${theme.colors.primary_200};
-        color: ${theme.colors.primary_200};
-      }
-    }
   `;
 };
