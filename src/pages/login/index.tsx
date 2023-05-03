@@ -1,4 +1,3 @@
-import { Box, ButtonGroup } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -48,7 +47,7 @@ function LoginPage() {
       <Styled.Root>
         <Styled.Title>LOGIN</Styled.Title>
         <Styled.FormContainer>
-          <ButtonGroup css={Styled.TypeContainerStyles}>
+          <Styled.ButtonWrapper>
             <Button
               variant={loginType === USER_TYPE.STUDENT ? "contained" : "outlined"}  
               onClick={() => handleLoginType(USER_TYPE.STUDENT)}
@@ -61,8 +60,8 @@ function LoginPage() {
             >
               관리자 로그인
             </Button>
-          </ButtonGroup>
-          <Box>
+          </Styled.ButtonWrapper>
+          <div>
             <Styled.IdpwInput
               type="text"
               placeholder="아이디"
@@ -78,9 +77,8 @@ function LoginPage() {
               name="password"
               onChange={handleCredentials}
             />
-          </Box>
+          </div>
           <Button
-          css = {Styled.LoginButtonStyles}
           variant="outlined"
           onClick={handleLogin}
           >

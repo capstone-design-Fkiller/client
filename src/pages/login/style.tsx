@@ -12,7 +12,7 @@ export const Root = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 0 30px;
 
   ${({ theme }) =>
     css`
@@ -25,24 +25,21 @@ export const FormContainer = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 240px;
-  margin: 20px;
 `;
   
 export const IdpwInput = styled.input`
-  padding: 10px 15px;
-  margin: 5px 30px;
+  padding: 15px 10px ;
+  width: 100%;
+  margin-bottom: 10px;
   border: none;
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadow.type_1};
 `;
 
-export const TypeContainerStyles = css`
-  display: flex;
-  justify-content: center;
-  max-width: 120px;
-`;
-
-export const LoginButtonStyles = css`
-  margin-top: 10px;
+export const ButtonWrapper = styled.div`
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin-bottom: 10px;
 `;
