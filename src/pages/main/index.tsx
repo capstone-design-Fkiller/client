@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 
 import * as Styled from './style';
 
 import Button from '@/components/common/Button/button';
 import PageTemplate from '@/components/common/PageTamplate';
 
-const MainPage = ({ userType }) => {
+const MainPage = ({}) => {
   // const [userType, setUserState] = useState('');
 
   if (userType === 'user') {
@@ -14,8 +14,6 @@ const MainPage = ({ userType }) => {
         <Styled.Root>
           <Styled.LockerInfoConatiner>내 사물함 정보</Styled.LockerInfoConatiner>
           <Button variant='outlined' css={Styled.ShareButton}>
-          </Styled.LockkerInfoConatiner>
-          <Button variant='outlined' css={{ width: '30%' }}>
             쉐어하기
           </Button>
         </Styled.Root>
@@ -25,28 +23,10 @@ const MainPage = ({ userType }) => {
   return (
     <PageTemplate>
       <Styled.Root>
-        <Button
-          variant='contained'
-          css={{
-            height: '25vh',
-            marginBottom: '10px',
-            borderRadius: '30px',
-            fontSize: '20px',
-            display: 'none',
-          }}
-        >
+        <Button variant='contained' css={Styled.AdminButton}>
           OO학과 사물함 신청 설정
         </Button>
-        <Button
-          variant='contained'
-          css={{
-            height: '25vh',
-            marginBottom: '10px',
-            borderRadius: '30px',
-            fontSize: '20px',
-            display: 'none',
-          }}
-        >
+        <Button variant='contained' css={Styled.AdminButton}>
           OO학과 사물함 배정하기
         </Button>
       </Styled.Root>

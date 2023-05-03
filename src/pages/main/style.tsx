@@ -35,3 +35,11 @@ export const LockerInfoConatiner = styled.div`
 export const ShareButton = styled.button`
   width: 30%;
 `;
+
+export const AdminButton = styled.button`
+  height: '25vh';
+  margin-bottom: '10px';
+  border-radius: '30px';
+  font-size: '20px';
+  display: 'none';
+`;
