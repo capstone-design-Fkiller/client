@@ -1,1 +1,0 @@
-import{c as o}from"./index-e42f2c74.js";import{M as a}from"./index-b842476c.js";const d=o(a,{target:"ea9qb3j0"})("width:100%;padding:10px;border-radius:5px;box-shadow:",({theme:t})=>t.shadow.type_1,";font-family:'NanumSquare';font-weight:normal;");export{d as B};
