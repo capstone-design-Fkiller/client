@@ -12,7 +12,7 @@ const MainPage = ({ userType }) => {
     return (
       <PageTemplate>
         <Styled.Root>
-          <Styled.LockkerInfoConatiner css={{ marginBottom: '10px' }}>
+          <Styled.LockerInfoConatiner>내 사물함 정보</Styled.LockerInfoConatiner>
             내 사물함 정보
           </Styled.LockkerInfoConatiner>
           <Button variant='outlined' css={{ width: '30%' }}>
