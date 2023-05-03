@@ -1,26 +1,23 @@
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 
 import * as Styled from './style';
 
 import Button from '@/components/common/Button/button';
 import PageTemplate from '@/components/common/PageTamplate';
 
-const MainPage = ({}) => {
-  // const [userType, setUserState] = useState('');
-
-  if (userType === 'user') {
-    return (
-      <PageTemplate>
-        <Styled.Root>
-          <Styled.LockerInfoConatiner>내 사물함 정보</Styled.LockerInfoConatiner>
-          <Button variant='outlined' css={Styled.ShareButton}>
-            쉐어하기
-          </Button>
-        </Styled.Root>
-      </PageTemplate>
-    );
-  }
-  return (
+const MainPage = () => {
+  const [userType, setUserTypeState] = useState(false);
+  const UserComponent = () => (
+    <PageTemplate>
+      <Styled.Root>
+        <Styled.LockerInfoConatiner>내 사물함 정보</Styled.LockerInfoConatiner>
+        <Button variant='outlined' css={Styled.ShareButton}>
+          쉐어하기
+        </Button>
+      </Styled.Root>
+    </PageTemplate>
+  );
+  const AdminComponent = () => (
     <PageTemplate>
       <Styled.Root>
         <Button variant='contained' css={Styled.AdminButton}>
@@ -32,6 +29,46 @@ const MainPage = ({}) => {
       </Styled.Root>
     </PageTemplate>
   );
+
+  const MainComponent = () => {
+    const handleClick = () => {
+      setUserTypeState(!userType);
+    };
+
+    return (
+      <div>
+        <button onClick={handleClick}>관리자/사용자 전환</button>
+        {userType ? <UserComponent /> : <AdminComponent />}
+      </div>
+    );
+  };
+
+  return MainComponent;
+
+  //   if (userType === 'user') {
+  //     return (
+  //       <PageTemplate>
+  //         <Styled.Root>
+  //           <Styled.LockerInfoConatiner>내 사물함 정보</Styled.LockerInfoConatiner>
+  //           <Button variant='outlined' css={Styled.ShareButton}>
+  //             쉐어하기
+  //           </Button>
+  //         </Styled.Root>
+  //       </PageTemplate>
+  //     );
+  //   }
+  //   return (
+  //     <PageTemplate>
+  //       <Styled.Root>
+  //         <Button variant='contained' css={Styled.AdminButton}>
+  //           OO학과 사물함 신청 설정
+  //         </Button>
+  //         <Button variant='contained' css={Styled.AdminButton}>
+  //           OO학과 사물함 배정하기
+  //         </Button>
+  //       </Styled.Root>
+  //     </PageTemplate>
+  //   );
 };
 
 export default MainPage;
