@@ -57,14 +57,14 @@ const Header = () => {
           <Icon iconName={logoBox.items[0].iconName} size='40' />
         </Link>
       </Box>
-      <Box css={Styled.IconStyle}>
+      <Styled.IconStyle>
         <Link to={iconBox.items[0].path}>
           <Icon iconName={iconBox.items[0].iconName} size='40' />
         </Link>
         <Link to={iconBox.items[1].path}>
           <Icon iconName={iconBox.items[1].iconName} size='40' />
         </Link>
-      </Box>
+      </Styled.IconStyle>
     </Styled.Root>
   );
 };

@@ -2,8 +2,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Root = styled.header`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
 
   ${({ theme }) =>
@@ -18,6 +18,6 @@ export const LogoStyle = styled.div`
   /* display: inline-block; */
 `;
 export const IconStyle = styled.div`
-  display: inline-block;
-  justify-content: space-between;
+  display: flex;
+  justify-content: space-around;
 `;
