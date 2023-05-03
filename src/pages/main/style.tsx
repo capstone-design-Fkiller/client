@@ -43,3 +43,5 @@ export const AdminButton = styled.button`
   font-size: '20px';
   display: 'none';
 `;
+
+export const FlipButton = styled.button``;

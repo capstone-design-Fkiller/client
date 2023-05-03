@@ -2,11 +2,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Root = styled.header`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 2px;
-
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding: 10px;
 
   ${({ theme }) =>
@@ -18,15 +15,9 @@ export const Root = styled.header`
 `;
 
 export const LogoStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  /* display: inline-block; */
 `;
-
 export const IconStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
+  display: inline-block;
+  justify-content: space-between;
 `;
