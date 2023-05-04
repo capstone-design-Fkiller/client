@@ -44,7 +44,7 @@ export const LockerInfo = styled.div`
 
   width: 100%;
   height: 400px;
-  margin-top: 80px;
+  margin-top: 50px;
 
   border: 1px solid ${({ theme }) => theme.colors.primary_200};
   border-radius: 5px;
