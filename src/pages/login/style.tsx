@@ -26,9 +26,9 @@ export const FormContainer = styled.form`
   justify-content: center;
   align-items: center;
 `;
-  
+
 export const IdpwInput = styled.input`
-  padding: 15px 10px ;
+  padding: 15px 10px;
   width: 100%;
   margin-bottom: 10px;
   border: none;
