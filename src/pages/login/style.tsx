@@ -1,12 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const Title = styled.h1`
-  font-size: 30px;
-  margin-bottom: 30px;
-  color: ${({ theme }) => theme.colors.primary_200};
-`;
-
 export const Root = styled.div`
   display: flex;
   justify-content: center;
@@ -20,20 +14,17 @@ export const Root = styled.div`
     `};
 `;
 
+export const Title = styled.h1`
+  font-size: 30px;
+  margin-bottom: 50px;
+  color: ${({ theme }) => theme.colors.primary_200};
+`;
+
 export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-export const IdpwInput = styled.input`
-  padding: 15px 10px;
-  width: 100%;
-  margin-bottom: 10px;
-  border: none;
-  border-radius: 5px;
-  box-shadow: ${({ theme }) => theme.shadow.type_1};
 `;
 
 export const ButtonWrapper = styled.div`
@@ -42,4 +33,14 @@ export const ButtonWrapper = styled.div`
   grid-template-columns: 1fr 1fr;
   width: 100%;
   margin-bottom: 10px;
+`;
+
+export const IdpwInput = styled.input`
+  padding: 15px 10px;
+  width: 100%;
+  font-size: 14px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: ${({ theme }) => theme.shadow.type_1};
 `;

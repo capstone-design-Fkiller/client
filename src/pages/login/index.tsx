@@ -38,7 +38,7 @@ function LoginPage() {
   return (
     <PageTemplate>
       <Styled.Root>
-        <Styled.Title>LOGIN</Styled.Title>
+        <Styled.Title>HUFS LOCKER</Styled.Title>
         <Styled.FormContainer>
           <Styled.ButtonWrapper>
             <Button
