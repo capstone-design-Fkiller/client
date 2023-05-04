@@ -10,7 +10,6 @@ export const Root = styled.section`
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.white_300};
-      box-shadow: ${theme.shadow.type_3};
     `};
 `;
 

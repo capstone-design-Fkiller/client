@@ -10,13 +10,9 @@ export const Root = styled.header`
     css`
       width: ${theme.layouts.maxWidth};
       background-color: ${theme.colors.white_300};
-      box-shadow: ${theme.shadow.type_3};
     `};
 `;
 
-export const LogoStyle = styled.div`
-  /* display: inline-block; */
-`;
 export const IconStyle = styled.div`
   display: flex;
   justify-content: space-around;
