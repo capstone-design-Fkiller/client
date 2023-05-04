@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import * as Styled from './style';
 
@@ -30,9 +30,7 @@ const UserComponent = () => (
   <PageTemplate>
     <Styled.Root>
       <Styled.LockerInfoContainer>내 사물함 정보</Styled.LockerInfoContainer>
-      <Button variant='outlined' css={Styled.ShareButton}>
-        쉐어하기
-      </Button>
+      <Button variant='outlined'>쉐어하기</Button>
     </Styled.Root>
   </PageTemplate>
 );
@@ -40,12 +38,8 @@ const UserComponent = () => (
 const AdminComponent = () => (
   <PageTemplate>
     <Styled.Root>
-      <Button variant='contained' css={Styled.AdminButton}>
-        OO학과 사물함 신청 설정
-      </Button>
-      <Button variant='contained' css={Styled.AdminButton}>
-        OO학과 사물함 배정하기
-      </Button>
+      <Button variant='contained'>OO학과 사물함 신청 설정</Button>
+      <Button variant='contained'>OO학과 사물함 배정하기</Button>
     </Styled.Root>
   </PageTemplate>
 );
