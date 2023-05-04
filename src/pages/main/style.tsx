@@ -31,16 +31,13 @@ export const LockerInfoContainer = styled.div`
     `};
 `;
 
-// export const ShareButton = css`
-//   width: 30%;
-// `;
+export const UserBtnStyle = css`
+  width: 90%;
+  height: 20vh;
 
-// export const AdminButton = css`
-//   height: '25vh';
-//   margin-bottom: '10px';
-//   border-radius: '30px';
-//   font-size: '20px';
-//   display: 'none';
-// `;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 15px;
+`;
 
 export const FlipButton = styled.button``;
