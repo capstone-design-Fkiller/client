@@ -4,12 +4,14 @@ import styled from '@emotion/styled';
 export const Root = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  gap: 20px;
 
-  padding: 30px 30px;
+  padding: 0px 30px;
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.white_300};
+      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.bottomNavHeight});
     `};
 `;
 
@@ -29,15 +31,6 @@ export const LockerInfoContainer = styled.div`
       background-color: ${theme.colors.primary_100};
       margin-bottom: 10px;
     `};
-`;
-
-export const UserBtnStyle = css`
-  width: 90%;
-  height: 20vh;
-
-  border-radius: 5px;
-  margin-bottom: 10px;
-  font-size: 15px;
 `;
 
 export const FlipButton = styled.button``;
