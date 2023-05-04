@@ -6,7 +6,7 @@ export const Root = styled.section`
   flex-direction: column;
   align-items: center;
 
-  padding: 120px 30px;
+  padding: 30px 30px;
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.white_300};
@@ -19,7 +19,7 @@ export const LockerInfoContainer = styled.div`
   justify-content: center;
 
   width: 100%;
-  height: 70vh;
+  height: 50vh;
 
   border-radius: 5px;
   font-size: 20px;
@@ -31,16 +31,16 @@ export const LockerInfoContainer = styled.div`
     `};
 `;
 
-export const ShareButton = styled.button`
-  width: 30%;
-`;
+// export const ShareButton = css`
+//   width: 30%;
+// `;
 
-export const AdminButton = styled.button`
-  height: '25vh';
-  margin-bottom: '10px';
-  border-radius: '30px';
-  font-size: '20px';
-  display: 'none';
-`;
+// export const AdminButton = css`
+//   height: '25vh';
+//   margin-bottom: '10px';
+//   border-radius: '30px';
+//   font-size: '20px';
+//   display: 'none';
+// `;
 
 export const FlipButton = styled.button``;
