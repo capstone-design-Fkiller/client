@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
+import useInput from '@/hooks/useInput';
 
 // 로그인 타입 설정
 const USER_TYPE = {
@@ -17,10 +18,8 @@ type LoginType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 function LoginPage() {
   const navigate = useNavigate();
   const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
-  const [credentials, setCredentials] = useState<{ username: string; password: string }>({
-    username: '',
-    password: '',
-  });
+  const { value: id, handleValue: handleId } = useInput<string>('');
+  const { value: pw, handleValue: handlePw } = useInput<string>('');
 
   // 로그인 타입 변경 핸들러
   const handleLoginType = (type: LoginType) => {
@@ -28,18 +27,12 @@ function LoginPage() {
   };
 
   // ID&PW 입력창 변경 핸들러
-  const handleCredentials = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setCredentials(prevCredentials => ({ ...prevCredentials, [name]: value }));
-  };
 
   const handleLogin = () => {
-    if (!credentials.username.trim() || !credentials.password.trim()) {
-      alert('아이디와 비밀번호를 다시 입력해주세요.');
-      return;
-    }
-    navigate(`/`); // 로그인 후 메인 페이지 이동
-    setCredentials({ username: '', password: '' }); // 입력창 초기화
+    if (!id || !pw) return alert('아이디와 비밀번호를 다시 입력해주세요.');
+
+    // TODO 로그인 요청 함수가 필요
+    navigate(`/`);
   };
 
   return (
@@ -64,18 +57,18 @@ function LoginPage() {
           <div>
             <Styled.IdpwInput
               type='text'
-              placeholder='아이디'
-              value={credentials.username}
+              placeholder='아이디를 입력해주세요.'
+              value={id}
               name='username'
               autoFocus
-              onChange={handleCredentials}
+              onChange={handleId}
             />
             <Styled.IdpwInput
               type='password'
-              placeholder='비밀번호'
-              value={credentials.password}
+              placeholder='비밀번호를 입력해주세요.'
+              value={pw}
               name='password'
-              onChange={handleCredentials}
+              onChange={handlePw}
             />
           </div>
           <Button variant='outlined' onClick={handleLogin}>
