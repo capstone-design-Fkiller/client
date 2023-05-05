@@ -8,6 +8,7 @@ import Loader from '@/components/common/Loader';
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
+const NoticePage = lazy(() => import('@/pages/notice'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
 
 function setScreenSize() {
@@ -39,7 +40,7 @@ function App() {
         <Route path={PATH.MAIN} element={<MainPage />} />
         <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
         <Route path={PATH.APPLY} element={<ApplyPage />} />
-        <Route path={PATH.NOTICE} element={<MainPage />} />
+        <Route path={PATH.NOTICE} element={<NoticePage />} />
         <Route path={PATH.LOGIN} element={<LoginPage />} />
       </Routes>
     </Suspense>
