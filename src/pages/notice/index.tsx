@@ -4,8 +4,8 @@ import { useState } from "react";
 import * as Styled from "./style";
 
 import PageTemplate from "@/components/common/PageTamplate";
-import CustomPagination from "@/components/common/Pagination";
 
+const pageSize = 5;
 const notices = [
   {
     id: 1,
@@ -57,17 +57,25 @@ const notices = [
   },
   ];
 
-const pageSize = 5;
-
 const NoticePage = () => {
-    const [page, setPage] = useState(1);
-    const handleChangePage = (event:React.ChangeEvent<unknown>, value: number) => {
-      setPage(value);
-    }
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.ceil(notices.length / pageSize);
 
-  const startIndex = (page - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const noticesToShow = notices.slice(startIndex, endIndex);
+    const handleNextClick = () => {
+      if (currentPage < totalPages) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
+
+    const handlePrevClick = () => {
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const noticesToShow = notices.slice(startIndex, endIndex);
 
   return (
     <PageTemplate>
@@ -93,13 +101,11 @@ const NoticePage = () => {
             ))}
           </TableBody>
         </Styled.Table>
-        <CustomPagination
-          count={Math.ceil(notices.length / pageSize)}
-          page={page}
-          onChange={handleChangePage}
-          variant="outlined"
-          shape="rounded"
-          />
+        <Styled.Pagination>
+          <Styled.Pagebutton onClick={handlePrevClick} disabled={currentPage === 1}>이전</Styled.Pagebutton>
+          <div>Page {currentPage} of {totalPages}</div>
+          <Styled.Pagebutton onClick={handleNextClick} disabled={currentPage === totalPages}>다음</Styled.Pagebutton>
+        </Styled.Pagination>
       </Styled.Root>
     </PageTemplate>
   );

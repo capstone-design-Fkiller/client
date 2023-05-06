@@ -36,3 +36,17 @@ export const Table = styled.table`
     color: ${({ theme }) => theme.colors.primary_300};
   }
 `;
+
+export const Pagination = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+`;
+
+export const Pagebutton = styled.button`
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary_100};
+  }
+`;
