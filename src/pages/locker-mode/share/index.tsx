@@ -29,7 +29,6 @@ const SharePage = () => {
     }
   }, [selectedDate]);
 
-  // TODO uncontrolled input 해결해야 함
   return (
     <PageTemplate>
       <Styled.Root>
