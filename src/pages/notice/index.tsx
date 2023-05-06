@@ -1,8 +1,8 @@
-import { TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import { useState } from "react";
 
 import * as Styled from "./style";
 
+import Modal from "@/components/common/Modal"
 import PageTemplate from "@/components/common/PageTamplate";
 
 const pageSize = 5;
@@ -58,57 +58,70 @@ const notices = [
   ];
 
 const NoticePage = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(notices.length / pageSize);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedNotice, setSelectedNotice] = useState<number | null>(null);
 
-    const handleNextClick = () => {
-      if (currentPage < totalPages) {
-        setCurrentPage(currentPage + 1);
-      }
-    };
+  const totalPages = Math.ceil(notices.length / pageSize);
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const noticesToShow = notices.slice(startIndex, endIndex);
 
-    const handlePrevClick = () => {
-      if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-      }
-    };
+  const handleNextClick = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    const noticesToShow = notices.slice(startIndex, endIndex);
+  const handlePrevClick = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNoticeClick = (noticeId: number) => {
+    setSelectedNotice(noticeId);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedNotice(null);
+  };
 
   return (
     <PageTemplate>
       <Styled.Root>
-        <Styled.Title>NOTICE</Styled.Title>
-        <Styled.Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>학과</TableCell>
-              <TableCell>제목</TableCell>
-              <TableCell>작성일</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {noticesToShow.map((notice) => (
-              <TableRow key ={notice.id}>
-                <TableCell>{notice.id}</TableCell>
-                <TableCell>{notice.major}</TableCell>
-                <TableCell>{notice.title}</TableCell>
-                <TableCell>{notice.date}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Styled.Table>
-        <Styled.Pagination>
-          <Styled.Pagebutton onClick={handlePrevClick} disabled={currentPage === 1}>이전</Styled.Pagebutton>
-          <div>Page {currentPage} of {totalPages}</div>
-          <Styled.Pagebutton onClick={handleNextClick} disabled={currentPage === totalPages}>다음</Styled.Pagebutton>
-        </Styled.Pagination>
+        <Styled.Title>공지사항</Styled.Title>
+        <Styled.TableContainer>
+          <Styled.TableHeader>
+            <Styled.TableCell>ID</Styled.TableCell>
+            <Styled.TableCell>학과</Styled.TableCell>
+            <Styled.TableCell>제목</Styled.TableCell>
+            <Styled.TableCell>작성일</Styled.TableCell>
+          </Styled.TableHeader>
+          {noticesToShow.map((notice) => (
+            <Styled.TableRow key={notice.id}>
+              <Styled.TableCell>{notice.id}</Styled.TableCell>
+              <Styled.TableCell>{notice.major}</Styled.TableCell>
+              <Styled.NoticeTitle onClick={() => handleNoticeClick(notice.id)}>
+                {notice.title}
+              </Styled.NoticeTitle>
+              <Styled.TableCell>{notice.date}</Styled.TableCell>
+            </Styled.TableRow>
+          ))}
+          <Styled.Pagination>
+              <Styled.Pagebutton onClick={handlePrevClick} disabled={currentPage === 1}>이전</Styled.Pagebutton>
+              <div>Page {currentPage} of {totalPages}</div>
+              <Styled.Pagebutton onClick={handleNextClick} disabled={currentPage === totalPages}>다음</Styled.Pagebutton>
+            </Styled.Pagination>
+        </Styled.TableContainer>
+        {selectedNotice !== null && (
+          <Modal onClose={handleCloseModal} title="Modal Title" open={true}>
+            <Styled.ModalContent>{notices[selectedNotice - 1].content}</Styled.ModalContent>
+          </Modal>
+        )}
       </Styled.Root>
+
     </PageTemplate>
-  );
+);
 };
 
 export default NoticePage;

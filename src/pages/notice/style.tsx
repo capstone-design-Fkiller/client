@@ -16,25 +16,55 @@ export const Root = styled.div`
 
 export const Title = styled.h1`
   font-size: 30px;
+  font-weight: bold;
   margin-bottom: 10px;
-  text-align: left;
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
-export const Table = styled.table`
-  width: 100%; 
+export const TableContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+`;
 
-  td {
-    white-space: nowrap; // 줄바꿈 방지
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 110px; // 셀 최대 너비
-  }
+export const TableHeader = styled.div`
+  font-size: 15px;
+  display: flex;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.secondary_100};
+  border: 1px solid ${({ theme }) => theme.colors.primary_100};
+  padding: 10px;
+  font-weight: bold;
+`;
 
-  th {
-    text-align: center;
-    color: ${({ theme }) => theme.colors.primary_300};
+export const TableRow = styled.div`
+  font-size: 13px;
+  display: flex;
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.colors.primary_100};
+  padding: 10px;
+`;
+
+export const TableCell = styled.div`
+  flex: 1;
+  text-align: center;
+`;
+
+export const NoticeTitle = styled.div`
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.primary_200};
+  &:hover {
+    text-decoration: underline;
   }
+`;
+
+export const ModalContent = styled.div`
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.primary_100};
+  margin-top: 20px;
 `;
 
 export const Pagination = styled.div`
