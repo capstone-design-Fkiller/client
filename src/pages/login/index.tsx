@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
@@ -25,8 +25,6 @@ function LoginPage() {
   const handleLoginType = (type: LoginType) => {
     setLoginType(type);
   };
-
-  // ID&PW 입력창 변경 핸들러
 
   const handleLogin = () => {
     if (!id || !pw) return alert('아이디와 비밀번호를 다시 입력해주세요.');
