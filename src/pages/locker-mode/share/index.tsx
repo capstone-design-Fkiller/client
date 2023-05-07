@@ -3,6 +3,7 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 import * as Styled from './style';
 
+import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import CustomCalendar from '@/components/share/Calendar';
 import DateBox from '@/components/share/DateBox';
@@ -38,6 +39,8 @@ const SharePage = () => {
           <DateBox label='시작일' date={date[0]} />
           <DateBox label='종료일' date={date[1]} />
         </Styled.SelectWrapper>
+
+        <Button variant='contained'>쉐어하기</Button>
       </Styled.Root>
     </PageTemplate>
   );

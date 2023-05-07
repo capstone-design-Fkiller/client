@@ -20,5 +20,5 @@ export const SelectWrapper = styled.div`
   gap: 10px;
 
   width: 100%;
-  margin: 50px 0 0 0;
+  margin: 50px 0 30px 0;
 `;
