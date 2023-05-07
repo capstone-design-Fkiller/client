@@ -13,7 +13,7 @@ export const Root = styled.header`
     `};
 `;
 
-export const IconStyle = styled.div`
+export const HeaderIconsArrange = styled.div`
   display: flex;
   justify-content: space-around;
 `;
