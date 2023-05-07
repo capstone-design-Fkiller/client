@@ -8,7 +8,8 @@ console.log(BASE_URL);
 
 export const instance = axios.create({
   baseURL: BASE_URL,
-  // headers: {
-  //   Authorization: `Bearer ${localStorage.getItem('user-token')}`,
-  // },
+  headers: {
+    'Content-Type': 'application/json',
+    // Authorization: `Bearer ${localStorage.getItem('user-token')}`,
+  },
 });
