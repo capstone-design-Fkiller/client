@@ -1,6 +1,6 @@
 import { Modal } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
@@ -8,6 +8,7 @@ import Icon from '@/components/common/Icon';
 import { PATH } from '@/utils/path';
 const Header = () => {
   const [alertOpen, setAlertOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleAlertOpen = () => {
     setAlertOpen(true);
@@ -24,7 +25,7 @@ const Header = () => {
         <Styled.IconStyle>
           <Icon iconName='email' size='32' onClick={handleAlertOpen} />
           <Link to={PATH.APPLY}>
-            <Icon iconName='user' size='32' />
+            <Icon iconName='user' size='32' onClick={() => navigate(PATH.LOGIN)} />
           </Link>
         </Styled.IconStyle>
       </Styled.Root>
