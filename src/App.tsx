@@ -5,6 +5,7 @@ import { PATH } from './utils/path';
 
 import Loader from '@/components/common/Loader';
 
+const SharePage = lazy(() => import('./pages/locker-mode/share'));
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
@@ -39,6 +40,7 @@ function App() {
         <Route path={PATH.MAIN} element={<MainPage />} />
         <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
         <Route path={PATH.APPLY} element={<ApplyPage />} />
+        <Route path={PATH.SHARE} element={<SharePage />} />
         <Route path={PATH.NOTICE} element={<MainPage />} />
         <Route path={PATH.LOGIN} element={<LoginPage />} />
       </Routes>
