@@ -16,7 +16,7 @@ const MainPage = () => {
     <PageTemplate>
       <Styled.Root>
         <div>
-          <Button variant='outlined' onClick={handleClick} css={Styled.FlipButton}>
+          <Button variant='outlined' onClick={handleClick}>
             관리자/사용자 전환
           </Button>
           {userType ? <UserComponent /> : <AdminComponent />}

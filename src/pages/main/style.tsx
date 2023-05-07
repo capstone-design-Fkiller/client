@@ -13,6 +13,10 @@ export const Root = styled.section`
       background-color: ${theme.colors.white_300};
       min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.bottomNavHeight});
     `};
+
+  button {
+    margin-bottom: 10px;
+  }
 `;
 
 export const LockerInfoContainer = styled.div`
@@ -32,5 +36,3 @@ export const LockerInfoContainer = styled.div`
       margin-bottom: 10px;
     `};
 `;
-
-export const FlipButton = styled.button``;
