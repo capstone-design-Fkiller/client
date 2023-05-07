@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import * as Styled from './style';
 
+import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 
 const MainPage = () => {
