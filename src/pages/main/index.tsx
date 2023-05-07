@@ -2,9 +2,7 @@ import { useState } from 'react';
 
 import * as Styled from './style';
 
-import Button from '@/components/common/Button/button';
 import PageTemplate from '@/components/common/PageTamplate';
-import { PATH } from '@/utils/path';
 
 const MainPage = () => {
   const [userType, setUserTypeState] = useState(false);

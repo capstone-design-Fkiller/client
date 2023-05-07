@@ -24,8 +24,8 @@ const Header = () => {
         </div>
         <Styled.IconStyle>
           <Icon iconName='email' size='32' onClick={handleAlertOpen} />
-          <Link to={PATH.APPLY}>
-            <Icon iconName='user' size='32' onClick={() => navigate(PATH.LOGIN)} />
+          <Link to={PATH.LOGIN}>
+            <Icon iconName='user' size='32' />
           </Link>
         </Styled.IconStyle>
       </Styled.Root>
