@@ -6,11 +6,23 @@ export const Root = styled.header`
   justify-content: space-between;
   padding: 10px;
 
+  height: 55px;
+
   ${({ theme }) =>
     css`
       width: ${theme.layouts.maxWidth};
-      background-color: ${theme.colors.white_300};
+      background-color: ${theme.colors.white_100};
     `};
+
+  #header-logo {
+    margin-top: 4px;
+    font-size: 24px;
+
+    ${({ theme }) =>
+      css`
+        color: ${theme.colors.primary_300};
+      `};
+  }
 `;
 
 export const HeaderIconsArrange = styled.div`
