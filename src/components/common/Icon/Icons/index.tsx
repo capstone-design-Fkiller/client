@@ -4,6 +4,7 @@ import Home from './Home';
 import Left from './Left';
 import Locker from './Locker';
 import Megaphone from './Megaphone';
+import Nothing from './Nothing';
 import Right from './Right';
 import Share from './Share';
 import User from './User';
@@ -18,6 +19,7 @@ const iconName = {
   megaphone: Megaphone,
   left: Left,
   right: Right,
+  nothing: Nothing,
 };
 
 export type IconNames = keyof typeof iconName;
