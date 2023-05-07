@@ -22,3 +22,16 @@ export const Container = styled.div`
       background-color: ${theme.colors.white_300};
     `}
 `;
+
+export const AlertModalContent = styled.div`
+  display: flex;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  ${({ theme }) =>
+    css`
+      color: ${theme.colors.primary_300};
+    `}
+`;
