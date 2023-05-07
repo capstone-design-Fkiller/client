@@ -8,7 +8,7 @@ import PageTemplate from '@/components/common/PageTamplate';
 const MainPage = () => {
   const [userType, setUserTypeState] = useState(false);
 
-  const handleClick = () => {
+  const handleUserTypeChange = () => {
     setUserTypeState(!userType);
   };
 
@@ -16,7 +16,7 @@ const MainPage = () => {
     <PageTemplate>
       <Styled.Root>
         <div>
-          <Button variant='outlined' onClick={handleClick}>
+          <Button variant='outlined' onClick={handleUserTypeChange}>
             관리자/사용자 전환
           </Button>
           {userType ? <UserComponent /> : <AdminComponent />}
