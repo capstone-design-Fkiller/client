@@ -9,7 +9,7 @@ import Modal from '@/components/common/Modal';
 
 const alerts = [
   { id: 1, message: '사물함 신청 5일 전입니다.' },
-  { id: 2, message: '아주아주아주 긴 문장을 넣어보고 싶었는데 우리 이거 글자수 제한 두나??' },
+  { id: 2, message: '아주아주아주 긴 문장을 넣어보고 싶었는데 쓸 말이 딱히 없다 와아아앙' },
   { id: 3, message: '안뇽' },
   { id: 4, message: '나윤이는 너무 귀엽다.(심각)(진지)' },
   { id: 5, message: '와플 먹고 싶다.. 안에 딸기랑 아이스크림 들어간 걸로!' },
@@ -38,6 +38,7 @@ const PageTemplate = (props: PropsWithChildren) => {
         <Styled.AlertModalTitle>알림</Styled.AlertModalTitle>
         <Styled.ModalBody>
           {alerts.map(alert => (
+            // index 1인 메시지가 알림 제목 뒤로 가서 보이지 않는 문제가 있다.
             <Styled.AlertModalListItems key={alert.id}>{alert.message}</Styled.AlertModalListItems>
           ))}
         </Styled.ModalBody>
