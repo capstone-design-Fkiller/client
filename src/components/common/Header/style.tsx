@@ -3,12 +3,12 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 export const Root = styled.header`
-  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
 
+  height: 100%;
   max-height: 60px;
 
   ${({ theme }) =>

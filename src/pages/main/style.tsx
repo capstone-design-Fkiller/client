@@ -11,7 +11,7 @@ export const Root = styled.section`
   ${({ theme }) =>
     css`
       background-color: ${theme.colors.white_300};
-      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.bottomNavHeight});
+      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight});
     `};
 
   button {
