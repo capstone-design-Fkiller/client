@@ -44,7 +44,7 @@ export const LockerInfoContainer = styled.div`
 
   ${({ theme }) =>
     css`
-      border: 1.5px solid ${theme.colors.primary_200};
+      border: 1px solid ${theme.colors.primary_200};
       background-color: ${theme.colors.primary_100};
     `};
 `;
