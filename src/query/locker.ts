@@ -1,9 +1,11 @@
 import { useQuery } from 'react-query';
 
-import { getAllMajor } from '@/api/locekr';
+import { getAllMajor, getApply, getLockerInfo } from '@/api/locker';
 
 const QUERY_KEY = {
   major: 'major',
+  apply: 'apply',
+  locker: 'locker',
 };
 
 export const useFetchMajor = (id: number) => {
@@ -12,4 +14,16 @@ export const useFetchMajor = (id: number) => {
   });
 
   return { major: data, isLoading };
+};
+
+export const useFetchApply = () => {
+  const { data } = useQuery([QUERY_KEY.apply], getApply);
+
+  return { data };
+};
+
+export const useFetchLocker = (id: number) => {
+  const { data } = useQuery([QUERY_KEY.locker, id], () => getLockerInfo(id));
+
+  return { applicant: data };
 };

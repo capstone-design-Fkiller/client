@@ -5,3 +5,15 @@ export const getAllMajor = async () => {
 
   return data;
 };
+
+export const getApply = async () => {
+  const { data } = await instance.get('apply/');
+
+  return data;
+};
+
+export const getLockerInfo = async (id: number) => {
+  const { data } = await instance.get(`locker/${id}`);
+
+  return data;
+};
