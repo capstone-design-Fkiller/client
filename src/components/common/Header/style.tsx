@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 export const Root = styled.header`
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,10 +12,12 @@ export const Root = styled.header`
   height: 100%;
   max-height: 60px;
 
+  z-index: 999;
+
   ${({ theme }) =>
     css`
       width: ${theme.layouts.maxWidth};
-      background-color: ${theme.colors.white_100};
+      background-color: ${theme.colors.white_300};
     `};
 `;
 

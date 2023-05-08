@@ -51,7 +51,7 @@ const shadow = {
 
 const layouts = {
   maxWidth: '400px',
-  fixedHeight: '155px',
+  fixedHeight: '215px',
 };
 
 export const emotion_theme = { colors, shadow, layouts };
