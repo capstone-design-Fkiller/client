@@ -28,7 +28,12 @@ const MainPage = () => {
 
 const UserComponent = () => (
   <>
-    <Styled.LockerInfoContainer>내 사물함 정보</Styled.LockerInfoContainer>
+    <Styled.LockerInfoTitle>내 사물함 정보</Styled.LockerInfoTitle>
+    <Styled.LockerInfoContainer>
+      <Styled.LockerInfoContent>이름:</Styled.LockerInfoContent>
+      <Styled.LockerInfoContent>학번:</Styled.LockerInfoContent>
+      <Styled.LockerInfoContent>학과:</Styled.LockerInfoContent>
+    </Styled.LockerInfoContainer>
     <Button variant='outlined'>쉐어하기</Button>
   </>
 );
