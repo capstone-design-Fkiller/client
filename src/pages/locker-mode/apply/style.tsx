@@ -46,4 +46,21 @@ export const InformBox = styled.div`
 
   border-top: 1px solid ${({ theme }) => theme.colors.light_grey_100};
   background-color: ${({ theme }) => theme.colors.background_2};
+
+  & > div {
+    width: 100%;
+
+    &:last-of-type {
+      padding: 0 10px;
+    }
+  }
+`;
+
+export const Separator = styled.hr`
+  width: 100%;
+  height: 1px;
+  padding-left: 10px;
+
+  border: 0;
+  background: ${({ theme }) => theme.colors.light_grey_200};
 `;
