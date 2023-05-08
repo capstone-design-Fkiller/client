@@ -16,7 +16,8 @@ export const Root = styled.header`
 
   #header-logo {
     margin-top: 4px;
-    font-size: 24px;
+    font-size: 21px;
+    font-weight: 500;
 
     ${({ theme }) =>
       css`
