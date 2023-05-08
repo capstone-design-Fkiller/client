@@ -9,6 +9,7 @@ interface ButtonProps extends PropsWithChildren<ButtonBaseProps> {
 const Button = styled(MuiButton)<ButtonProps>`
   width: 100%;
   padding: 10px;
+
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadow.type_1};
   font-family: 'NanumSquare';

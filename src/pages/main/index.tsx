@@ -1,27 +1,43 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import * as Styled from './style';
 
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
-import { PATH } from '@/utils/path';
 
 const MainPage = () => {
-  const navigate = useNavigate();
+  const [userType, setUserTypeState] = useState(false);
+
+  const handleClick = () => {
+    setUserTypeState(!userType);
+  };
 
   return (
     <PageTemplate>
       <Styled.Root>
-        <div>페이지 템플릿을 활용해봅니다.</div>
-        <Button
-          variant='contained'
-          onClick={() => navigate(PATH.LOGIN)}
-        >
-        로그인하기
-        </Button>
+        <div>
+          <Button variant='outlined' onClick={handleClick}>
+            관리자/사용자 전환
+          </Button>
+          {userType ? <UserComponent /> : <AdminComponent />}
+        </div>
       </Styled.Root>
     </PageTemplate>
   );
 };
+
+const UserComponent = () => (
+  <>
+    <Styled.LockerInfoContainer>내 사물함 정보</Styled.LockerInfoContainer>
+    <Button variant='outlined'>쉐어하기</Button>
+  </>
+);
+
+const AdminComponent = () => (
+  <>
+    <Button variant='contained'>사물함 신청 설정</Button>
+    <Button variant='contained'>사물함 배정하기</Button>
+  </>
+);
 
 export default MainPage;
