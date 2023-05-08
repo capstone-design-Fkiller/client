@@ -42,7 +42,7 @@ function App() {
         <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
         <Route path={PATH.APPLY} element={<ApplyPage />} />
         <Route path={PATH.SHARE} element={<SharePage />} />
-        <Route path={PATH.NOTICE} element={<MainPage />} />
+        <Route path={PATH.NOTICE} element={<NoticePage />} />
         <Route path={PATH.LOGIN} element={<LoginPage />} />
       </Routes>
     </Suspense>
