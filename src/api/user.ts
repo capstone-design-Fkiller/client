@@ -29,7 +29,7 @@ interface LoginRequest {
 }
 
 export const getLogin = async (type: LoginRequest) => {
-  const { data } = await instance.post<UserType>('/login/', type);
+  const { data } = await instance.post<UserType>('http://127.0.0.1:8000/login/', type);
 
   return data;
 };

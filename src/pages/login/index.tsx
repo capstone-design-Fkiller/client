@@ -1,29 +1,13 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { NavigateOptions, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
+import { getLogin } from '@/api/user';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import useInput from '@/hooks/useInput';
 import { PATH } from '@/utils/path';
-
-
-const BASE_URL = 'http://127.0.0.1:8000';
-
-const api = axios.create({
-  baseURL: BASE_URL,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
-api.interceptors.response.use(
-  response => response,
-  error => Promise.reject(error)
-);
 
 const USER_TYPE = {
   STUDENT: 'student',
@@ -31,14 +15,10 @@ const USER_TYPE = {
 };
 type LoginType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 
-interface CustomNavigateOptions extends NavigateOptions {
-  user?: any;
-}
-
 function LoginPage() {
   const navigate = useNavigate();
   const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
-  const [user, setUser] = useState({});
+  
   const { value: id, handleValue: handleId } = useInput<string>('');
   const { value: pw, handleValue: handlePw } = useInput<string>('');
 
@@ -48,30 +28,19 @@ function LoginPage() {
   };
 
   const handleLogin = async () => {
-    if (!id || !pw) return alert('아이디와 비밀번호를 다시 입력해주세요.');
-
+    if (!id || !pw) return alert('아이디와 비밀번호를 다시 입력해주세요.');  
     try {
-      const is_usermode = loginType === USER_TYPE.STUDENT;
-      const response = await api.post('/login/', {
+      const response = await getLogin({
+        is_usermode: loginType === USER_TYPE.STUDENT ? true : false,
         id: id,
         password: pw,
-        is_usermode: is_usermode ? false : true,
       });
-      if (response?.data?.user) {
-        setUser(response.data.user);
-        navigate(PATH.MAIN, { state: response.data.user  } as CustomNavigateOptions); //replace: true
-      } else {
-        alert('로그인에 실패하였습니다. 다시 시도해주세요.');
-      }
+      localStorage.setItem('user', JSON.stringify(response.data));
+      navigate(PATH.MAIN);
     } catch (error) {
-      console.error(error);
-      alert('로그인에 실패하였습니다. 다시 시도해주세요.');
+      alert('로그인 실패! 다시 시도해주세요.');
     }
-  };
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  }
 
   return (
     <PageTemplate>
