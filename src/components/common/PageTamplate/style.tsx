@@ -24,13 +24,13 @@ export const Container = styled.div`
 `;
 
 export const AlertModalTitle = styled.div`
-  display: fixed;
   text-align: center;
 
   margin-bottom: 15px;
 
   font-size: 18px;
   font-weight: bold;
+  z-index: 1;
 
   ${({ theme }) =>
     css`
@@ -44,8 +44,21 @@ export const ModalBody = styled.div`
   justify-content: center;
 
   height: 90%;
+  padding-top: 30px;
 
   overflow-x: auto;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: ${({ theme }) => theme.colors.background_2};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.primary_100};
+    border-radius: 10px;
+    height: 20px;
+  }
 `;
 
 export const AlertModalListItems = styled.div`
