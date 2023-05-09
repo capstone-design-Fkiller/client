@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useMemo } from 'react';
 
 import Icon from '@/components/common/Icon';
 
-const Locker = () => {
-  const CHECK_POINT = Math.ceil((16 / 43) * 100);
+const Locker = (props: { rate: number }) => {
+  const { rate } = props;
+  const CHECK_POINT = useMemo(() => Math.ceil(rate * 100), [rate]);
 
   return (
     <Styled.Root>

@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import { getAllMajor, getApply, getLockerInfo } from '@/api/locker';
+import { ApplicantRequest, getAllMajor, getApplicant, getLockerInfo } from '@/api/locker';
 
 const QUERY_KEY = {
   major: 'major',
@@ -16,10 +16,19 @@ export const useFetchMajor = (id: number) => {
   return { major: data, isLoading };
 };
 
-export const useFetchApply = () => {
-  const { data } = useQuery([QUERY_KEY.apply], getApply);
+export const useFetchApplicant = (props: ApplicantRequest) => {
+  const { onSuccess } = props;
 
-  return { data };
+  const { data, isLoading, refetch } = useQuery(
+    [QUERY_KEY.apply, { ...props }],
+    () => getApplicant(props),
+    {
+      enabled: !!props.building,
+      onSuccess: onSuccess,
+    }
+  );
+
+  return { applicant: data, isLoading, refetch };
 };
 
 export const useFetchLocker = (id: number) => {
