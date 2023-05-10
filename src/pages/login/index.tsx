@@ -31,11 +31,10 @@ function LoginPage() {
   const handleLogin = () => {
     mutation.mutate({is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw}, {
       onSuccess: ({data}) => {
-        console.log(data);
         const user = data.user;
-        console.log(data.user, "d유저 맞니~?");
-        localStorage.setItem('refresh', JSON.stringify(data.refresh_token));
-        localStorage.setItem('access', JSON.stringify(data.access_token));
+        console.log(data.user, "유저 확인");
+        localStorage.setItem('refresh', JSON.stringify(data.refresh_token)); //refresh_token 변경 부탁
+        localStorage.setItem('access', JSON.stringify(data.access_token)); // access_token 변경 부탁 하나로 통일!
         navigate(PATH.MAIN, { state: { user: user } });
 
       }});

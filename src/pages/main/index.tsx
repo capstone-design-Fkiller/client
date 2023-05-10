@@ -12,9 +12,9 @@ const MainPage = () => {
   const [userType, setUserTypeState] = useState(false);
   const location = useLocation();
   // cons
-  const user: User = location.state.user;
+  // const user: User|null = location.state.user;
   // const [isAdmin, setIsAdmin] = useState(false);
-  // const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [locker, setLocker] = useState({building_id:1, id:1});
   // const { user } = props.location.state;
 
@@ -24,9 +24,9 @@ const MainPage = () => {
 
   useEffect(() => {
     console.log('유저 확인', location.state);
-    // if (location.state.user) {
-    //   setUser(location.state.user);
-    // }
+    if (location.state.user) {
+      setUser(location.state.user);
+    }
   }, []);
 
   const fetchLockerData = async () => {
@@ -63,8 +63,9 @@ const MainPage = () => {
     //   }
     // };
     // fetchUserType();
-    fetchLockerData();
-  }, []);
+    if (user)
+      fetchLockerData();
+  }, [user]);
 
   return (
     <PageTemplate>
