@@ -30,7 +30,6 @@ export const AlertModalTitle = styled.div`
 
   font-size: 18px;
   font-weight: bold;
-  z-index: 1;
 
   ${({ theme }) =>
     css`
@@ -59,10 +58,14 @@ export const ModalBody = styled.div`
     border-radius: 10px;
     height: 20px;
   }
+
+  div:last-child {
+    margin: 0;
+  }
 `;
 
 export const AlertModalListItems = styled.div`
-  margin: 3px 3px;
+  margin: 0 0 5px 0;
   padding: 10px;
 
   font-size: 13px;
