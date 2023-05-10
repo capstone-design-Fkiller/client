@@ -27,6 +27,8 @@ const ApplyPage = () => {
   useEffect(() => {
     refetch();
     applyRefetch();
+    // const user: User = localStorage.getItem('user');
+    
   }, [structure]);
 
   return (

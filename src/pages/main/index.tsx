@@ -51,9 +51,10 @@ const MainPage = () => {
           // Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         // },
       });
-      if (!response.data) {
+      console.log(response.data, "확인")
+      if (response.data.length===0) {
         const { data } = await instance.put(`locker/1`, {
-          owned_id: 201801910,
+          owned_id: user?.id,
           major: 1,
           building_id: 1,
         });
