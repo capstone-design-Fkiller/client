@@ -21,39 +21,42 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
-export const TableContainer = styled.div`
+export const TableContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  table-layout: fixed;
   width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
 `;
 
-export const TableHeader = styled.div`
+export const TableHeader = styled.th`
   font-size: 15px;
   display: flex;
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.secondary_100};
-  border: 1px solid ${({ theme }) => theme.colors.primary_100};
+  background-color: ${({ theme }) => theme.colors.primary_200};
   padding: 10px;
+  border-radius: 5px;
   font-weight: bold;
 `;
 
-export const TableRow = styled.div`
+export const TableRow = styled.tr`
   font-size: 13px;
   display: flex;
   width: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.primary_100};
   padding: 10px;
 `;
 
-export const TableCell = styled.div`
+export const TableCell = styled.td`
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: center;
 `;
 
-export const NoticeTitle = styled.div`
+export const NoticeTitle = styled.h1`
   cursor: pointer;
   color: ${({ theme }) => theme.colors.primary_200};
   &:hover {
@@ -65,18 +68,4 @@ export const ModalContent = styled.div`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.primary_100};
   margin-top: 20px;
-`;
-
-export const Pagination = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: 20px;
-`;
-
-export const Pagebutton = styled.button`
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primary_100};
-  }
 `;
