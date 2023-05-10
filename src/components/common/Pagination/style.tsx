@@ -5,7 +5,7 @@ export const Pagination = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 
 interface PageNumberProps {

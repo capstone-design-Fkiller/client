@@ -166,7 +166,7 @@ const NoticePage = () => {
                   />
               {selectedNotice !== null && (
               <Modal onClose={handleCloseModal} title='Modal Title' open={true}>
-          <Styled.ModalContent>{notices[selectedNotice - 1].content}</Styled.ModalContent>
+            <Styled.ModalContent>{notices[selectedNotice - 1].content}</Styled.ModalContent>
           </Modal>
           )}
         </Styled.Root>
