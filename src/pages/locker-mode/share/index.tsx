@@ -22,7 +22,11 @@ const ApplySharePage = () => {
           <Locker.Skeleton />
           <Styled.InformBox>
             {/* 클릭 시 건물을 선택할 수 있도록 */}
-            <Select value={building} list={Object.keys(BUILDING)} handleChange={handleChange} />
+            <Select
+              value={building}
+              list={Object.keys(BUILDING).slice(1)}
+              handleChange={handleChange}
+            />
           </Styled.InformBox>
         </Styled.Container>
         <Button variant='contained'>쉐어 신청하기</Button>
