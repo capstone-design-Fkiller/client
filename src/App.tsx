@@ -1,7 +1,6 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import NoticePage from './pages/notice';
 import { PATH } from './utils/path';
 
 import Loader from '@/components/common/Loader';
