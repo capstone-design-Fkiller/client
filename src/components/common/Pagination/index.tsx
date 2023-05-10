@@ -16,7 +16,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onNext
 
   const generatePageNumbers = (activePage: number): React.ReactNode[] => {
     const numbers = [];
-    for (let i = (activePage - 1) * 5 + 1; i <= Math.min(activePage * 5, totalPages); i++) {
+    for (let i = (activePage - 1) * 10 + 1; i <= Math.min(activePage * 10, totalPages); i++) {
       numbers.push(
         <Styled.PageNumber
           key={i}
@@ -32,7 +32,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onNext
   };
 
   const handlePageClick = (page: number) => {
-    setActivePage(Math.ceil(page / 5));
+    setActivePage(Math.ceil(page / 10));
     onNextClick();
   };
   

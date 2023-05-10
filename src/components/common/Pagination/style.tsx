@@ -14,10 +14,10 @@ interface PageNumberProps {
 }
 
 export const PageNumber = styled.span<PageNumberProps>`
-  font-size: 1rem;
-  padding: 0.25rem 0.5rem;
-  margin: 0 0.25rem;
-  border-radius: 0.25rem;
+  font-size: 12px;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 5px;
   color: ${(props) => (props.isActive ? 'black' : 'gray')};
   cursor: ${(props) => (props.isClickable ? 'pointer' : 'default')};
 `;
