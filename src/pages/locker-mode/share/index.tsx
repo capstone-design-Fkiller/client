@@ -3,6 +3,7 @@ import { MouseEvent, useState } from 'react';
 import * as Styled from './style';
 
 import Locker from '@/components/apply/Locker';
+import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
@@ -24,6 +25,7 @@ const ApplySharePage = () => {
             <Select value={building} list={Object.keys(BUILDING)} handleChange={handleChange} />
           </Styled.InformBox>
         </Styled.Container>
+        <Button variant='contained'>쉐어 신청하기</Button>
       </Styled.Root>
     </PageTemplate>
   );
