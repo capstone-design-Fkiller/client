@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
@@ -7,15 +7,17 @@ import { instance } from '@/api/instance';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import { User } from '@/types/user';
+import { PATH } from '@/utils/path';
 
 const MainPage = () => {
   const [userType, setUserTypeState] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   // cons
   // const user: User|null = location.state.user;
   // const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const [locker, setLocker] = useState({building_id:1, id:1});
+  const [locker, setLocker] = useState({ building_id: 1, id: 1 });
   // const { user } = props.location.state;
 
   const handleClick = () => {
@@ -24,9 +26,17 @@ const MainPage = () => {
 
   useEffect(() => {
     console.log('유저 확인', location.state);
-    if (location.state.user) {
+    if (location.state) {
       setUser(location.state.user);
+    } else {
+      navigate(PATH.LOGIN);
+      // localStorage.getItem('access_token');
     }
+
+    // const access_token = localStorage.getItem('access_token');
+    // if (access_token) {
+
+    // }
   }, []);
 
   const fetchLockerData = async () => {
@@ -63,8 +73,7 @@ const MainPage = () => {
     //   }
     // };
     // fetchUserType();
-    if (user)
-      fetchLockerData();
+    if (user) fetchLockerData();
   }, [user]);
 
   return (

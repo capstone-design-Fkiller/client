@@ -33,8 +33,8 @@ function LoginPage() {
       onSuccess: ({data}) => {
         const user = data.user;
         console.log(data.user, "유저 확인");
-        localStorage.setItem('refresh', JSON.stringify(data.refresh_token)); //refresh_token 변경 부탁
-        localStorage.setItem('access', JSON.stringify(data.access_token)); // access_token 변경 부탁 하나로 통일!
+        localStorage.setItem('refresh_token', JSON.stringify(data.refresh_token)); 
+        localStorage.setItem('access_token', JSON.stringify(data.access_token));
         navigate(PATH.MAIN, { state: { user: user } });
 
       }});

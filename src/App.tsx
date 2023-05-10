@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { PATH } from './utils/path';
 
 import Loader from '@/components/common/Loader';
+import NoticePage from './pages/notice';
 
 const SharePage = lazy(() => import('./pages/locker-mode/share'));
 const MainPage = lazy(() => import('@/pages/main'));
@@ -41,7 +42,7 @@ function App() {
         <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
         <Route path={PATH.APPLY} element={<ApplyPage />} />
         <Route path={PATH.SHARE} element={<SharePage />} />
-        <Route path={PATH.NOTICE} element={<MainPage />} />
+        <Route path={PATH.NOTICE} element={<NoticePage />} />
         <Route path={PATH.LOGIN} element={<LoginPage />} />
       </Routes>
     </Suspense>
