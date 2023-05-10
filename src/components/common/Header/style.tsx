@@ -73,7 +73,7 @@ export const ModalBody = styled.div`
     height: 20px;
   }
 
-  div:last-child {
+  div:last-of-type {
     margin: 0;
   }
 `;
