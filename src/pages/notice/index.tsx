@@ -6,7 +6,7 @@ import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
 import Pagination from '@/components/common/Pagination'; // 페이지네이션 컴포넌트
 
-const pageSize = 5;
+const pageSize = 10;
 const notices = [
   {
     id: 1,
@@ -51,7 +51,7 @@ const notices = [
   {
     id: 6,
     major: '아랍',
-    title: '사물함 신청 안내',
+    title: '이용 시 주의사항',
     date: '230505',
     content:
     '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
@@ -60,7 +60,7 @@ const notices = [
   {
     id: 7,
     major: '베트남',
-    title: '사물함 신청 안내',
+    title: '사물함 배정 완료',
     date: '230505',
     content:
     '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
@@ -84,7 +84,7 @@ const notices = [
   {
     id: 10,
     major: '중언문',
-    title: '사물함 신청 안내',
+    title: '사물함 물건 보관',
     date: '230505',
     content:
     '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
