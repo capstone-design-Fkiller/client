@@ -21,18 +21,11 @@ export const Root = styled.header`
     `};
 `;
 
-<<<<<<< HEAD
-  #header-logo {
-    margin-top: 4px;
-    font-size: 21px;
-    font-weight: 500;
-=======
 export const Logo = styled(Link)`
   font-size: 20px;
   font-weight: 700;
   padding-bottom: 5px;
   border-bottom: 2px dashed ${({ theme }) => theme.colors.primary_300};
->>>>>>> origin/develop
 
   ${({ theme }) =>
     css`
