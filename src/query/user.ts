@@ -1,15 +1,10 @@
-import { useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 
 import { getLogin } from '@/api/user';
+import { LoginRequest } from '@/types/user';
 
 export const useLogin = () => {
-  const { data } = useQuery(['user'], () =>
-    getLogin({
-      is_usermode: true,
-      id: '2017',
-      password: 'qwer1234!',
-    })
-  );
+  const mutation = useMutation((body: LoginRequest) => getLogin(body));
 
-  return data;
+  return mutation;
 };

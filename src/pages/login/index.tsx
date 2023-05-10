@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
-import { getLogin } from '@/api/user';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import useInput from '@/hooks/useInput';
+import { useLogin } from '@/query/user';
 import { PATH } from '@/utils/path';
 
 const USER_TYPE = {
@@ -16,31 +16,26 @@ const USER_TYPE = {
 type LoginType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 
 function LoginPage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
   
   const { value: id, handleValue: handleId } = useInput<string>('');
   const { value: pw, handleValue: handlePw } = useInput<string>('');
+  const mutation = useLogin();
 
   // 로그인 타입 변경 핸들러
   const handleLoginType = (type: LoginType) => {
     setLoginType(type);
   };
 
-  const handleLogin = async () => {
-    if (!id || !pw) return alert('아이디와 비밀번호를 다시 입력해주세요.');  
-    try {
-      const response = await getLogin({
-        is_usermode: loginType === USER_TYPE.STUDENT ? true : false,
-        id: id,
-        password: pw,
-      });
-      localStorage.setItem('user', JSON.stringify(response.data));
-      navigate(PATH.MAIN);
-    } catch (error) {
-      alert('로그인 실패! 다시 시도해주세요.');
-    }
-  }
+  const handleLogin = () => {
+    mutation.mutate({is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw}, {
+      onSuccess: ({data}) => {
+        console.log(data);
+        localStorage.setItem('refresh', JSON.stringify(data.refresh_token));
+        localStorage.setItem('access', JSON.stringify(data.access_token));
+      }});
+  };
 
   return (
     <PageTemplate>
