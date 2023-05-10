@@ -51,14 +51,15 @@ const MainPage = () => {
         // Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         // },
       });
-      if (!response.data) {
+      console.log(response.data, "확인")
+      if (response.data.length===0) {
         const { data } = await instance.put(`locker/1`, {
-          owned_id: 201801910,
+          owned_id: user?.id,
           major: 1,
           building_id: 1,
         });
         console.log({ data }, '배정 되었음');
-        setLocker(data[0]);
+        setLocker(data);
       } else {
         console.log(response.data[0], '락커 있음');
         setLocker(response.data[0]);

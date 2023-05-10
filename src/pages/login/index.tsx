@@ -34,16 +34,18 @@ function LoginPage() {
     mutate(
       { is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw },
       {
-        onSuccess: ({ data }) => {
-          const user = data.user;
-          console.log(data.user, '유저 확인');
-          localStorage.setItem('user', JSON.stringify(data.user));
-          localStorage.setItem('refresh_token', JSON.stringify(data.refresh_token));
-          localStorage.setItem('access_token', JSON.stringify(data.access_token));
-          navigate(PATH.MAIN, { state: { user: user } });
-        },
+        onSuccess: onSuccess,
       }
     );
+  };
+
+  const onSuccess = ({ data }: AxiosResponse<LoginResponse, any>) => {
+    const user = data.user;
+    console.log(data.user, "유저 확인");
+    localStorage.setItem('user', JSON.stringify(data.user)); 
+    localStorage.setItem('refresh_token', JSON.stringify(data.refresh_token)); 
+    localStorage.setItem('access_token', JSON.stringify(data.access_token));
+    navigate(PATH.MAIN, { state: { user: user } });
   };
 
   return (
