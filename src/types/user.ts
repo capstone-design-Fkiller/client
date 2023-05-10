@@ -7,7 +7,7 @@ export interface LoginRequest {
 export interface LoginResponse {
   refresh_token: string;
   access_token: string;
-  data: {
+  user: {
     id: number;
     major: string;
     password: string;

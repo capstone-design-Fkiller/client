@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState, } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import * as Styled from './style';
 
@@ -7,10 +8,17 @@ import PageTemplate from '@/components/common/PageTamplate';
 
 const MainPage = () => {
   const [userType, setUserTypeState] = useState(false);
+    const location = useLocation();
+    const user = location.state.user;
+  // const { user } = props.location.state;
 
   const handleClick = () => {
     setUserTypeState(!userType);
   };
+
+  useEffect(() => {
+    console.log('유저 확인', location.state);
+  });
 
   return (
     <PageTemplate>

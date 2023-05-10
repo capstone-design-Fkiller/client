@@ -16,7 +16,7 @@ const USER_TYPE = {
 type LoginType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 
 function LoginPage() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
   
   const { value: id, handleValue: handleId } = useInput<string>('');
@@ -32,8 +32,12 @@ function LoginPage() {
     mutation.mutate({is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw}, {
       onSuccess: ({data}) => {
         console.log(data);
+        const user = data.user;
+        console.log(data.user, "d유저 맞니~?");
         localStorage.setItem('refresh', JSON.stringify(data.refresh_token));
         localStorage.setItem('access', JSON.stringify(data.access_token));
+        navigate(PATH.MAIN, { state: { user: user } });
+
       }});
   };
 
