@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +7,8 @@ import * as Styled from './style';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import useInput from '@/hooks/useInput';
+import { useLogin } from '@/query/user';
+import { LoginRequest, LoginResponse } from '@/types/user';
 
 // 로그인 타입 설정
 const USER_TYPE = {
@@ -20,6 +23,7 @@ function LoginPage() {
   const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
   const { value: id, handleValue: handleId } = useInput<string>('');
   const { value: pw, handleValue: handlePw } = useInput<string>('');
+  const { mutate } = useLogin();
 
   // 로그인 타입 변경 핸들러
   const handleLoginType = (type: LoginType) => {
@@ -27,10 +31,18 @@ function LoginPage() {
   };
 
   const handleLogin = () => {
-    if (!id || !pw) return alert('아이디와 비밀번호를 다시 입력해주세요.');
+    mutate(
+      { is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw },
+      {
+        onSuccess: onSuccess,
+      }
+    );
+  };
 
-    // TODO 로그인 요청 함수가 필요
-    navigate(`/`);
+  const onSuccess = ({ data }: AxiosResponse<LoginResponse, any>) => {
+    console.log(data);
+    localStorage.setItem('refresh', JSON.stringify(data.refresh_token));
+    localStorage.setItem('access', JSON.stringify(data.access_token));
   };
 
   return (

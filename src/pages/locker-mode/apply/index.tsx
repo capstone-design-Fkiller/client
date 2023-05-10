@@ -1,4 +1,3 @@
-import { Alert } from '@mui/material';
 import { MouseEvent, useEffect, useState } from 'react';
 
 import * as Styled from './style';
@@ -9,34 +8,36 @@ import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
-import { useFetchApplicant } from '@/query/locker';
+import { useApply, useFetchLockerCounts } from '@/query/locker';
 
 const ApplyPage = () => {
   const [structure, setStructure] = useState<string>('건물');
-  const [rate, setRate] = useState<number>(0);
   const [lockers, setLockers] = useState();
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
-  // const onSuccess = (applicant: ApplicantResponse[]) => {
-  //   const countOfApplicant = applicant ? applicant.length : 0;
+  const { lockerCounts, refetch } = useFetchLockerCounts({
+    major: 5, // 사용자 정보를 불러와서 학과를 넣어줘야 함
+    building: BUILDING[structure],
+  });
+  const { apply, refetch: applyRefetch } = useApply({
+    major: 5, // 사용자 정보를 불러와서 학과를 넣어줘야 함
+    building: BUILDING[structure],
+  });
 
-  //   setRate(countOfApplicant > 0 ? 20 / countOfApplicant : 0);
-  // };
-  // const { refetch } = useFetchApplicant({
-  //   major: 5, // 사용자 정보를 불러와서 학과를 넣어줘야 함
-  //   building: BUILDING[structure],
-  //   onSuccess: onSuccess,
-  // });
-
-  // useEffect(() => {
-  //   refetch();
-  // }, [structure]);
+  useEffect(() => {
+    refetch();
+    applyRefetch();
+  }, [structure]);
 
   return (
     <PageTemplate>
       <Styled.Root>
         <Styled.Container>
-          {rate > 0 ? <Locker rate={rate} /> : <Locker.Skeleton />}
+          {lockerCounts && lockerCounts.length > 0 ? (
+            <Locker total={lockerCounts.length} applyCount={30} />
+          ) : (
+            <Locker.Skeleton />
+          )}
           <Styled.InformBox>
             <Select
               value={structure}
@@ -48,7 +49,6 @@ const ApplyPage = () => {
           </Styled.InformBox>
         </Styled.Container>
         <Button variant='contained'>신청하기</Button>
-        {/* <Alert severity='success' >Check</Alert> */}
       </Styled.Root>
     </PageTemplate>
   );

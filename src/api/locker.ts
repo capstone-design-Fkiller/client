@@ -9,7 +9,6 @@ export const getAllMajor = async () => {
 export interface ApplicantRequest {
   major: number;
   building: number;
-  onSuccess?: (data: ApplicantResponse[]) => void;
 }
 
 export interface ApplicantResponse {
@@ -25,7 +24,7 @@ export interface ApplicantResponse {
   start_date: Date | null;
 }
 
-export const getApplicant = async (props: Omit<ApplicantRequest, 'onSuccess'>) => {
+export const getLockerCounts = async (props: ApplicantRequest) => {
   const { major, building } = props;
   const { data } = await instance.get<ApplicantResponse[]>(
     `locker?major=${major}&building_id=${building}`
@@ -36,6 +35,13 @@ export const getApplicant = async (props: Omit<ApplicantRequest, 'onSuccess'>) =
 
 export const getLockerInfo = async (id: number) => {
   const { data } = await instance.get(`locker/${id}`);
+
+  return data;
+};
+
+export const getApply = async (props: Omit<ApplicantRequest, 'onSuccess'>) => {
+  const { major, building } = props;
+  const { data } = await instance.get(`apply?major=${major}&building_id=${building}`);
 
   return data;
 };
