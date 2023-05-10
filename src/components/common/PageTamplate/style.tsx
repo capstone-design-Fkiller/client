@@ -22,3 +22,7 @@ export const Container = styled.div`
       background-color: ${theme.colors.white_300};
     `}
 `;
+
+export const Main = styled.main`
+  padding: 90px 0 125px 0;
+`;

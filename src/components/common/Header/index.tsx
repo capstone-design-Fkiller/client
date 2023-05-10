@@ -14,26 +14,18 @@ const Header = () => {
   };
 
   return (
-    <>
-      <Styled.Root>
-        <Link to={PATH.MAIN}>
-          <Icon iconName='home' size='32' />
+    <Styled.Root>
+      <Styled.Logo to={PATH.MAIN}>HUFS LOCKER</Styled.Logo>
+      <Styled.HeaderIconsArrange>
+        <Icon iconName='email' size='32' onClick={handleAlertOpen} />
+        <Link to={PATH.LOGIN}>
+          <Icon iconName='user' size='32' />
         </Link>
-        <Link to={PATH.MAIN} id='header-logo'>
-          HUFS LOCKER
-        </Link>
-        <Styled.HeaderIconsArrange>
-          <Icon iconName='email' size='32' onClick={handleAlertOpen} />
-          <Link to={PATH.LOGIN}>
-            <Icon iconName='user' size='32' />
-          </Link>
-        </Styled.HeaderIconsArrange>
-      </Styled.Root>
-
+      </Styled.HeaderIconsArrange>
       <Modal title='알림' open={alertOpen} onClose={handleAlertOpen}>
         <h1>알림</h1>
       </Modal>
-    </>
+    </Styled.Root>
   );
 };
 

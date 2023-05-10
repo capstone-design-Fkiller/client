@@ -12,7 +12,7 @@ const PageTemplate = (props: PropsWithChildren) => {
     <Styled.Root>
       <Styled.Container>
         <Header />
-        {children}
+        <Styled.Main>{children}</Styled.Main>
         <BottomNavigation />
       </Styled.Container>
     </Styled.Root>
