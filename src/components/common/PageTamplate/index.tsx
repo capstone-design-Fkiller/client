@@ -9,14 +9,14 @@ import Modal from '@/components/common/Modal';
 
 const alerts = [
   { id: 1, message: '사물함 신청 5일 전입니다.' },
-  { id: 2, message: '아주아주아주 긴 문장을 넣어보고 싶었는데 쓸 말이 딱히 없다 와아아앙' },
-  { id: 3, message: '안뇽' },
-  { id: 4, message: '나윤이는 너무 귀엽다.(심각)(진지)' },
-  { id: 5, message: '와플 먹고 싶다.. 안에 딸기랑 아이스크림 들어간 걸로!' },
-  { id: 6, message: '성민오빠한테는 만날 때마다 고맙다고 절해야 될 것 같다.✨' },
-  { id: 7, message: '내일 아침 뭐 먹지?!' },
-  { id: 8, message: '백엔드도 항상 새벽까지 회의하던데,, 다들 고생이 넘 많다! 다들 건강 지켜!!' },
-  { id: 9, message: '지금 몇 시게' },
+  { id: 2, message: '사물함 신청이 완료되었습니다.' },
+  { id: 3, message: '누군가 사물함 쉐어를 신청했습니다.' },
+  { id: 4, message: '반납기한이 지났어요!!' },
+  { id: 5, message: '에프킬라팀 최고~!!' },
+  { id: 6, message: '사물함 신청까지 2일 남았습니다.' },
+  { id: 7, message: '공지가 등록되었습니다.' },
+  { id: 8, message: '사물함 쉐어 등록이 완료되었습니다.' },
+  { id: 9, message: '사물함 반납 처리가 완료되었습니다.' },
 ];
 
 const PageTemplate = (props: PropsWithChildren) => {
