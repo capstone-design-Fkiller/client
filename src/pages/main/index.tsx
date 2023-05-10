@@ -14,7 +14,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchUserType = async () => {
       try {
-        const token = localStorage.getItem('jwtToken');
+        const token = localStorage.getItem('access_token');
         if (!token) {
           throw new Error('사용자 정보가 없습니다.');
         }
