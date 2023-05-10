@@ -19,6 +19,10 @@ const MainPage = () => {
   const [locker, setLocker] = useState({ building_id: 1, id: 1 });
   // const { user } = props.location.state;
 
+  const handleNavigation = () => {
+    navigate(PATH.USER_SHARE);
+  };
+
   const handleClick = () => {
     setUserTypeState(!userType);
   };
@@ -51,8 +55,8 @@ const MainPage = () => {
         // Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         // },
       });
-      console.log(response.data, "확인")
-      if (response.data.length===0) {
+      console.log(response.data, '확인');
+      if (response.data.length === 0) {
         const { data } = await instance.put(`locker/1`, {
           owned_id: user?.id,
           major: 1,
@@ -89,7 +93,11 @@ const MainPage = () => {
           {/* <Button variant='outlined' onClick={handleClick}>
             관리자/사용자 전환
           </Button> */}
-          {user?.is_usermode ? <UserComponent user={user} locker={locker} /> : <AdminComponent />}
+          {user?.is_usermode ? (
+            <UserComponent user={user} locker={locker} onClick={handleNavigation} />
+          ) : (
+            <AdminComponent />
+          )}
         </div>
       </Styled.Root>
     </PageTemplate>
@@ -110,7 +118,15 @@ const MainPage = () => {
 //   );
 // };
 
-const UserComponent = ({ user, locker }: { user: User; locker: any }) => (
+const UserComponent = ({
+  user,
+  locker,
+  onClick,
+}: {
+  user: User;
+  locker: any;
+  onClick: () => void;
+}) => (
   <>
     <Styled.LockerInfoTitle>내 사물함 정보</Styled.LockerInfoTitle>
     <Styled.LockerInfoContainer>
@@ -122,7 +138,9 @@ const UserComponent = ({ user, locker }: { user: User; locker: any }) => (
       </Styled.LockerInfoContent>
       <Styled.LockerInfoContent>사물함 번호 : {locker.id}</Styled.LockerInfoContent>
     </Styled.LockerInfoContainer>
-    <Button variant='outlined'>내 사물함 쉐어하기</Button>
+    <Button variant='outlined' onClick={onClick}>
+      내 사물함 쉐어하기
+    </Button>
   </>
 );
 

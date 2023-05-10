@@ -5,4 +5,5 @@ export const PATH = {
   NOTICE: '/notice',
   APPLY: '/locker/apply',
   SHARE: '/locker/share',
+  USER_SHARE: '/user/share',
 };

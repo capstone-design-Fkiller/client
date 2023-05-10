@@ -12,7 +12,7 @@ import { formatDate } from '@/utils/date';
 // TODO 쉐어 페이지에 필요한 정보
 // * 1. 대여 기간
 
-const SharePage = () => {
+const UserSharePage = () => {
   const [selectedDate, setSelectedDate] = useState<Value | undefined>();
   const [date, setDate] = useState<string[]>(['', '']);
 
@@ -46,4 +46,4 @@ const SharePage = () => {
   );
 };
 
-export default SharePage;
+export default UserSharePage;
