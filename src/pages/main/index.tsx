@@ -59,7 +59,7 @@ const MainPage = () => {
           building_id: 1,
         });
         console.log({ data }, '배정 되었음');
-        setLocker(data[0]);
+        setLocker(data);
       } else {
         console.log(response.data[0], '락커 있음');
         setLocker(response.data[0]);
