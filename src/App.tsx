@@ -6,6 +6,7 @@ import { PATH } from './utils/path';
 
 import Loader from '@/components/common/Loader';
 
+const NoticePage = lazy(() => import('./pages/notice'));
 const SharePage = lazy(() => import('./pages/locker-mode/share'));
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
