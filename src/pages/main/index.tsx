@@ -19,6 +19,68 @@ const MainPage = () => {
   const [locker, setLocker] = useState({ building_id: 1, id: 1 });
   // const { user } = props.location.state;
 
+  const handleClick = () => {
+    setUserTypeState(!userType);
+  };
+
+  useEffect(() => {
+    console.log('유저 확인', location.state);
+    if (location.state) {
+      setUser(location.state.user);
+    } else {
+      const userDataString = localStorage.getItem('user');
+      console.log(userDataString, '유저 로컬스토리지 있음');
+      if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        setUser(userData);
+      } else {
+        navigate(PATH.LOGIN);
+      }
+    }
+
+    // const access_token = localStorage.getItem('access_token');
+    // if (access_token) {
+
+    // }
+  }, []);
+
+  const fetchLockerData = async () => {
+    try {
+      const response = await instance.get(`locker?owned_id=${user?.id}`, {
+        // headers: {
+        // Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        // },
+      });
+      if (!response.data) {
+        const { data } = await instance.put(`locker/1`, {
+          owned_id: 201801910,
+          major: 1,
+          building_id: 1,
+        });
+        console.log({ data }, '배정 되었음');
+        setLocker(data[0]);
+      } else {
+        console.log(response.data[0], '락커 있음');
+        setLocker(response.data[0]);
+      }
+      // setLocker(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    // const fetchUserType = async () => {
+    //   try {
+    //     const token = localStorage.getItem('access'); // 엑세스 토큰
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
+    // fetchUserType();
+    if (user) fetchLockerData();
+  }, [user]);
+
   return (
     <PageTemplate>
       <Styled.Root>
