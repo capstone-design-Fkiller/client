@@ -1,49 +1,32 @@
-import { useEffect, useState } from 'react';
-import { Value } from 'react-calendar/dist/cjs/shared/types';
+import { MouseEvent, useState } from 'react';
 
 import * as Styled from './style';
 
-import Button from '@/components/common/Button';
+import Locker from '@/components/apply/Locker';
 import PageTemplate from '@/components/common/PageTamplate';
-import CustomCalendar from '@/components/share/Calendar';
-import DateBox from '@/components/share/DateBox';
-import { formatDate } from '@/utils/date';
+import Select from '@/components/common/Select';
+import { BUILDING } from '@/constants/building';
 
 // TODO 쉐어 페이지에 필요한 정보
 // * 1. 대여 기간
 
-const SharePage = () => {
-  const [selectedDate, setSelectedDate] = useState<Value | undefined>();
-  const [date, setDate] = useState<string[]>(['', '']);
-
-  useEffect(() => {
-    if (!selectedDate) return;
-    else {
-      const [start, end] = selectedDate
-        .toString()
-        .split(',')
-        .map(date => new Date(date));
-      const formattedStartDate = formatDate(start);
-      const formattedEndDate = formatDate(end);
-
-      setDate([formattedStartDate, formattedEndDate]);
-    }
-  }, [selectedDate]);
+const ApplySharePage = () => {
+  const [building, setBuilding] = useState<string>('건물');
+  const handleChange = (e: MouseEvent<HTMLLIElement>) => setBuilding(e.currentTarget.innerText);
 
   return (
     <PageTemplate>
       <Styled.Root>
-        <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-
-        <Styled.SelectWrapper>
-          <DateBox label='시작일' date={date[0]} />
-          <DateBox label='종료일' date={date[1]} />
-        </Styled.SelectWrapper>
-
-        <Button variant='contained'>쉐어하기</Button>
+        <Styled.Container>
+          <Locker.Skeleton />
+          <Styled.InformBox>
+            {/* 클릭 시 건물을 선택할 수 있도록 */}
+            <Select value={building} list={Object.keys(BUILDING)} handleChange={handleChange} />
+          </Styled.InformBox>
+        </Styled.Container>
       </Styled.Root>
     </PageTemplate>
   );
 };
 
-export default SharePage;
+export default ApplySharePage;
