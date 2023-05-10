@@ -10,7 +10,7 @@ export const Root = styled.div`
 
   ${({ theme }) =>
     css`
-      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.bottomNavHeight});
+      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight});
     `};
 `;
 
