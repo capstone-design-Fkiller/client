@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +8,7 @@ import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import useInput from '@/hooks/useInput';
 import { useLogin } from '@/query/user';
+import { LoginRequest, LoginResponse } from '@/types/user';
 import { PATH } from '@/utils/path';
 
 const USER_TYPE = {
@@ -21,7 +23,7 @@ function LoginPage() {
   
   const { value: id, handleValue: handleId } = useInput<string>('');
   const { value: pw, handleValue: handlePw } = useInput<string>('');
-  const mutation = useLogin();
+  const { mutate } = useLogin();
 
   // 로그인 타입 변경 핸들러
   const handleLoginType = (type: LoginType) => {
@@ -29,16 +31,21 @@ function LoginPage() {
   };
 
   const handleLogin = () => {
-    mutation.mutate({is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw}, {
-      onSuccess: ({data}) => {
-        const user = data.user;
-        console.log(data.user, "유저 확인");
-        localStorage.setItem('user', JSON.stringify(data.user)); 
-        localStorage.setItem('refresh_token', JSON.stringify(data.refresh_token)); 
-        localStorage.setItem('access_token', JSON.stringify(data.access_token));
-        navigate(PATH.MAIN, { state: { user: user } });
+    mutate(
+      { is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw },
+      {
+        onSuccess: onSuccess,
+      }
+    );
+  };
 
-      }});
+  const onSuccess = ({ data }: AxiosResponse<LoginResponse, any>) => {
+    const user = data.user;
+    console.log(data.user, "유저 확인");
+    localStorage.setItem('user', JSON.stringify(data.user)); 
+    localStorage.setItem('refresh_token', JSON.stringify(data.refresh_token)); 
+    localStorage.setItem('access_token', JSON.stringify(data.access_token));
+    navigate(PATH.MAIN, { state: { user: user } });
   };
 
   return (

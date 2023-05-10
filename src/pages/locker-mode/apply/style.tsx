@@ -48,7 +48,10 @@ export const InformBox = styled.div`
   background-color: ${({ theme }) => theme.colors.background_2};
 
   & > div {
+    display: flex;
+    align-items: center;
     width: 100%;
+    height: 24px;
 
     &:last-of-type {
       padding: 0 10px;
