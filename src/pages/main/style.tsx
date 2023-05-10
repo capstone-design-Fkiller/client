@@ -19,20 +19,39 @@ export const Root = styled.section`
   }
 `;
 
+export const LockerInfoTitle = styled.h2`
+  margin: 10px 0;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  ${({ theme }) =>
+    css`
+      color: ${theme.colors.black};
+    `};
+`;
+
 export const LockerInfoContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 
   width: 100%;
   height: 50vh;
+  margin-bottom: 10px;
 
   border-radius: 5px;
   font-size: 20px;
 
   ${({ theme }) =>
     css`
+      border: 1px solid ${theme.colors.primary_200};
       background-color: ${theme.colors.primary_100};
-      margin-bottom: 10px;
     `};
+`;
+
+export const LockerInfoContent = styled.div`
+  margin: 20px 17px;
+
+  font-size: 15px;
+  font-weight: 400;
 `;

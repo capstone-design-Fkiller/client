@@ -9,18 +9,18 @@ import PageTemplate from '@/components/common/PageTamplate';
 import useInput from '@/hooks/useInput';
 import { useLogin } from '@/query/user';
 import { LoginRequest, LoginResponse } from '@/types/user';
+import { PATH } from '@/utils/path';
 
-// 로그인 타입 설정
 const USER_TYPE = {
   STUDENT: 'student',
   ADMIN: 'admin',
 };
-
 type LoginType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 
 function LoginPage() {
   const navigate = useNavigate();
   const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
+
   const { value: id, handleValue: handleId } = useInput<string>('');
   const { value: pw, handleValue: handlePw } = useInput<string>('');
   const { mutate } = useLogin();
@@ -40,9 +40,10 @@ function LoginPage() {
   };
 
   const onSuccess = ({ data }: AxiosResponse<LoginResponse, any>) => {
-    console.log(data);
-    localStorage.setItem('refresh', JSON.stringify(data.refresh_token));
-    localStorage.setItem('access', JSON.stringify(data.access_token));
+    const { user, refresh_token, access_token } = data;
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('refresh_token', JSON.stringify(refresh_token));
+    localStorage.setItem('access_token', JSON.stringify(access_token));
   };
 
   return (

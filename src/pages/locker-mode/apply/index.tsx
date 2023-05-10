@@ -9,20 +9,27 @@ import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
 import { useApply, useFetchLockerCounts } from '@/query/locker';
+import { MAJOR } from '@/utils/major';
 
 const ApplyPage = () => {
   const [structure, setStructure] = useState<string>('건물');
-  const [lockers, setLockers] = useState();
+  const [major, setMajor] = useState<string>('스페인어과');
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
   const { lockerCounts, refetch } = useFetchLockerCounts({
-    major: 5, // 사용자 정보를 불러와서 학과를 넣어줘야 함
+    major: MAJOR[major], // 사용자 정보를 불러와서 학과를 넣어줘야 함
     building: BUILDING[structure],
   });
   const { apply, refetch: applyRefetch } = useApply({
-    major: 5, // 사용자 정보를 불러와서 학과를 넣어줘야 함
+    major: MAJOR[major], // 사용자 정보를 불러와서 학과를 넣어줘야 함
     building: BUILDING[structure],
   });
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('user') as string);
+
+    setMajor(data?.major);
+  }, [major]);
 
   useEffect(() => {
     refetch();
@@ -34,7 +41,7 @@ const ApplyPage = () => {
       <Styled.Root>
         <Styled.Container>
           {lockerCounts && lockerCounts.length > 0 ? (
-            <Locker total={lockerCounts.length} applyCount={30} />
+            <Locker total={lockerCounts.length} applyCount={apply.length} />
           ) : (
             <Locker.Skeleton />
           )}
@@ -45,7 +52,7 @@ const ApplyPage = () => {
               list={Object.keys(BUILDING).slice(1)}
             />
             <Styled.Separator />
-            <div>스페인어과</div>
+            <div>{major || '학과'}</div>
           </Styled.InformBox>
         </Styled.Container>
         <Button variant='contained'>신청하기</Button>

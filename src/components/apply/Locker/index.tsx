@@ -8,7 +8,6 @@ const Locker = (props: { total: number; applyCount: number }) => {
   const { total, applyCount } = props;
   const CHECK_POINT = useMemo(() => Math.ceil((applyCount / total) * 100), [total, applyCount]);
 
-  console.log(CHECK_POINT);
   return (
     <Styled.Root>
       <Styled.GradientWrapper>
