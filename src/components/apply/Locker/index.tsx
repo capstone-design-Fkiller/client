@@ -4,8 +4,14 @@ import { useMemo } from 'react';
 
 import Icon from '@/components/common/Icon';
 
-const Locker = (props: { total: number; applyCount: number }) => {
-  const { total, applyCount } = props;
+interface LockerProps {
+  value: string;
+  total: number;
+  applyCount: number;
+}
+
+const Locker = (props: LockerProps) => {
+  const { value, total, applyCount } = props;
   const CHECK_POINT = useMemo(() => Math.ceil((applyCount / total) * 100), [total, applyCount]);
 
   return (
@@ -20,7 +26,7 @@ const Locker = (props: { total: number; applyCount: number }) => {
         </Styled.Building>
       </Styled.GradientWrapper>
       <Styled.Title>
-        인문관 ( {applyCount} / {total} )
+        {value} ( {applyCount} / {total} )
       </Styled.Title>
     </Styled.Root>
   );

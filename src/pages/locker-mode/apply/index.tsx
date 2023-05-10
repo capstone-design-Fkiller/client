@@ -2,18 +2,17 @@ import { MouseEvent, useEffect, useState } from 'react';
 
 import * as Styled from './style';
 
-import { ApplicantResponse } from '@/api/locker';
 import Locker from '@/components/apply/Locker';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
+import { MAJOR } from '@/constants/major';
 import { useApply, useFetchLockerCounts } from '@/query/locker';
-import { MAJOR } from '@/utils/major';
 
 const ApplyPage = () => {
   const [structure, setStructure] = useState<string>('건물');
-  const [major, setMajor] = useState<string>('스페인어과');
+  const [major, setMajor] = useState<string>('학과');
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
   const { lockerCounts, refetch } = useFetchLockerCounts({
@@ -29,7 +28,7 @@ const ApplyPage = () => {
     const data = JSON.parse(localStorage.getItem('user') as string);
 
     setMajor(data?.major);
-  }, [major]);
+  }, []);
 
   useEffect(() => {
     refetch();
@@ -41,7 +40,7 @@ const ApplyPage = () => {
       <Styled.Root>
         <Styled.Container>
           {lockerCounts && lockerCounts.length > 0 ? (
-            <Locker total={lockerCounts.length} applyCount={apply.length} />
+            <Locker value={structure} total={lockerCounts.length} applyCount={apply.length} />
           ) : (
             <Locker.Skeleton />
           )}

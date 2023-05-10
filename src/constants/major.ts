@@ -1,4 +1,5 @@
 export const MAJOR: { [key: string]: number } = {
+  학과: 0,
   프랑스어학부: 1,
   독일어과: 2,
   노어과: 3,

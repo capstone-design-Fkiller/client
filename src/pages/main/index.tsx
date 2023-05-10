@@ -11,52 +11,13 @@ import { PATH } from '@/utils/path';
 
 const MainPage = () => {
   const [userType, setUserTypeState] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
   // const user: User|null = location.state.user;
   // const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [locker, setLocker] = useState({ building_id: 1, id: 1 });
   // const { user } = props.location.state;
-
-  const handleClick = () => {
-    setUserTypeState(!userType);
-  };
-
-  const fetchLockerData = async () => {
-    try {
-      const response = await instance.get(`locker?owned_id=${user?.id}`, {
-        // headers: {
-        // Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        // },
-      });
-      if (!response.data) {
-        const { data } = await instance.put(`locker/1`, {
-          owned_id: 201801910,
-          major: 1,
-          building_id: 1,
-        });
-        console.log({ data }, '배정 되었음');
-        setLocker(data[0]);
-      } else {
-        console.log(response.data[0], '락커 있음');
-        setLocker(response.data[0]);
-      }
-      // setLocker(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    // const fetchUserType = async () => {
-    //   try {
-    //     const token = localStorage.getItem('access'); // 엑세스 토큰
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
-    // fetchUserType();
-    if (user) fetchLockerData();
-  }, [user]);
 
   return (
     <PageTemplate>
@@ -86,13 +47,7 @@ const MainPage = () => {
 //   );
 // };
 
-const UserComponent = ({
-  user,
-  locker,
-}: {
-  user: User;
-  locker: { building_id: number; id: number };
-}) => (
+const UserComponent = ({ user, locker }: { user: User; locker: any }) => (
   <>
     <Styled.LockerInfoTitle>내 사물함 정보</Styled.LockerInfoTitle>
     <Styled.LockerInfoContainer>
