@@ -13,7 +13,6 @@ const MainPage = () => {
   const [userType, setUserTypeState] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  // cons
   // const user: User|null = location.state.user;
   // const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -29,8 +28,14 @@ const MainPage = () => {
     if (location.state) {
       setUser(location.state.user);
     } else {
-      navigate(PATH.LOGIN);
-      // localStorage.getItem('access_token');
+      const userDataString = localStorage.getItem('user');
+      console.log(userDataString, "유저 로컬스토리지 있음");
+      if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        setUser(userData);
+      } else {
+        navigate(PATH.LOGIN);
+      }
     }
 
     // const access_token = localStorage.getItem('access_token');
@@ -43,7 +48,7 @@ const MainPage = () => {
     try {
       const response = await instance.get(`locker?owned_id=${user?.id}`, {
         // headers: {
-        //   Authorization: `Bearer ${localStorage.getItem('access')}`,
+          // Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         // },
       });
       if (!response.data) {
