@@ -8,41 +8,39 @@ import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
 import { MAJOR } from '@/constants/major';
-import { useApply, useFetchLockerCounts } from '@/query/locker';
+import { useFetchApplicant } from '@/query/locker';
+import { useFetchMe } from '@/query/user';
 
 const ApplyPage = () => {
   const [structure, setStructure] = useState<string>('건물');
   const [major, setMajor] = useState<string>('학과');
+  const { me } = useFetchMe();
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
-  const { lockerCounts, refetch } = useFetchLockerCounts({
-    major: MAJOR[major], // 사용자 정보를 불러와서 학과를 넣어줘야 함
-    building: BUILDING[structure],
-  });
-  const { apply, refetch: applyRefetch } = useApply({
+
+  const { data, refetch } = useFetchApplicant({
     major: MAJOR[major], // 사용자 정보를 불러와서 학과를 넣어줘야 함
     building: BUILDING[structure],
   });
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('user') as string);
-
-    setMajor(data?.major);
-  }, []);
+    setMajor(me.major);
+  }, [me]);
 
   useEffect(() => {
     refetch();
-    applyRefetch();
-    // const user: User = localStorage.getItem('user');
-    
   }, [structure]);
 
   return (
     <PageTemplate>
       <Styled.Root>
         <Styled.Container>
-          {lockerCounts && lockerCounts.length > 0 ? (
-            <Locker value={structure} total={lockerCounts.length} applyCount={apply.length} />
+          {data.lockerCounts && data.lockerCounts.length > 0 ? (
+            <Locker
+              value={structure}
+              total={data.lockerCounts.length}
+              applyCount={data.apply.length}
+            />
           ) : (
             <Locker.Skeleton />
           )}
