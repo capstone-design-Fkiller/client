@@ -7,7 +7,7 @@ export const Root = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 10px 22px 10px 30px;
 
   height: 100%;
   max-height: 60px;
