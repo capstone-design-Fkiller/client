@@ -21,46 +21,23 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
-export const TableContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  table-layout: fixed;
+export const TableContainer = styled.table`
   width: 100%;
-  margin-top: 20px;
+  margin-top: 15px;
+
   border-collapse: collapse;
-`;
 
-export const TableHeader = styled.th`
-  font-size: 15px;
-  display: flex;
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.primary_200};
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: bold;
-`;
+  & tr > td,
+  & tr > th {
+    padding: 10px 0;
 
-export const TableRow = styled.tr`
-  font-size: 13px;
-  display: flex;
-  width: 100%;
-  padding: 10px;
-`;
+    &:first-of-type {
+      padding-left: 10px;
+    }
+  }
 
-export const TableCell = styled.td`
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-`;
-
-export const NoticeTitle = styled.h1`
-  cursor: pointer;
-  color: ${({ theme }) => theme.colors.primary_200};
-  &:hover {
-    text-decoration: underline;
+  & tbody tr {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.light_grey_100};
   }
 `;
 

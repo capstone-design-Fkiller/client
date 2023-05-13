@@ -5,8 +5,10 @@ import * as Styled from './style';
 import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
 import Pagination from '@/components/common/Pagination'; // 페이지네이션 컴포넌트
+import TableContent from '@/components/notice/table/TableContent';
+import TableHead from '@/components/notice/table/TableHead';
 
-const pageSize = 10;
+const PAGE_OFFSET = 10;
 const notices = [
   {
     id: 1,
@@ -14,7 +16,7 @@ const notices = [
     title: '사물함 신청 안내',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 2,
@@ -22,7 +24,7 @@ const notices = [
     title: '사물함 이용 기간',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 3,
@@ -30,7 +32,7 @@ const notices = [
     title: '사물함 반납 안내',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 4,
@@ -38,7 +40,7 @@ const notices = [
     title: '사물함 점검 안내',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 5,
@@ -46,7 +48,7 @@ const notices = [
     title: '사물함 신청 안내',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 6,
@@ -54,7 +56,7 @@ const notices = [
     title: '이용 시 주의사항',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
 
   {
@@ -63,7 +65,7 @@ const notices = [
     title: '사물함 배정 완료',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 8,
@@ -71,7 +73,7 @@ const notices = [
     title: '사물함 신청 안내',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 9,
@@ -79,7 +81,7 @@ const notices = [
     title: '사물함 신청 안내',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 10,
@@ -87,7 +89,7 @@ const notices = [
     title: '사물함 물건 보관',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 11,
@@ -95,7 +97,7 @@ const notices = [
     title: '사물함 신청 안내',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
     id: 12,
@@ -103,30 +105,19 @@ const notices = [
     title: '사물함 신청 안내',
     date: '230505',
     content:
-    '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
+      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
 ];
+
+const TABLE_HEADER = ['ID', '학과', '제목', '작성일'];
 
 const NoticePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedNotice, setSelectedNotice] = useState<number | null>(null);
 
-  const totalPages = Math.ceil(notices.length / pageSize);
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const noticesToShow = notices.slice(startIndex, endIndex);
-
-  const handleNextClick = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handlePrevClick = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  const totalPages = Math.ceil(notices.length / PAGE_OFFSET);
+  const startIndex = (currentPage - 1) * PAGE_OFFSET;
+  const endIndex = startIndex + PAGE_OFFSET;
 
   const handleNoticeClick = (noticeId: number) => {
     setSelectedNotice(noticeId);
@@ -141,36 +132,22 @@ const NoticePage = () => {
       <Styled.Root>
         <Styled.Title>공지사항</Styled.Title>
         <Styled.TableContainer>
-          <Styled.TableHeader>
-            <Styled.TableCell>ID</Styled.TableCell>
-            <Styled.TableCell>학과</Styled.TableCell>
-            <Styled.TableCell>제목</Styled.TableCell>
-            <Styled.TableCell>작성일</Styled.TableCell>
-          </Styled.TableHeader>
-          {noticesToShow.map((notice) => (
-            <Styled.TableRow key={notice.id}>
-              <Styled.TableCell>{notice.id}</Styled.TableCell>
-              <Styled.TableCell>{notice.major}</Styled.TableCell>
-              <Styled.NoticeTitle onClick={() => handleNoticeClick(notice.id)}>
-              {notice.title}
-              </Styled.NoticeTitle>
-              <Styled.TableCell>{notice.date}</Styled.TableCell>
-              </Styled.TableRow>
-              ))}
-              </Styled.TableContainer>
-              <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPrevClick={handlePrevClick}
-                    onNextClick={handleNextClick}
-                  />
-              {selectedNotice !== null && (
-              <Modal onClose={handleCloseModal} title='Modal Title' open={true}>
-            <Styled.ModalContent>{notices[selectedNotice - 1].content}</Styled.ModalContent>
-          </Modal>
-          )}
-        </Styled.Root>
-      </PageTemplate>
+          <TableHead headers={TABLE_HEADER} />
+          <TableContent
+            contents={notices.slice(startIndex, endIndex)}
+            handleContent={handleNoticeClick}
+          />
+        </Styled.TableContainer>
+
+        <Pagination currentPage={currentPage} totalPages={totalPages} setState={setCurrentPage} />
+
+        <Modal onClose={handleCloseModal} title='Notice Detail' open={!!selectedNotice}>
+          <Styled.ModalContent>
+            {selectedNotice && notices[selectedNotice - 1].content}
+          </Styled.ModalContent>
+        </Modal>
+      </Styled.Root>
+    </PageTemplate>
   );
 };
 

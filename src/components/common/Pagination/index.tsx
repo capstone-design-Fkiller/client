@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, MouseEvent, Dispatch, SetStateAction, useMemo } from 'react';
 
 import * as Styled from './style';
 
@@ -7,48 +7,44 @@ import Icon from '@/components/common/Icon';
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onNextClick: () => void;
-  onPrevClick: () => void;
+  setState: Dispatch<SetStateAction<number>>;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onNextClick, onPrevClick }) => {
-  const [activePage, setActivePage] = useState(Math.ceil(currentPage / 5));
+const Pagination = (props: PaginationProps) => {
+  const { currentPage, totalPages, setState } = props;
 
-  const generatePageNumbers = (activePage: number): React.ReactNode[] => {
-    const numbers = [];
-    for (let i = (activePage - 1) * 10 + 1; i <= Math.min(activePage * 10, totalPages); i++) {
-      numbers.push(
-        <Styled.PageNumber
-          key={i}
-          isActive={i === currentPage}
-          isClickable={i !== currentPage}
-          onClick={() => handlePageClick(i)}
-        >
-          {i}
-        </Styled.PageNumber>
-      );
+  const handleNextClick = () => {
+    if (currentPage < totalPages) {
+      setState(currentPage + 1);
     }
-    return numbers;
   };
 
-  const handlePageClick = (page: number) => {
-    setActivePage(Math.ceil(page / 10));
-    onNextClick();
+  const handlePrevClick = () => {
+    if (currentPage > 1) {
+      setState(currentPage - 1);
+    }
   };
-  
-  useEffect(() => {
-    setActivePage(Math.ceil(currentPage / 5));
-  }, [currentPage]);
+
+  const handlePageClick = (e: MouseEvent<HTMLSpanElement>) => {
+    const page = parseInt(e.currentTarget.innerText);
+
+    setState(page);
+  };
+
+  const pageLists = useMemo(
+    () => Array.from({ length: totalPages }, (_, idx) => idx + 1),
+    [totalPages]
+  );
 
   return (
     <Styled.Pagination>
-      <Icon iconName="left" onClick={() => {
-        onPrevClick();
-      }} />
-      {generatePageNumbers(activePage)}
-      <Icon iconName="right" onClick={() => {
-        onNextClick();
-      }} />
+      <Icon iconName='left' onClick={handlePrevClick} size='18' />
+      {pageLists.map(num => (
+        <Styled.PageNumber key={num} isActive={num === currentPage} onClick={handlePageClick}>
+          {num}
+        </Styled.PageNumber>
+      ))}
+      <Icon iconName='right' onClick={handleNextClick} size='18' />
     </Styled.Pagination>
   );
 };
