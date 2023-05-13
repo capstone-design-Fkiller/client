@@ -1,4 +1,4 @@
-import React, { useState, useEffect, MouseEvent, Dispatch, SetStateAction, useMemo } from 'react';
+import React, { MouseEvent, Dispatch, SetStateAction, useMemo } from 'react';
 
 import * as Styled from './style';
 
