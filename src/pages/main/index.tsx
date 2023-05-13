@@ -1,168 +1,45 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
-import { instance } from '@/api/instance';
 import Button from '@/components/common/Button';
+import Loader from '@/components/common/Loader';
 import PageTemplate from '@/components/common/PageTamplate';
-import { User } from '@/types/user';
+import Student from '@/components/main/Student';
+import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
 const MainPage = () => {
-  const [userType, setUserTypeState] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
-  // const user: User|null = location.state.user;
-  // const [isAdmin, setIsAdmin] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [locker, setLocker] = useState({ building_id: 1, id: 1 });
-  // const { user } = props.location.state;
+  const { me } = useFetchMe();
 
   const handleNavigation = () => {
     navigate(PATH.USER_SHARE);
   };
 
-  const handleClick = () => {
-    setUserTypeState(!userType);
-  };
-
-  useEffect(() => {
-    console.log('유저 확인', location.state);
-    if (location.state) {
-      setUser(location.state.user);
-    } else {
-      const userDataString = localStorage.getItem('user');
-      console.log(userDataString, '유저 로컬스토리지 있음');
-      if (userDataString) {
-        const userData = JSON.parse(userDataString);
-        setUser(userData);
-      } else {
-        navigate(PATH.LOGIN);
-      }
-    }
-
-    // const access_token = localStorage.getItem('access_token');
-    // if (access_token) {
-
-    // }
-  }, []);
-
-  const fetchLockerData = async () => {
-    try {
-      const response = await instance.get(`locker?owned_id=${user?.id}`, {
-        // headers: {
-        // Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        // },
-      });
-      console.log(response.data, '확인');
-      if (response.data.length === 0) {
-        const { data } = await instance.put(`locker/1`, {
-          owned_id: user?.id,
-          major: 1,
-          building_id: 1,
-        });
-        console.log({ data }, '배정 되었음');
-        setLocker(data);
-      } else {
-        console.log(response.data[0], '락커 있음');
-        setLocker(response.data[0]);
-      }
-      // setLocker(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    // const fetchUserType = async () => {
-    //   try {
-    //     const token = localStorage.getItem('access'); // 엑세스 토큰
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
-    // fetchUserType();
-    if (user) fetchLockerData();
-  }, [user]);
-
   return (
     <PageTemplate>
       <Styled.Root>
-        <div>
-          {/* <Button variant='outlined' onClick={handleClick}>
-            관리자/사용자 전환
-          </Button> */}
-          {user?.is_usermode ? (
-            <UserComponent user={user} locker={locker} onClick={handleNavigation} />
-          ) : (
-            <AdminComponent />
-          )}
-        </div>
+        {me ? (
+          <>
+            <Student user={me} />
+            <Button variant='contained' onClick={handleNavigation}>
+              사물함 쉐어하기
+            </Button>
+          </>
+        ) : (
+          <Loader />
+        )}
       </Styled.Root>
     </PageTemplate>
   );
 };
 
-//   return (
-//     <PageTemplate>
-//       <Styled.Root>
-//         <div>
-//           <Button variant='outlined' onClick={handleClick}>
-//             관리자/사용자 전환
-//           </Button>
-//           {userType ? <UserComponent /> : <AdminComponent />}
-//         </div>
-//       </Styled.Root>
-//     </PageTemplate>
-//   );
-// };
-
-const UserComponent = ({
-  user,
-  locker,
-  onClick,
-}: {
-  user: User;
-  locker: any;
-  onClick: () => void;
-}) => (
-  <>
-    <Styled.LockerInfoTitle>내 사물함 정보</Styled.LockerInfoTitle>
-    <Styled.LockerInfoContainer>
-      <Styled.LockerInfoContent>이름 : {user.name}</Styled.LockerInfoContent>
-      <Styled.LockerInfoContent>학번 : {user.id}</Styled.LockerInfoContent>
-      <Styled.LockerInfoContent>학과 : {user.major}</Styled.LockerInfoContent>
-      <Styled.LockerInfoContent>
-        건물 이름 : {locker.building_id === 1 ? '인문관' : '사회과학관'}
-      </Styled.LockerInfoContent>
-      <Styled.LockerInfoContent>사물함 번호 : {locker.id}</Styled.LockerInfoContent>
-    </Styled.LockerInfoContainer>
-    <Button variant='outlined' onClick={onClick}>
-      내 사물함 쉐어하기
-    </Button>
-  </>
-);
-
-const AdminComponent = () => (
-  <>
-    <Button variant='contained'>사물함 신청 설정</Button>
-    <Button variant='contained'>사물함 배정하기</Button>
-    {/* 통학거리, 재학여부 */}
-  </>
-);
-
-// const UserComponent = () => (
-//   <>
-//     <Styled.LockerInfoContainer>내 사물함 정보</Styled.LockerInfoContainer>
-//     <Button variant='outlined'>쉐어하기</Button>
-//   </>
-// );
-
 // const AdminComponent = () => (
 //   <>
 //     <Button variant='contained'>사물함 신청 설정</Button>
 //     <Button variant='contained'>사물함 배정하기</Button>
+//     {/* 통학거리, 재학여부 */}
 //   </>
 // );
 

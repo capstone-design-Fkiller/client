@@ -1,4 +1,5 @@
 import Bell from './Bell';
+import Box from './Box';
 import Dropdown from './Dropdown';
 import Email from './Email';
 import Home from './Home';
@@ -16,12 +17,13 @@ const iconName = {
   bell: Bell,
   share: Share,
   user: User,
-  locker: Locker,
+  box: Box,
   megaphone: Megaphone,
   left: Left,
   right: Right,
   nothing: Nothing,
   dropdown: Dropdown,
+  locker: Locker,
 };
 
 export type IconNames = keyof typeof iconName;

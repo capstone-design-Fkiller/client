@@ -15,7 +15,7 @@ interface Navigator {
 const navigator: Navigator[] = [
   {
     label: '사물함',
-    iconName: 'locker',
+    iconName: 'box',
     path: PATH.LOCKER,
   },
   {
