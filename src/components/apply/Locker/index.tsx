@@ -1,21 +1,28 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useMemo } from 'react';
 
 import Icon from '@/components/common/Icon';
 
-const Locker = () => {
-  const CHECK_POINT = Math.ceil((16 / 43) * 100);
+const Locker = (props: { total: number; applyCount: number }) => {
+  const { total, applyCount } = props;
+  const CHECK_POINT = useMemo(() => Math.ceil((applyCount / total) * 100), [total, applyCount]);
 
+  console.log(CHECK_POINT);
   return (
     <Styled.Root>
-      <Styled.Building grd={CHECK_POINT}>
-        <Styled.Floor />
-        <Styled.Floor />
-        <Styled.Floor />
-        <Styled.Floor />
-        <Styled.Floor />
-      </Styled.Building>
-      <Styled.Title>인문관</Styled.Title>
+      <Styled.GradientWrapper>
+        <Styled.Building grd={CHECK_POINT > 100 ? 100 : CHECK_POINT}>
+          <Styled.Floor />
+          <Styled.Floor />
+          <Styled.Floor />
+          <Styled.Floor />
+          <Styled.Floor />
+        </Styled.Building>
+      </Styled.GradientWrapper>
+      <Styled.Title>
+        인문관 ( {applyCount} / {total} )
+      </Styled.Title>
     </Styled.Root>
   );
 };
@@ -40,7 +47,6 @@ const Styled = {
     gap: 20px;
 
     width: 100%;
-    height: 100%;
   `,
 
   Building: styled.div<{ grd: number }>`
@@ -50,12 +56,13 @@ const Styled = {
     border-radius: 5px;
 
     ${({ grd }) => css`
-      background: linear-gradient(0deg, #2cb67d ${grd}%, white 50%);
+      height: ${100 - grd}%;
+      background: white;
     `}
   `,
 
   GradientWrapper: styled.div`
-    background-color: ${({ theme }) => theme.colors.background_1};
+    background-color: #2cb67d;
   `,
 
   Floor: styled.div`
