@@ -20,6 +20,8 @@ export const Label = styled.label`
   }
 `;
 
+export const ApplyInfo = styled.h1``;
+
 export const DropdownList = styled.ul<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   flex-direction: column;

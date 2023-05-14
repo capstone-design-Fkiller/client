@@ -15,8 +15,10 @@ export const Root = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 30px;
-  margin-bottom: 50px;
+  font-size: 28px;
+  font-weight: 700;
+
+  margin-bottom: 30px;
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
@@ -25,6 +27,8 @@ export const FormContainer = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -32,10 +36,10 @@ export const ButtonWrapper = styled.div`
   gap: 10px;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 `;
 
-export const IdpwInput = styled.input`
+export const Input = styled.input`
   padding: 15px 10px;
   width: 100%;
   font-size: 14px;
@@ -43,4 +47,8 @@ export const IdpwInput = styled.input`
   border: none;
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadow.type_1};
+`;
+
+export const ExtendedButton = css`
+  margin-top: 20px;
 `;

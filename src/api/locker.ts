@@ -1,32 +1,16 @@
 import { instance } from './instance';
 
+import { LockerRequest, LockerResponse } from '@/types/locker';
+
 export const getAllMajor = async () => {
   const { data } = await instance.get(`major/`);
 
   return data;
 };
 
-export interface ApplicantRequest {
-  major: number;
-  building: number;
-}
-
-export interface ApplicantResponse {
-  building_id: number;
-  end_date: Date | null;
-  id: number;
-  is_share_registered: boolean;
-  major: number;
-  owned_id: number | null;
-  share_end_date: Date | null;
-  share_start_date: Date | null;
-  shared_id: number | null;
-  start_date: Date | null;
-}
-
-export const getLockerCounts = async (props: ApplicantRequest) => {
+export const getLockerCounts = async (props: LockerRequest) => {
   const { major, building } = props;
-  const { data } = await instance.get<ApplicantResponse[]>(
+  const { data } = await instance.get<LockerResponse[]>(
     `locker?major=${major}&building_id=${building}`
   );
 
@@ -39,7 +23,7 @@ export const getLockerInfo = async (id: number) => {
   return data;
 };
 
-export const getApply = async (props: Omit<ApplicantRequest, 'onSuccess'>) => {
+export const getApply = async (props: Omit<LockerRequest, 'onSuccess'>) => {
   const { major, building } = props;
   const { data } = await instance.get(`apply?major=${major}&building_id=${building}`);
 

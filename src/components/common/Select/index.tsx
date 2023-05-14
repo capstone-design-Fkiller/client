@@ -11,8 +11,8 @@ interface SelectProps {
 
 const Select = (props: SelectProps) => {
   const { value, list, handleChange } = props;
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const handleOpen = () => setIsOpen(!isOpen);
 
   return (
