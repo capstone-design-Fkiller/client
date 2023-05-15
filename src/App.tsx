@@ -1,6 +1,8 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import ToastProvider from './components/common/Toast';
+
 import Loader from '@/components/common/Loader';
 import { PATH } from '@/utils/path';
 
@@ -36,17 +38,19 @@ function App() {
   }, []);
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route path={PATH.MAIN} element={<MainPage />} />
-        <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
-        <Route path={PATH.APPLY} element={<ApplyPage />} />
-        <Route path={PATH.SHARE} element={<SharePage />} />
-        <Route path={PATH.NOTICE} element={<NoticePage />} />
-        <Route path={PATH.LOGIN} element={<LoginPage />} />
-        <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
-      </Routes>
-    </Suspense>
+    <ToastProvider>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path={PATH.MAIN} element={<MainPage />} />
+          <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
+          <Route path={PATH.APPLY} element={<ApplyPage />} />
+          <Route path={PATH.SHARE} element={<SharePage />} />
+          <Route path={PATH.NOTICE} element={<NoticePage />} />
+          <Route path={PATH.LOGIN} element={<LoginPage />} />
+          <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
+        </Routes>
+      </Suspense>
+    </ToastProvider>
   );
 }
 

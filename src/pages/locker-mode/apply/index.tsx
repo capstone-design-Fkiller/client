@@ -9,13 +9,14 @@ import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
 import { MAJOR } from '@/constants/major';
 import { LOCKER_MESSAGE } from '@/constants/skeleton';
-import { useFetchApplicant } from '@/query/locker';
+import { useFetchApplicant, useMutateApplyLocker } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 
 const ApplyPage = () => {
   const [structure, setStructure] = useState<string>('건물');
   const [major, setMajor] = useState<string>('학과');
   const { me } = useFetchMe();
+  const { mutate } = useMutateApplyLocker();
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
 
@@ -24,8 +25,16 @@ const ApplyPage = () => {
     refetch,
   } = useFetchApplicant({
     major: MAJOR[major], // 사용자 정보를 불러와서 학과를 넣어줘야 함
-    building: BUILDING[structure],
+    building_id: BUILDING[structure],
   });
+
+  const handleApplyButton = () => {
+    mutate({
+      building_id: BUILDING[structure],
+      major: MAJOR[major],
+      user: me.id,
+    });
+  };
 
   useEffect(() => {
     if (me) setMajor(me.major);
@@ -54,7 +63,9 @@ const ApplyPage = () => {
             <div>{major || '학과'}</div>
           </Styled.InformBox>
         </Styled.Container>
-        <Button variant='contained'>신청하기</Button>
+        <Button variant='contained' onClick={handleApplyButton}>
+          신청하기
+        </Button>
       </Styled.Root>
     </PageTemplate>
   );
