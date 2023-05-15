@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useMemo } from 'react';
 
@@ -34,11 +34,15 @@ const Locker = (props: LockerProps) => {
 
 export default Locker;
 
-Locker.Skeleton = function Skeleton() {
+Locker.Skeleton = function Skeleton(props: Pick<LockerProps, 'value'>) {
+  const { value } = props;
+
+  const theme = useTheme();
+
   return (
     <Styled.Root>
-      <Icon iconName='nothing' size='100' color='grey' hasCursor={false} />
-      <span style={{ color: 'grey' }}>건물을 선택해주세요</span>
+      <Icon iconName='nothing' size='100' color={theme.colors.grey_200} hasCursor={false} />
+      <span style={{ color: theme.colors.grey_200 }}>{value}</span>
     </Styled.Root>
   );
 };
