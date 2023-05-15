@@ -1,12 +1,11 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { PATH } from './utils/path';
-
 import Loader from '@/components/common/Loader';
+import { PATH } from '@/utils/path';
 
-const NoticePage = lazy(() => import('./pages/notice'));
-const SharePage = lazy(() => import('./pages/locker-mode/share'));
+const NoticePage = lazy(() => import('@/pages/notice'));
+const SharePage = lazy(() => import('@/pages/locker-mode/share'));
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
