@@ -15,7 +15,7 @@ const SelectApplyMode = () => {
       <Styled.Root>
         <Button
           variant='contained'
-          startIcon={<Icon iconName='locker' />}
+          startIcon={<Icon iconName='box' />}
           onClick={() => navigate(PATH.APPLY)}
         >
           사물함 신청

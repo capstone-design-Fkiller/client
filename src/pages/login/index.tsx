@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
@@ -6,38 +6,50 @@ import * as Styled from './style';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import useInput from '@/hooks/useInput';
+import { useLogin } from '@/query/user';
+import { PATH } from '@/utils/path';
 
-// 로그인 타입 설정
 const USER_TYPE = {
   STUDENT: 'student',
   ADMIN: 'admin',
 };
-
 type LoginType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 
 function LoginPage() {
   const navigate = useNavigate();
   const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
+
   const { value: id, handleValue: handleId } = useInput<string>('');
   const { value: pw, handleValue: handlePw } = useInput<string>('');
+  const { mutate } = useLogin();
 
   // 로그인 타입 변경 핸들러
   const handleLoginType = (type: LoginType) => {
     setLoginType(type);
   };
 
-  const handleLogin = () => {
-    if (!id || !pw) return alert('아이디와 비밀번호를 다시 입력해주세요.');
+  const onSubmit = () => {
+    mutate(
+      { is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw },
+      {
+        onSuccess: () => navigate(PATH.MAIN),
+      }
+    );
+  };
 
-    // TODO 로그인 요청 함수가 필요
-    navigate(`/`);
+  const handleKeyboard = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') onSubmit();
+  };
+
+  const handleButton = () => {
+    onSubmit();
   };
 
   return (
     <PageTemplate>
       <Styled.Root>
         <Styled.Title>HUFS LOCKER</Styled.Title>
-        <Styled.FormContainer>
+        <Styled.FormContainer onSubmit={onSubmit}>
           <Styled.ButtonWrapper>
             <Button
               variant={loginType === USER_TYPE.STUDENT ? 'contained' : 'outlined'}
@@ -52,24 +64,22 @@ function LoginPage() {
               관리자 로그인
             </Button>
           </Styled.ButtonWrapper>
-          <div>
-            <Styled.IdpwInput
-              type='text'
-              placeholder='아이디를 입력해주세요.'
-              value={id}
-              name='username'
-              autoFocus
-              onChange={handleId}
-            />
-            <Styled.IdpwInput
-              type='password'
-              placeholder='비밀번호를 입력해주세요.'
-              value={pw}
-              name='password'
-              onChange={handlePw}
-            />
-          </div>
-          <Button variant='outlined' onClick={handleLogin}>
+          <Styled.Input
+            type='text'
+            placeholder='아이디를 입력해주세요.'
+            value={id}
+            autoFocus
+            onChange={handleId}
+            onKeyDown={handleKeyboard}
+          />
+          <Styled.Input
+            type='password'
+            placeholder='비밀번호를 입력해주세요.'
+            value={pw}
+            onChange={handlePw}
+            onKeyDown={handleKeyboard}
+          />
+          <Button variant='contained' onClick={handleButton} css={Styled.ExtendedButton}>
             LOGIN
           </Button>
         </Styled.FormContainer>

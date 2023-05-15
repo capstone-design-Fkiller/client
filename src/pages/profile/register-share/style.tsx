@@ -5,6 +5,7 @@ export const Root = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 0 30px;
 
   ${({ theme }) =>
@@ -13,9 +14,11 @@ export const Root = styled.section`
     `};
 `;
 
-export const LockerInfoContent = styled.div`
-  margin: 20px 17px;
+export const SelectWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 
-  font-size: 15px;
-  font-weight: 400;
+  width: 100%;
+  margin: 50px 0 30px 0;
 `;
