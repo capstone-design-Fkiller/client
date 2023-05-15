@@ -1,6 +1,6 @@
 export interface LockerRequest {
   major: number;
-  building: number;
+  building_id: number;
 }
 
 export interface LockerResponse {
@@ -14,4 +14,8 @@ export interface LockerResponse {
   share_start_date: Date | null;
   shared_id: number | null;
   start_date: Date | null;
+}
+
+export interface RequestApplyLocker extends LockerRequest {
+  user: number;
 }

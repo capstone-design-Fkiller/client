@@ -1,7 +1,14 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
-import { getAllMajor, getLockerCounts, getApply, getLockerInfo } from '@/api/locker';
-import { LockerRequest } from '@/types/locker';
+import {
+  getAllMajor,
+  getLockerCounts,
+  getApplicant,
+  getLockerInfo,
+  postApplyLocker,
+} from '@/api/locker';
+import useToast from '@/hooks/useToast';
+import { LockerRequest, RequestApplyLocker } from '@/types/locker';
 
 const QUERY_KEY = {
   major: 'major',
@@ -25,7 +32,7 @@ export const useFetchApplicant = (props: LockerRequest) => {
   );
 
   const { data: apply, refetch: applyRefetch } = useQuery([QUERY_KEY.apply, { ...props }], () =>
-    getApply(props)
+    getApplicant(props)
   );
 
   const refetch = () => {
@@ -36,8 +43,29 @@ export const useFetchApplicant = (props: LockerRequest) => {
   return { data: { apply, lockerCounts }, refetch };
 };
 
-export const useFetchLocker = (id: number) => {
+export const useFetchLockerInfo = (id: number) => {
   const { data } = useQuery([QUERY_KEY.locker, id], () => getLockerInfo(id));
 
   return { locker: data };
+};
+
+export const useMutateApplyLocker = () => {
+  const { setCurrentMessage, setCurrentState, handleOpen } = useToast();
+
+  const mutation = useMutation((body: RequestApplyLocker) => postApplyLocker(body), {
+    onSuccess: () => {
+      setCurrentMessage('사물함 신청에 성공했습니다.');
+      setCurrentState('success');
+      handleOpen();
+    },
+    onError: () => {
+      setCurrentMessage('다시 시도해주세요.');
+      setCurrentState('error');
+      handleOpen();
+    },
+    // onSuccess: () => openToast('success', '성공했습니다.'),
+    // onError: () => openToast('error', '에러입니다.'),
+  });
+
+  return mutation;
 };
