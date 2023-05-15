@@ -7,6 +7,8 @@ import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
+import { LOCKER_MESSAGE } from '@/constants/skeleton';
+import { useFetchMe } from '@/query/user';
 
 // TODO 쉐어 페이지에 필요한 정보
 // * 1. 대여 기간
@@ -15,11 +17,13 @@ const ApplySharePage = () => {
   const [building, setBuilding] = useState<string>('건물');
   const handleChange = (e: MouseEvent<HTMLLIElement>) => setBuilding(e.currentTarget.innerText);
 
+  const { me } = useFetchMe();
+
   return (
     <PageTemplate>
       <Styled.Root>
         <Styled.Container>
-          <Locker.Skeleton />
+          <Locker.Skeleton value={me ? LOCKER_MESSAGE.not_building : LOCKER_MESSAGE.not_login} />
           <Styled.InformBox>
             {/* 클릭 시 건물을 선택할 수 있도록 */}
             <Select

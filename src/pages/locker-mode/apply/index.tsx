@@ -8,6 +8,7 @@ import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
 import { MAJOR } from '@/constants/major';
+import { LOCKER_MESSAGE } from '@/constants/skeleton';
 import { useFetchApplicant } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 
@@ -18,31 +19,30 @@ const ApplyPage = () => {
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
 
-  const { data, refetch } = useFetchApplicant({
+  const {
+    data: { lockerCounts, apply },
+    refetch,
+  } = useFetchApplicant({
     major: MAJOR[major], // 사용자 정보를 불러와서 학과를 넣어줘야 함
     building: BUILDING[structure],
   });
 
   useEffect(() => {
-    setMajor(me.major);
+    if (me) setMajor(me.major);
   }, [me]);
 
   useEffect(() => {
-    refetch();
+    if (BUILDING[structure] && MAJOR[major]) refetch();
   }, [structure]);
 
   return (
     <PageTemplate>
       <Styled.Root>
         <Styled.Container>
-          {data.lockerCounts && data.lockerCounts.length > 0 ? (
-            <Locker
-              value={structure}
-              total={data.lockerCounts.length}
-              applyCount={data.apply.length}
-            />
+          {lockerCounts && lockerCounts.length > 0 ? (
+            <Locker value={structure} total={lockerCounts.length} applyCount={apply.length} />
           ) : (
-            <Locker.Skeleton />
+            <Locker.Skeleton value={me ? LOCKER_MESSAGE.not_building : LOCKER_MESSAGE.not_login} />
           )}
           <Styled.InformBox>
             <Select
