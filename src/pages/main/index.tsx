@@ -14,7 +14,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchUserType = async () => {
       try {
-        const token = localStorage.getItem('access_token');
+        const token = localStorage.getItem('access');
         if (!token) {
           throw new Error('사용자 정보가 없습니다.');
         }
@@ -33,7 +33,7 @@ const MainPage = () => {
       try {
         const response = await axios.get('user', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            Authorization: `Bearer ${localStorage.getItem('access')}`,
           },
         });
         setLockerData(response.data);
