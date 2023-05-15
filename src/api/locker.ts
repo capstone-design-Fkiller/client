@@ -23,7 +23,7 @@ export const getLockerInfo = async (id: number) => {
   return data;
 };
 
-export const getApply = async (props: Omit<LockerRequest, 'onSuccess'>) => {
+export const getApply = async (props: LockerRequest) => {
   const { major, building } = props;
   const { data } = await instance.get(`apply?major=${major}&building_id=${building}`);
 

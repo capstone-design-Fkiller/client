@@ -6,6 +6,7 @@ import { LockerRequest } from '@/types/locker';
 const QUERY_KEY = {
   major: 'major',
   apply: 'apply',
+  lockerCounts: 'lockerCounts',
   locker: 'locker',
 };
 
@@ -19,11 +20,13 @@ export const useFetchMajor = (id: number) => {
 
 export const useFetchApplicant = (props: LockerRequest) => {
   const { data: lockerCounts, refetch: lockerRefetch } = useQuery(
-    [QUERY_KEY.apply, { ...props }],
+    [QUERY_KEY.lockerCounts, { ...props }],
     () => getLockerCounts(props)
   );
 
-  const { data: apply, refetch: applyRefetch } = useQuery(['apply'], () => getApply(props));
+  const { data: apply, refetch: applyRefetch } = useQuery([QUERY_KEY.apply, { ...props }], () =>
+    getApply(props)
+  );
 
   const refetch = () => {
     lockerRefetch();
