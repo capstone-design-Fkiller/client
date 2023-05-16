@@ -9,40 +9,41 @@ import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
 import { MAJOR } from '@/constants/major';
 import { LOCKER_MESSAGE } from '@/constants/skeleton';
-import { useFetchApplicant, useMutateApplyLocker } from '@/query/locker';
+import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 
 const ApplyPage = () => {
   const [structure, setStructure] = useState<string>('건물');
   const [major, setMajor] = useState<string>('학과');
   const { me } = useFetchMe();
-  const { mutate } = useMutateApplyLocker();
+  const { mutate } = useApplyLockerMutation();
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
 
   const {
-    data: { lockerCounts, apply },
+    data: { apply, lockerCounts },
     refetch,
   } = useFetchApplicant({
-    major: MAJOR[major], // 사용자 정보를 불러와서 학과를 넣어줘야 함
+    major: MAJOR[major],
     building_id: BUILDING[structure],
   });
 
   const handleApplyButton = () => {
-    mutate({
-      building_id: BUILDING[structure],
-      major: MAJOR[major],
-      user: me.id,
-    });
+    mutate(
+      {
+        building_id: BUILDING[structure],
+        major: MAJOR[major],
+        user: me.id,
+      },
+      {
+        onSuccess: refetch,
+      }
+    );
   };
 
   useEffect(() => {
     if (me) setMajor(me.major);
   }, [me]);
-
-  useEffect(() => {
-    if (BUILDING[structure] && MAJOR[major]) refetch();
-  }, [structure]);
 
   return (
     <PageTemplate>
