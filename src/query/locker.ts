@@ -1,50 +1,40 @@
 import { useMutation, useQuery } from 'react-query';
 
-import {
-  getAllMajor,
-  getLockerCounts,
-  getApplicant,
-  getLockerInfo,
-  postApplyLocker,
-} from '@/api/locker';
+import { getLockerCounts, getApplicant, getLockerInfo, postApplyLocker } from '@/api/locker';
 import useToast from '@/hooks/useToast';
 import { LockerRequest, RequestApplyLocker } from '@/types/locker';
 
 const QUERY_KEY = {
-  major: 'major',
   apply: 'apply',
-  lockerCounts: 'lockerCounts',
   locker: 'locker',
 };
 
-export const useFetchMajor = (id: number) => {
-  const { data, isLoading } = useQuery([QUERY_KEY.major, id], () => getAllMajor(), {
-    staleTime: 1000,
-  });
-
-  return { major: data, isLoading };
-};
-
 export const useFetchApplicant = (props: LockerRequest) => {
-  const { data: lockerCounts, refetch: lockerRefetch } = useQuery(
-    [QUERY_KEY.lockerCounts, { ...props }],
-    () => getLockerCounts(props)
+  const additionalKeys = Object.values(props);
+
+  const { data: lockerCounts } = useQuery(
+    [QUERY_KEY.locker, 'locker-counts', ...additionalKeys],
+    () => getLockerCounts(props),
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
   );
 
-  const { data: apply, refetch: applyRefetch } = useQuery([QUERY_KEY.apply, { ...props }], () =>
-    getApplicant(props)
+  const { data: apply } = useQuery(
+    [QUERY_KEY.apply, 'applicant', ...additionalKeys],
+    () => getApplicant(props),
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
   );
 
-  const refetch = () => {
-    lockerRefetch();
-    applyRefetch();
-  };
-
-  return { data: { apply, lockerCounts }, refetch };
+  return { data: { apply, lockerCounts } };
 };
 
 export const useFetchLockerInfo = (id: number) => {
-  const { data } = useQuery([QUERY_KEY.locker, id], () => getLockerInfo(id));
+  const { data } = useQuery([QUERY_KEY.locker, 'locker-info', id], () => getLockerInfo(id));
 
   return { locker: data };
 };
@@ -63,8 +53,6 @@ export const useMutateApplyLocker = () => {
       setCurrentState('error');
       handleOpen();
     },
-    // onSuccess: () => openToast('success', '성공했습니다.'),
-    // onError: () => openToast('error', '에러입니다.'),
   });
 
   return mutation;
