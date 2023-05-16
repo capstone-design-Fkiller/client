@@ -5,10 +5,15 @@ import { PropsWithChildren, createContext, useState } from 'react';
 
 type StateOption = 'success' | 'error';
 
-export const ToastContext = createContext({
-  setCurrentMessage: (message: string) => {},
-  setCurrentState: (state: StateOption) => {},
-  handleOpen: () => {},
+type ToastContextType = {
+  createToastMessage: (message: string, state: StateOption) => void;
+};
+
+export const ToastContext = createContext<ToastContextType>({
+  createToastMessage: (message, state) => {},
+  // setCurrentMessage: (message: string) => {},
+  // setCurrentState: (state: StateOption) => {},
+  // handleOpen: () => {},
 });
 
 const ToastProvider = (props: PropsWithChildren) => {
@@ -24,34 +29,20 @@ const ToastProvider = (props: PropsWithChildren) => {
     state: 'success',
   });
 
-  // const [open, setOpen] = useState(false);
-  // const [message, setMessage] = useState('');
-  // const [state, setState] = useState<StateOption>('success');
-
-  const setCurrentMessage = (currentMessage: string) => {
-    setToastState(prev => ({ ...prev, message: currentMessage }));
+  const createToastMessage = (message: string, state: StateOption) => {
+    setToastState({
+      message,
+      state,
+      open: true,
+    });
   };
-  const setCurrentState = (currentState: StateOption) => {
-    setToastState(prev => ({ ...prev, state: currentState }));
-  };
-  const handleOpen = () => {
-    setToastState(prev => ({ ...prev, open: true }));
-  };
-
-  // const handleToastState = (changed: {
-  //   open: boolean;
-  //   message: string;
-  //   state: 'success' | 'error';
-  // }) => {
-  //   setToastState(prev => ({...prev, }))
-  // };
 
   const handleClose = () => {
     setToastState(prev => ({ ...prev, open: false }));
   };
 
   return (
-    <ToastContext.Provider value={{ setCurrentMessage, setCurrentState, handleOpen }}>
+    <ToastContext.Provider value={{ createToastMessage }}>
       {children}
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar
