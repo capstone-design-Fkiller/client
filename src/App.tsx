@@ -11,6 +11,7 @@ const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
+const ResultPage = lazy(() => import('@/pages/result'));
 const UserSharePage = lazy(() => import('@/pages/profile/register-share'));
 
 function setScreenSize() {
@@ -45,6 +46,7 @@ function App() {
         <Route path={PATH.SHARE} element={<SharePage />} />
         <Route path={PATH.NOTICE} element={<NoticePage />} />
         <Route path={PATH.LOGIN} element={<LoginPage />} />
+        <Route path={PATH.RESULT} element={<ResultPage />} />
         <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
       </Routes>
     </Suspense>
