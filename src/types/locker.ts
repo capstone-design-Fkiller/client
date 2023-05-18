@@ -15,3 +15,11 @@ export interface LockerResponse {
   shared_id: number | null;
   start_date: Date | null;
 }
+
+// 배정 결과 가져오는 api 생기면 수정 예정
+export interface LockerResult {
+  lockerId: number;
+  building: number;
+  userId: number | null;
+  name: string | null;
+}

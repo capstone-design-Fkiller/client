@@ -28,10 +28,11 @@ const Header = () => {
 
   return (
     <Styled.Root>
-      <Styled.Logo to={PATH.MAIN}>HUFS LOCKER</Styled.Logo>
+       {/* 임시 설정*/}
+      <Styled.Logo to={PATH.RESULT}>HUFS LOCKER</Styled.Logo>
       <Styled.HeaderIconsArrange>
         <Icon iconName='email' size='32' onClick={handleAlertOpen} />
-        <Link to={PATH.LOGIN}>
+        <Link to={PATH.LOGIN}> 
           <Icon iconName='user' size='32' />
         </Link>
       </Styled.HeaderIconsArrange>

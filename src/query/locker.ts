@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import { getAllMajor, getLockerCounts, getApply, getLockerInfo } from '@/api/locker';
+import { getAllMajor, getLockerCounts, getApply, getLockerInfo, getMajorLocker } from '@/api/locker';
 import { LockerRequest } from '@/types/locker';
 
 const QUERY_KEY = {
@@ -37,4 +37,11 @@ export const useFetchLocker = (id: number) => {
   const { data } = useQuery([QUERY_KEY.locker, id], () => getLockerInfo(id));
 
   return { locker: data };
+};
+
+// 배정 결과 가져오는 api 생기면 수정 예정
+export const useFetchResult = (major: number) => {
+  const { data } = useQuery([QUERY_KEY.locker, major], () => getMajorLocker(major));
+  const lockerData = data || null;
+  return { locker: lockerData };
 };
