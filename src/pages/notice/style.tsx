@@ -30,6 +30,7 @@ export const TableContainer = styled.table`
   & tr > td,
   & tr > th {
     padding: 10px 0;
+    white-space: nowrap;
 
     &:first-of-type {
       padding-left: 10px;

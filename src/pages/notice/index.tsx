@@ -4,7 +4,7 @@ import * as Styled from './style';
 
 import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
-import Pagination from '@/components/common/Pagination'; // 페이지네이션 컴포넌트
+import Pagination from '@/components/common/Pagination';
 import TableContent from '@/components/notice/table/TableContent';
 import TableHead from '@/components/notice/table/TableHead';
 
@@ -15,7 +15,7 @@ const notices = [
     major: 'ELLT',
     title: '사물함 신청 안내',
     date: '230505',
-    content:
+    content: 
       '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
   },
   {
