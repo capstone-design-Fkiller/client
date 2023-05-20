@@ -27,24 +27,32 @@ const Pagination = (props: PaginationProps) => {
 
   const handlePageClick = (e: MouseEvent<HTMLSpanElement>) => {
     const page = parseInt(e.currentTarget.innerText);
-
     setState(page);
   };
 
-  const pageLists = useMemo(
-    () => Array.from({ length: totalPages }, (_, idx) => idx + 1),
-    [totalPages]
-  );
+  const getPageLists = useMemo(() => {
+    const pageListLength = 10;
+    let startPage = Math.floor((currentPage - 1) / pageListLength) * pageListLength + 1;
+    const endPage = Math.min(startPage + pageListLength - 1, totalPages);
+
+    const pageLists = [];
+    while (startPage <= endPage) {
+      pageLists.push(startPage);
+      startPage++;
+    }
+
+    return pageLists;
+  }, [currentPage, totalPages]);
 
   return (
     <Styled.Pagination>
-      <Icon iconName='left' onClick={handlePrevClick} size='18' />
-      {pageLists.map(num => (
+      <Icon iconName="left" onClick={handlePrevClick} size="18" />
+      {getPageLists.map((num) => (
         <Styled.PageNumber key={num} isActive={num === currentPage} onClick={handlePageClick}>
           {num}
         </Styled.PageNumber>
       ))}
-      <Icon iconName='right' onClick={handleNextClick} size='18' />
+      <Icon iconName="right" onClick={handleNextClick} size="18" />
     </Styled.Pagination>
   );
 };
