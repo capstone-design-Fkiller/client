@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import { getAllMajor, getLockerCounts, getApply, getLockerInfo, getMajorLocker } from '@/api/locker';
+import { getAllMajor, getLockerCounts, getApply, getLockerInfo, getMajorLocker, deleteMajorLocker } from '@/api/locker';
 import { LockerRequest } from '@/types/locker';
 
 const QUERY_KEY = {
@@ -44,4 +44,11 @@ export const useFetchResult = (major: number) => {
   const { data } = useQuery([QUERY_KEY.locker, major], () => getMajorLocker(major));
   const lockerData = data || null;
   return { locker: lockerData };
+};
+
+// 배정 결과 삭제하는 api 생기면 수정 예정
+export const deleteResult = async (id: number) => {
+  if (id !== null) {
+    await deleteMajorLocker(id);
+  }
 };

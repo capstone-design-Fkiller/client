@@ -8,7 +8,7 @@ import PageTemplate from '@/components/common/PageTamplate';
 import Pagination from '@/components/common/Pagination';
 import TableContent from '@/components/result/table/TableContent';
 import TableHead from '@/components/result/table/TableHead';
-import { useFetchResult } from '@/query/locker';
+import { deleteResult, useFetchResult } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 import { LockerResponse, LockerResult } from '@/types/locker';
 
@@ -18,7 +18,6 @@ const TABLE_HEADER = ['사물함ID', '사물함 위치', '사용자 학번', '�
 const ResultPage = () => {
   const [lockers, setLockers] = useState<LockerResult[]>([]);
   const [selectedLocker, setSelectedLocker] = useState<number | null>(null);
-  const [message, setMessage] = useState<string>('');
 
   const { me } = useFetchMe();
   const { locker } = useFetchResult(me?.major);
@@ -31,15 +30,28 @@ const ResultPage = () => {
     setSelectedLocker(null);
   };
 
+  const handleDeleteResult = async () => {
+    if (selectedLocker !== null) {
+      await deleteResult(selectedLocker);
+      setSelectedLocker(null);
+    }
+    const updatedLockers = lockers.filter(locker => locker.lockerId !== selectedLocker);
+    setLockers(updatedLockers);
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(locker.length / PAGE_OFFSET);
+  const startIndex = (currentPage - 1) * PAGE_OFFSET;
+  const endIndex = startIndex + PAGE_OFFSET;
+
   useEffect(() => {
     if (me && locker) {
-
       // useEffect(() => {
       //   if (me && locker) {
       //     setLockers(locker);
       //   }
       // }, [me?.major, locker]);
-      
+
       const extractedLockers = locker.map((l: LockerResponse) => {
         return {
           lockerId: l.id,
@@ -52,21 +64,13 @@ const ResultPage = () => {
     }
   }, [me?.major, locker]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(locker.length / PAGE_OFFSET);
-  const startIndex = (currentPage - 1) * PAGE_OFFSET;
-  const endIndex = startIndex + PAGE_OFFSET;
- 
-  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(event.target.value);
-  };
-
   return (
     <PageTemplate>
       <Styled.Root>
         <Styled.Title>사물함 배정 결과</Styled.Title>
         {/* 배정기간이 아닐 경우: <Styled.Message>지금은 사물함 신청기간입니다.</Styled.Message> */}
-        <Styled.TableContainer>   
+        {/* 테이블이 새로 생성될 예정이라 length로 해결 불가(?) */}
+        <Styled.TableContainer>
           <TableHead headers={TABLE_HEADER} />
           <TableContent
             contents={lockers.slice(startIndex, endIndex)}
@@ -76,11 +80,25 @@ const ResultPage = () => {
         <Styled.PaginationContainer>
           <Pagination currentPage={currentPage} totalPages={totalPages} setState={setCurrentPage} />
         </Styled.PaginationContainer>
+        <Button variant='contained' color='primary'>
+          배정 확정하기
+        </Button>
         {selectedLocker !== null && (
-          <Modal title="개별 알림" onClose={handleCloseModal} open={!!selectedLocker}>
-            <textarea onChange={handleInputChange} value={message} rows={4} placeholder='작성할 내용' />
-            <Button variant="contained" color="primary">
-              작성
+          <Modal title='배정 취소' onClose={handleCloseModal} open={!!selectedLocker}>
+            {lockers.map(locker => {
+              if (locker.lockerId === selectedLocker) {
+                return (
+                  <Styled.ModalContent key={locker.lockerId}>
+                    <p>사용자 학번: {locker.userId}</p>
+                    <p>사용자 이름: {locker.name}</p>
+                    <p>정말 배정을 취소하시겠습니까?</p>
+                  </Styled.ModalContent>
+                );
+              }
+              return null;
+            })}
+            <Button variant='contained' color='primary' onClick={handleDeleteResult}>
+              확인
             </Button>
           </Modal>
         )}
@@ -88,5 +106,4 @@ const ResultPage = () => {
     </PageTemplate>
   );
 };
-
 export default ResultPage;

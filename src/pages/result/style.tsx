@@ -22,8 +22,6 @@ export const Title = styled.h1`
 `;
 
 export const TableContainer = styled.table`
-  display: grid;
-  align-items: center;
   width: 100%;
   margin-top: 15px;
   border-collapse: collapse;
@@ -49,12 +47,19 @@ export const TableContainer = styled.table`
 // `;
 
 export const ModalContent = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 80%;
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.primary_100};
-  margin-top: 20px;
+
+  p {
+    margin-bottom: 15px;
+  }
 `;
 
 export const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 `;

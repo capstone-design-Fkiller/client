@@ -32,6 +32,13 @@ export const getMajorLocker = async (major: number) => {
   return data;
 };
 
+// 배정 결과 삭제하는 api 생기면 수정 예정
+export const deleteMajorLocker = async (id: number) => {
+  const { data } = await instance.delete(`locker/${id}`);
+
+  return data;
+};
+
 export const getApply = async (props: Omit<LockerRequest, 'onSuccess'>) => {
   const { major, building } = props;
   const { data } = await instance.get(`apply?major=${major}&building_id=${building}`);
