@@ -11,9 +11,6 @@ type ToastContextType = {
 
 export const ToastContext = createContext<ToastContextType>({
   createToastMessage: (message, state) => {},
-  // setCurrentMessage: (message: string) => {},
-  // setCurrentState: (state: StateOption) => {},
-  // handleOpen: () => {},
 });
 
 const ToastProvider = (props: PropsWithChildren) => {
@@ -46,7 +43,7 @@ const ToastProvider = (props: PropsWithChildren) => {
       {children}
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           open={open}
           autoHideDuration={2000}
           onClose={handleClose}
