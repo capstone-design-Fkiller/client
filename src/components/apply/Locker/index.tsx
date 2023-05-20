@@ -1,18 +1,34 @@
 import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useMemo } from 'react';
 
 import Icon from '@/components/common/Icon';
+import { LOCKER_MESSAGE } from '@/constants/skeleton';
+import { UserResponse } from '@/types/user';
 
 interface LockerProps {
+  me: UserResponse;
   value: string;
-  total: number;
+  total: number | undefined;
   applyCount: number;
 }
 
 const Locker = (props: LockerProps) => {
-  const { value, total, applyCount } = props;
-  const CHECK_POINT = useMemo(() => Math.ceil((applyCount / total) * 100), [total, applyCount]);
+  const { me, value, total, applyCount } = props;
+
+  const theme = useTheme();
+
+  if (!me || !total) {
+    const message = me ? LOCKER_MESSAGE.not_building : LOCKER_MESSAGE.not_login;
+
+    return (
+      <Styled.Root>
+        <Icon iconName='nothing' size='100' color={theme.colors.grey_200} hasCursor={false} />
+        <span style={{ color: theme.colors.grey_200 }}>{message}</span>
+      </Styled.Root>
+    );
+  }
+
+  const CHECK_POINT = Math.ceil((applyCount / total) * 100);
 
   return (
     <Styled.Root>
@@ -33,19 +49,6 @@ const Locker = (props: LockerProps) => {
 };
 
 export default Locker;
-
-Locker.Skeleton = function Skeleton(props: Pick<LockerProps, 'value'>) {
-  const { value } = props;
-
-  const theme = useTheme();
-
-  return (
-    <Styled.Root>
-      <Icon iconName='nothing' size='100' color={theme.colors.grey_200} hasCursor={false} />
-      <span style={{ color: theme.colors.grey_200 }}>{value}</span>
-    </Styled.Root>
-  );
-};
 
 const Styled = {
   Root: styled.div`
