@@ -34,7 +34,7 @@ const Styled = {
     transition: 0.1s color ease-in-out;
 
     &:hover {
-      color: ${({ theme }) => theme.colors.primary_200};
+      color: ${({ theme }) => theme.colors.error_200};
     }
   `,
 
