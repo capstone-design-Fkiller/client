@@ -23,7 +23,8 @@ const ApplySharePage = () => {
     <PageTemplate>
       <Styled.Root>
         <Styled.Container>
-          <Locker.Skeleton value={me ? LOCKER_MESSAGE.not_building : LOCKER_MESSAGE.not_login} />
+          {/** // ! 추후 Locker 컴포넌트가 아닌 Table 컴포넌트로 변경해야 할 듯 */}
+          {/* <Locker me={me} value={building} /> */}
           <Styled.InformBox>
             {/* 클릭 시 건물을 선택할 수 있도록 */}
             <Select
