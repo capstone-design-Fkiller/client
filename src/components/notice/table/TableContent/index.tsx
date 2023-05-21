@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+import { SIMMAJOR } from '@/constants/major';
 import { NoticeResponse } from '@/types/notice';
 
 interface TableContentProps {
@@ -17,13 +18,17 @@ const TableContent = (props: TableContentProps) => {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}${month}${day}`;
   };
-  
+
+  const getMajorName = (major: number) => {
+    return SIMMAJOR[major] || '';
+  };
+
   return (
     <tbody>
       {contents.map((notice: NoticeResponse) => (
         <Styled.Row key={notice.id} onClick={() => handleContent(notice.id)}>
           <Styled.Item>{notice.id}</Styled.Item>
-          <Styled.Item>{notice.major}</Styled.Item>
+          <Styled.Item>{getMajorName(notice.major)}</Styled.Item>
           <Styled.Item>{notice.title}</Styled.Item>
           <Styled.Item>{formatDate(notice.created_at)}</Styled.Item>
         </Styled.Row>

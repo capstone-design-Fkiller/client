@@ -24,14 +24,16 @@ const NoticePage = () => {
 
   const { data: notices, isLoading, isError } = useFetchNotice();
   if (isLoading) {
-    return <div>Loading...</div>; // 데이터 로딩 중이라면 로딩 UI를 표시할 수 있습니다.
+    return <div>Loading...</div>;
   }
 
   if (isError) {
-    return <div>Error occurred while fetching notices.</div>; // 데이터 가져오기 중 오류가 발생했을 경우 오류 UI를 표시할 수 있습니다.
+    return <div>Error occurred while fetching notices.</div>;
   }
 
-  const noticesLength = notices ? notices.length : 0; // null 체크 추가
+  const sortedNotices = notices ? [...notices].reverse() : [];
+
+  const noticesLength = sortedNotices.length;
 
   const totalPages = Math.ceil(noticesLength / PAGE_OFFSET);
   const startIndex = (currentPage - 1) * PAGE_OFFSET;
@@ -52,7 +54,7 @@ const NoticePage = () => {
         <Styled.TableContainer>
           <TableHead headers={TABLE_HEADER} />
           <TableContent
-            contents={notices ? notices.slice(startIndex, endIndex) : []} // null 체크 추가
+            contents={sortedNotices.slice(startIndex, endIndex)}
             handleContent={handleNoticeClick}
           />
         </Styled.TableContainer>
@@ -61,10 +63,24 @@ const NoticePage = () => {
         <Button variant='contained' onClick={() => navigate(PATH.CREATE_NOTICE)}>
           공지사항 관리하기
         </Button>
-        <Modal onClose={handleCloseModal} title='Notice Detail' open={!!selectedNotice}>
+        <Modal
+          onClose={handleCloseModal}
+          title={`Notice Detail [${selectedNotice}]`}
+          open={!!selectedNotice}
+        >
+          <Styled.ModalHeader>
+            <Styled.ModalTitle>
+              {selectedNotice &&
+                `${selectedNotice}. ${
+                  sortedNotices.find((notice: NoticeResponse) => notice.id === selectedNotice)
+                    ?.title
+                }`}{' '}
+            </Styled.ModalTitle>
+          </Styled.ModalHeader>
           <Styled.ModalContent>
             {selectedNotice &&
-              notices?.find((notice: NoticeResponse) => notice.id === selectedNotice)?.content}{' '}
+              sortedNotices.find((notice: NoticeResponse) => notice.id === selectedNotice)
+                ?.content}{' '}
           </Styled.ModalContent>
         </Modal>
       </Styled.Root>
