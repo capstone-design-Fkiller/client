@@ -1,49 +1,84 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, useState } from 'react';
 
 import * as Styled from './style';
 
+import Condition from '@/components/apply/Condition';
 import Locker from '@/components/apply/Locker';
 import Button from '@/components/common/Button';
+import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
 import { BUILDING } from '@/constants/building';
 import { MAJOR } from '@/constants/major';
-import { useFetchApplicant } from '@/query/locker';
+import useInput from '@/hooks/useInput';
+import useModal from '@/hooks/useModal';
+import useToast from '@/hooks/useToast';
+import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
+import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
+import { RequestApplyLocker } from '@/types/locker';
 
 const ApplyPage = () => {
   const [structure, setStructure] = useState<string>('건물');
-  const [major, setMajor] = useState<string>('학과');
+  const { value, handleValue } = useInput<
+    Pick<RequestApplyLocker, 'priority_first' | 'priority_second' | 'priority_third'>
+  >({});
   const { me } = useFetchMe();
+  const { mutate } = useApplyLockerMutation();
+
+  const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
+  const { open, handleOpen } = useModal();
+  const { createToastMessage } = useToast();
 
-  const { data, refetch } = useFetchApplicant({
-    major: MAJOR[major], // 사용자 정보를 불러와서 학과를 넣어줘야 함
-    building: BUILDING[structure],
+  const {
+    data: { apply, lockerCounts },
+    refetch,
+  } = useFetchApplicant({
+    major: MAJOR[me.major],
+    building_id: BUILDING[structure],
   });
 
-  useEffect(() => {
-    setMajor(me.major);
-  }, [me]);
+  const handleModalOpen = () => {
+    if (!me) {
+      return createToastMessage('로그인 후 사용해주세요!', 'error');
+    }
 
-  useEffect(() => {
-    refetch();
-  }, [structure]);
+    if (!lockerCounts?.length)
+      return createToastMessage('해당 건물에는 사물함이 없습니다!', 'error');
+
+    if (!majorInfo) handleApplyButton();
+
+    handleOpen();
+  };
+
+  const handleApplyButton = () => {
+    mutate(
+      {
+        building_id: BUILDING[structure],
+        major: MAJOR[me.major],
+        user: me.id,
+        ...value,
+      },
+      {
+        onSuccess: refetch,
+      }
+    );
+
+    handleModalOpen();
+  };
 
   return (
     <PageTemplate>
       <Styled.Root>
         <Styled.Container>
-          {data.lockerCounts && data.lockerCounts.length > 0 ? (
-            <Locker
-              value={structure}
-              total={data.lockerCounts.length}
-              applyCount={data.apply.length}
-            />
-          ) : (
-            <Locker.Skeleton />
-          )}
+          <Locker
+            me={me}
+            value={structure}
+            total={lockerCounts ? lockerCounts.length : undefined}
+            applyCount={apply.length}
+          />
           <Styled.InformBox>
             <Select
               value={structure}
@@ -51,11 +86,23 @@ const ApplyPage = () => {
               list={Object.keys(BUILDING).slice(1)}
             />
             <Styled.Separator />
-            <div>{major || '학과'}</div>
+            <div>{me.major || '학과'}</div>
           </Styled.InformBox>
         </Styled.Container>
-        <Button variant='contained'>신청하기</Button>
+        <Button variant='contained' onClick={handleModalOpen}>
+          신청하기
+        </Button>
       </Styled.Root>
+
+      <Modal title='학과별 조건 입력' open={open} onClose={handleModalOpen}>
+        {me && (
+          <Condition
+            majorInfo={majorInfo}
+            handleInput={handleValue}
+            handleApplyButton={handleApplyButton}
+          />
+        )}
+      </Modal>
     </PageTemplate>
   );
 };

@@ -19,4 +19,16 @@ const PageTemplate = (props: PropsWithChildren) => {
   );
 };
 
+PageTemplate.WithoutOption = function PageTemplate(props: PropsWithChildren) {
+  const { children } = props;
+
+  return (
+    <Styled.Root>
+      <Styled.Container>
+        <Styled.Main>{children}</Styled.Main>
+      </Styled.Container>
+    </Styled.Root>
+  );
+};
+
 export default PageTemplate;

@@ -1,6 +1,6 @@
 export interface LockerRequest {
   major: number;
-  building: number;
+  building_id: number;
 }
 
 export interface LockerResponse {
@@ -22,4 +22,10 @@ export interface LockerResult {
   building: number;
   userId: number | null;
   name: string | null;
+}
+export interface RequestApplyLocker extends LockerRequest {
+  user: number;
+  priority_first?: number | boolean;
+  priority_second?: number | boolean;
+  priority_third?: number | boolean;
 }
