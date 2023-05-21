@@ -53,7 +53,6 @@ function App() {
             <Route path={PATH.SHARE} element={<SharePage />} />
             <Route path={PATH.NOTICE} element={<NoticePage />} />
             <Route path={PATH.CREATE_NOTICE} element={<CreateNoticePage />} />
-            <Route path={PATH.RESULT} element={<ResultPage />} />
             <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
           </Route>
         </Routes>

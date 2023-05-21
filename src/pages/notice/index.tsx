@@ -61,7 +61,7 @@ const NoticePage = () => {
 
         <Pagination currentPage={currentPage} totalPages={totalPages} setState={setCurrentPage} />
         <Button variant='contained' onClick={() => navigate(PATH.CREATE_NOTICE)}>
-          공지사항 관리하기
+          공지사항 작성하기
         </Button>
         <Modal
           onClose={handleCloseModal}
