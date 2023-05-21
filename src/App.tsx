@@ -5,8 +5,9 @@ import { PATH } from './utils/path';
 
 import Loader from '@/components/common/Loader';
 
-const NoticePage = lazy(() => import('./pages/notice'));
-const SharePage = lazy(() => import('./pages/locker-mode/share'));
+const NoticePage = lazy(() => import('@/pages/notice'));
+const CreateNoticePage = lazy(() => import('./pages/notice/notice-create/index'));
+const SharePage = lazy(() => import('@/pages/locker-mode/share'));
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
@@ -37,17 +38,25 @@ function App() {
   }, []);
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route path={PATH.MAIN} element={<MainPage />} />
-        <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
-        <Route path={PATH.APPLY} element={<ApplyPage />} />
-        <Route path={PATH.SHARE} element={<SharePage />} />
-        <Route path={PATH.NOTICE} element={<NoticePage />} />
-        <Route path={PATH.LOGIN} element={<LoginPage />} />
-        <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
-      </Routes>
-    </Suspense>
+    <ToastProvider>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route element={<PublicRoute />}>
+            <Route path={PATH.LOGIN} element={<LoginPage />} />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path={PATH.MAIN} element={<MainPage />} />
+            <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
+            <Route path={PATH.APPLY} element={<ApplyPage />} />
+            <Route path={PATH.SHARE} element={<SharePage />} />
+            <Route path={PATH.NOTICE} element={<NoticePage />} />
+            <Route path={PATH.CREATE_NOTICE} element={<CreateNoticePage />} />
+            <Route path={PATH.RESULT} element={<ResultPage />} />
+            <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </ToastProvider>
   );
 }
 

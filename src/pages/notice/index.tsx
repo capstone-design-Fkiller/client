@@ -1,121 +1,39 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
+import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
-import Pagination from '@/components/common/Pagination'; // 페이지네이션 컴포넌트
+import Pagination from '@/components/common/Pagination';
 import TableContent from '@/components/notice/table/TableContent';
 import TableHead from '@/components/notice/table/TableHead';
+import { useFetchNotice } from '@/query/notice';
+import { NoticeResponse } from '@/types/notice';
+import { PATH } from '@/utils/path';
 
 const PAGE_OFFSET = 10;
-const notices = [
-  {
-    id: 1,
-    major: 'ELLT',
-    title: '사물함 신청 안내',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 2,
-    major: 'EICC',
-    title: '사물함 이용 기간',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 3,
-    major: '프랑스',
-    title: '사물함 반납 안내',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 4,
-    major: '스페인',
-    title: '사물함 점검 안내',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 5,
-    major: '이탈리아',
-    title: '사물함 신청 안내',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 6,
-    major: '아랍',
-    title: '이용 시 주의사항',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-
-  {
-    id: 7,
-    major: '베트남',
-    title: '사물함 배정 완료',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 8,
-    major: '인도',
-    title: '사물함 신청 안내',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 9,
-    major: '몽골',
-    title: '사물함 신청 안내',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 10,
-    major: '중언문',
-    title: '사물함 물건 보관',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 11,
-    major: '중외통',
-    title: '사물함 신청 안내',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-  {
-    id: 12,
-    major: '정외',
-    title: '사물함 신청 안내',
-    date: '230505',
-    content:
-      '사물함 이용 중 사물함 내 물품 분실에 대한 모든 책임은 사용자에게 있다. ※ 사물함에 귀중품은 보관하지 마세요.',
-  },
-];
-
 const TABLE_HEADER = ['ID', '학과', '제목', '작성일'];
 
 const NoticePage = () => {
+  const navigate = useNavigate();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedNotice, setSelectedNotice] = useState<number | null>(null);
 
-  const totalPages = Math.ceil(notices.length / PAGE_OFFSET);
+  const { data: notices, isLoading, isError } = useFetchNotice();
+  if (isLoading) {
+    return <div>Loading...</div>; // 데이터 로딩 중이라면 로딩 UI를 표시할 수 있습니다.
+  }
+
+  if (isError) {
+    return <div>Error occurred while fetching notices.</div>; // 데이터 가져오기 중 오류가 발생했을 경우 오류 UI를 표시할 수 있습니다.
+  }
+
+  const noticesLength = notices ? notices.length : 0; // null 체크 추가
+
+  const totalPages = Math.ceil(noticesLength / PAGE_OFFSET);
   const startIndex = (currentPage - 1) * PAGE_OFFSET;
   const endIndex = startIndex + PAGE_OFFSET;
 
@@ -134,16 +52,19 @@ const NoticePage = () => {
         <Styled.TableContainer>
           <TableHead headers={TABLE_HEADER} />
           <TableContent
-            contents={notices.slice(startIndex, endIndex)}
+            contents={notices ? notices.slice(startIndex, endIndex) : []} // null 체크 추가
             handleContent={handleNoticeClick}
           />
         </Styled.TableContainer>
 
         <Pagination currentPage={currentPage} totalPages={totalPages} setState={setCurrentPage} />
-
+        <Button variant='contained' onClick={() => navigate(PATH.CREATE_NOTICE)}>
+          공지사항 관리하기
+        </Button>
         <Modal onClose={handleCloseModal} title='Notice Detail' open={!!selectedNotice}>
           <Styled.ModalContent>
-            {selectedNotice && notices[selectedNotice - 1].content}
+            {selectedNotice &&
+              notices?.find((notice: NoticeResponse) => notice.id === selectedNotice)?.content}{' '}
           </Styled.ModalContent>
         </Modal>
       </Styled.Root>

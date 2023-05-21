@@ -46,3 +46,4 @@ export const ModalContent = styled.div`
   color: ${({ theme }) => theme.colors.primary_100};
   margin-top: 20px;
 `;
+

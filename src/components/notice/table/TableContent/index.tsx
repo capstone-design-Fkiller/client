@@ -1,29 +1,31 @@
 import styled from '@emotion/styled';
 
-interface NoticeProps {
-  id: number;
-  major: string;
-  title: string;
-  date: string;
-  content: string;
-}
+import { NoticeResponse } from '@/types/notice';
 
 interface TableContentProps {
-  contents: NoticeProps[];
+  contents: NoticeResponse[];
   handleContent: (id: number) => void;
 }
 
 const TableContent = (props: TableContentProps) => {
   const { contents, handleContent } = props;
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear().toString().slice(-2);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}${month}${day}`;
+  };
+  
   return (
     <tbody>
-      {contents.map((notice: NoticeProps) => (
+      {contents.map((notice: NoticeResponse) => (
         <Styled.Row key={notice.id} onClick={() => handleContent(notice.id)}>
           <Styled.Item>{notice.id}</Styled.Item>
           <Styled.Item>{notice.major}</Styled.Item>
           <Styled.Item>{notice.title}</Styled.Item>
-          <Styled.Item>{notice.date}</Styled.Item>
+          <Styled.Item>{formatDate(notice.created_at)}</Styled.Item>
         </Styled.Row>
       ))}
     </tbody>
