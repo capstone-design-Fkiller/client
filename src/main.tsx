@@ -17,22 +17,21 @@ const queryClient = new QueryClient({
     queries: {
       suspense: true,
       retry: false,
+      staleTime: 1000 * 60 * 5,
     },
   },
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
-        <ThemeProvider theme={emotion_theme}>
-          <MuiThemeProvider theme={mui_theme}>
-            <Global styles={globalStyle} />
-            <App />
-          </MuiThemeProvider>
-        </ThemeProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={false} />
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <ThemeProvider theme={emotion_theme}>
+        <MuiThemeProvider theme={mui_theme}>
+          <Global styles={globalStyle} />
+          <App />
+        </MuiThemeProvider>
+      </ThemeProvider>
+    </BrowserRouter>
+  </QueryClientProvider>
 );
