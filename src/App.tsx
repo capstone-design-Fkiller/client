@@ -1,9 +1,11 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
-import { PATH } from './utils/path';
-
+import CustomSuspense from '@/components/common/CustomSuspense';
 import Loader from '@/components/common/Loader';
+import ToastProvider from '@/components/common/Toast';
+import { useFetchMe } from '@/query/user';
+import { PATH } from '@/utils/path';
 
 const NoticePage = lazy(() => import('@/pages/notice'));
 const CreateNoticePage = lazy(() => import('./pages/notice/notice-create/index'));
@@ -61,3 +63,21 @@ function App() {
 }
 
 export default App;
+
+const PrivateRoute = () => {
+  const { me, isLoading } = useFetchMe();
+
+  return me ? (
+    <Outlet />
+  ) : (
+    <CustomSuspense isLoading={isLoading} fallback={<Loader />}>
+      <Navigate to={PATH.LOGIN} replace />
+    </CustomSuspense>
+  );
+};
+
+const PublicRoute = () => {
+  const { me } = useFetchMe();
+
+  return me ? <Navigate to={PATH.MAIN} replace /> : <Outlet />;
+};

@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Icon from '@/components/common/Icon';
@@ -18,6 +19,17 @@ const Student = ({ user }: { user: UserResponse }) => {
         <span>사물함 번호: {name}</span>
       </Styled.InformBox>
     </Styled.Container>
+  );
+};
+
+Student.Skeleton = function Student() {
+  const theme = useTheme();
+
+  return (
+    <Styled.SkeletonWrapper>
+      <Icon iconName='nothing' size='100' color={theme.colors.grey_200} hasCursor={false} />
+      <span style={{ color: theme.colors.grey_200 }}>로그인 후 사용할 수 있습니다!</span>
+    </Styled.SkeletonWrapper>
   );
 };
 
@@ -66,5 +78,22 @@ const Styled = {
 
     border: 0;
     background: ${({ theme }) => theme.colors.light_grey_200};
+  `,
+
+  SkeletonWrapper: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    width: 100%;
+    height: 450px;
+
+    background-color: ${({ theme }) => theme.colors.white_300};
+    border: 1px solid ${({ theme }) => theme.colors.light_grey_100};
+    border-radius: 5px;
+
+    margin-bottom: 30px;
   `,
 };
