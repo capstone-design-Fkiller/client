@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import * as Styled from '../style';
 
 import Button from '@/components/common/Button';
-import Loader from '@/components/common/Loader';
 import PageTemplate from '@/components/common/PageTamplate';
 import Student from '@/components/main/Student';
 import { useFetchMe } from '@/query/user';
@@ -13,8 +12,8 @@ const MainPage = () => {
   const navigate = useNavigate();
   const { me } = useFetchMe();
 
-  const handleNavigation = () => {
-    navigate(PATH.USER_SHARE);
+  const handleNavigate = (path: string) => {
+    navigate(path);
   };
 
   return (
@@ -23,12 +22,17 @@ const MainPage = () => {
         {me ? (
           <>
             <Student user={me} />
-            <Button variant='contained' onClick={handleNavigation}>
+            <Button variant='contained' onClick={() => handleNavigate(PATH.USER_SHARE)}>
               사물함 쉐어하기
             </Button>
           </>
         ) : (
-          <Loader />
+          <>
+            <Student.Skeleton />
+            <Button variant='contained' onClick={() => handleNavigate(PATH.LOGIN)}>
+              로그인 하러 가기
+            </Button>
+          </>
         )}
       </Styled.Root>
     </PageTemplate>
