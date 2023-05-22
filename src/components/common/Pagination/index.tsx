@@ -1,4 +1,4 @@
-import React, { MouseEvent, Dispatch, SetStateAction, useMemo } from 'react';
+import { MouseEvent, Dispatch, SetStateAction, useMemo } from 'react';
 
 import * as Styled from './style';
 
@@ -6,12 +6,17 @@ import Icon from '@/components/common/Icon';
 
 interface PaginationProps {
   currentPage: number;
-  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
   setState: Dispatch<SetStateAction<number>>;
 }
 
+const PAGE_OFFSET = 10;
+
 const Pagination = (props: PaginationProps) => {
-  const { currentPage, totalPages, setState } = props;
+  const { currentPage, totalItems, itemsPerPage, setState } = props;
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const handleNextClick = () => {
     if (currentPage < totalPages) {
@@ -27,7 +32,6 @@ const Pagination = (props: PaginationProps) => {
 
   const handlePageClick = (e: MouseEvent<HTMLSpanElement>) => {
     const page = parseInt(e.currentTarget.innerText);
-
     setState(page);
   };
 
@@ -49,4 +53,4 @@ const Pagination = (props: PaginationProps) => {
   );
 };
 
-export default Pagination;
+export { Pagination, PAGE_OFFSET };

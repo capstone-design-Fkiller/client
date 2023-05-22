@@ -58,4 +58,5 @@ export const ModalContent = styled.div`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.grey_400};
   margin-top: 20px;
+  line-height: 1.4;
 `;

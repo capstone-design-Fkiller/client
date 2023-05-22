@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery, QueryClient } from 'react-query';
 
 import { instance } from '@/api/instance';
@@ -32,15 +32,44 @@ export const useLogin = () => {
 };
 
 export const useFetchMe = () => {
-  // const { data, isLoading, isError } = useQuery<UserResponse>([QUERY_KEY.user], getMe);
-
+  const [me, setMe] = useState<UserResponse | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
-  const data: UserResponse = JSON.parse(localStorage.getItem('access_token') as string);
+
+  const getAccessTokenFromCookie = () => {
+    const name = 'access_token=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookie = cookieArray[i];
+      while (cookie.charAt(0) === ' ') {
+        cookie = cookie.substring(1);
+      }
+      if (cookie.indexOf(name) === 0) {
+        return cookie.substring(name.length, cookie.length);
+      }
+    }
+    return '';
+  };
+  
+  const fetchMe = async () => {
+    try {
+      const response = await getMe(); // 수정된 함수를 사용하여 정보를 가져옴
+      setMe(response); // 가져온 유저 정보 설정
+    } catch (error) {
+      console.error('Failed to fetch user information:', error);
+    } finally {
+      setIsLoading(false); // 데이터 로딩이 완료되었음을 설정
+    }
+  };
 
   useEffect(() => {
-    if (data) setIsLoading(true);
-    else setIsLoading(false);
-  }, [data]);
+    const accessToken = getAccessTokenFromCookie();
+    if (accessToken) {
+      fetchMe(); // 데이터를 가져오는 함수 호출
+    } else {
+      setIsLoading(false); // 로그인되지 않았으므로 로딩이 완료되었음을 설정
+    }
+  }, []);
 
-  return { me: data || undefined, isLoading };
+  return { me, isLoading };
 };
