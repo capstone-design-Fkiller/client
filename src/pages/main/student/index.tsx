@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import * as Styled from './style';
+import * as Styled from '../style';
 
 import Button from '@/components/common/Button';
 import Loader from '@/components/common/Loader';

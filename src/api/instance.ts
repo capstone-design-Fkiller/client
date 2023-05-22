@@ -7,7 +7,7 @@ import axios from 'axios';
 export const BASE_URL = import.meta.env.VITE_DEV_SERVER;
 
 export const instance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: 'http://' + BASE_URL,
   headers: {
     'Content-Type': 'application/json',
     // Authorization: `Bearer ${localStorage.getItem('access_token')}`,
