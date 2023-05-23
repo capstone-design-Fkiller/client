@@ -11,12 +11,14 @@ import { Pagination, PAGE_OFFSET } from '@/components/common/Pagination';
 import TableContent from '@/components/notice/table/TableContent';
 import TableHead from '@/components/notice/table/TableHead';
 import { useFetchNotice } from '@/query/notice';
+import { useFetchMe } from '@/query/user';
 import { NoticeResponse } from '@/types/notice';
 import { PATH } from '@/utils/path';
 
 const TABLE_HEADER = ['ID', '학과', '제목', '작성일'];
 
 const NoticePage = () => {
+  const { me } = useFetchMe();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedNotice, setSelectedNotice] = useState<number | null>(null);
@@ -35,6 +37,8 @@ const NoticePage = () => {
   const selectedNoticeData = selectedNotice
     ? sortedNotices.find((notice: NoticeResponse) => notice.id === selectedNotice)
     : null;
+
+  const isUserMode = me && me.is_usermode;
 
   return (
     <PageTemplate>
@@ -62,9 +66,11 @@ const NoticePage = () => {
             />
           </>
         )}
-        <Button variant='contained' onClick={() => navigate(PATH.CREATE_NOTICE)}>
-          공지사항 작성하기
-        </Button>
+        {isUserMode && (
+          <Button variant='contained' onClick={() => navigate(PATH.CREATE_NOTICE)}>
+            공지사항 작성하기
+          </Button>
+        )}
         <Modal
           onClose={handleCloseModal}
           title={`Notice Detail [${selectedNotice}]`}

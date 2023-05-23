@@ -1,8 +1,8 @@
 export interface NoticeRequest {
   title: string;
   content: string;
-  major: number;
-  writer: number;
+  major?: number;
+  writer?: number;
 }
 
 export interface NoticeResponse {

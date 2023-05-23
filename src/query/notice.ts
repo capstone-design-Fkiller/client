@@ -1,7 +1,10 @@
 import { useMutation, useQuery } from 'react-query';
 
 import { getNotice, postNotice } from '@/api/notice';
+import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
+import { useFetchMe } from '@/query/user';
+import { NoticeRequest } from '@/types/notice';
 
 export const useFetchNotice = () => {
   const { createToastMessage } = useToast();
@@ -17,26 +20,30 @@ export const useFetchNotice = () => {
 
 export const useCreateNotice = () => {
   const { createToastMessage } = useToast();
+  const { me } = useFetchMe();
+  const { refetch } = useQuery('notices', getNotice);
 
-  const createNoticeMutation = useMutation((notice) => postNotice(notice), {
+  const createNoticeMutation = useMutation(postNotice, {
     onSuccess: () => {
       createToastMessage('공지사항 등록 완료!', 'success');
+      refetch();
     },
-    
-    onError: () => {
-      createToastMessage('다시 시도해주세요.', 'error');
-    },
+    onError: () => createToastMessage('다시 시도해주세요.', 'error'),
   });
 
-  const createNotice = async (notice) => {
-    try {
-      await createNoticeMutation.mutateAsync(notice);
-      createToastMessage('공지사항 등록 완료!', 'success');
-
-    } catch (error) {
-      console.error('공지사항 등록 오류:', error);
-      createToastMessage('다시 시도해주세요.', 'error');
+  const createNotice = async (notice: NoticeRequest) => {
+    if (!me || !me.id || !me.major) {
+      createToastMessage('로그인이 필요합니다.', 'error');
+      return;
     }
+
+    const noticeWithUserInfo: NoticeRequest = {
+      ...notice,
+      major: MAJOR[me.major] as number,
+      writer: me.id as number,
+    };
+
+    await createNoticeMutation.mutateAsync(noticeWithUserInfo);
   };
 
   return { createNotice };
