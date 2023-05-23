@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 
-import { getMe, postLogin } from '@/api/user';
+import { postLogin } from '@/api/user';
 import useToast from '@/hooks/useToast';
-import { LoginRequest, LoginResponse, UserResponse } from '@/types/user';
-
-const QUERY_KEY = {
-  user: 'user',
-};
+import { LoginRequest, LoginResponse } from '@/types/user';
 
 export const useLogin = () => {
   const { createToastMessage } = useToast();
@@ -33,27 +29,14 @@ export const useLogin = () => {
 
 
 export const useFetchMe = () => {
-  const storedData = localStorage.getItem('user');
-  const [me, setMe] = useState<UserResponse | undefined>(undefined);
+  const [me, setMe] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!storedData) {
-      setMe(undefined);
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const parsedData = JSON.parse(storedData);
-      setMe(parsedData);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Failed to parse user data from localStorage:', error);
-      setMe(undefined);
-      setIsLoading(false);
-    }
-  }, [storedData]);
+    const data = JSON.parse(localStorage.getItem('user') as string);
+    setMe(data);
+    setIsLoading(false);
+  }, []);
 
   return { me, isLoading };
 };

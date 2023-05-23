@@ -1,6 +1,6 @@
 import { instance } from './instance';
 
-import { UserResponse, LoginRequest, LoginResponse } from '@/types/user';
+import { LoginRequest, LoginResponse } from '@/types/user';
 
 export const getMe = async () => {
   // // const { data } = await instance.get<UserResponse>('login/');
