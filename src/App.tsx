@@ -45,6 +45,7 @@ function App() {
         <Routes>
           <Route element={<PublicRoute />}>
             <Route path={PATH.LOGIN} element={<LoginPage />} />
+            <Route path={PATH.NOTICE} element={<NoticePage />} />
           </Route>
           <Route element={<PrivateRoute />}>
             <Route path={PATH.MAIN} element={<MainPage />} />
