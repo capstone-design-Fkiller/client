@@ -1,6 +1,6 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
-import { getNotice } from '@/api/notice';
+import { getNotice, postNotice } from '@/api/notice';
 import useToast from '@/hooks/useToast';
 
 export const useFetchNotice = () => {
@@ -13,4 +13,31 @@ export const useFetchNotice = () => {
   });
 
   return { data: notices, isLoading };
+};
+
+export const useCreateNotice = () => {
+  const { createToastMessage } = useToast();
+
+  const createNoticeMutation = useMutation((notice) => postNotice(notice), {
+    onSuccess: () => {
+      createToastMessage('공지사항 등록 완료!', 'success');
+    },
+    
+    onError: () => {
+      createToastMessage('다시 시도해주세요.', 'error');
+    },
+  });
+
+  const createNotice = async (notice) => {
+    try {
+      await createNoticeMutation.mutateAsync(notice);
+      createToastMessage('공지사항 등록 완료!', 'success');
+
+    } catch (error) {
+      console.error('공지사항 등록 오류:', error);
+      createToastMessage('다시 시도해주세요.', 'error');
+    }
+  };
+
+  return { createNotice };
 };
