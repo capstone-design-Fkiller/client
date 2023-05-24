@@ -6,4 +6,5 @@ export const PATH = {
   APPLY: '/locker/apply',
   SHARE: '/locker/share',
   USER_SHARE: '/user/share',
+  CRITERIA: '/admin/criteria',
 };
