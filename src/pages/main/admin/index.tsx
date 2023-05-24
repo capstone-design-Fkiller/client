@@ -16,15 +16,15 @@ const MainPage = () => {
     <PageTemplate>
       <Styled.Root>
         {me ? (
-          <>
-            <Button variant='contained' onClick={() => navigate(PATH.APPLY)}>
+          <Styled.Button>
+            <Button variant='contained' onClick={() => navigate(PATH.CRITERIA)}>
               사물함 신청 설정
             </Button>
             <Button variant='contained' onClick={() => navigate(PATH.APPLY)}>
               사물함 배정하기
             </Button>
             {/* 통학거리, 재학여부 */}
-          </>
+          </Styled.Button>
         ) : (
           <Loader />
         )}
