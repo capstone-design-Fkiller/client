@@ -3,7 +3,7 @@ import { instance } from './instance';
 import { LoginRequest, LoginResponse, UserResponse } from '@/types/user';
 
 export const getMe = async () => {
-  const { data } = await instance.get<UserResponse>('login/', { withCredentials: true });
+  const { data } = await instance.get<UserResponse>('login/');
 
   return data;
 };
