@@ -83,6 +83,7 @@ const LoginedHeader = (headerProps: props) => {
                 // index 1인 메시지가 알림 제목 뒤로 가서 보이지 않는 문제가 있다.
                 <Styled.AlertModalListItems key={alert.id}>
                   <p>{alert.message}</p>
+                  <p>{alert.major.slice(0, -2)}관리자</p>
                   <p>{formatDate(alert.created_at)}</p>
                 </Styled.AlertModalListItems>
               ))
