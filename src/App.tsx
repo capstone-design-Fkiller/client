@@ -74,7 +74,13 @@ const PrivateRoute = () => {
 };
 
 const PublicRoute = () => {
-  const { me } = useFetchMe();
+  const { me, isLoading } = useFetchMe();
 
-  return me ? <Navigate to={PATH.MAIN} replace /> : <Outlet />;
+  return me ? (
+    <CustomSuspense isLoading={isLoading} fallback={<Loader />}>
+      <Navigate to={PATH.MAIN} replace />
+    </CustomSuspense>
+  ) : (
+    <Outlet />
+  );
 };
