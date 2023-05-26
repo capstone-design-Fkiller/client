@@ -30,8 +30,9 @@ const ApplyPage = () => {
 
   if (!me) {
     createToastMessage('로그인을 다시 해주세요!', 'error');
+    navigate(PATH.LOGIN);
 
-    return navigate(PATH.LOGIN);
+    return <div />;
   }
 
   const [structure, setStructure] = useState<string>('건물');
