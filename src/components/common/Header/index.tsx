@@ -26,19 +26,9 @@ const Header = () => {
     setAlertOpen(!alertOpen);
   };
 
-  const handleLogout = () => {
-    // 로컬 스토리지에서 유저 정보 삭제
-    localStorage.removeItem('user');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('access_token');
-
-    window.location.reload();
-  };
-
   return (
     <Styled.Root>
       <Styled.Logo to={PATH.MAIN}>HUFS LOCKER</Styled.Logo>
-      <h1 onClick={handleLogout}>로그아웃</h1>
       <Styled.HeaderIconsArrange>
         <Icon iconName='email' size='32' onClick={handleAlertOpen} />
         <Link to={PATH.LOGIN}>

@@ -5,15 +5,16 @@ import * as Styled from './style';
 
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
-import { useCreateNotice } from '@/query/notice';
+import { useCreateNoticeMutation } from '@/query/notice';
 import { NoticeRequest } from '@/types/notice';
 import { PATH } from '@/utils/path';
 
 const CreateNoticePage = () => {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const { createNotice } = useCreateNotice();
-  const navigate = useNavigate();
+  const { mutate: createNoticeMutate } = useCreateNoticeMutation();
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -23,13 +24,8 @@ const CreateNoticePage = () => {
     setContent(event.target.value);
   };
 
-  const handleSubmit = async () => {
-    const notice: NoticeRequest = {
-      title,
-      content,
-    };
-
-    await createNotice(notice);
+  const handleSubmit = () => {
+    createNoticeMutate({ title, content });
     navigate(PATH.NOTICE);
   };
 

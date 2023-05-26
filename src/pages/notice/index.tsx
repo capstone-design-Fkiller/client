@@ -19,6 +19,7 @@ const TABLE_HEADER = ['ID', '학과', '제목', '작성일'];
 
 const NoticePage = () => {
   const { me } = useFetchMe();
+  console.log(me);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedNotice, setSelectedNotice] = useState<number | null>(null);
@@ -37,8 +38,6 @@ const NoticePage = () => {
   const selectedNoticeData = selectedNotice
     ? sortedNotices.find((notice: NoticeResponse) => notice.id === selectedNotice)
     : null;
-
-  const isUserMode = me && me.is_usermode;
 
   return (
     <PageTemplate>
@@ -66,26 +65,26 @@ const NoticePage = () => {
             />
           </>
         )}
-        {isUserMode && (
+        {me?.is_usermode || (
           <Button variant='contained' onClick={() => navigate(PATH.CREATE_NOTICE)}>
             공지사항 작성하기
           </Button>
         )}
-        <Modal
-          onClose={handleCloseModal}
-          title={`Notice Detail [${selectedNotice}]`}
-          open={!!selectedNotice}
-        >
-          <Styled.ModalHeader>
-            <Styled.ModalTitle>
-              {selectedNoticeData && `${selectedNoticeData.id}. ${selectedNoticeData.title}`}
-            </Styled.ModalTitle>
-          </Styled.ModalHeader>
-          <Styled.ModalContent>
-            {selectedNoticeData && selectedNoticeData.content}
-          </Styled.ModalContent>
-        </Modal>
       </Styled.Root>
+      <Modal
+        onClose={handleCloseModal}
+        title={`Notice Detail [${selectedNotice}]`}
+        open={!!selectedNotice}
+      >
+        <Styled.ModalHeader>
+          <Styled.ModalTitle>
+            {selectedNoticeData && `${selectedNoticeData.id}. ${selectedNoticeData.title}`}
+          </Styled.ModalTitle>
+        </Styled.ModalHeader>
+        <Styled.ModalContent>
+          {selectedNoticeData && selectedNoticeData.content}
+        </Styled.ModalContent>
+      </Modal>
     </PageTemplate>
   );
 };

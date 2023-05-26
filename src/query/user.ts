@@ -1,8 +1,13 @@
 import { useMutation, useQuery } from 'react-query';
 
-import { postLogin } from '@/api/user';
+import { instance } from '@/api/instance';
+import { postLogin as postLogin, getMe } from '@/api/user';
 import useToast from '@/hooks/useToast';
-import { LoginRequest, LoginResponse } from '@/types/user';
+import { LoginRequest, UserResponse } from '@/types/user';
+
+const QUERY_KEY = {
+  user: 'user',
+};
 
 export const useLogin = () => {
   const { createToastMessage } = useToast();
@@ -15,19 +20,15 @@ export const useLogin = () => {
 
       instance.defaults.headers['Authorization'] = `Bearer ${JSON.stringify(access_token)}`;
 
-      // 로컬 스토리지에 정보 저장
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('refresh_token', refresh_token);
-      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('refresh_token', JSON.stringify(refresh_token));
+      localStorage.setItem('access_token', JSON.stringify(access_token));
     },
     onError: () => {
       createToastMessage('아이디와 비밀번호를 확인해주세요!', 'error');
     },
   });
-
   return mutation;
 };
-
 
 export const useFetchMe = () => {
   const { data, isLoading, isError } = useQuery<UserResponse>([QUERY_KEY.user], getMe, {
@@ -39,4 +40,3 @@ export const useFetchMe = () => {
 
   return { me: isError ? undefined : data, isLoading };
 };
-

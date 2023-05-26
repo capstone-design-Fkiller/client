@@ -8,7 +8,8 @@ export const getMe = async () => {
   return data;
 };
 
-export const postLogin = async (type: LoginRequest): Promise<LoginResponse> => {
-  const { data } = await instance.post<LoginResponse>('login/', type);
+export const postLogin = async (type: LoginRequest) => {
+  const data = await instance.post<LoginResponse>('login/', type);
+
   return data;
 };
