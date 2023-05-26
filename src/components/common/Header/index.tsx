@@ -1,12 +1,8 @@
-import { Button } from '@mui/material';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
+import LoginedHeader from './logined';
 import * as Styled from './style';
 
-import Icon from '@/components/common/Icon';
-import Modal from '@/components/common/Modal';
-import { useFetchAlerts, usePostAlert } from '@/query/alert';
+import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
 // const alerts = [
@@ -22,49 +18,13 @@ import { PATH } from '@/utils/path';
 // ];
 
 const Header = () => {
-  const [alertOpen, setAlertOpen] = useState(false);
-
-  const handleAlertOpen = () => {
-    setAlertOpen(!alertOpen);
-  };
-  const { mutate } = usePostAlert();
-
-  const onSubmit = () => {
-    mutate(
-      { message: 'ㄱㄱㄱ', major: 17, sender: 201801910, receiver: 201801910 }, // 알람 보낼 때 여기 값 채워주면 된다.
-      {
-        // onSuccess: () => navigate(PATH.MAIN),
-      }
-    );
-  };
-  const alerts = useFetchAlerts(201801910); // 내 아이디 가져와서 내 알람 가져오기
-  const { data, isLoading } = alerts;
+  const user = useFetchMe();
+  const { me, isLoading } = user;
 
   return (
     <Styled.Root>
       <Styled.Logo to={PATH.MAIN}>HUFS LOCKER</Styled.Logo>
-      <Styled.HeaderIconsArrange>
-        <Icon iconName='email' size='32' onClick={handleAlertOpen} />
-        <Link to={PATH.PROFILE}>
-          <Icon iconName='user' size='32' />
-        </Link>
-      </Styled.HeaderIconsArrange>
-      {isLoading ? (
-        ''
-      ) : (
-        <Modal title='알림' open={alertOpen} onClose={handleAlertOpen}>
-          <Styled.AlertModalTitle>알림</Styled.AlertModalTitle>
-          <Styled.ModalBody>
-            {data?.alerts.map(alert => (
-              // index 1인 메시지가 알림 제목 뒤로 가서 보이지 않는 문제가 있다.
-              <Styled.AlertModalListItems key={alert.id}>
-                {alert.message}
-              </Styled.AlertModalListItems>
-            ))}
-            <Button onClick={onSubmit}>알람보내기</Button>
-          </Styled.ModalBody>
-        </Modal>
-      )}
+      {me ? <LoginedHeader me={me} /> : undefined}
     </Styled.Root>
   );
 };

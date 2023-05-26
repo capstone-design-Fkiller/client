@@ -46,13 +46,12 @@ function App() {
           <Route element={<PublicRoute />}>
             <Route path={PATH.LOGIN} element={<LoginPage />} />
           </Route>
-          {/* NOTICE를 여기로 옮김. 퍼블릭에 넣으면 프라이빗 MAIN에 있을 때 NOTICE로 넘어가지를 못함.*/}
-          <Route path={PATH.NOTICE} element={<NoticePage />} />
           <Route element={<PrivateRoute />}>
             <Route path={PATH.MAIN} element={<MainPage />} />
             <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
             <Route path={PATH.APPLY} element={<ApplyPage />} />
             <Route path={PATH.SHARE} element={<SharePage />} />
+            <Route path={PATH.NOTICE} element={<NoticePage />} />
             <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
             <Route path={PATH.PROFILE} element={<ProfilePage />} />
           </Route>
