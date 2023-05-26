@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from 'react-query';
 
-import { getLockerCounts, getApplicant, getLockerInfo, postApplyLocker, getMajorLocker, deleteMajorLocker } from '@/api/locker';
+import { getLockerCounts, getApplicant, getLockerInfo, postApplyLocker } from '@/api/locker';
 import useToast from '@/hooks/useToast';
 import { LockerRequest, RequestApplyLocker } from '@/types/locker';
 
@@ -69,17 +69,3 @@ export const useApplyLockerMutation = () => {
 
 //   return mutation;
 // };
-
-// 배정 결과 가져오는 api 생기면 수정 예정
-export const useFetchResult = (major: number) => {
-  const { data } = useQuery([QUERY_KEY.locker, major], () => getMajorLocker(major));
-  const lockerData = data || null;
-  return { locker: lockerData };
-};
-
-// 배정 결과 삭제하는 api 생기면 수정 예정
-export const deleteResult = async (id: number) => {
-  if (id !== null) {
-    await deleteMajorLocker(id);
-  }
-};

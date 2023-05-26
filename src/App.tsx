@@ -13,7 +13,7 @@ const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
-const ResultPage = lazy(() => import('@/pages/result'));
+const SortPage = lazy(() => import('@/pages/sort'));
 const UserSharePage = lazy(() => import('@/pages/profile/register-share'));
 
 function setScreenSize() {
@@ -52,7 +52,7 @@ function App() {
             <Route path={PATH.APPLY} element={<ApplyPage />} />
             <Route path={PATH.SHARE} element={<SharePage />} />
             <Route path={PATH.NOTICE} element={<NoticePage />} />
-            <Route path={PATH.RESULT} element={<ResultPage />} />
+            <Route path={PATH.SORT} element={<SortPage />} />
             <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
           </Route>
         </Routes>
@@ -76,7 +76,13 @@ const PrivateRoute = () => {
 };
 
 const PublicRoute = () => {
-  const { me } = useFetchMe();
+  const { me, isLoading } = useFetchMe();
 
-  return me ? <Navigate to={PATH.MAIN} replace /> : <Outlet />;
+  return me ? (
+    <CustomSuspense isLoading={isLoading} fallback={<Loader />}>
+      <Navigate to={PATH.MAIN} replace />
+    </CustomSuspense>
+  ) : (
+    <Outlet />
+  );
 };
