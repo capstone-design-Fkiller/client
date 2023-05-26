@@ -74,14 +74,20 @@ const LoginedHeader = (headerProps: props) => {
         <Modal title='알림' open={alertOpen} onClose={handleAlertOpen}>
           <Styled.AlertModalTitle>알림</Styled.AlertModalTitle>
           <Styled.ModalBody>
-            {data?.alerts.map(alert => (
-              // index 1인 메시지가 알림 제목 뒤로 가서 보이지 않는 문제가 있다.
-              <Styled.AlertModalListItems key={alert.id}>
-                <p>{alert.message}</p>
-                <p>{formatDate(alert.created_at)}</p>
-              </Styled.AlertModalListItems>
-            ))}
-            <Button onClick={onSubmit}>알림 보내기</Button>
+            {data?.alerts?.length ?? 0 > 0 ? (
+              data?.alerts.map(alert => (
+                // index 1인 메시지가 알림 제목 뒤로 가서 보이지 않는 문제가 있다.
+                <Styled.AlertModalListItems key={alert.id}>
+                  <p>{alert.message}</p>
+                  <p>{formatDate(alert.created_at)}</p>
+                </Styled.AlertModalListItems>
+              ))
+            ) : (
+              // 알림 없으면 알림 없음 추가. 스타일 적용 필요
+              <p>알림이 없습니다.</p>
+            )}
+            {/* 관리자이면 보내기가 가능 */}
+            {!me.is_usermode ? <Button onClick={onSubmit}>알림 보내기</Button> : undefined}
           </Styled.ModalBody>
         </Modal>
       )}
