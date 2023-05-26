@@ -73,6 +73,7 @@ const LoginedHeader = (headerProps: props) => {
       ) : (
         <Modal title='알림' open={alertOpen} onClose={handleAlertOpen}>
           <Styled.AlertModalTitle>알림</Styled.AlertModalTitle>
+          <Button onClick={handleAlertOpen}>닫기</Button>
           <Styled.ModalBody>
             {data?.alerts?.length ?? 0 > 0 ? (
               data?.alerts.map(alert => (

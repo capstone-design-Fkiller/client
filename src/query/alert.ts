@@ -25,14 +25,12 @@ export const usePostAlert = () => {
 };
 
 export const useFetchAlerts = (id: number) => {
-  const { data, isLoading, isError } = useQuery([QUERY_KEY.alert, id], () => getMyAlerts(id), {
+  const { data, isLoading, isError } = useQuery([QUERY_KEY.alert], () => getMyAlerts(id), {
     suspense: false,
     refetchOnWindowFocus: false,
     staleTime: 10000,
     useErrorBoundary: false,
   });
-
-  console.log(data, '알림 오는지 체크');
 
   return { data: isError ? undefined : data, isLoading };
 };
