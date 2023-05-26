@@ -1,4 +1,5 @@
 import { MouseEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
@@ -17,20 +18,31 @@ import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
 import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { RequestApplyLocker } from '@/types/locker';
+import { PATH } from '@/utils/path';
 
 const ApplyPage = () => {
+  const { me } = useFetchMe();
+
+  const { open, handleOpen } = useModal();
+  const { createToastMessage } = useToast();
+
+  const navigate = useNavigate();
+
+  if (!me) {
+    createToastMessage('로그인을 다시 해주세요!', 'error');
+
+    return navigate(PATH.LOGIN);
+  }
+
   const [structure, setStructure] = useState<string>('건물');
   const { value, handleValue } = useInput<
     Pick<RequestApplyLocker, 'priority_first' | 'priority_second' | 'priority_third'>
   >({});
-  const { me } = useFetchMe();
   const { mutate } = useApplyLockerMutation();
 
   const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
-  const { open, handleOpen } = useModal();
-  const { createToastMessage } = useToast();
 
   const {
     data: { apply, lockerCounts },
@@ -77,7 +89,7 @@ const ApplyPage = () => {
             me={me}
             value={structure}
             total={lockerCounts ? lockerCounts.length : undefined}
-            applyCount={apply.length}
+            applyCount={apply ? apply.length : undefined}
           />
           <Styled.InformBox>
             <Select
