@@ -18,7 +18,7 @@ const ProfilePage = () => {
   const handleLogout = () => {
     localStorage.clear();
     queryClient.removeQueries('user');
-    instance.defaults.headers.Authorization = '';
+    instance.defaults.headers.Authorization = null;
     navigate(PATH.LOGIN);
   };
 
