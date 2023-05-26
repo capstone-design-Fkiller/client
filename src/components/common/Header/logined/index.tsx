@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import { useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 
 import * as Styled from './style';
@@ -30,6 +31,7 @@ interface props {
 const LoginedHeader = (headerProps: props) => {
   const { me } = headerProps;
   const [alertOpen, setAlertOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   // FETCH 기능
   const alerts = useFetchAlerts(me.id); // 내 아이디 가져와서 내 알람 가져오기
@@ -48,6 +50,7 @@ const LoginedHeader = (headerProps: props) => {
 
   const handleAlertOpen = () => {
     setAlertOpen(!alertOpen);
+    if (!alertOpen) queryClient.refetchQueries('alert'); // 열 때만 서버에서 refetch
   };
 
   const formatDate = (createdDate: string) => {

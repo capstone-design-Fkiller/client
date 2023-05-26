@@ -17,17 +17,16 @@ const ProfilePage = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    queryClient.removeQueries('user'); // 쿼리에서 'user'에 저장되어 있는 값 삭제
+    queryClient.removeQueries('user');
     instance.defaults.headers.Authorization = '';
-    navigate(PATH.LOGIN); // me를 못지워서 main으로 이동한다.
-    // navigate(PATH.LOGIN, { state: { me: undefined } }); // me를 전달해야할까?
-    // window.location.replace('/client' + PATH.LOGIN); // 새로 고침 시켜버림,,
+    navigate(PATH.LOGIN);
   };
 
   return (
     <PageTemplate>
       <Styled.Root>
         <Styled.Title>내 프로필</Styled.Title>
+        {/* 내 프로필이니까 조금 더 디테일 한 정보를 주자 */}
         <p>이름 : {me?.name}</p>
         <p>학과 : {me?.major}</p>
         <p>학번 : {me?.id}</p>
