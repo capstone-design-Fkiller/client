@@ -65,11 +65,20 @@ export const useApplyLockerMutation = () => {
 
 // ! Share Api 구현되면 추가
 export const useFetchSharableLockers = (id: number) => {
-  const { data } = useQuery([QUERY_KEY.locker, QUERY_KEY.share, 'sharable-lockers', id], {
-    enabled: !!id,
-  });
+  const { data, isLoading } = useQuery(
+    [QUERY_KEY.locker, QUERY_KEY.share, 'sharable-lockers', id],
+    () => getShareableLockers(id),
+    {
+      enabled: !!id,
+      onSuccess: res => {
+        const now = new Date();
 
-  return data;
+        return res.filter(({ end_date }) => end_date && new Date(end_date) > now);
+      },
+    }
+  );
+
+  return { sharableLockers: data, isLoading };
 };
 
 export const useConvertShareMutation = () => {

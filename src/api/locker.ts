@@ -52,7 +52,7 @@ export const putShare = async (body: ShareRequest) => {
 };
 
 export const getShareableLockers = async (id: number) => {
-  const { data } = await instance.get(
+  const { data } = await axios.get<LockerResponse[]>(
     `http://127.0.0.1:8000/locker?major=${id}&is_share_registered=True`
   );
 
