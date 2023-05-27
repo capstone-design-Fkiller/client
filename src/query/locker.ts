@@ -1,12 +1,19 @@
 import { useMutation, useQuery } from 'react-query';
 
-import { getLockerCounts, getApplicant, getLockerInfo, postApplyLocker } from '@/api/locker';
+import {
+  getApplicant,
+  getLockerCounts,
+  getLockerInfo,
+  getMyLocker,
+  postApplyLocker
+} from '@/api/locker';
 import useToast from '@/hooks/useToast';
-import { LockerRequest, RequestApplyLocker } from '@/types/locker';
+import { LockerRequest, LockerResponse, RequestApplyLocker } from '@/types/locker';
 
 const QUERY_KEY = {
   apply: 'apply',
   locker: 'locker',
+  myLocker: 'myLocker',
 };
 
 export const useFetchApplicant = (props: LockerRequest) => {
@@ -52,6 +59,12 @@ export const useApplyLockerMutation = () => {
   });
 
   return mutation;
+};
+
+export const useFetchMyLocker = (id: number) => {
+  const { data } = useQuery<LockerResponse[]>([QUERY_KEY.myLocker], () => getMyLocker(id));
+
+  return { data };
 };
 
 // ! Share Api 구현되면 추가

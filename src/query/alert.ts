@@ -2,7 +2,7 @@ import { useMutation, useQuery } from 'react-query';
 
 import { getMyAlerts, postAlert } from '@/api/alert';
 import useToast from '@/hooks/useToast';
-import { alertRequest, alertResponse } from '@/types/alert';
+import { alertRequest } from '@/types/alert';
 
 const QUERY_KEY = {
   alert: 'alert',
