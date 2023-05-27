@@ -14,12 +14,13 @@ interface Navigator {
 }
 
 const BottomNavigation = () => {
+  const { me } = useFetchMe();
 
   const navigator: Navigator[] = [
     {
       label: '사물함',
       iconName: 'box',
-      path: PATH.RESULT,
+      path: me?.is_usermode ? PATH.LOCKER : PATH.SORT,
     },
     {
       label: '홈',

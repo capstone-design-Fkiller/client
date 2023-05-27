@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <Styled.Root>
-      <Styled.Logo to={PATH.RESULT}>HUFS LOCKER</Styled.Logo>
+      <Styled.Logo to={PATH.MAIN}>HUFS LOCKER</Styled.Logo>
       <Styled.HeaderIconsArrange>
         <Icon iconName='email' size='32' onClick={handleAlertOpen} />
         <Link to={PATH.LOGIN}>
