@@ -1,12 +1,21 @@
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { getLockerCounts, getApplicant, getLockerInfo, postApplyLocker } from '@/api/locker';
+import {
+  getLockerCounts,
+  getApplicant,
+  getLockerInfo,
+  postApplyLocker,
+  getShareableLockers,
+  ShareRequest,
+  putShare,
+} from '@/api/locker';
 import useToast from '@/hooks/useToast';
 import { LockerRequest, RequestApplyLocker } from '@/types/locker';
 
 const QUERY_KEY = {
   apply: 'apply',
   locker: 'locker',
+  share: 'share',
 };
 
 export const useFetchApplicant = (props: LockerRequest) => {
@@ -16,21 +25,19 @@ export const useFetchApplicant = (props: LockerRequest) => {
     [QUERY_KEY.locker, 'locker-counts', ...additionalKeys],
     () => getLockerCounts(props),
     {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
+      enabled: !!props.building_id && !!props.major,
     }
   );
 
-  const { data: apply, refetch } = useQuery(
+  const { data: apply } = useQuery(
     [QUERY_KEY.apply, 'applicant', ...additionalKeys],
     () => getApplicant(props),
     {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
+      enabled: !!props.building_id && !!props.major,
     }
   );
 
-  return { data: { apply, lockerCounts }, refetch };
+  return { data: { apply, lockerCounts } };
 };
 
 export const useFetchLockerInfo = (id: number) => {
@@ -40,11 +47,13 @@ export const useFetchLockerInfo = (id: number) => {
 };
 
 export const useApplyLockerMutation = () => {
+  const queryClient = useQueryClient();
   const { createToastMessage } = useToast();
 
   const mutation = useMutation((body: RequestApplyLocker) => postApplyLocker(body), {
-    onSuccess: () => {
+    onSuccess: ({ major, building_id }) => {
       createToastMessage('신청 완료 !', 'success');
+      queryClient.invalidateQueries([QUERY_KEY.apply, 'applicant', major, building_id]);
     },
     onError: () => {
       createToastMessage('다시 시도해주세요.', 'error');
@@ -55,17 +64,20 @@ export const useApplyLockerMutation = () => {
 };
 
 // ! Share Api 구현되면 추가
-// export const useShareLockerMutation = () => {
-//   const { createToastMessage } = useToast();
+export const useFetchSharableLockers = (id: number) => {
+  const { data } = useQuery([QUERY_KEY.locker, QUERY_KEY.share, 'sharable-lockers', id], {
+    enabled: !!id,
+  });
 
-//   const mutation = useMutation(body => postShareLocker(body), {
-//     onSuccess: () => {
-//       createToastMessage('사물함 쉐어 신청에 성공했습니다.', 'success');
-//     },
-//     onError: () => {
-//       createToastMessage('다시 시도해주세요.', 'error');
-//     },
-//   });
+  return data;
+};
 
-//   return mutation;
-// };
+export const useConvertShareMutation = () => {
+  const { createToastMessage } = useToast();
+  const mutation = useMutation((body: ShareRequest) => putShare(body), {
+    onSuccess: () => createToastMessage('쉐어 신청 완료 !', 'success'),
+    onError: () => createToastMessage('다시 시도해주세요.', 'error'),
+  });
+
+  return mutation;
+};

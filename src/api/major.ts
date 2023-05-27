@@ -5,19 +5,15 @@ export interface MajorResponse {
   apply_start_date: Date | null;
   id: number;
   name: string;
-  priority_first: string | null;
-  priority_second: string | null;
-  priority_third: string | null;
+  priority_1: string | null;
+  priority_2: string | null;
+  priority_3: string | null;
 }
 
-export type MajorPriorityResponse = Pick<
-  MajorResponse,
-  'priority_first' | 'priority_second' | 'priority_third'
->;
+export type MajorPriorityResponse = Pick<MajorResponse, 'priority_1' | 'priority_2' | 'priority_3'>;
 
 export const getMajor = async (params: number) => {
-  const url = `/major/${params}`;
-  const { data } = await instance.get<MajorResponse>(url);
+  const { data } = await instance.get<MajorResponse>(`major/${params}`);
 
   return data;
 };
