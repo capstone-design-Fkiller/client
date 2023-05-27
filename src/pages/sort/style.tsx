@@ -40,11 +40,11 @@ export const TableContainer = styled.table`
   }
 `;
 
-// export const Message = styled.h1`
-//   display: flex;
-//   font-size: 18px;
-//   justify-content: center;
-// `;
+export const Message = styled.h1`
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
+`;
 
 export const ModalContent = styled.div`
   display: flex;

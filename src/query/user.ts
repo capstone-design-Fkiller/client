@@ -12,10 +12,10 @@ const QUERY_KEY = {
 export const useLogin = () => {
   const { createToastMessage } = useToast();
   const mutation = useMutation((body: LoginRequest) => postLogin(body), {
-    onSuccess: ({ data }) => {
+    onSuccess: res => {
       createToastMessage('로그인에 성공했습니다.', 'success');
 
-      const { refresh_token, access_token } = data;
+      const { refresh_token, access_token } = res;
 
       instance.defaults.headers['Authorization'] = `Bearer ${JSON.stringify(access_token)}`;
 

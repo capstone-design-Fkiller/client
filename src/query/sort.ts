@@ -16,7 +16,7 @@ export const useFetchSort = (major: number) => {
   return { data: lockers, isLoading };
 };
 
-export const useSortResult = () => {
+export const useLockerAssignMutation = () => {
   const { createToastMessage } = useToast();
   const mutation = useMutation(
     ({ major, sortResult }: { major: number; sortResult: SortRequest }) =>
