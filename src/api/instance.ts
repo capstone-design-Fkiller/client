@@ -11,3 +11,9 @@ export const instance = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// instance.interceptors.request.use(config => {
+//   config.headers.Authorization = '';
+
+//   return config;
+// });
