@@ -6,10 +6,9 @@ import * as Styled from './style';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import { useCreateNoticeMutation } from '@/query/notice';
-import { NoticeRequest } from '@/types/notice';
 import { PATH } from '@/utils/path';
 
-const CreateNoticePage = () => {
+const NoticeCreatePage = () => {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
@@ -26,7 +25,7 @@ const CreateNoticePage = () => {
 
   const handleSubmit = () => {
     createNoticeMutate({ title, content });
-    navigate(PATH.NOTICE);
+    navigate(PATH.NOTICE_MANAGE);
   };
 
   return (
@@ -50,12 +49,17 @@ const CreateNoticePage = () => {
             placeholder='내용을 작성해주세요.'
           />
         </Styled.Container>
-        <Button variant='contained' onClick={handleSubmit}>
-          확인
-        </Button>
+        <Styled.ButtonContainer>
+          <Button variant='contained' onClick={handleSubmit}>
+            등록
+          </Button>
+          <Button variant='outlined' onClick={() => navigate(PATH.NOTICE_MANAGE)}>
+            취소
+          </Button>
+        </Styled.ButtonContainer>
       </Styled.Root>
     </PageTemplate>
   );
 };
 
-export default CreateNoticePage;
+export default NoticeCreatePage;

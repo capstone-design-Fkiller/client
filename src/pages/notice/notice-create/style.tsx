@@ -55,3 +55,10 @@ export const Textarea = styled.textarea`
   border: 1px solid ${({ theme }) => theme.colors.light_grey_100};
   border-radius: 5px;
 `;
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+`

@@ -12,3 +12,15 @@ export const getNotice = async () => {
 
   return data;
 };
+
+export const getMajorNotice = async (major: number) => {
+  const { data } = await instance.get<NoticeResponse[]>(`notice/?major=${major}`);
+
+  return data;
+};
+
+export const delNotice = async (id: number) => {
+  const { data } = await instance.delete(`notice/${id}`);
+
+  return data;
+};

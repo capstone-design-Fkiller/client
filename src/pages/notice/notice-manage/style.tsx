@@ -60,3 +60,9 @@ export const ModalContent = styled.div`
   margin-top: 20px;
   line-height: 1.4;
 `;
+
+export const ModalButtons = styled.div`
+  position: flex;
+  margin-top: 10px;
+  justify-content: flex-end;
+`;
