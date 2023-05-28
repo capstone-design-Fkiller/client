@@ -20,8 +20,10 @@ export const useLogin = () => {
       const { refresh_token, access_token } = res.data;
       // ! 임시로 등록해 둔 옵션, 추후 fetchMe api가 개발되면 제거할 예정
 
-      localStorage.setItem('refresh_token', JSON.stringify(refresh_token));
-      localStorage.setItem('access_token', JSON.stringify(access_token));
+      instance.defaults.headers['Authorization'] = `Bearer ${access_token}`;
+
+      localStorage.setItem('refresh_token', refresh_token);
+      localStorage.setItem('access_token', access_token);
     },
     onError: () => {
       createToastMessage('아이디와 비밀번호를 확인해주세요!', 'error');
@@ -32,15 +34,15 @@ export const useLogin = () => {
 };
 
 export const useFetchMe = () => {
-  // const { data, isLoading, isError } = useQuery<UserResponse>([QUERY_KEY.user], getMe);
+  const { data, isLoading, isError } = useQuery<UserResponse>([QUERY_KEY.user], getMe);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const data: UserResponse = JSON.parse(localStorage.getItem('access_token') as string);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const data: UserResponse = JSON.parse(localStorage.getItem('access_token') as string);
 
-  useEffect(() => {
-    if (data) setIsLoading(true);
-    else setIsLoading(false);
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) setIsLoading(true);
+  //   else setIsLoading(false);
+  // }, [data]);
 
-  return { me: data || undefined, isLoading };
+  return { me: isError ? undefined : data, isLoading };
 };
