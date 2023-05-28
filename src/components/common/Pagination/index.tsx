@@ -1,4 +1,4 @@
-import { MouseEvent, Dispatch, SetStateAction, useMemo } from 'react';
+import { MouseEvent, Dispatch, SetStateAction, useMemo, useEffect } from 'react';
 
 import * as Styled from './style';
 
@@ -17,6 +17,12 @@ const Pagination = (props: PaginationProps) => {
   const { currentPage, totalItems, itemsPerPage, setState } = props;
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setState(totalPages);
+    }
+  }, [currentPage, totalPages, setState]);
 
   const handleNextClick = () => {
     if (currentPage < totalPages) {
