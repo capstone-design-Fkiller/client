@@ -25,8 +25,7 @@ export interface RequestPriority extends MajorResponse {
 }
 
 export const getMajor = async (params: number) => {
-  const url = `/major/${params}`;
-  const { data } = await instance.get<MajorResponse>(url);
+  const { data } = await instance.get<MajorResponse>(`major/${params}`);
 
   return data;
 };

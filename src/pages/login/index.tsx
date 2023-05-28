@@ -11,22 +11,17 @@ import { PATH } from '@/utils/path';
 
 const USER_TYPE = {
   STUDENT: 'student',
-
   ADMIN: 'admin',
 };
-
 type LoginType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 
 function LoginPage() {
   const navigate = useNavigate();
-
   const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
 
   const { value: id, handleValue: handleId } = useInput<string>('');
-
   const { value: pw, handleValue: handlePw } = useInput<string>('');
-
-  const { mutate } = useLogin(); // 로그인 타입 변경 핸들러
+  const { mutate } = useLogin();
 
   const handleLoginType = (type: LoginType) => {
     setLoginType(type);
@@ -35,7 +30,6 @@ function LoginPage() {
   const onSubmit = () => {
     mutate(
       { is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw },
-
       {
         onSuccess: () => navigate(PATH.MAIN),
       }
@@ -85,7 +79,7 @@ function LoginPage() {
             onKeyDown={handleKeyboard}
           />
           <Button variant='contained' onClick={handleButton} css={Styled.ExtendedButton}>
-            LOGIN
+            로그인하기
           </Button>
         </Styled.FormContainer>
       </Styled.Root>

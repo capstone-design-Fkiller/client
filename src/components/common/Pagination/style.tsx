@@ -4,7 +4,7 @@ export const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin: 20px 0 15px;
 `;
 
 export const PageNumber = styled.span<{ isActive: boolean }>`

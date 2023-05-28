@@ -15,8 +15,8 @@ const Student = ({ user }: { user: UserResponse }) => {
       <Styled.InformBox>
         <span>이름: {name}</span>
         <span>학번: {id}</span>
-        <span>건물: {id}</span>
-        <span>사물함 번호: {name}</span>
+        <span>건물: 수정 필요</span>
+        <span>사물함 번호: 수정 필요</span>
       </Styled.InformBox>
     </Styled.Container>
   );

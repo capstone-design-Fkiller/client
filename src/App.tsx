@@ -8,11 +8,13 @@ import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
 const NoticePage = lazy(() => import('@/pages/notice'));
+const NoticeCreatePage = lazy(() => import('./pages/notice/notice-create'));
 const SharePage = lazy(() => import('@/pages/locker-mode/share'));
 const MainPage = lazy(() => import('@/pages/main/student'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
+const SortPage = lazy(() => import('@/pages/sort'));
 const UserSharePage = lazy(() => import('@/pages/profile/register-share'));
 const AdminCriteriaPage = lazy(() => import('@/pages/admin/criteria'));
 
@@ -43,14 +45,20 @@ function App() {
     <ToastProvider>
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path={PATH.LOGIN} element={<LoginPage />} />
-          <Route path={PATH.MAIN} element={<MainPage />} />
-          <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
-          <Route path={PATH.APPLY} element={<ApplyPage />} />
-          <Route path={PATH.SHARE} element={<SharePage />} />
-          <Route path={PATH.NOTICE} element={<NoticePage />} />
-          <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
-          <Route path={PATH.CRITERIA} element={<AdminCriteriaPage />} />
+          <Route element={<PublicRoute />}>
+            <Route path={PATH.LOGIN} element={<LoginPage />} />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path={PATH.MAIN} element={<MainPage />} />
+            <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
+            <Route path={PATH.APPLY} element={<ApplyPage />} />
+            <Route path={PATH.SHARE} element={<SharePage />} />
+            <Route path={PATH.NOTICE} element={<NoticePage />} />
+            <Route path={PATH.NOTICE_CREATE} element={<NoticeCreatePage />} />
+            <Route path={PATH.SORT} element={<SortPage />} />
+            <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
+            <Route path={PATH.CRITERIA} element={<AdminCriteriaPage />} />
+          </Route>
         </Routes>
       </Suspense>
     </ToastProvider>
@@ -72,7 +80,13 @@ const PrivateRoute = () => {
 };
 
 const PublicRoute = () => {
-  const { me } = useFetchMe();
+  const { me, isLoading } = useFetchMe();
 
-  return me ? <Navigate to={PATH.MAIN} replace /> : <Outlet />;
+  return me ? (
+    <CustomSuspense isLoading={isLoading} fallback={<Loader />}>
+      <Navigate to={PATH.MAIN} replace />
+    </CustomSuspense>
+  ) : (
+    <Outlet />
+  );
 };

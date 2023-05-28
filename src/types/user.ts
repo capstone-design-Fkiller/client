@@ -1,11 +1,8 @@
 export interface UserResponse {
   id: number;
+  name: string;
   major: string;
   password: string;
-  last_login: boolean;
-  is_superuser: boolean;
-  is_active: boolean;
-  name: string;
   penalty: boolean;
   penalty_start_date: Date | null;
   penalty_end_date: Date | null;
@@ -14,8 +11,6 @@ export interface UserResponse {
   is_adminable: boolean;
   is_valid: boolean;
   created_at: Date;
-  groups: number[];
-  user_permissions: string[];
 }
 
 export interface LoginRequest {
@@ -25,6 +20,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+  user: UserResponse;
   refresh_token: string;
   access_token: string;
 }
