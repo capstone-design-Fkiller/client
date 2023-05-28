@@ -23,7 +23,6 @@ function LoginPage() {
   const { value: pw, handleValue: handlePw } = useInput<string>('');
   const { mutate } = useLogin();
 
-  // 로그인 타입 변경 핸들러
   const handleLoginType = (type: LoginType) => {
     setLoginType(type);
   };
@@ -80,7 +79,7 @@ function LoginPage() {
             onKeyDown={handleKeyboard}
           />
           <Button variant='contained' onClick={handleButton} css={Styled.ExtendedButton}>
-            LOGIN
+            로그인하기
           </Button>
         </Styled.FormContainer>
       </Styled.Root>
