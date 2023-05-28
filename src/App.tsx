@@ -9,11 +9,12 @@ import { PATH } from '@/utils/path';
 
 const NoticePage = lazy(() => import('@/pages/notice'));
 const SharePage = lazy(() => import('@/pages/locker-mode/share'));
-const MainPage = lazy(() => import('@/pages/main'));
+const MainPage = lazy(() => import('@/pages/main/student'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
 const UserSharePage = lazy(() => import('@/pages/profile/register-share'));
+const AdminCriteriaPage = lazy(() => import('@/pages/admin/criteria'));
 
 function setScreenSize() {
   const vh = window.innerHeight * 0.01;
@@ -42,17 +43,14 @@ function App() {
     <ToastProvider>
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route element={<PublicRoute />}>
-            <Route path={PATH.LOGIN} element={<LoginPage />} />
-          </Route>
-          <Route element={<PrivateRoute />}>
-            <Route path={PATH.MAIN} element={<MainPage />} />
-            <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
-            <Route path={PATH.APPLY} element={<ApplyPage />} />
-            <Route path={PATH.SHARE} element={<SharePage />} />
-            <Route path={PATH.NOTICE} element={<NoticePage />} />
-            <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
-          </Route>
+          <Route path={PATH.LOGIN} element={<LoginPage />} />
+          <Route path={PATH.MAIN} element={<MainPage />} />
+          <Route path={PATH.LOCKER} element={<SelectApplyMode />} />
+          <Route path={PATH.APPLY} element={<ApplyPage />} />
+          <Route path={PATH.SHARE} element={<SharePage />} />
+          <Route path={PATH.NOTICE} element={<NoticePage />} />
+          <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
+          <Route path={PATH.CRITERIA} element={<AdminCriteriaPage />} />
         </Routes>
       </Suspense>
     </ToastProvider>
