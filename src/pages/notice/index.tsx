@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
@@ -14,11 +15,13 @@ import { PAGE_OFFSET } from '@/constants/pageoffset';
 import { useFetchNotice } from '@/query/notice';
 import { useFetchMe } from '@/query/user';
 import { NoticeResponse } from '@/types/notice';
+import { PATH } from '@/utils/path';
 
 const TABLE_HEADER = ['ID', '제목', '작성일'];
 
 const NoticePage = () => {
   const { me } = useFetchMe();
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedNotice, setSelectedNotice] = useState<number | null>(null);
   const { data: notices, isLoading } = useFetchNotice(MAJOR[me?.major || 0]);
@@ -62,9 +65,11 @@ const NoticePage = () => {
             />
           </>
         )}
-        <Button variant='contained' onClick={() => navigate(PATH.NOTICE_CREATE)}>
-          공지사항 작성하기
-        </Button>
+        {me?.is_usermode || (
+          <Button variant='contained' onClick={() => navigate(PATH.NOTICE_CREATE)}>
+            공지사항 작성하기
+          </Button>
+        )}
       </Styled.Root>
       <Modal
         onClose={handleCloseModal}
