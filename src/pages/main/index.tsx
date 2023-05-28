@@ -10,10 +10,15 @@ import { PATH } from '@/utils/path';
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const { me } = useFetchMe();
+  const { me, logout } = useFetchMe();
 
   const handleNavigate = (path: string) => {
     navigate(path);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate(PATH.LOGIN);
   };
 
   return (
@@ -25,6 +30,7 @@ const MainPage = () => {
             <Button variant='contained' onClick={() => handleNavigate(PATH.USER_SHARE)}>
               사물함 쉐어하기
             </Button>
+            <Button onClick={handleLogout}>로그아웃</Button>
           </>
         ) : (
           <>
