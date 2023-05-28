@@ -13,9 +13,9 @@ export const useFetchMajor = (params: number, type?: boolean) => {
     () => getMajor(params),
     {
       select: data => {
-        const { priority_first, priority_second, priority_third } = data;
+        const { priority_1, priority_2, priority_3 } = data;
 
-        return type ? { priority_first, priority_second, priority_third } : data;
+        return type ? { priority_1, priority_2, priority_3 } : data;
       },
     }
   );
