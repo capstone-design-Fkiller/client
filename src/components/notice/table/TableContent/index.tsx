@@ -1,15 +1,10 @@
 import styled from '@emotion/styled';
 
-interface NoticeProps {
-  id: number;
-  major: string;
-  title: string;
-  date: string;
-  content: string;
-}
+import { NoticeResponse } from '@/types/notice';
+import { YYMMDD } from '@/utils/date';
 
 interface TableContentProps {
-  contents: NoticeProps[];
+  contents: NoticeResponse[];
   handleContent: (id: number) => void;
 }
 
@@ -18,12 +13,11 @@ const TableContent = (props: TableContentProps) => {
 
   return (
     <tbody>
-      {contents.map((notice: NoticeProps) => (
+      {contents.map((notice: NoticeResponse) => (
         <Styled.Row key={notice.id} onClick={() => handleContent(notice.id)}>
           <Styled.Item>{notice.id}</Styled.Item>
-          <Styled.Item>{notice.major}</Styled.Item>
           <Styled.Item>{notice.title}</Styled.Item>
-          <Styled.Item>{notice.date}</Styled.Item>
+          <Styled.Item>{YYMMDD(notice.created_at)}</Styled.Item>
         </Styled.Row>
       ))}
     </tbody>

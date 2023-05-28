@@ -59,4 +59,4 @@ const Pagination = (props: PaginationProps) => {
   );
 };
 
-export { Pagination, PAGE_OFFSET };
+export { Pagination };

@@ -3,6 +3,7 @@ export const PATH = {
   LOCKER: '/locker',
   LOGIN: '/login',
   NOTICE: '/notice',
+  NOTICE_CREATE: '/notice/create',
   APPLY: '/locker/apply',
   SHARE: '/locker/share',
   SORT: '/sort',
