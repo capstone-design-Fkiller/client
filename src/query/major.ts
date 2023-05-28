@@ -1,6 +1,6 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
-import { MajorPriorityResponse, getMajor } from '@/api/major';
+import { MajorPriorityRequest, MajorPriorityResponse, getMajor, putMajor } from '@/api/major';
 import { MajorResponse } from '@/api/major';
 
 const QUERY_KEY = {
@@ -22,4 +22,17 @@ export const useFetchMajor = (params: number, isCondt?: boolean) => {
   );
 
   return { majorInfo };
+};
+
+export const usePutMajor = () => {
+  // const { createToastMessage } = useToast();
+  const mutation = useMutation((body: Partial<MajorPriorityRequest>) => putMajor(body), {
+    onSuccess: res => {
+      // createToastMessage('로그인에 성공했습니다.', 'success');
+    },
+    onError: () => {
+      // createToastMessage('아이디와 비밀번호를 확인해주세요!', 'error');
+    },
+  });
+  return mutation;
 };
