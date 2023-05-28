@@ -24,12 +24,10 @@ export const Title = styled.h1`
 export const TableContainer = styled.table`
   width: 100%;
   margin-top: 15px;
-
   border-collapse: collapse;
-
   & tr > td,
   & tr > th {
-    padding: 10px 0;
+    padding: 10px 5px;
     white-space: nowrap;
 
     &:first-of-type {
@@ -42,8 +40,26 @@ export const TableContainer = styled.table`
   }
 `;
 
+export const Message = styled.h1`
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
+`;
+
 export const ModalContent = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 80%;
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.primary_100};
-  margin-top: 20px;
+
+  p {
+    margin-bottom: 15px;
+  }
+`;
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 `;
