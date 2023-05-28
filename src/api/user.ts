@@ -9,7 +9,7 @@ export const getMe = async () => {
 };
 
 export const postLogin = async (type: LoginRequest) => {
-  const data = await instance.post<LoginResponse>('login/', type);
+  const { data } = await instance.post<LoginResponse>('login/', type);
 
   return data;
 };

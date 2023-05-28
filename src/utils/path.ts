@@ -7,5 +7,6 @@ export const PATH = {
   NOTICE_MANAGE: '/notice/manage',
   APPLY: '/locker/apply',
   SHARE: '/locker/share',
+  SORT: '/sort',
   USER_SHARE: '/user/share',
 };

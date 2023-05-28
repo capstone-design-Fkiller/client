@@ -9,6 +9,7 @@ import Megaphone from './Megaphone';
 import Nothing from './Nothing';
 import Right from './Right';
 import Share from './Share';
+import Trashcan from './Trashcan';
 import User from './User';
 
 const iconName = {
@@ -24,6 +25,7 @@ const iconName = {
   nothing: Nothing,
   dropdown: Dropdown,
   locker: Locker,
+  trashcan: Trashcan,
 };
 
 export type IconNames = keyof typeof iconName;
