@@ -30,6 +30,8 @@ export const useLogin = () => {
 };
 
 export const useFetchMe = () => {
+  const { createToastMessage } = useToast();
+
   const { data, isLoading, isError } = useQuery<UserResponse>([QUERY_KEY.user], getMe, {
     suspense: false,
     refetchOnWindowFocus: false,
@@ -45,6 +47,8 @@ export const useFetchMe = () => {
     queryClient.clear();
 
     localStorage.removeItem('access_token');
+
+    createToastMessage('로그아웃 되었습니다.', 'success');
   };
 
   return { me: isError ? undefined : data, isLoading, logout };
