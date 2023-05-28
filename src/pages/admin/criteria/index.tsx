@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
-import { putMajor } from '@/api/major';
 import { MajorPriorityRequest } from '@/api/major';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
@@ -13,7 +12,8 @@ import Select from '@/components/common/Select';
 import CustomCalendar from '@/components/share/Calendar';
 import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
-// import { useFetchMajor } from '@/query/major';
+import { MAJOR } from '@/constants/major';
+import { usePutMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { formatDate } from '@/utils/date';
 import { PATH } from '@/utils/path';
@@ -31,6 +31,37 @@ const AdminCriteriaPage = () => {
   const handleChange2 = (e: MouseEvent<HTMLLIElement>) => setPriority2(e.currentTarget.innerText);
   const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
+  const { mutate } = usePutMajor();
+
+  const handlePutCriteria = () => {
+    if (!selectedDate) {
+      console.error('날짜 선택은 필수입니다.');
+      return;
+    }
+
+    const [start, end] = selectedDate
+      .toString()
+      .split(',')
+      .map(date => new Date(date).toISOString());
+
+    const body: Partial<MajorPriorityRequest> = {
+      id: MAJOR[me?.major ?? '학과'],
+      name: me?.major ?? '학과',
+      priority_1: priority1 === '선택 없음' ? null : priority1,
+      priority_2: priority2 === '선택 없음' ? null : priority2,
+      priority_3: priority3 === '선택 없음' ? null : priority3,
+      apply_start_date: start,
+      apply_end_date: end,
+      is_baserule_FCFS: baserule === '선착순' ? false : true,
+    };
+
+    mutate(body, {
+      onSuccess: () => navigate(PATH.MAIN),
+      onError: error => console.error('PutMajor Error:', error),
+    });
+
+    // 여기에 설정 완료 alert 보낼지 고민중
+  };
 
   useEffect(() => {
     if (!selectedDate) return;
@@ -45,32 +76,6 @@ const AdminCriteriaPage = () => {
       setDate([formattedStartDate, formattedEndDate]);
     }
   }, [selectedDate]);
-
-  const handlePutCriteria = async () => {
-    try {
-      if (!selectedDate) {
-        console.error('날짜 선택은 필수입니다.');
-        return;
-      }
-
-      const [start, end] = selectedDate.toString().split(',');
-
-      const body: Partial<MajorPriorityRequest> = {
-        priority_1: priority1 === '선택 없음' ? null : priority1,
-        priority_2: priority2 === '선택 없음' ? null : priority2,
-        priority_3: priority3 === '선택 없음' ? null : priority3,
-        apply_start_date: start,
-        apply_end_date: end,
-        is_baserule_FCFS: baserule === '선착순' ? false : true,
-      };
-
-      const response = await putMajor(body);
-      // 여기에 설정 완료 alert 보낼지 고민중
-      navigate(PATH.MAIN);
-    } catch (error) {
-      console.error('PutMajor Error:', error);
-    }
-  };
 
   return (
     <PageTemplate>
