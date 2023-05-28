@@ -5,9 +5,9 @@ export const BASE_URL = `http://${
 }`;
 
 export const instance = axios.create({
-  baseURL: 'http://' + BASE_URL,
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    // Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+    Authorization: `Bearer ${localStorage.getItem('access_token')}`,
   },
 });
