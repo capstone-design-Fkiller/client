@@ -8,7 +8,7 @@ export interface LockerResponse {
   end_date: Date | null;
   id: number;
   is_share_registered: boolean;
-  major: number;
+  major: string;
   owned_id: number | null;
   share_end_date: Date | null;
   share_start_date: Date | null;
@@ -24,8 +24,10 @@ export interface LockerResult {
   name: string | null;
 }
 export interface RequestApplyLocker extends LockerRequest {
+  building_id: number;
+  major: number;
   user: number;
-  priority_first?: number | boolean;
-  priority_second?: number | boolean;
-  priority_third?: number | boolean;
+  priority_1?: number | boolean | string | null | undefined;
+  priority_2?: number | boolean | string | null | undefined;
+  priority_3?: number | boolean | string | null | undefined;
 }

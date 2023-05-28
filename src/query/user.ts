@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'react-query';
+import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { instance } from '@/api/instance';
 import { postLogin as postLogin, getMe } from '@/api/user';
@@ -37,5 +37,15 @@ export const useFetchMe = () => {
     useErrorBoundary: false,
   });
 
-  return { me: isError ? undefined : data, isLoading };
+  const queryClient = useQueryClient();
+
+  const logout = () => {
+    instance.defaults.headers['Authorization'] = '';
+
+    queryClient.clear();
+
+    localStorage.removeItem('access_token');
+  };
+
+  return { me: isError ? undefined : data, isLoading, logout };
 };
