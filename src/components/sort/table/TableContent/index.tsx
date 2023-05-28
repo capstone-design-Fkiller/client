@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Fragment } from 'react';
 
 import Icon from '@/components/common/Icon';
-import { SIMBUILDING2 } from '@/constants/building';
+import { getBuildingName } from '@/constants/building';
 import { SortResponse } from '@/types/sort';
 
 interface TableContentProps {
@@ -36,7 +36,7 @@ const TableContent = ({ contents, handleDelete }: TableContentProps) => {
             <Styled.Item>{renderItem(result.priority_1_answer)}</Styled.Item>
             <Styled.Item>{renderItem(result.priority_2_answer)}</Styled.Item>
             <Styled.Item>{renderItem(result.priority_3_answer)}</Styled.Item>
-            <Styled.Item>{SIMBUILDING2[result.building_id]}</Styled.Item>
+            <Styled.Item>{getBuildingName(result.building_id)}</Styled.Item>
             <Styled.IconItem onClick={() => handleColumns(result.id)}>
               <Icon iconName='trashcan' size='18' />
             </Styled.IconItem>

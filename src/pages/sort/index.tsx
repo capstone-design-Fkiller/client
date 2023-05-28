@@ -14,13 +14,14 @@ import { useFetchSort, useLockerAssignMutation } from '@/query/sort';
 import { useFetchMe } from '@/query/user';
 import { SortRequest } from '@/types/sort';
 import { PATH } from '@/utils/path';
-const TABLE_HEADER = ['ID', '1순위', '2순위', '3순위', '건물', '삭제'];
+
+const TABLE_HEADER = ['학번', '1st', '2nd', '3rd', '건물', '삭제'];
 
 const SortPage = () => {
   const { me } = useFetchMe();
   const navigate = useNavigate();
   const { data: lockers, isLoading: isLockerLoading } = useFetchSort(MAJOR[me!.major]);
-  const { resultData } = useLockerAssignMutation();
+  const { mutate } = useLockerAssignMutation();
   const [currentLocker, setCurrentLocker] = useState(lockers);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -36,7 +37,7 @@ const SortPage = () => {
     const request = currentLocker?.map(lock => lock.id);
 
     const requestData: SortRequest = { list: request || [] };
-    resultData(MAJOR[me!.major], requestData);
+    mutate({ major: MAJOR[me!.major], sortResult: requestData });
 
     navigate(PATH.MAIN);
   };

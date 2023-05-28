@@ -4,7 +4,6 @@ import * as Styled from './style';
 import Icon from '../Icon';
 import { IconNames } from '../Icon/Icons';
 
-import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
 interface Navigator {
@@ -13,27 +12,25 @@ interface Navigator {
   path: string;
 }
 
+const navigator: Navigator[] = [
+  {
+    label: '사물함',
+    iconName: 'box',
+    path: PATH.LOCKER,
+  },
+  {
+    label: '홈',
+    iconName: 'home',
+    path: PATH.MAIN,
+  },
+  {
+    label: '공지사항',
+    iconName: 'megaphone',
+    path: PATH.NOTICE,
+  },
+];
+
 const BottomNavigation = () => {
-  const { me } = useFetchMe();
-
-  const navigator: Navigator[] = [
-    {
-      label: '사물함',
-      iconName: 'box',
-      path: me?.is_usermode ? PATH.LOCKER : PATH.SORT,
-    },
-    {
-      label: '홈',
-      iconName: 'home',
-      path: PATH.MAIN,
-    },
-    {
-      label: '공지사항',
-      iconName: 'megaphone',
-      path: PATH.NOTICE,
-    },
-  ];
-
   return (
     <Styled.Root>
       {navigator.map(({ label, path, iconName }) => (

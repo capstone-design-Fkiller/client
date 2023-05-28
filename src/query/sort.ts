@@ -31,13 +31,5 @@ export const useLockerAssignMutation = () => {
     }
   );
 
-  const resultData = async (major: number, sortResult: SortRequest) => {
-    try {
-      await mutation.mutateAsync({ major, sortResult });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return { resultData };
+  return mutation;
 };
