@@ -1,31 +1,27 @@
-import { useState, ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
+import useInput from '@/hooks/useInput';
 import { useCreateNoticeMutation } from '@/query/notice';
 import { PATH } from '@/utils/path';
 
 const NoticeCreatePage = () => {
   const navigate = useNavigate();
-
-  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const { mutate: createNoticeMutate } = useCreateNoticeMutation();
-
-  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
-  const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value);
-  };
+  const { value: title, handleValue: handleTitle } = useInput<string>('');
 
   const handleSubmit = () => {
     createNoticeMutate({ title, content });
     navigate(PATH.NOTICE_MANAGE);
+  };
+
+  const handleContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.target.value);
   };
 
   return (
@@ -38,14 +34,14 @@ const NoticeCreatePage = () => {
             type='text'
             id='title'
             value={title}
-            onChange={handleTitleChange}
+            onChange={handleTitle}
             placeholder='제목을 작성해주세요.'
           />
           <Styled.Label htmlFor='content'>내용</Styled.Label>
           <Styled.Textarea
             id='content'
             value={content}
-            onChange={handleContentChange}
+            onChange={handleContent}
             placeholder='내용을 작성해주세요.'
           />
         </Styled.Container>

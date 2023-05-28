@@ -7,11 +7,12 @@ import Button from '@/components/common/Button';
 import Loader from '@/components/common/Loader';
 import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
-import { Pagination, PAGE_OFFSET } from '@/components/common/Pagination';
+import { Pagination } from '@/components/common/Pagination';
 import TableContent from '@/components/notice/table/TableContent';
 import TableHead from '@/components/notice/table/TableHead';
 import { MAJOR } from '@/constants/major';
-import { useDeleteNoticeMutation, useFetchMajorNotice } from '@/query/notice';
+import { PAGE_OFFSET } from '@/constants/pageoffset';
+import { useDeleteNoticeMutation, useFetchNotice } from '@/query/notice';
 import { useFetchMe } from '@/query/user';
 import { NoticeResponse } from '@/types/notice';
 import { PATH } from '@/utils/path';
@@ -23,7 +24,7 @@ const NoticeManagePage = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedNotice, setSelectedNotice] = useState<number | null>(null);
-  const { data: notices, isLoading } = useFetchMajorNotice(MAJOR[me?.major || 0]);
+  const { data: notices, isLoading } = useFetchNotice(MAJOR[me?.major || 0]);
   const { mutate: deleteNoticeMutation } = useDeleteNoticeMutation();
   const sortedNotices = notices ? notices.slice().reverse() : [];
 

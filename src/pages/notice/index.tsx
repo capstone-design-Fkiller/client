@@ -2,21 +2,26 @@ import { useState } from 'react';
 
 import * as Styled from './style';
 
+import Button from '@/components/common/Button';
 import Loader from '@/components/common/Loader';
 import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
-import { Pagination, PAGE_OFFSET } from '@/components/common/Pagination';
+import { Pagination } from '@/components/common/Pagination';
 import TableContent from '@/components/notice/table/TableContent';
 import TableHead from '@/components/notice/table/TableHead';
+import { MAJOR } from '@/constants/major';
+import { PAGE_OFFSET } from '@/constants/pageoffset';
 import { useFetchNotice } from '@/query/notice';
+import { useFetchMe } from '@/query/user';
 import { NoticeResponse } from '@/types/notice';
 
-const TABLE_HEADER = ['ID', '학과', '제목', '작성일'];
+const TABLE_HEADER = ['ID', '제목', '작성일'];
 
 const NoticePage = () => {
+  const { me } = useFetchMe();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedNotice, setSelectedNotice] = useState<number | null>(null);
-  const { data: notices, isLoading } = useFetchNotice();
+  const { data: notices, isLoading } = useFetchNotice(MAJOR[me?.major || 0]);
   const sortedNotices = notices ? notices.slice().reverse() : [];
 
   const handleNoticeClick = (noticeId: number) => {
@@ -57,6 +62,9 @@ const NoticePage = () => {
             />
           </>
         )}
+        <Button variant='contained' onClick={() => navigate(PATH.NOTICE_CREATE)}>
+          공지사항 작성하기
+        </Button>
       </Styled.Root>
       <Modal
         onClose={handleCloseModal}
