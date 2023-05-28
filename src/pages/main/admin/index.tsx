@@ -22,7 +22,7 @@ const MainPage = () => {
             <Button variant='contained' onClick={() => navigate(PATH.CRITERIA)}>
               사물함 신청 설정
             </Button>
-            <Button variant='contained' onClick={() => navigate(PATH.APPLY)}>
+            <Button variant='contained' onClick={() => navigate(PATH.SORT)}>
               사물함 배정하기
             </Button>
             {/* 통학거리, 재학여부 */}
