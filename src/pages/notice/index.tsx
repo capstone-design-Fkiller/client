@@ -11,7 +11,7 @@ import { Pagination } from '@/components/common/Pagination';
 import TableContent from '@/components/notice/table/TableContent';
 import TableHead from '@/components/notice/table/TableHead';
 import { MAJOR } from '@/constants/major';
-import { PAGE_OFFSET } from '@/constants/pageoffset';
+import { PAGE_OFFSET } from '@/constants/page_offset';
 import { useDeleteNoticeMutation, useFetchNotice } from '@/query/notice';
 import { useFetchMe } from '@/query/user';
 import { NoticeResponse } from '@/types/notice';
@@ -55,8 +55,8 @@ const NoticePage = () => {
   return (
     <PageTemplate>
       <Styled.Root>
-          <Styled.Title>공지사항</Styled.Title>
-          <Styled.Major>{me?.major}</Styled.Major>
+        <Styled.Title>공지사항</Styled.Title>
+        <Styled.TitleMajor>{me?.major}</Styled.TitleMajor>
         {isLoading ? (
           <Loader />
         ) : (

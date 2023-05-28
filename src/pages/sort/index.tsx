@@ -10,7 +10,7 @@ import { Pagination } from '@/components/common/Pagination';
 import TableContent from '@/components/sort/table/TableContent';
 import TableHead from '@/components/sort/table/TableHead';
 import { MAJOR } from '@/constants/major';
-import { PAGE_OFFSET } from '@/constants/pageoffset';
+import { PAGE_OFFSET } from '@/constants/page_offset';
 import { useFetchSort, useLockerAssignMutation } from '@/query/sort';
 import { useFetchMe } from '@/query/user';
 import { SortRequest } from '@/types/sort';
