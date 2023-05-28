@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Fragment } from 'react';
 
 import Icon from '@/components/common/Icon';
-import { BUILDING2 } from '@/constants/building';
+import { SIMBUILDING2 } from '@/constants/building';
 import { SortResponse } from '@/types/sort';
 
 interface TableContentProps {
@@ -15,7 +15,7 @@ const TableContent = ({ contents, handleDelete }: TableContentProps) => {
     if (content === null) {
       return '-';
     } else if (typeof content === 'boolean') {
-      return content.toString();
+      return content ? 'O' : 'X';
     } else {
       return content;
     }
@@ -32,11 +32,11 @@ const TableContent = ({ contents, handleDelete }: TableContentProps) => {
       {contents.map((result: SortResponse) => (
         <Fragment key={result.id}>
           <Styled.Row>
-            <Styled.Item>{result.id}</Styled.Item>
+            <Styled.Item>{result.user}</Styled.Item>
             <Styled.Item>{renderItem(result.priority_1_answer)}</Styled.Item>
             <Styled.Item>{renderItem(result.priority_2_answer)}</Styled.Item>
             <Styled.Item>{renderItem(result.priority_3_answer)}</Styled.Item>
-            <Styled.Item>{BUILDING2[result.building_id]}</Styled.Item>
+            <Styled.Item>{SIMBUILDING2[result.building_id]}</Styled.Item>
             <Styled.IconItem onClick={() => handleColumns(result.id)}>
               <Icon iconName='trashcan' size='18' />
             </Styled.IconItem>
