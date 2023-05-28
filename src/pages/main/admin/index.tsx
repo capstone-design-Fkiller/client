@@ -10,7 +10,9 @@ import { PATH } from '@/utils/path';
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const { me } = useFetchMe();
+  // const { me } = useFetchMe();
+
+  let me = 'dsaf';
 
   return (
     <PageTemplate>

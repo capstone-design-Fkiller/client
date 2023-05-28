@@ -39,12 +39,4 @@ const MainPage = () => {
   );
 };
 
-// const AdminComponent = () => (
-//   <>
-//     <Button variant='contained'>사물함 신청 설정</Button>
-//     <Button variant='contained'>사물함 배정하기</Button>
-//     {/* 통학거리, 재학여부 */}
-//   </>
-// );
-
 export default MainPage;
