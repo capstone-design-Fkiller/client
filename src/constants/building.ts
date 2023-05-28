@@ -14,4 +14,8 @@ export const BUILDINGTOSTRING: { [key: number]: string } = {
   3: '사회과학관',
   4: '국제학사',
   5: '사이버관',
+}
+
+export const getBuildingName = (value: number) => {
+  return Object.keys(BUILDING).find(key => BUILDING[key] === value);
 };

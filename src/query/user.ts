@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'react-query';
+import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { instance } from '@/api/instance';
 import { postLogin as postLogin, getMe } from '@/api/user';
@@ -11,23 +11,21 @@ const QUERY_KEY = {
 
 export const useLogin = () => {
   const { createToastMessage } = useToast();
-
   const mutation = useMutation((body: LoginRequest) => postLogin(body), {
-    onSuccess: ({ data }) => {
+    onSuccess: res => {
       createToastMessage('로그인에 성공했습니다.', 'success');
 
-      const { refresh_token, access_token } = data;
+      const { refresh_token, access_token } = res;
 
-      instance.defaults.headers['Authorization'] = `Bearer ${(access_token)}`;
+      instance.defaults.headers['Authorization'] = `Bearer ${access_token}`;
 
-      localStorage.setItem('refresh_token', (refresh_token));
-      localStorage.setItem('access_token', (access_token));
+      localStorage.setItem('refresh_token', refresh_token);
+      localStorage.setItem('access_token', access_token);
     },
     onError: () => {
       createToastMessage('아이디와 비밀번호를 확인해주세요!', 'error');
     },
   });
-
   return mutation;
 };
 
@@ -39,5 +37,15 @@ export const useFetchMe = () => {
     useErrorBoundary: false,
   });
 
-  return { me: isError ? undefined : data, isLoading };
+  const queryClient = useQueryClient();
+
+  const logout = () => {
+    instance.defaults.headers['Authorization'] = '';
+
+    queryClient.clear();
+
+    localStorage.removeItem('access_token');
+  };
+
+  return { me: isError ? undefined : data, isLoading, logout };
 };

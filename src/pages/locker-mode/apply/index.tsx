@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
+import { MajorPriorityResponse } from '@/api/major';
 import Condition from '@/components/apply/Condition';
 import Locker from '@/components/apply/Locker';
 import Button from '@/components/common/Button';
@@ -17,7 +18,6 @@ import useToast from '@/hooks/useToast';
 import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
 import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
-import { RequestApplyLocker } from '@/types/locker';
 import { PATH } from '@/utils/path';
 
 const ApplyPage = () => {
@@ -36,9 +36,11 @@ const ApplyPage = () => {
   }
 
   const [structure, setStructure] = useState<string>('건물');
-  const { value, handleValue } = useInput<
-    Pick<RequestApplyLocker, 'priority_first' | 'priority_second' | 'priority_third'>
-  >({});
+  const { value, setValue } = useInput<Partial<MajorPriorityResponse>>({
+    priority_1: null,
+    priority_2: null,
+    priority_3: null,
+  });
   const { mutate } = useApplyLockerMutation();
 
   const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
@@ -47,7 +49,6 @@ const ApplyPage = () => {
 
   const {
     data: { apply, lockerCounts },
-    refetch,
   } = useFetchApplicant({
     major: MAJOR[me.major],
     building_id: BUILDING[structure],
@@ -67,17 +68,12 @@ const ApplyPage = () => {
   };
 
   const handleApplyButton = () => {
-    mutate(
-      {
-        building_id: BUILDING[structure],
-        major: MAJOR[me.major],
-        user: me.id,
-        ...value,
-      },
-      {
-        onSuccess: refetch,
-      }
-    );
+    mutate({
+      building_id: BUILDING[structure],
+      major: MAJOR[me.major],
+      user: me.id,
+      ...value,
+    });
 
     handleModalOpen();
   };
@@ -111,7 +107,7 @@ const ApplyPage = () => {
         {me && (
           <Condition
             majorInfo={majorInfo}
-            handleInput={handleValue}
+            setValue={setValue}
             handleApplyButton={handleApplyButton}
           />
         )}

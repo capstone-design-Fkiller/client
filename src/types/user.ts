@@ -1,7 +1,8 @@
 export interface UserResponse {
   id: number;
-  major: string;
   name: string;
+  major: string;
+  // password: string;
   penalty: boolean;
   penalty_start_date: string | null;
   penalty_end_date: string | null;
@@ -19,6 +20,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+  user: UserResponse;
   refresh_token: string;
   access_token: string;
 }

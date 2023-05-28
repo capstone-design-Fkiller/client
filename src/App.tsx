@@ -8,11 +8,13 @@ import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
 const NoticePage = lazy(() => import('@/pages/notice'));
+const NoticeCreatePage = lazy(() => import('./pages/notice/notice-create'));
 const SharePage = lazy(() => import('@/pages/locker-mode/share'));
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
+const SortPage = lazy(() => import('@/pages/sort'));
 const UserSharePage = lazy(() => import('@/pages/profile/register-share'));
 const ProfilePage = lazy(() => import('@/pages/profile'));
 
@@ -52,6 +54,8 @@ function App() {
             <Route path={PATH.APPLY} element={<ApplyPage />} />
             <Route path={PATH.SHARE} element={<SharePage />} />
             <Route path={PATH.NOTICE} element={<NoticePage />} />
+            <Route path={PATH.NOTICE_CREATE} element={<NoticeCreatePage />} />
+            <Route path={PATH.SORT} element={<SortPage />} />
             <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
             <Route path={PATH.PROFILE} element={<ProfilePage />} />
           </Route>
