@@ -70,10 +70,10 @@ const NoticeDetailPage = () => {
         {me?.is_usermode || (
           <Styled.ButtonContainer>
             <Button variant='contained' onClick={handleDelete}>
-              삭제
+              삭제하기
             </Button>
             <Button variant='outlined' onClick={handleEdit}>
-              수정
+              수정하기
             </Button>
           </Styled.ButtonContainer>
         )}

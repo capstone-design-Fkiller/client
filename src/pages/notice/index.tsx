@@ -41,22 +41,28 @@ const NoticePage = () => {
           <Loader />
         ) : (
           <>
-            <Styled.TableContainer>
-              <TableHead headers={TABLE_HEADER} />
-              <TableContent
-                contents={sortedNotices.slice(
-                  (currentPage - 1) * PAGE_OFFSET,
-                  currentPage * PAGE_OFFSET
-                )}
-                handleContent={handleNoticeClick}
-              />
-            </Styled.TableContainer>
-            <Pagination
-              currentPage={currentPage}
-              totalItems={sortedNotices.length}
-              itemsPerPage={PAGE_OFFSET}
-              setState={setCurrentPage}
-            />
+            {notices && notices.length === 0 ? (
+              <Styled.Message>공지사항이 없습니다.</Styled.Message>
+            ) : (
+              <>
+                <Styled.TableContainer>
+                  <TableHead headers={TABLE_HEADER} />
+                  <TableContent
+                    contents={sortedNotices.slice(
+                      (currentPage - 1) * PAGE_OFFSET,
+                      currentPage * PAGE_OFFSET
+                    )}
+                    handleContent={handleNoticeClick}
+                  />
+                </Styled.TableContainer>
+                <Pagination
+                  currentPage={currentPage}
+                  totalItems={sortedNotices.length}
+                  itemsPerPage={PAGE_OFFSET}
+                  setState={setCurrentPage}
+                />
+              </>
+            )}
           </>
         )}
         {me?.is_usermode || (
