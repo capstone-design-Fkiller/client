@@ -71,5 +71,6 @@ export const ButtonContainer = styled.div`
   width: 100%;
   display: grid;
   gap: 10px;
+  margin-top: 10px;
   grid-template-columns: 1fr 1fr;
 `;
