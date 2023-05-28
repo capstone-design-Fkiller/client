@@ -1,21 +1,36 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
+import { putMajor } from '@/api/major';
+import { MajorPriorityRequest } from '@/api/major';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
 import PageTemplate from '@/components/common/PageTamplate';
+import Select from '@/components/common/Select';
 import CustomCalendar from '@/components/share/Calendar';
 import DateBox from '@/components/share/DateBox';
+import { CRITERIA } from '@/constants/criteria';
+// import { useFetchMajor } from '@/query/major';
+import { useFetchMe } from '@/query/user';
 import { formatDate } from '@/utils/date';
 import { PATH } from '@/utils/path';
 
-const AdminCriteria = () => {
+const AdminCriteriaPage = () => {
   const navigate = useNavigate();
+  const { me } = useFetchMe();
   const [selectedDate, setSelectedDate] = useState<Value | undefined>();
   const [date, setDate] = useState<string[]>(['', '']);
+  const [priority1, setPriority1] = useState<string>('선택 없음');
+  const [priority2, setPriority2] = useState<string>('선택 없음');
+  const [priority3, setPriority3] = useState<string>('선택 없음');
+  const [baserule, setBaserule] = useState<string>('선착순');
+  const handleChange1 = (e: MouseEvent<HTMLLIElement>) => setPriority1(e.currentTarget.innerText);
+  const handleChange2 = (e: MouseEvent<HTMLLIElement>) => setPriority2(e.currentTarget.innerText);
+  const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
+  const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
 
   useEffect(() => {
     if (!selectedDate) return;
@@ -31,54 +46,76 @@ const AdminCriteria = () => {
     }
   }, [selectedDate]);
 
+  const handlePutCriteria = async () => {
+    try {
+      if (!selectedDate) {
+        console.error('날짜 선택은 필수입니다.');
+        return;
+      }
+
+      const [start, end] = selectedDate.toString().split(',');
+
+      const body: Partial<MajorPriorityRequest> = {
+        priority_1: priority1 === '선택 없음' ? null : priority1,
+        priority_2: priority2 === '선택 없음' ? null : priority2,
+        priority_3: priority3 === '선택 없음' ? null : priority3,
+        apply_start_date: start,
+        apply_end_date: end,
+        is_baserule_FCFS: baserule === '선착순' ? false : true,
+      };
+
+      const response = await putMajor(body);
+      // 여기에 설정 완료 alert 보낼지 고민중
+      navigate(PATH.MAIN);
+    } catch (error) {
+      console.error('PutMajor Error:', error);
+    }
+  };
+
   return (
     <PageTemplate>
       <Styled.Root>
-        <div>
-          <span>OO학과 사물함 배정하기</span>
-        </div>
-        <div>
-          <span>배정 기준을 선택해주세요.</span>
-          <span>배정 기준 우선순위가 없을 때 선착순/랜덤 배정 중 선택하세요.</span>
-        </div>
-        <form>
-          <div>
-            <label htmlFor='criteria1'>1순위: </label>
-            <select id='criteria1' name='criteria1'>
-              <option value='distance'>통학 거리</option>
-              <option value='status'>재학 여부</option>
-              <option value='grade'>학년</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor='criteria2'>2순위: </label>
-            <select id='criteria2' name='criteria2'>
-              <option value='distance'>통학 거리</option>
-              <option value='status'>재학 여부</option>
-              <option value='grade'>학년</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor='criteria3'>3순위: </label>
-            <select id='criteria3' name='criteria3'>
-              <option value='distance'>통학 거리</option>
-              <option value='status'>재학 여부</option>
-              <option value='grade'>학년</option>
-            </select>
-          </div>
-          <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+        <Styled.Header>
+          <h2>{me?.major} 사물함 배정하기</h2>
+        </Styled.Header>
+        <Styled.InformText>
+          <span>배정 날짜와 기준을 선택해주세요.</span>
+          <br />
+          <span>배정 날짜와 동점자 배정 기준은 필수 항목입니다.</span>
+        </Styled.InformText>
+        <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
-          <Styled.SelectWrapper>
-            <DateBox label='배정 접수 시작일' date={date[0]} />
-            <DateBox label='배정 접수 종료일' date={date[1]} />
-          </Styled.SelectWrapper>
-        </form>
+        <Styled.SelectWrapper>
+          <DateBox label='배정 접수 시작일' date={date[0]} />
+          <DateBox label='배정 접수 종료일' date={date[1]} />
+        </Styled.SelectWrapper>
+
+        <Styled.Container>
+          <Styled.InformBox>
+            <Styled.Labels>
+              <span>1순위: </span>
+              <Select value={priority1} list={Object.keys(CRITERIA)} handleChange={handleChange1} />
+            </Styled.Labels>
+            <Styled.Labels>
+              <span>2순위:</span>
+              <Select value={priority2} list={Object.keys(CRITERIA)} handleChange={handleChange2} />
+            </Styled.Labels>
+            <Styled.Labels>
+              <span>3순위:</span>
+              <Select value={priority3} list={Object.keys(CRITERIA)} handleChange={handleChange3} />
+            </Styled.Labels>
+            <Styled.Labels>
+              <span>동점자 기준:</span>
+              <Select value={baserule} list={['선착순', '랜덤']} handleChange={handleChangeBase} />
+            </Styled.Labels>
+          </Styled.InformBox>
+        </Styled.Container>
 
         <Button
           type='submit'
           variant='contained'
           startIcon={<Icon iconName='box' />}
-          onClick={() => navigate(PATH.APPLY)}
+          onClick={handlePutCriteria}
         >
           사물함 배정하기
         </Button>
@@ -87,4 +124,4 @@ const AdminCriteria = () => {
   );
 };
 
-export default AdminCriteria;
+export default AdminCriteriaPage;
