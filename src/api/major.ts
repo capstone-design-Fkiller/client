@@ -11,7 +11,8 @@ export interface MajorResponse {
   priority_3: string | null;
 }
 
-export type MajorPriorityRequest = Omit<MajorResponse, 'name'>;
+// export type MajorPriorityRequest = Omit<MajorResponse, 'name'>;
+export type MajorPriorityRequest = MajorResponse;
 export type MajorPriorityResponse = Pick<MajorResponse, 'priority_1' | 'priority_2' | 'priority_3'>;
 
 export interface RequestPriority extends MajorResponse {
