@@ -9,7 +9,6 @@ import { PATH } from '@/utils/path';
 
 const NoticePage = lazy(() => import('@/pages/notice'));
 const NoticeCreatePage = lazy(() => import('./pages/notice/notice-create'));
-const NoticeManagePage = lazy(() => import('./pages/notice/notice-manage'));
 const SharePage = lazy(() => import('@/pages/locker-mode/share'));
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
@@ -55,7 +54,6 @@ function App() {
             <Route path={PATH.SHARE} element={<SharePage />} />
             <Route path={PATH.NOTICE} element={<NoticePage />} />
             <Route path={PATH.NOTICE_CREATE} element={<NoticeCreatePage />} />
-            <Route path={PATH.NOTICE_MANAGE} element={<NoticeManagePage />} />
             <Route path={PATH.SORT} element={<SortPage />} />
             <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
           </Route>

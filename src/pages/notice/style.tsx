@@ -21,6 +21,13 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
+export const Major = styled.h1`
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: ${({ theme }) => theme.colors.primary_100};
+`;
+
 export const TableContainer = styled.table`
   width: 100%;
   margin-top: 15px;
@@ -60,4 +67,10 @@ export const ModalContent = styled.div`
   color: ${({ theme }) => theme.colors.grey_400};
   margin-top: 20px;
   line-height: 1.4;
+`;
+
+export const ModalButtons = styled.div`
+  position: flex;
+  margin-top: 10px;
+  justify-content: flex-end;
 `;

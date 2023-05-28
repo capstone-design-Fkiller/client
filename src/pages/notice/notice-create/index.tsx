@@ -17,7 +17,7 @@ const NoticeCreatePage = () => {
 
   const handleSubmit = () => {
     createNoticeMutate({ title, content });
-    navigate(PATH.NOTICE_MANAGE);
+    navigate(PATH.NOTICE);
   };
 
   const handleContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,7 +49,7 @@ const NoticeCreatePage = () => {
           <Button variant='contained' onClick={handleSubmit}>
             등록
           </Button>
-          <Button variant='outlined' onClick={() => navigate(PATH.NOTICE_MANAGE)}>
+          <Button variant='outlined' onClick={() => navigate(PATH.NOTICE)}>
             취소
           </Button>
         </Styled.ButtonContainer>

@@ -9,7 +9,7 @@ export const postNotice = async (notice: NoticeRequest) => {
 
 export const getNotice = async (major: number) => {
   const { data } = await instance.get<NoticeResponse[]>(`notice/?major=${major}`);
-
+  console.log(data);
   return data;
 };
 
