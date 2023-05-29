@@ -8,7 +8,6 @@ import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import { BUILDINGTOSTRING } from '@/constants/building';
 import { useFetchMyLocker } from '@/query/locker';
-import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 

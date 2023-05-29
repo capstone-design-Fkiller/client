@@ -9,7 +9,6 @@ import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import CustomCalendar from '@/components/share/Calendar';
 import DateBox from '@/components/share/DateBox';
-import { MAJOR } from '@/constants/major';
 import { useConvertShareMutation, useFetchMyLocker } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 import { formatDate } from '@/utils/date';

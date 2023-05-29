@@ -12,7 +12,7 @@ const NoticeCreatePage = lazy(() => import('./pages/notice/notice-create'));
 const NoticeDetailPage = lazy(() => import('./pages/notice/notice-detail'));
 const NoticeEditPage = lazy(() => import('./pages/notice/notice-edit'));
 const SharePage = lazy(() => import('@/pages/locker-mode/share'));
-const UserSharePage = lazy(() => import('@/pages/profile/register-share'));
+const UserSharePage = lazy(() => import('@/pages/register-share'));
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
