@@ -35,9 +35,6 @@ const MainPage = () => {
         ) : (
           <>
             <Student.Skeleton />
-            <Button variant='contained' onClick={() => handleNavigate(PATH.LOGIN)}>
-              로그인 하러 가기
-            </Button>
           </>
         )}
       </Styled.Root>
