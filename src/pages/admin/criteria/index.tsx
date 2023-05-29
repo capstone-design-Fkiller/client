@@ -37,10 +37,12 @@ const AdminCriteriaPage = () => {
   const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
 
-  const majorKey1 = MAJOR.find(key => MAJOR[key] === majorInfo?.priority_1?.toString);
-  const majorKey1 = getKeyByValue(MAJOR, majorInfo?.priority_1);
-  const majorKey2 = getKeyByValue(MAJOR, majorInfo?.priority_2);
-  const majorKey3 = getKeyByValue(MAJOR, majorInfo?.priority_3);
+  const priorityKey1 = CRITERIA.find((key: string) => CRITERIA[key] === majorInfo?.priority_1.name);
+  const priorityKey2 = CRITERIA.find((key: string) => CRITERIA[key] === majorInfo?.priority_2.name);
+  const priorityKey3 = CRITERIA.find((key: string) => CRITERIA[key] === majorInfo?.priority_3.name);
+  // const majorKey1 = getKeyByValue(MAJOR, majorInfo?.priority_1);
+  // const majorKey2 = getKeyByValue(MAJOR, majorInfo?.priority_2);
+  // const majorKey3 = getKeyByValue(MAJOR, majorInfo?.priority_3);
 
   const { mutate } = usePutMajor();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -88,9 +90,17 @@ const AdminCriteriaPage = () => {
     const body: Partial<MajorPriorityRequest> = {
       id: MAJOR[me?.major ?? '학과'],
       name: me?.major ?? '학과',
-      priority_1: priority1 === '선택 없음' ? null : CRITERIA[priority1],
-      priority_2: priority2 === '선택 없음' ? null : CRITERIA[priority2],
-      priority_3: priority3 === '선택 없음' ? null : CRITERIA[priority3],
+      priority_1: {
+        name: priority1 === '선택 없음' ? null : CRITERIA[priority1],
+      },
+      priority_2: {
+        name: priority2 === '선택 없음' ? null : CRITERIA[priority2],
+      },
+      priority_3: {
+        name: priority3 === '선택 없음' ? null : CRITERIA[priority3],
+      },
+      start_date: start, //임시로 설정
+      end_date: end, //임시로 설정
       apply_start_date: start,
       apply_end_date: end,
       is_baserule_FCFS: baserule === '선착순' ? false : true,
@@ -151,7 +161,7 @@ const AdminCriteriaPage = () => {
             <Styled.Labels>
               <span>1순위: </span>
               <Select
-                value={isEditMode ? { majorKey1 } ?? '선택 없음' : priority1}
+                value={isEditMode ? { priorityKey1 } ?? '선택 없음' : priority1}
                 list={getPriorityList(1)}
                 handleChange={handleChange1}
               />
@@ -159,7 +169,7 @@ const AdminCriteriaPage = () => {
             <Styled.Labels>
               <span>2순위:</span>
               <Select
-                value={isEditMode ? { majorKey2 } ?? '선택 없음' : priority2}
+                value={isEditMode ? { priorityKey2 } ?? '선택 없음' : priority2}
                 list={getPriorityList(2)}
                 handleChange={handleChange2}
               />
@@ -167,7 +177,7 @@ const AdminCriteriaPage = () => {
             <Styled.Labels>
               <span>3순위:</span>
               <Select
-                value={isEditMode ? { majorKey3 } ?? '선택 없음' : priority3}
+                value={isEditMode ? { priorityKey3 } ?? '선택 없음' : priority3}
                 list={getPriorityList(3)}
                 handleChange={handleChange3}
               />
