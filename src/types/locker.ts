@@ -16,13 +16,6 @@ export interface LockerResponse {
   start_date: string | null;
 }
 
-// 배정 결과 가져오는 api 생기면 수정 예정
-export interface LockerResult {
-  lockerId: number;
-  building: number;
-  userId: number | null;
-  name: string | null;
-}
 export interface RequestApplyLocker extends LockerRequest {
   building_id: number;
   major: number;
