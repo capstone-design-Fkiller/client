@@ -15,7 +15,7 @@ const NoticeEditPage = () => {
   const { noticeId } = useParams();
   const [content, setContent] = useState('');
   const { mutate: updateNoticeMutate } = useEditNoticeMutation();
-  const { value: title, handleValue: handTitle } = useInput<string>('');
+  const { value: title, handleValue: handTitle, setValue: setTitle } = useInput<string>('');
   const [selectedNotice, setSelectedNotice] = useState(Number(noticeId));
   const { data: noticeData, isLoading } = useFetchNoticeDetail(selectedNotice);
 
@@ -28,13 +28,12 @@ const NoticeEditPage = () => {
     }
   }, [noticeId, navigate]);
 
-  if (isLoading || selectedNotice === 0) {
-    return <Loader />;
-  }
-
-  if (!noticeData || !noticeId) {
-    return <div>공지사항을 찾을 수 없습니다.</div>;
-  }
+  useEffect(() => {
+    if (noticeData) {
+      setTitle(noticeData.title);
+      setContent(noticeData.content);
+    }
+  }, [noticeData, setTitle]);
 
   const handleSubmit = () => {
     updateNoticeMutate({ id: Number(noticeId), title, content });
@@ -44,6 +43,14 @@ const NoticeEditPage = () => {
   const handleContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
   };
+
+  if (isLoading || selectedNotice === 0) {
+    return <Loader />;
+  }
+
+  if (!noticeData || !noticeId) {
+    return <div>공지사항을 찾을 수 없습니다.</div>;
+  }
 
   return (
     <PageTemplate>
