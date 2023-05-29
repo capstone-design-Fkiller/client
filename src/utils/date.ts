@@ -16,3 +16,14 @@ export const YYMMDD = (datestring: string) => {
 
   return `${year}${month}${day}`;
 };
+
+
+export const MMDD = (datestring: string) => {
+  const date = new Date(datestring);
+  // const year = date.getFullYear().toString().slice(-2);
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  return `${month}월 ${day}일`;
+
+};

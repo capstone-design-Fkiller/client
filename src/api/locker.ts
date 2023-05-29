@@ -2,7 +2,14 @@ import axios from 'axios';
 
 import { instance } from './instance';
 
-import { LockerRequest, LockerResponse, RequestApplyLocker } from '@/types/locker';
+import {
+  LockerRequest,
+  LockerResponse,
+  RequestApplyLocker,
+  ShareApplyRequest,
+  ShareRegisterRequest,
+  ShareRequest,
+} from '@/types/locker';
 
 export const getLockerCounts = async (props: LockerRequest) => {
   const { data } = await axios.get('http://127.0.0.1:8000/locker', { params: props });
@@ -48,25 +55,27 @@ export const getMyLocker = async (id: number) => {
   return data;
 };
 
-export interface ShareRequest {
-  id: number;
-  major: number;
-  building_id: number;
-}
-
-export const putShare = async (body: ShareRequest) => {
+export const putShareLocker = async (body: ShareRegisterRequest | ShareApplyRequest) => {
   const { id, ...args } = body;
-  const { data } = await instance.post(`locker/${id}/`, {
+  const { data } = await instance.put(`locker/${id}`, {
     ...args,
-    is_share_registered: true,
+  });
+
+  return data;
+};
+
+export const putApplyShareRegisteredLocker = async (body: ShareApplyRequest) => {
+  const { id, ...args } = body;
+  const { data } = await instance.put(`locker/${id}`, {
+    ...args,
   });
 
   return data;
 };
 
 export const getShareableLockers = async (id: number) => {
-  const { data } = await axios.get<LockerResponse[]>(
-    `http://127.0.0.1:8000/locker?major=${id}&is_share_registered=True`
+  const { data } = await instance.get<LockerResponse[]>(
+    `locker?major=${id}&is_share_registered=True`
   );
 
   return data;
