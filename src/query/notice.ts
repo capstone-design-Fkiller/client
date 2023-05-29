@@ -23,6 +23,7 @@ export const useFetchNotice = (major: number) => {
 
 export const useFetchNoticeDetail = (noticeId: number) => {
   const { createToastMessage } = useToast();
+  const queryClient = useQueryClient();
 
   const { data: notice, isLoading } = useQuery(
     [QUERY_KEY.noticeDetail, noticeId],
@@ -33,6 +34,7 @@ export const useFetchNoticeDetail = (noticeId: number) => {
       },
     }
   );
+  queryClient.invalidateQueries(QUERY_KEY.noticeDetail);
 
   return { data: notice, isLoading };
 };
