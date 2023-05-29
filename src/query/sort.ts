@@ -12,7 +12,7 @@ export const useFetchSort = (major: number) => {
   const { createToastMessage } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: sorts, isLoading } = useQuery('sortResult', () => getSortResult(major), {
+  const { data: sorts, isLoading } = useQuery(QUERY_KEY.sort, () => getSortResult(major), {
     onError: () => {
       createToastMessage('오류가 발생했습니다.', 'error');
     },

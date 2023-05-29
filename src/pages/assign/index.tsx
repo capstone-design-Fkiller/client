@@ -30,14 +30,14 @@ const AssignPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSendAlert = () => {
     createAlertMutation({ receiver: selectedLockerInfo?.user ?? 0, message });
     navigate(PATH.ASSIGN);
     handleCloseModal();
   };
 
   const handleLockerClick = (lockerId: number) => {
-    setSelectedLocker(lockerId);
+    setSelectedLocker(lockerId - 1);
   };
 
   const handleCloseModal = () => {
@@ -86,7 +86,7 @@ const AssignPage = () => {
                       value={message}
                       placeholder='보낼 알림을 입력하세요.'
                     />
-                    <Button variant='contained' color='primary' onClick={handleSubmit}>
+                    <Button variant='contained' color='primary' onClick={handleSendAlert}>
                       알림 보내기
                     </Button>
                   </Modal>
