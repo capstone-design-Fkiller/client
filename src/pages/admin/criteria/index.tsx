@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
-import { MajorPriorityRequest } from '@/api/major';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
 import PageTemplate from '@/components/common/PageTamplate';
@@ -16,6 +15,7 @@ import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
 import { useFetchSavedMajor, usePutMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
+import { MajorPriorityRequest } from '@/types/major';
 import { formatDate } from '@/utils/date';
 import { PATH } from '@/utils/path';
 
