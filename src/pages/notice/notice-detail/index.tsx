@@ -67,9 +67,6 @@ const NoticeDetailPage = () => {
           <Styled.Content>내용</Styled.Content>
           <Styled.ContentBody>{noticeData.content}</Styled.ContentBody>
         </Styled.ContentContainer>
-        <Button variant='outlined' onClick={() => navigate(PATH.NOTICE)}>
-          확인
-        </Button>
         {me?.is_usermode || (
           <Styled.ButtonContainer>
             <Button variant='contained' onClick={handleEdit}>
@@ -80,6 +77,9 @@ const NoticeDetailPage = () => {
             </Button>
           </Styled.ButtonContainer>
         )}
+        <Button variant='outlined' onClick={() => navigate(PATH.NOTICE)}>
+          닫기
+        </Button>
       </Styled.Root>
     </PageTemplate>
   );
