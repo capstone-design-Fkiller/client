@@ -66,6 +66,10 @@ const AdminCriteriaPage = () => {
       filteredList = filteredList.filter(item => item !== priority1 && item !== priority2);
     }
 
+    if (!filteredList.includes('선택없음')) {
+      filteredList.push('선택없음');
+    }
+
     return filteredList;
   };
 
