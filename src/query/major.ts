@@ -37,3 +37,14 @@ export const usePutMajor = () => {
   });
   return mutation;
 };
+
+export const useFetchSavedMajor = (id: number) => {
+  const { data: majorInfo } = useQuery<MajorResponse>([QUERY_KEY.major, id], () => getMajor(id), {
+    enabled: !!id,
+    select: data => {
+      return data;
+    },
+  });
+
+  return { majorInfo };
+};
