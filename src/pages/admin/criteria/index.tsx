@@ -13,13 +13,16 @@ import CustomCalendar from '@/components/share/Calendar';
 import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
 import { MAJOR } from '@/constants/major';
+import useToast from '@/hooks/useToast';
 import { usePutMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { formatDate } from '@/utils/date';
 import { PATH } from '@/utils/path';
+import { error } from 'console';
 
 const AdminCriteriaPage = () => {
   const navigate = useNavigate();
+  const { createToastMessage } = useToast();
   const { me } = useFetchMe();
   const [selectedDate, setSelectedDate] = useState<Value | undefined>();
   const [date, setDate] = useState<string[]>(['', '']);
@@ -35,7 +38,7 @@ const AdminCriteriaPage = () => {
 
   const handlePutCriteria = () => {
     if (!selectedDate) {
-      console.error('날짜 선택은 필수입니다.');
+      createToastMessage('날짜 선택은 필수입니다.', 'error');
       return;
     }
 

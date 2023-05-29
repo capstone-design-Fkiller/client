@@ -25,13 +25,13 @@ export const useFetchMajor = (params: number, isCondt?: boolean) => {
 };
 
 export const usePutMajor = () => {
-  // const { createToastMessage } = useToast();
+  const { createToastMessage } = useToast();
   const mutation = useMutation((body: Partial<MajorPriorityRequest>) => putMajor(body), {
     onSuccess: res => {
-      // createToastMessage('로그인에 성공했습니다.', 'success');
+      createToastMessage('배정 기준 설정이 완료되었습니다.', 'success');
     },
     onError: () => {
-      // createToastMessage('아이디와 비밀번호를 확인해주세요!', 'error');
+      createToastMessage('배정 기준 설정에 실패했습니다.', 'error');
     },
   });
   return mutation;
