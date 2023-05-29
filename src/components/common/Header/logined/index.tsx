@@ -9,10 +9,10 @@ import Icon from '@/components/common/Icon';
 import Modal from '@/components/common/Modal';
 import { MAJOR } from '@/constants/major';
 import { useFetchAlerts, usePostAlert } from '@/query/alert';
-import { UserResponse } from '@/types/user';
-import { PATH } from '@/utils/path';
-import { YYMMDD } from '@/utils/date';
 import { alertResponse } from '@/types/alert';
+import { UserResponse } from '@/types/user';
+import { YYMMDD } from '@/utils/date';
+import { PATH } from '@/utils/path';
 
 interface LoginedProps {
   me: UserResponse;
