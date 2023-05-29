@@ -18,10 +18,3 @@ export const Button = styled.div`
     margin-bottom: 30px;
   }
 `;
-
-// export const LockerInfoContent = styled.div`
-//   margin: 20px 17px;
-
-//   font-size: 15px;
-//   font-weight: 400;
-// `;

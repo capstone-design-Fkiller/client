@@ -47,7 +47,7 @@ const NoticeCreatePage = () => {
         </Styled.Container>
         <Styled.ButtonContainer>
           <Button variant='contained' onClick={handleSubmit}>
-            등록
+            등록하기
           </Button>
           <Button variant='outlined' onClick={() => navigate(PATH.NOTICE)}>
             취소

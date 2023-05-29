@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { delNotice, getNotice, postNotice } from '@/api/notice';
+import { delNotice, getNotice, getNoticeDetail, postNotice, putNotice } from '@/api/notice';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
 import { useFetchMe } from '@/query/user';
@@ -8,7 +8,7 @@ import { NoticeRequest } from '@/types/notice';
 
 const QUERY_KEY = {
   notice: 'notice',
-  id: 'id',
+  noticeDetail: 'noticedetail',
 };
 
 export const useFetchNotice = (major: number) => {
@@ -19,6 +19,24 @@ export const useFetchNotice = (major: number) => {
     },
   });
   return { data: notices, isLoading };
+};
+
+export const useFetchNoticeDetail = (noticeId: number) => {
+  const { createToastMessage } = useToast();
+  const queryClient = useQueryClient();
+
+  const { data: notice, isLoading } = useQuery(
+    [QUERY_KEY.noticeDetail, noticeId],
+    () => getNoticeDetail(noticeId),
+    {
+      onError: () => {
+        createToastMessage('다시 시도해주세요.', 'error');
+      },
+    }
+  );
+  queryClient.invalidateQueries(QUERY_KEY.noticeDetail);
+
+  return { data: notice, isLoading };
 };
 
 export const useCreateNoticeMutation = () => {
@@ -40,6 +58,28 @@ export const useCreateNoticeMutation = () => {
     },
     onError: () => createToastMessage('다시 시도해주세요.', 'error'),
   });
+
+  return mutation;
+};
+
+export const useEditNoticeMutation = () => {
+  const { me } = useFetchMe();
+  const queryClient = useQueryClient();
+  const { createToastMessage } = useToast();
+
+  if (!me) throw new Error();
+
+  const mutation = useMutation(
+    (body: Pick<NoticeRequest, 'id' | 'content' | 'title'>) =>
+      putNotice({ ...body, major: MAJOR[me.major], writer: me.id }),
+    {
+      onSuccess: () => {
+        createToastMessage('공지사항 수정 완료!', 'success');
+        queryClient.invalidateQueries(QUERY_KEY.notice);
+      },
+      onError: () => createToastMessage('다시 시도해주세요.', 'error'),
+    }
+  );
 
   return mutation;
 };
