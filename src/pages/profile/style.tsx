@@ -5,6 +5,7 @@ export const Root = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 0 30px;
 
   ${({ theme }) =>
@@ -13,8 +14,18 @@ export const Root = styled.section`
     `};
 `;
 
-export const Button = styled.div`
-  button {
-    margin-bottom: 30px;
-  }
+export const SelectWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  width: 100%;
+  margin: 50px 0 30px 0;
+`;
+
+export const Title = styled.h1`
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: ${({ theme }) => theme.colors.primary_200};
 `;

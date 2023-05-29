@@ -11,8 +11,6 @@ interface PaginationProps {
   setState: Dispatch<SetStateAction<number>>;
 }
 
-const PAGE_OFFSET = 10;
-
 const Pagination = (props: PaginationProps) => {
   const { currentPage, totalItems, itemsPerPage, setState } = props;
 
@@ -59,4 +57,4 @@ const Pagination = (props: PaginationProps) => {
   );
 };
 
-export { Pagination, PAGE_OFFSET };
+export { Pagination };

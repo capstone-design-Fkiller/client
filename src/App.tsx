@@ -8,13 +8,17 @@ import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
 const NoticePage = lazy(() => import('@/pages/notice'));
+const NoticeCreatePage = lazy(() => import('./pages/notice/notice-create'));
+const NoticeDetailPage = lazy(() => import('./pages/notice/notice-detail'));
+const NoticeEditPage = lazy(() => import('./pages/notice/notice-edit'));
 const SharePage = lazy(() => import('@/pages/locker-mode/share'));
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
 const SortPage = lazy(() => import('@/pages/sort'));
-const UserSharePage = lazy(() => import('@/pages/profile/register-share'));
+const ProfilePage = lazy(() => import('@/pages/profile'));
+const AdminCriteriaPage = lazy(() => import('@/pages/admin/criteria'));
 
 function setScreenSize() {
   const vh = window.innerHeight * 0.01;
@@ -38,7 +42,7 @@ function App() {
       window.removeEventListener('resize', onResize);
     };
   }, []);
-
+  // 여기에서 토큰 있는지 확인하고 없으면 다른 화면으로 라우팅 되도록 하고, 있으면 토큰 넘겨주면서 메인 화면으로 연결해주면 된다.
   return (
     <ToastProvider>
       <Suspense fallback={<Loader />}>
@@ -52,8 +56,12 @@ function App() {
             <Route path={PATH.APPLY} element={<ApplyPage />} />
             <Route path={PATH.SHARE} element={<SharePage />} />
             <Route path={PATH.NOTICE} element={<NoticePage />} />
+            <Route path={PATH.NOTICE_CREATE} element={<NoticeCreatePage />} />
+            <Route path={PATH.NOTICE_DETAIL} element={<NoticeDetailPage />} />
+            <Route path={PATH.NOTICE_EDIT} element={<NoticeEditPage />} />
             <Route path={PATH.SORT} element={<SortPage />} />
-            <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
+            <Route path={PATH.PROFILE} element={<ProfilePage />} />
+            <Route path={PATH.CRITERIA} element={<AdminCriteriaPage />} />
           </Route>
         </Routes>
       </Suspense>

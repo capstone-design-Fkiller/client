@@ -6,11 +6,11 @@ import {
   getLockerInfo,
   postApplyLocker,
   getShareableLockers,
-  ShareRequest,
+  getMyLocker,
   putShare,
 } from '@/api/locker';
 import useToast from '@/hooks/useToast';
-import { LockerRequest, RequestApplyLocker } from '@/types/locker';
+import { LockerRequest, LockerResponse, RequestApplyLocker, ShareRequest } from '@/types/locker';
 
 const QUERY_KEY = {
   apply: 'apply',
@@ -61,6 +61,12 @@ export const useApplyLockerMutation = () => {
   });
 
   return mutation;
+};
+
+export const useFetchMyLocker = (id: number) => {
+  const { data } = useQuery<LockerResponse[]>([QUERY_KEY.locker, id], () => getMyLocker(id));
+
+  return { data };
 };
 
 // ! Share Api 구현되면 추가

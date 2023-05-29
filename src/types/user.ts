@@ -2,15 +2,14 @@ export interface UserResponse {
   id: number;
   name: string;
   major: string;
-  password: string;
   penalty: boolean;
-  penalty_start_date: Date | null;
-  penalty_end_date: Date | null;
+  penalty_start_date: string | null;
+  penalty_end_date: string | null;
   id_card_img: string;
   is_usermode: boolean;
   is_adminable: boolean;
   is_valid: boolean;
-  created_at: Date;
+  created_at: string;
 }
 
 export interface LoginRequest {
