@@ -25,7 +25,6 @@ const Styled = {
     font-size: 16px;
     font-weight: bold;
     background-color: ${({ theme }) => theme.colors.primary_200};
-
     border-radius: 5px;
   `,
 
