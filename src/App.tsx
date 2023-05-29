@@ -10,12 +10,13 @@ import { PATH } from '@/utils/path';
 const NoticePage = lazy(() => import('@/pages/notice'));
 const NoticeCreatePage = lazy(() => import('./pages/notice/notice-create'));
 const SharePage = lazy(() => import('@/pages/locker-mode/share'));
-const MainPage = lazy(() => import('@/pages/main'));
+const MainPage = lazy(() => import('@/pages/main/student'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
 const SortPage = lazy(() => import('@/pages/sort'));
 const UserSharePage = lazy(() => import('@/pages/profile/register-share'));
+const AdminCriteriaPage = lazy(() => import('@/pages/admin/criteria'));
 
 function setScreenSize() {
   const vh = window.innerHeight * 0.01;
@@ -39,7 +40,7 @@ function App() {
       window.removeEventListener('resize', onResize);
     };
   }, []);
-
+  // 여기에서 토큰 있는지 확인하고 없으면 다른 화면으로 라우팅 되도록 하고, 있으면 토큰 넘겨주면서 메인 화면으로 연결해주면 된다.
   return (
     <ToastProvider>
       <Suspense fallback={<Loader />}>
@@ -56,6 +57,7 @@ function App() {
             <Route path={PATH.NOTICE_CREATE} element={<NoticeCreatePage />} />
             <Route path={PATH.SORT} element={<SortPage />} />
             <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
+            <Route path={PATH.CRITERIA} element={<AdminCriteriaPage />} />
           </Route>
         </Routes>
       </Suspense>

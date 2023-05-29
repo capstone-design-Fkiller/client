@@ -8,4 +8,5 @@ export const PATH = {
   SHARE: '/locker/share',
   SORT: '/sort',
   USER_SHARE: '/user/share',
+  CRITERIA: '/admin/criteria',
 };

@@ -12,3 +12,16 @@ export const Root = styled.section`
       min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight});
     `};
 `;
+
+export const Button = styled.div`
+  button {
+    margin-bottom: 30px;
+  }
+`;
+
+// export const LockerInfoContent = styled.div`
+//   margin: 20px 17px;
+
+//   font-size: 15px;
+//   font-weight: 400;
+// `;
