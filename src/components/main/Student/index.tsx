@@ -34,14 +34,16 @@ const Student = ({ user }: { user: UserResponse }) => {
             <span>건물: {BUILDINGTOSTRING[myLocker.building_id]}</span>
             <span>사물함 번호: {myLocker.id}</span>
             {myLocker.is_share_registered ? '쉐어 등록됨' : '쉐어 미등록'}
-            <Button
-              variant='contained'
-              onClick={() => {
-                return handleNavigate(PATH.USER_SHARE);
-              }}
-            >
-              사물함 쉐어하기
-            </Button>
+            {!myLocker.is_share_registered ? (
+              <Button
+                variant='contained'
+                onClick={() => {
+                  return handleNavigate(PATH.USER_SHARE);
+                }}
+              >
+                사물함 쉐어하기
+              </Button>
+            ) : undefined}
           </>
         ) : myLocker?.shared_id == id ? (
           <>
