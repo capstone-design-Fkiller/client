@@ -185,7 +185,7 @@ const AdminCriteriaPage = () => {
           onClick={handlePutCriteria}
           disabled={isButtonDisabled}
         >
-          {isEditMode ? '수정하기' : '사물함 배정하기'}
+          {isEditMode ? '수정하기' : '배정 기준 설정하기'}
         </Button>
       </Styled.Root>
     </PageTemplate>
