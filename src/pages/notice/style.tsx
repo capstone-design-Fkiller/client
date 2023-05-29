@@ -49,28 +49,10 @@ export const TableContainer = styled.table`
   }
 `;
 
-export const ModalHeader = styled.div`
+export const Message = styled.h1`
   display: flex;
+  font-size: 18px;
   justify-content: center;
-  padding: 10px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.light_grey_200};
-`;
-
-export const ModalTitle = styled.h2`
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
-
-export const ModalContent = styled.div`
-  white-space: pre-line;
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.grey_400};
-  margin-top: 20px;
-  line-height: 1.4;
-`;
-
-export const ModalButtons = styled.div`
-  position: flex;
-  margin-top: 10px;
-  justify-content: flex-end;
+  margin-top: 100px;
+  margin-bottom: 100px;
 `;

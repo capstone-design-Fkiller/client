@@ -21,6 +21,13 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
+export const TitleMajor = styled.h1`
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: ${({ theme }) => theme.colors.primary_100};
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
