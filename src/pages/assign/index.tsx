@@ -1,27 +1,40 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
 import TableContent from '@/components/assign/table/TableContent';
+import TableHead from '@/components/assign/table/TableHead';
 import Button from '@/components/common/Button';
 import Loader from '@/components/common/Loader';
 import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
 import { Pagination } from '@/components/common/Pagination';
-import TableHead from '@/components/sort/table/TableHead';
 import { MAJOR } from '@/constants/major';
 import { PAGE_OFFSET } from '@/constants/page_offset';
+import { useCreateAlertMutation } from '@/query/alert';
 import { useFetchAssign } from '@/query/assign';
 import { useFetchMe } from '@/query/user';
+import { PATH } from '@/utils/path';
 
-const TABLE_HEADER = ['신청 번호', '이용자 학번', '사물함 번호', '건물'];
+const TABLE_HEADER = ['사물함', '건물', '학번', '이름', '알림'];
 
 const AssignPage = () => {
-  const [selectedLocker, setSelectedLocker] = useState<number | null>(null);
   const { me } = useFetchMe();
-  const { data: lockers, isLoading: isLockerLoading } = useFetchAssign(MAJOR[me!.major]);
+  const { mutate: createAlertMutation } = useCreateAlertMutation();
+  const { data: assigns, isLoading: isAssignLoading } = useFetchAssign(MAJOR[me?.major ?? '학과']);
   const [currentPage, setCurrentPage] = useState(1);
   const [message, setMessage] = useState<string>('');
+  const [selectedLocker, setSelectedLocker] = useState<number | null>(null);
+  const selectedLockerInfo = assigns?.at(selectedLocker ?? 0);
+
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    createAlertMutation({ receiver: selectedLockerInfo?.user ?? 0, message });
+    navigate(PATH.ASSIGN);
+    handleCloseModal();
+  };
 
   const handleLockerClick = (lockerId: number) => {
     setSelectedLocker(lockerId);
@@ -29,6 +42,7 @@ const AssignPage = () => {
 
   const handleCloseModal = () => {
     setSelectedLocker(null);
+    setMessage('');
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -39,39 +53,45 @@ const AssignPage = () => {
     <PageTemplate>
       <Styled.Root>
         <Styled.Title>사물함 최종 배정 결과</Styled.Title>
-        {isLockerLoading ? (
+        {isAssignLoading ? (
           <Loader />
         ) : (
           <>
-            <Styled.TableContainer>
-              <TableHead headers={TABLE_HEADER} />
-              <TableContent
-                contents={
-                  lockers?.slice((currentPage - 1) * PAGE_OFFSET, currentPage * PAGE_OFFSET) || []
-                }
-                handleContent={handleLockerClick}
-              />
-            </Styled.TableContainer>
-            <Styled.PaginationContainer>
-              <Pagination
-                currentPage={currentPage}
-                totalItems={lockers?.length || 0}
-                itemsPerPage={PAGE_OFFSET}
-                setState={setCurrentPage}
-              />
-            </Styled.PaginationContainer>
-            {selectedLocker !== null && (
-              <Modal title='개별 알림' onClose={handleCloseModal} open={!!selectedLocker}>
-                <textarea
-                  onChange={handleInputChange}
-                  value={message}
-                  rows={4}
-                  placeholder='작성할 내용'
-                />
-                <Button variant='contained' color='primary'>
-                  작성
-                </Button>
-              </Modal>
+            {assigns && assigns.length === 0 ? (
+              <Styled.Message>사물함 배정 기간이 아닙니다.</Styled.Message>
+            ) : (
+              <>
+                <Styled.TableContainer>
+                  <TableHead headers={TABLE_HEADER} />
+                  <TableContent
+                    contents={
+                      assigns?.slice((currentPage - 1) * PAGE_OFFSET, currentPage * PAGE_OFFSET) ||
+                      []
+                    }
+                    handleContent={handleLockerClick}
+                  />
+                </Styled.TableContainer>
+                <Styled.PaginationContainer>
+                  <Pagination
+                    currentPage={currentPage}
+                    totalItems={assigns?.length || 0}
+                    itemsPerPage={PAGE_OFFSET}
+                    setState={setCurrentPage}
+                  />
+                </Styled.PaginationContainer>
+                {selectedLocker !== null && (
+                  <Modal title='개별 알림' onClose={handleCloseModal} open={!!selectedLocker}>
+                    <Styled.textarea
+                      onChange={handleInputChange}
+                      value={message}
+                      placeholder='보낼 알림을 입력하세요.'
+                    />
+                    <Button variant='contained' color='primary' onClick={handleSubmit}>
+                      알림 보내기
+                    </Button>
+                  </Modal>
+                )}
+              </>
             )}
           </>
         )}

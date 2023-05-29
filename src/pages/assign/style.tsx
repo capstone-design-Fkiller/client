@@ -42,11 +42,13 @@ export const TableContainer = styled.table`
   }
 `;
 
-// export const Message = styled.h1`
-//   display: flex;
-//   font-size: 18px;
-//   justify-content: center;
-// `;
+export const Message = styled.h1`
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+`;
 
 export const ModalContent = styled.div`
   font-size: 16px;
@@ -57,4 +59,14 @@ export const ModalContent = styled.div`
 export const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const textarea = styled.textarea`
+  margin-top: 5%;
+  width: 100%;
+  height: 80%;
+  resize: none;
+  padding: 5px;
+  border: 1px solid ${({ theme }) => theme.colors.light_grey_100};
+  border-radius: 5px;
 `;

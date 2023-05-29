@@ -1,23 +1,32 @@
 import { useMutation, useQuery } from 'react-query';
 
+import { useFetchMe } from './user';
+
 import { getMyAlerts, postAlert } from '@/api/alert';
+import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
-import { alertRequest } from '@/types/alert';
+import { AlertRequest } from '@/types/alert';
 
 const QUERY_KEY = {
   alert: 'alert',
 };
 
-export const usePostAlert = () => {
+export const useCreateAlertMutation = () => {
+  const { me } = useFetchMe();
   const { createToastMessage } = useToast();
 
-  const mutation = useMutation((body: alertRequest) => postAlert(body), {
-    onSuccess: ({ data }) => {
-      console.log(data, '알림 보내기 완료 출력!');
-      createToastMessage('알림을 성공적으로 보냈습니다.', 'success');
+  const createAlert = (body: Pick<AlertRequest, 'message' | 'receiver'>) => {
+    if (!me) throw new Error();
+
+    return postAlert({ ...body, major: MAJOR[me.major], sender: me.id });
+  };
+
+  const mutation = useMutation(createAlert, {
+    onSuccess: () => {
+      createToastMessage('알림 전송 완료!', 'success');
     },
     onError: () => {
-      createToastMessage('빈칸을 다 작성해주세요!', 'error');
+      createToastMessage('다시 시도해주세요.', 'error');
     },
   });
 
