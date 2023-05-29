@@ -37,12 +37,15 @@ const AdminCriteriaPage = () => {
   const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
 
-  const priorityKey1 = CRITERIA.find((key: string) => CRITERIA[key] === majorInfo?.priority_1.name);
-  const priorityKey2 = CRITERIA.find((key: string) => CRITERIA[key] === majorInfo?.priority_2.name);
-  const priorityKey3 = CRITERIA.find((key: string) => CRITERIA[key] === majorInfo?.priority_3.name);
-  // const majorKey1 = getKeyByValue(MAJOR, majorInfo?.priority_1);
-  // const majorKey2 = getKeyByValue(MAJOR, majorInfo?.priority_2);
-  // const majorKey3 = getKeyByValue(MAJOR, majorInfo?.priority_3);
+  const priorityKey1 = Object.keys(CRITERIA).find(
+    (key: string) => CRITERIA[key] === majorInfo?.priority_1?.name
+  );
+  const priorityKey2 = Object.keys(CRITERIA).find(
+    (key: string) => CRITERIA[key] === majorInfo?.priority_2?.name
+  );
+  const priorityKey3 = Object.keys(CRITERIA).find(
+    (key: string) => CRITERIA[key] === majorInfo?.priority_3?.name
+  );
 
   const { mutate } = usePutMajor();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -161,7 +164,7 @@ const AdminCriteriaPage = () => {
             <Styled.Labels>
               <span>1순위: </span>
               <Select
-                value={isEditMode ? { priorityKey1 } ?? '선택 없음' : priority1}
+                value={isEditMode ? priorityKey1 ?? '선택 없음' : priority1}
                 list={getPriorityList(1)}
                 handleChange={handleChange1}
               />
@@ -169,7 +172,7 @@ const AdminCriteriaPage = () => {
             <Styled.Labels>
               <span>2순위:</span>
               <Select
-                value={isEditMode ? { priorityKey2 } ?? '선택 없음' : priority2}
+                value={isEditMode ? priorityKey2 ?? '선택 없음' : priority2}
                 list={getPriorityList(2)}
                 handleChange={handleChange2}
               />
@@ -177,7 +180,7 @@ const AdminCriteriaPage = () => {
             <Styled.Labels>
               <span>3순위:</span>
               <Select
-                value={isEditMode ? { priorityKey3 } ?? '선택 없음' : priority3}
+                value={isEditMode ? priorityKey3 ?? '선택 없음' : priority3}
                 list={getPriorityList(3)}
                 handleChange={handleChange3}
               />
