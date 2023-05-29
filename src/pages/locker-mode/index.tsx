@@ -18,14 +18,14 @@ const SelectApplyMode = () => {
           startIcon={<Icon iconName='box' />}
           onClick={() => navigate(PATH.APPLY)}
         >
-          사물함 신청
+          학과 사물함 신청
         </Button>
         <Button
           variant='contained'
           startIcon={<Icon iconName='share' color='white' />}
           onClick={() => navigate(PATH.SHARE)}
         >
-          사물함 쉐어
+          쉐어 사물함 신청
         </Button>
       </Styled.Root>
     </PageTemplate>
