@@ -14,7 +14,7 @@ import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
-import { usePutMajor } from '@/query/major';
+import { useFetchSavedMajor, usePutMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { formatDate } from '@/utils/date';
 import { PATH } from '@/utils/path';
@@ -23,17 +23,30 @@ const AdminCriteriaPage = () => {
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
   const { me } = useFetchMe();
+  const { majorInfo } = useFetchSavedMajor(MAJOR[me?.major ?? '학과']);
+
   const [selectedDate, setSelectedDate] = useState<Value | undefined>();
   const [date, setDate] = useState<string[]>(['', '']);
   const [priority1, setPriority1] = useState<string>('선택 없음');
   const [priority2, setPriority2] = useState<string>('선택 없음');
   const [priority3, setPriority3] = useState<string>('선택 없음');
   const [baserule, setBaserule] = useState<string>('선착순');
+
   const handleChange1 = (e: MouseEvent<HTMLLIElement>) => setPriority1(e.currentTarget.innerText);
   const handleChange2 = (e: MouseEvent<HTMLLIElement>) => setPriority2(e.currentTarget.innerText);
   const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
+
+  const majorKey1 = getKeyByValue(MAJOR, majorInfo?.priority_1);
+  const majorKey2 = getKeyByValue(MAJOR, majorInfo?.priority_2);
+  const majorKey3 = getKeyByValue(MAJOR, majorInfo?.priority_3);
+
   const { mutate } = usePutMajor();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(() => {
+    const storedEditMode = localStorage.getItem('isEditMode');
+    return storedEditMode === 'true';
+  });
 
   const getPriorityList = (currentPriority: number) => {
     const criteriaList = Object.keys(CRITERIA);
@@ -83,12 +96,22 @@ const AdminCriteriaPage = () => {
     };
 
     mutate(body, {
-      onSuccess: () => navigate(PATH.MAIN),
+      onSuccess: () => {
+        setIsButtonDisabled(true);
+        setIsEditMode(true);
+        localStorage.setItem('isEditMode', 'true');
+        navigate(PATH.MAIN);
+      },
       onError: error => console.error('PutMajor Error:', error),
     });
-
-    // 여기에 설정 완료 alert 보낼지 고민중
   };
+
+  useEffect(() => {
+    const storedEditMode = localStorage.getItem('isEditMode');
+    if (storedEditMode === 'true') {
+      setIsEditMode(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (!selectedDate) return;
@@ -126,15 +149,27 @@ const AdminCriteriaPage = () => {
           <Styled.InformBox>
             <Styled.Labels>
               <span>1순위: </span>
-              <Select value={priority1} list={getPriorityList(1)} handleChange={handleChange1} />
+              <Select
+                value={isEditMode ? { majorKey1 } ?? '선택 없음' : priority1}
+                list={getPriorityList(1)}
+                handleChange={handleChange1}
+              />
             </Styled.Labels>
             <Styled.Labels>
               <span>2순위:</span>
-              <Select value={priority2} list={getPriorityList(2)} handleChange={handleChange2} />
+              <Select
+                value={isEditMode ? { majorKey2 } ?? '선택 없음' : priority2}
+                list={getPriorityList(2)}
+                handleChange={handleChange2}
+              />
             </Styled.Labels>
             <Styled.Labels>
               <span>3순위:</span>
-              <Select value={priority3} list={getPriorityList(3)} handleChange={handleChange3} />
+              <Select
+                value={isEditMode ? { majorKey3 } ?? '선택 없음' : priority3}
+                list={getPriorityList(3)}
+                handleChange={handleChange3}
+              />
             </Styled.Labels>
             <Styled.Labels>
               <span>동점자 기준:</span>
@@ -148,8 +183,9 @@ const AdminCriteriaPage = () => {
           variant='contained'
           startIcon={<Icon iconName='box' />}
           onClick={handlePutCriteria}
+          disabled={isButtonDisabled}
         >
-          사물함 배정하기
+          {isEditMode ? '수정하기' : '사물함 배정하기'}
         </Button>
       </Styled.Root>
     </PageTemplate>
@@ -157,3 +193,6 @@ const AdminCriteriaPage = () => {
 };
 
 export default AdminCriteriaPage;
+function getKeyByValue(MAJOR: { [key: string]: number }, priority_1: string | null | undefined) {
+  throw new Error('Function not implemented.');
+}
