@@ -12,8 +12,7 @@ export const usePostAlert = () => {
   const { createToastMessage } = useToast();
 
   const mutation = useMutation((body: alertRequest) => postAlert(body), {
-    onSuccess: ({ data }) => {
-      console.log(data, '알림 보내기 완료 출력!');
+    onSuccess: () => {
       createToastMessage('알림을 성공적으로 보냈습니다.', 'success');
     },
     onError: () => {

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
-import { MajorPriorityResponse, MajorResponse } from '@/api/major';
 import Button from '@/components/common/Button';
+import { MajorPriorityResponse, MajorResponse } from '@/types/major';
 
 interface ConditionProps {
   majorInfo: MajorResponse | MajorPriorityResponse | undefined;

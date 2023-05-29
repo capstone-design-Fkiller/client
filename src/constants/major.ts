@@ -34,3 +34,7 @@ export const MAJOR: { [key: string]: number } = {
   국제학부: 32,
   LD학부: 33,
 };
+
+export const getMajorName = (value: number) => {
+  return Object.keys(MAJOR).find(key => MAJOR[key] === value);
+};

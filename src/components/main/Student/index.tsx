@@ -1,10 +1,10 @@
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
-import { BUILDINGTOSTRING } from '@/constants/building';
+import { getBuildingName } from '@/constants/building';
 import { useFetchMyLocker } from '@/query/locker';
 import { UserResponse } from '@/types/user';
 import { PATH } from '@/utils/path';
@@ -31,7 +31,7 @@ const Student = ({ user }: { user: UserResponse }) => {
 
         {myLocker?.owned_id == id ? (
           <>
-            <span>건물: {BUILDINGTOSTRING[myLocker.building_id]}</span>
+            <span>건물: {getBuildingName(myLocker.building_id)}</span>
             <span>사물함 번호: {myLocker.id}</span>
             {myLocker.is_share_registered ? '쉐어 등록됨' : '쉐어 미등록'}
             <Button
@@ -45,7 +45,7 @@ const Student = ({ user }: { user: UserResponse }) => {
           </>
         ) : myLocker?.shared_id == id ? (
           <>
-            <span>건물: {BUILDINGTOSTRING[myLocker.building_id]}</span>
+            <span>건물: {getBuildingName(myLocker.building_id)}</span>
             <span>사물함 번호: {myLocker.id}</span>
             {'쉐어 받음'}
           </>

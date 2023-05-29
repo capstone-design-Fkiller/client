@@ -1,7 +1,4 @@
 export interface alertResponse {
-  alerts: alert[];
-}
-export interface alert {
   id: number;
   major: string;
   message: string;
