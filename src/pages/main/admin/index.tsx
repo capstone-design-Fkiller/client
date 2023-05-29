@@ -8,11 +8,9 @@ import PageTemplate from '@/components/common/PageTamplate';
 import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
-const MainPage = () => {
+const AdminMainPage = () => {
   const navigate = useNavigate();
-  // const { me } = useFetchMe();
-
-  let me = 'dsaf';
+  const { me } = useFetchMe();
 
   return (
     <PageTemplate>
@@ -25,7 +23,6 @@ const MainPage = () => {
             <Button variant='contained' onClick={() => navigate(PATH.SORT)}>
               사물함 배정하기
             </Button>
-            {/* 통학거리, 재학여부 */}
           </Styled.Button>
         ) : (
           <Loader />
@@ -35,4 +32,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default AdminMainPage;
