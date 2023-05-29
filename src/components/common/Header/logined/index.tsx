@@ -8,9 +8,8 @@ import Icon from '@/components/common/Icon';
 import Modal from '@/components/common/Modal';
 import { useFetchAlerts } from '@/query/alert';
 import { UserResponse } from '@/types/user';
-import { PATH } from '@/utils/path';
 import { YYMMDD } from '@/utils/date';
-import { alertResponse } from '@/types/alert';
+import { PATH } from '@/utils/path';
 
 interface LoginedProps {
   me: UserResponse;
@@ -20,8 +19,7 @@ const LoginedHeader = (headerProps: LoginedProps) => {
   const { me } = headerProps;
   const [alertOpen, setAlertOpen] = useState(false);
   const queryClient = useQueryClient();
-
-  // FETCH 기능
+  
   const { data: alerts, isLoading } = useFetchAlerts(me.id);
 
   const handleAlertOpen = () => {
@@ -43,8 +41,8 @@ const LoginedHeader = (headerProps: LoginedProps) => {
         <Modal title='알림' open={alertOpen} onClose={handleAlertOpen}>
           <Styled.AlertModalTitle>알림</Styled.AlertModalTitle>
           <Styled.ModalBody>
-            {alert && alert?.length > 0 ? (
-              alert.map(alert => (
+            {alerts && alerts?.length > 0 ? (
+              alerts.map(alert => (
                 <Styled.AlertModalListItems key={alert.id}>
                   <p>{alert.message}</p>
                   <p>{alert.major.slice(0, -2)}관리자</p>
