@@ -1,4 +1,5 @@
 export interface NoticeRequest {
+  id: number;
   title: string;
   content: string;
   major: number;
