@@ -1,13 +1,8 @@
-import { useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-
 import * as Styled from './style';
 
-import { instance } from '@/api/instance';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import { useFetchMe } from '@/query/user';
-import { PATH } from '@/utils/path';
 
 const ProfilePage = () => {
   const { me, logout } = useFetchMe();
