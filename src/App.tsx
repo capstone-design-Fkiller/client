@@ -60,7 +60,7 @@ function App() {
             <Route path={PATH.NOTICE_DETAIL} element={<NoticeDetailPage />} />
             <Route path={PATH.NOTICE_EDIT} element={<NoticeEditPage />} />
             <Route path={PATH.SORT} element={<SortPage />} />
-            <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
+            {/* <Route path={PATH.USER_SHARE} element={<UserSharePage />} /> */}
             <Route path={PATH.PROFILE} element={<ProfilePage />} />
             <Route path={PATH.CRITERIA} element={<AdminCriteriaPage />} />
           </Route>
