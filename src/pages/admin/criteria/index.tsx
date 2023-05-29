@@ -18,7 +18,6 @@ import { usePutMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { formatDate } from '@/utils/date';
 import { PATH } from '@/utils/path';
-import { error } from 'console';
 
 const AdminCriteriaPage = () => {
   const navigate = useNavigate();
@@ -50,9 +49,9 @@ const AdminCriteriaPage = () => {
     const body: Partial<MajorPriorityRequest> = {
       id: MAJOR[me?.major ?? '학과'],
       name: me?.major ?? '학과',
-      priority_1: priority1 === '선택 없음' ? null : priority1,
-      priority_2: priority2 === '선택 없음' ? null : priority2,
-      priority_3: priority3 === '선택 없음' ? null : priority3,
+      priority_1: priority1 === '선택 없음' ? null : CRITERIA[priority1],
+      priority_2: priority2 === '선택 없음' ? null : CRITERIA[priority2],
+      priority_3: priority3 === '선택 없음' ? null : CRITERIA[priority3],
       apply_start_date: start,
       apply_end_date: end,
       is_baserule_FCFS: baserule === '선착순' ? false : true,
