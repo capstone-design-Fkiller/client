@@ -1,11 +1,24 @@
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import Icon from '@/components/common/Icon';
+import { BUILDINGTOSTRING } from '@/constants/building';
+import { useFetchMyLocker } from '@/query/locker';
 import { UserResponse } from '@/types/user';
+import { PATH } from '@/utils/path';
 
 const Student = ({ user }: { user: UserResponse }) => {
+  const navigate = useNavigate();
   const { name, id } = user;
+
+  const { data } = useFetchMyLocker(id);
+  const myLocker = data?.at(0);
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <Styled.Container>
@@ -15,8 +28,30 @@ const Student = ({ user }: { user: UserResponse }) => {
       <Styled.InformBox>
         <span>이름: {name}</span>
         <span>학번: {id}</span>
-        <span>건물: 수정 필요</span>
-        <span>사물함 번호: 수정 필요</span>
+
+        {myLocker?.owned_id == id ? (
+          <>
+            <span>건물: {BUILDINGTOSTRING[myLocker.building_id]}</span>
+            <span>사물함 번호: {myLocker.id}</span>
+            {myLocker.is_share_registered ? '쉐어 등록됨' : '쉐어 미등록'}
+            <Button
+              variant='contained'
+              onClick={() => {
+                return handleNavigate(PATH.USER_SHARE);
+              }}
+            >
+              사물함 쉐어하기
+            </Button>
+          </>
+        ) : myLocker?.shared_id == id ? (
+          <>
+            <span>건물: {BUILDINGTOSTRING[myLocker.building_id]}</span>
+            <span>사물함 번호: {myLocker.id}</span>
+            {'쉐어 받음'}
+          </>
+        ) : (
+          '아직 배정된 사물함이 없습니다. 사물함을 신청하세요'
+        )}
       </Styled.InformBox>
     </Styled.Container>
   );

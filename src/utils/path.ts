@@ -10,4 +10,6 @@ export const PATH = {
   SHARE: '/locker/share',
   SORT: '/sort',
   USER_SHARE: '/user/share',
+  PROFILE: '/profile',
+  CRITERIA: '/admin/criteria',
 };
