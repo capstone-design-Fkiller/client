@@ -35,9 +35,34 @@ const AdminCriteriaPage = () => {
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
   const { mutate } = usePutMajor();
 
+  const getPriorityList = (currentPriority: number) => {
+    const criteriaList = Object.keys(CRITERIA);
+    let filteredList = criteriaList;
+
+    if (currentPriority === 1) {
+      filteredList = filteredList.filter(item => item !== priority2 && item !== priority3);
+    } else if (currentPriority === 2) {
+      filteredList = filteredList.filter(item => item !== priority1 && item !== priority3);
+    } else if (currentPriority === 3) {
+      filteredList = filteredList.filter(item => item !== priority1 && item !== priority2);
+    }
+
+    return filteredList;
+  };
+
   const handlePutCriteria = () => {
     if (!selectedDate) {
       createToastMessage('날짜 선택은 필수입니다.', 'error');
+      return;
+    }
+
+    if (priority1 === '선택 없음' && priority2 !== '선택 없음') {
+      createToastMessage('1순위를 선택해야 2순위를 선택할 수 있습니다.', 'error');
+      return;
+    }
+
+    if (priority2 === '선택 없음' && priority3 !== '선택 없음') {
+      createToastMessage('2순위를 선택해야 3순위를 선택할 수 있습니다.', 'error');
       return;
     }
 
@@ -101,15 +126,15 @@ const AdminCriteriaPage = () => {
           <Styled.InformBox>
             <Styled.Labels>
               <span>1순위: </span>
-              <Select value={priority1} list={Object.keys(CRITERIA)} handleChange={handleChange1} />
+              <Select value={priority1} list={getPriorityList(1)} handleChange={handleChange1} />
             </Styled.Labels>
             <Styled.Labels>
               <span>2순위:</span>
-              <Select value={priority2} list={Object.keys(CRITERIA)} handleChange={handleChange2} />
+              <Select value={priority2} list={getPriorityList(2)} handleChange={handleChange2} />
             </Styled.Labels>
             <Styled.Labels>
               <span>3순위:</span>
-              <Select value={priority3} list={Object.keys(CRITERIA)} handleChange={handleChange3} />
+              <Select value={priority3} list={getPriorityList(3)} handleChange={handleChange3} />
             </Styled.Labels>
             <Styled.Labels>
               <span>동점자 기준:</span>
