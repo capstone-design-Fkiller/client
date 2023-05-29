@@ -7,10 +7,17 @@ import {
   postApplyLocker,
   getShareableLockers,
   getMyLocker,
-  putShare,
+  putMyLockerToShare,
+  putLockerShare,
 } from '@/api/locker';
 import useToast from '@/hooks/useToast';
-import { LockerRequest, LockerResponse, RequestApplyLocker, ShareRequest } from '@/types/locker';
+import {
+  LockerRequest,
+  LockerResponse,
+  RequestApplyLocker,
+  ConvertToShareRequest,
+  ApplyShareRequest,
+} from '@/types/locker';
 
 const QUERY_KEY = {
   apply: 'apply',
@@ -89,8 +96,18 @@ export const useFetchSharableLockers = (id: number) => {
 
 export const useConvertShareMutation = () => {
   const { createToastMessage } = useToast();
-  const mutation = useMutation((body: ShareRequest) => putShare(body), {
+  const mutation = useMutation((body: ConvertToShareRequest) => putMyLockerToShare(body), {
     onSuccess: () => createToastMessage('쉐어 신청 완료 !', 'success'),
+    onError: () => createToastMessage('다시 시도해주세요.', 'error'),
+  });
+
+  return mutation;
+};
+
+export const useShareLockerMutation = () => {
+  const { createToastMessage } = useToast();
+  const mutation = useMutation((body: ApplyShareRequest) => putLockerShare(body), {
+    onSuccess: () => createToastMessage('쉐어 신청 완료!', 'success'),
     onError: () => createToastMessage('다시 시도해주세요.', 'error'),
   });
 

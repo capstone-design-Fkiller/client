@@ -1,4 +1,4 @@
-import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { instance } from '@/api/instance';
 import { postLogin as postLogin, getMe } from '@/api/user';
