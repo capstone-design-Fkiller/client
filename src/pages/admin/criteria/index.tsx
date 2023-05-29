@@ -37,6 +37,7 @@ const AdminCriteriaPage = () => {
   const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
 
+  const majorKey1 = MAJOR.find(key => MAJOR[key] === majorInfo?.priority_1?.toString);
   const majorKey1 = getKeyByValue(MAJOR, majorInfo?.priority_1);
   const majorKey2 = getKeyByValue(MAJOR, majorInfo?.priority_2);
   const majorKey3 = getKeyByValue(MAJOR, majorInfo?.priority_3);
@@ -193,6 +194,3 @@ const AdminCriteriaPage = () => {
 };
 
 export default AdminCriteriaPage;
-function getKeyByValue(MAJOR: { [key: string]: number }, priority_1: string | null | undefined) {
-  throw new Error('Function not implemented.');
-}
