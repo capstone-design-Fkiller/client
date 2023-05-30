@@ -12,8 +12,8 @@ export interface LockerResponse {
   // floor: string;
   floor: number;
   owned_id: number | null;
-  share_end_date: string | null;
-  share_start_date: string | null;
+  share_end_date: Date | null;
+  share_start_date: Date | null;
   shared_id: number | null;
   start_date: string | null;
 }
