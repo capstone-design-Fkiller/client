@@ -9,11 +9,10 @@ export interface LockerResponse {
   id: number;
   is_share_registered: boolean;
   major: string;
-  // floor: string;
   floor: number;
   owned_id: number | null;
-  share_end_date: Date | null;
-  share_start_date: Date | null;
+  share_end_date: string | null;
+  share_start_date: string | null;
   shared_id: number | null;
   start_date: string | null;
 }
@@ -37,9 +36,9 @@ export interface RequestApplyLocker extends LockerRequest {
 
 // export type ShareRegisterRequest = Pick<ShareRequest, 'id' | 'share_start_date' | 'share_end_date'>;
 // export type ShareApplyRequest = Pick<ShareRequest, 'id' | 'shared_id' | 'is_share_registered'>;
-export type ConvertToShareRequest = Pick<
-  LockerResponse,
-  'id' | 'share_start_date' | 'share_end_date'
->;
+export type ConvertToShareRequest = Pick<LockerResponse, 'id'> & {
+  share_end_date: Date | null;
+  share_start_date: Date | null;
+};
 
 export type ApplyShareRequest = Pick<LockerResponse, 'id' | 'shared_id'>;

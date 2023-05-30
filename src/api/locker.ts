@@ -4,9 +4,6 @@ import {
   LockerRequest,
   LockerResponse,
   RequestApplyLocker,
-  // ShareApplyRequest,
-  // ShareRegisterRequest,
-  // ShareRequest,
   ConvertToShareRequest,
   ApplyShareRequest,
 } from '@/types/locker';
@@ -49,7 +46,7 @@ export const getMyLocker = async (id: number) => {
 
 export const putMyLockerToShare = async (body: ConvertToShareRequest) => {
   const { id, ...args } = body;
-  const { data } = await instance.put(`locker/${id}/`, {
+  const { data } = await instance.put<LockerResponse>(`locker/${id}/`, {
     ...args,
   });
 
@@ -64,9 +61,21 @@ export const getShareableLockers = async (id: number) => {
   return data;
 };
 
+// building_id: number;
+// end_date: string | null;
+// id: number;
+// is_share_registered: boolean;
+// major: string;
+// floor: number;
+// owned_id: number | null;
+// share_end_date: string | null;
+// share_start_date: string | null;
+// shared_id: number | null;
+// start_date: string | null;
+
 export const putLockerShare = async (body: ApplyShareRequest) => {
   const { id, shared_id } = body;
-  const { data } = await instance.put(`locker/${id}`, {
+  const { data } = await instance.put<LockerResponse>(`locker/${id}`, {
     shared_id,
   });
 

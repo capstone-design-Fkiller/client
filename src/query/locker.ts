@@ -103,8 +103,8 @@ export const useConvertShareMutation = () => {
   const { createToastMessage } = useToast();
 
   const mutation = useMutation((body: ConvertToShareRequest) => putMyLockerToShare(body), {
-    onSuccess: ({ data }) => {
-      queryClient.invalidateQueries([QUERY_KEY.locker, data.id]);
+    onSuccess: ({ id }) => {
+      queryClient.invalidateQueries([QUERY_KEY.locker, id]);
       createToastMessage('쉐어 신청 완료 !', 'success');
 
       navigate(PATH.MAIN);
@@ -121,8 +121,8 @@ export const useShareLockerMutation = () => {
   const { createToastMessage } = useToast();
 
   const mutation = useMutation((body: ApplyShareRequest) => putLockerShare(body), {
-    onSuccess: ({ data }) => {
-      queryClient.invalidateQueries([QUERY_KEY.locker, data.id]);
+    onSuccess: ({ id }) => {
+      queryClient.invalidateQueries([QUERY_KEY.locker, id]);
       createToastMessage('쉐어 신청 완료 !', 'success');
 
       navigate(PATH.MAIN);
