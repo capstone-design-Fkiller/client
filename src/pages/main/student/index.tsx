@@ -11,18 +11,12 @@ import { PATH } from '@/utils/path';
 
 const StudentMainPage = () => {
   const navigate = useNavigate();
-  const { me, logout } = useFetchMe();
+  const { me } = useFetchMe();
 
-  const { data } = useFetchMyLocker(me?.id ?? 0);
-  const myLocker = data?.at(0);
+  const { myLocker } = useFetchMyLocker(me?.id || 0);
 
   const handleNavigate = (path: string) => {
     navigate(path);
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate(PATH.LOGIN);
   };
 
   return (
@@ -31,7 +25,7 @@ const StudentMainPage = () => {
         {me ? (
           <>
             <Student user={me} />
-            {myLocker?.shared_id == null && !myLocker?.is_share_registered ? (
+            {myLocker?.shared_id && myLocker?.is_share_registered && (
               <Button
                 variant='contained'
                 onClick={() => {
@@ -40,11 +34,7 @@ const StudentMainPage = () => {
               >
                 사물함 쉐어하기
               </Button>
-            ) : undefined}
-            {/* <Button variant='contained' onClick={() => handleNavigate(PATH.USER_SHARE)}>
-              사물함 쉐어하기
-            </Button> */}
-            {/* <Button onClick={handleLogout}>로그아웃</Button> */}
+            )}
           </>
         ) : (
           <>

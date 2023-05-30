@@ -29,3 +29,16 @@ export const Title = styled.h1`
   margin-bottom: 10px;
   color: ${({ theme }) => theme.colors.primary_200};
 `;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px 0 50px;
+  gap: 20px;
+
+  p.isError {
+    color: ${({ theme }) => theme.colors.error_100};
+  }
+`;

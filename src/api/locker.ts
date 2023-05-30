@@ -41,20 +41,12 @@ export const getMyLocker = async (id: number) => {
   if (data.length === 0) {
     const { data } = await instance.get(`locker/?shared_id=${id}`);
 
-    return data;
+    return data[0];
   }
 
-  return data;
+  return data[0];
 };
 
-// export const putShareLocker = async (body: ShareRegisterRequest | ShareApplyRequest) => {
-//   const { id, ...args } = body;
-//   const { data } = await instance.put(`locker/${id}`, {
-//     ...args,
-//   });
-
-//   return data;
-// };
 export const putMyLockerToShare = async (body: ConvertToShareRequest) => {
   const { id, ...args } = body;
   const { data } = await instance.put(`locker/${id}/`, {

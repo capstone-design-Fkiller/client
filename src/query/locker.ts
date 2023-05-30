@@ -72,15 +72,15 @@ export const useApplyLockerMutation = () => {
 };
 
 export const useFetchMyLocker = (id: number) => {
-  const { data } = useQuery<LockerResponse[]>([QUERY_KEY.locker, id], () => getMyLocker(id));
+  const { data } = useQuery<LockerResponse>([QUERY_KEY.locker, id], () => getMyLocker(id));
 
-  return { data };
+  return { myLocker: data };
 };
 
 // ! Share Api 구현되면 추가
 export const useFetchSharableLockers = (id: number) => {
   const { data, isLoading } = useQuery(
-    [QUERY_KEY.locker, QUERY_KEY.share, 'sharable-lockers', id],
+    [QUERY_KEY.share, 'sharable-lockers', id],
     () => getShareableLockers(id),
     {
       enabled: !!id,
@@ -92,14 +92,11 @@ export const useFetchSharableLockers = (id: number) => {
     }
   );
 
-  console.log(data, ' - 쉐어가능한 사물함들');
-
   return { sharableLockers: data, isLoading };
 };
 
 export const useConvertShareMutation = () => {
   const { createToastMessage } = useToast();
-  // const mutation = useMutation((body: ShareRegisterRequest | ShareApplyRequest) => putShareLocker(body), {
   const mutation = useMutation((body: ConvertToShareRequest) => putMyLockerToShare(body), {
     onSuccess: () => createToastMessage('쉐어 신청 완료 !', 'success'),
     onError: () => createToastMessage('다시 시도해주세요.', 'error'),

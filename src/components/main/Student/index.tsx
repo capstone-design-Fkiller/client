@@ -1,52 +1,22 @@
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 
-import Button from '@/components/common/Button';
+import InformBoxContent from '../StudentContent';
+
 import Icon from '@/components/common/Icon';
-import { getBuildingName } from '@/constants/building';
 import { useFetchMyLocker } from '@/query/locker';
 import { UserResponse } from '@/types/user';
-import { PATH } from '@/utils/path';
 
 const Student = ({ user }: { user: UserResponse }) => {
-  const navigate = useNavigate();
   const { name, id } = user;
-
-  const { data } = useFetchMyLocker(id);
-  const myLocker = data?.at(0);
-
-  const handleNavigate = (path: string) => {
-    navigate(path);
-  };
+  const { myLocker } = useFetchMyLocker(id);
 
   return (
     <Styled.Container>
       <Styled.LockerInfo>
         <Icon iconName='locker' size='150' hasCursor={false} />
       </Styled.LockerInfo>
-      <Styled.InformBox>
-        <span>이름: {name}</span>
-        <span>학번: {id}</span>
-
-        {myLocker?.owned_id == id ? (
-          <>
-            <span>건물: {getBuildingName(myLocker.building_id)}</span>
-            <span>사물함 번호: {myLocker.id}</span>
-            {myLocker.shared_id == null
-              ? `쉐어 등록 여부 : ${myLocker.is_share_registered ? '✔️' : '❌'}`
-              : `쉐어중 :  ${myLocker.shared_id}`}
-          </>
-        ) : myLocker?.shared_id == id ? (
-          <>
-            <span>건물: {getBuildingName(myLocker.building_id)}</span>
-            <span>사물함 번호: {myLocker.id}</span>
-            {'쉐어 받음'}
-          </>
-        ) : (
-          '아직 배정된 사물함이 없습니다. 사물함을 신청하세요'
-        )}
-      </Styled.InformBox>
+      <InformBoxContent name={name} id={id} locker={myLocker} />
     </Styled.Container>
   );
 };
@@ -81,23 +51,11 @@ const Styled = {
 
   LockerInfo: styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-  `,
-
-  InformBox: styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: flex-start;
-    align-items: center;
-
-    width: 100%;
-    padding: 0 10px;
-
-    border-top: 1px solid ${({ theme }) => theme.colors.light_grey_100};
-    background-color: ${({ theme }) => theme.colors.background_2};
   `,
 
   Separator: styled.hr`

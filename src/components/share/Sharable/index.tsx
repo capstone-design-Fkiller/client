@@ -14,6 +14,7 @@ import { getBuildingName } from '@/constants/building';
 import { useShareLockerMutation } from '@/query/locker';
 import { LockerResponse } from '@/types/locker';
 import { UserResponse } from '@/types/user';
+import { formatDate } from '@/utils/date';
 
 interface SharableProps {
   me: UserResponse;
@@ -23,13 +24,12 @@ interface SharableProps {
 }
 
 const Sharable = (props: SharableProps) => {
-  // const { lockers, isLoading, me, setSelectedLocker } = props;
+  // const { lockers, isLoading, me } = props;
 
   // if (isLoading) return <Loader />;
 
   // const handleSelectLocker = (locker: LockerResponse) => {
-  //   setSelectedLocker(locker);
-  //   console.log(locker, "락커 클릭");
+  //   console.log(locker, '락커 클릭');
   //   // if (locker !== 0) {
   //   //   navigate(`${PATH.NOTICE}/${locker}`);
   //   // }
@@ -46,14 +46,15 @@ const Sharable = (props: SharableProps) => {
   //       {lockers.map((locker: LockerResponse) => (
   //         <Styled.Row key={locker.id} onClick={() => handleSelectLocker(locker)}>
   //           <Styled.Item>{`${locker.id}번`}</Styled.Item>
-  //           <Styled.Item>{BUILDINGTOSTRING[locker.building_id]}</Styled.Item>
+  //           {/* <Styled.Item>{BUILDINGTOSTRING[locker.building_id]}</Styled.Item> */}
   //           <Styled.Item>{`${locker.owned_id}`}</Styled.Item>
-  //           <Styled.Item>{MMDD(locker.share_start_date ?? new Date().toString())}</Styled.Item>
-  //           <Styled.Item>{MMDD(locker.share_end_date ?? new Date().toString())}</Styled.Item>
+  //           {/* <Styled.Item>{formatDate(new Date(locker.share_start_date))}</Styled.Item> */}
+  //           {/* <Styled.Item>{formatDate(new Date(locker.share_end_date))}</Styled.Item> */}
   //         </Styled.Row>
   //       ))}
   //     </tbody>
   //   </Styled.TableContainer>
+  // );
 
   const { me, lockers, isLoading } = props;
   const theme = useTheme();
@@ -73,12 +74,22 @@ const Sharable = (props: SharableProps) => {
   return (
     <Styled.Root>
       {lockers.map(item => (
-        <Styled.SharedLocker
-          key={item.id}
-          onClick={() => mutate({ id: item.id, shared_id: me.id })}
-        >
-          {getBuildingName(item.building_id)} / {item.floor}층 / {item.id}
-        </Styled.SharedLocker>
+        <>
+          <Styled.SharedLocker
+            key={item.id}
+            onClick={() => mutate({ id: item.id, shared_id: me.id })}
+          >
+            <div>
+              {item.owned_id} / {getBuildingName(item.building_id)} / {item.floor}층 / {item.id}
+            </div>
+            <div>
+              {formatDate(new Date(item.share_start_date as string), false)}
+              {' ~ '}
+              {formatDate(new Date(item.share_end_date as string), false)}
+            </div>
+          </Styled.SharedLocker>
+          <Styled.Separator />
+        </>
       ))}
     </Styled.Root>
   );
@@ -87,45 +98,6 @@ const Sharable = (props: SharableProps) => {
 export default Sharable;
 
 const Styled = {
-  // Row: styled.tr`
-  //   font-size: 14px;
-  //   width: 100%;
-  //   padding: 10px;
-
-  //   cursor: pointer;
-  //   transition: 0.1s color ease-in-out;
-
-  //   &:hover {
-  //     color: ${({ theme }) => theme.colors.primary_200};
-  //   }
-  // `,
-
-  // Item: styled.td`
-  //   white-space: nowrap;
-  //   overflow: hidden;
-  //   text-overflow: ellipsis;
-  //   text-align: center;
-  // `,
-
-  // TableContainer: styled.table`
-  //   width: 100%;
-  //   margin-top: 15px;
-
-  //   border-collapse: collapse;
-
-  //   & tr > td,
-  //   & tr > th {
-  //     padding: 10px 0;
-  //     white-space: nowrap;
-
-  //     &:first-of-type {
-  //       padding-left: 10px;
-  //     }
-  //   }
-
-  //   & tbody tr {
-  //     border-bottom: 1px solid ${({ theme }) => theme.colors.light_grey_100};
-
   Nothing: styled.div`
     width: 100%;
     display: flex;
@@ -143,13 +115,6 @@ const Styled = {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
-    & div:first-of-type {
-      padding-top: 20px;
-    }
-    & div:last-of-type {
-      padding-bottom: 20px;
-    }
   `,
 
   SharedLocker: styled.div`
@@ -157,7 +122,19 @@ const Styled = {
     padding: 20px;
     cursor: pointer;
 
-    &::after {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    transition: color 0.15s ease-in-out;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary_200};
+    }
+
+    /* &::after {
       content: '';
       width: 10px;
       height: 1px;
@@ -166,6 +143,15 @@ const Styled = {
       bottom: 0;
       transform: translate(-50%, 50%);
       background-color: ${({ theme }) => theme.colors.primary_200};
-    }
+    } */
+  `,
+
+  Separator: styled.hr`
+    width: 90%;
+    height: 1px;
+    padding-left: 10px;
+
+    border: 0;
+    background: ${({ theme }) => theme.colors.light_grey_200};
   `,
 };

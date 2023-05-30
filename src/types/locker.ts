@@ -37,10 +37,9 @@ export interface RequestApplyLocker extends LockerRequest {
 
 // export type ShareRegisterRequest = Pick<ShareRequest, 'id' | 'share_start_date' | 'share_end_date'>;
 // export type ShareApplyRequest = Pick<ShareRequest, 'id' | 'shared_id' | 'is_share_registered'>;
-export interface ConvertToShareRequest {
-  id: number;
-  major: number;
-  building_id: number;
-}
+export type ConvertToShareRequest = Pick<
+  LockerResponse,
+  'id' | 'share_start_date' | 'share_end_date'
+>;
 
 export type ApplyShareRequest = Pick<LockerResponse, 'id' | 'shared_id'>;

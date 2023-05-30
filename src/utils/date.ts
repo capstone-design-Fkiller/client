@@ -1,11 +1,11 @@
 const weeks = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] as const;
 
-export const formatDate = (date: Date) => {
+export const formatDate = (date: Date, withWeekday = true) => {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const weekday = weeks[date.getDay()];
 
-  return `${month}월 ${day}일 ${weekday}`;
+  return withWeekday ? `${month}월 ${day}일 ${weekday}` : `${month}월 ${day}일`;
 };
 
 export const YYMMDD = (inputDate: string, time = false) => {
@@ -25,7 +25,6 @@ export const YYMMDD = (inputDate: string, time = false) => {
   return `${year}${month}${day}`;
 };
 
-
 export const MMDD = (datestring: string) => {
   const date = new Date(datestring);
   // const year = date.getFullYear().toString().slice(-2);
@@ -33,5 +32,4 @@ export const MMDD = (datestring: string) => {
   const day = date.getDate().toString().padStart(2, '0');
 
   return `${month}월 ${day}일`;
-
 };
