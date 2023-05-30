@@ -25,6 +25,15 @@ export const useFetchMajor = (params: number, isCondt?: boolean) => {
   return { majorInfo };
 };
 
+export const useFetchMyMajor = (params: number) => {
+  const { data: majorInfo } = useQuery<MajorResponse>(
+    [QUERY_KEY.major, params],
+    () => getMajor(params),
+  );
+
+  return { majorInfo };
+};
+
 export const usePutMajor = () => {
   const { createToastMessage } = useToast();
   const mutation = useMutation((body: Partial<MajorPriorityRequest>) => putMajor(body), {

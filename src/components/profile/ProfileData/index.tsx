@@ -1,6 +1,8 @@
 import * as Styled from './style';
 
+import { LockerResponse } from '@/types/locker';
 import { UserResponse } from '@/types/user';
+import { YYMMDD } from '@/utils/date';
 
 export interface InfoRowProps {
   label: string;
@@ -23,11 +25,11 @@ export const ProfileData: React.FC<{ me: UserResponse }> = ({ me }) => (
   </Styled.ProfileInfo>
 );
 
-// 사물함 정보 어떤 거 넣어줄지 논의
-export const LockerData: React.FC<{ me: UserResponse }> = ({ me }) => (
+// 머지 후 수정예정
+export const LockerData: React.FC<{ locker: LockerResponse }> = ({ locker }) => (
   <Styled.ProfileInfo>
-    <InfoRow label='사물함' value={me.id} />
-    <InfoRow label='사물함 신청일' value={me.id} />
-    <InfoRow label='사물함 배정일' value={me.id} />
+    <InfoRow label='사물함' value={locker.id} />
+    <InfoRow label='사용 시작일' value={YYMMDD(locker.start_date || '-')} />
+    <InfoRow label='반납 예정일' value={YYMMDD(locker.end_date || '-')} />
   </Styled.ProfileInfo>
 );

@@ -28,3 +28,9 @@ export const ProfileContainer = styled.div`
   border-radius: 5px;
   padding: 15px;
 `;
+
+export const InfoRow = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+`;
