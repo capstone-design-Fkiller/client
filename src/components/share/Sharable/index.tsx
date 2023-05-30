@@ -1,65 +1,28 @@
-// import styled from '@emotion/styled';
-
-// import Loader from '@/components/common/Loader';
-// import { BUILDINGTOSTRING } from '@/constants/building';
-// import { LockerResponse } from '@/types/locker';
-// import { UserResponse } from '@/types/user';
-// import { MMDD } from '@/utils/date';
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Fragment } from 'react';
 
 import Icon from '@/components/common/Icon';
 import Loader from '@/components/common/Loader';
 import { getBuildingName } from '@/constants/building';
-import { useShareLockerMutation } from '@/query/locker';
 import { LockerResponse } from '@/types/locker';
-import { UserResponse } from '@/types/user';
 import { formatDate } from '@/utils/date';
 
 interface SharableProps {
-  me: UserResponse;
+  id: number | undefined;
   lockers: LockerResponse[];
   isLoading: boolean;
-  // setSelectedLocker: React.Dispatch<React.SetStateAction<LockerResponse | undefined>>;
+  setSelectedLocker: React.Dispatch<React.SetStateAction<LockerResponse | undefined>>;
 }
 
 const Sharable = (props: SharableProps) => {
-  // const { lockers, isLoading, me } = props;
-
-  // if (isLoading) return <Loader />;
-
-  // const handleSelectLocker = (locker: LockerResponse) => {
-  //   console.log(locker, '락커 클릭');
-  //   // if (locker !== 0) {
-  //   //   navigate(`${PATH.NOTICE}/${locker}`);
-  //   // }
-  // };
-
-  // return (
-  //   // <div>
-  //   // {lockers.map(item => (
-  //   //   <div key={item.id}>
-  //   //     {getBuildingName(item.building_id)}/{item.id}
-
-  //   <Styled.TableContainer>
-  //     <tbody>
-  //       {lockers.map((locker: LockerResponse) => (
-  //         <Styled.Row key={locker.id} onClick={() => handleSelectLocker(locker)}>
-  //           <Styled.Item>{`${locker.id}번`}</Styled.Item>
-  //           {/* <Styled.Item>{BUILDINGTOSTRING[locker.building_id]}</Styled.Item> */}
-  //           <Styled.Item>{`${locker.owned_id}`}</Styled.Item>
-  //           {/* <Styled.Item>{formatDate(new Date(locker.share_start_date))}</Styled.Item> */}
-  //           {/* <Styled.Item>{formatDate(new Date(locker.share_end_date))}</Styled.Item> */}
-  //         </Styled.Row>
-  //       ))}
-  //     </tbody>
-  //   </Styled.TableContainer>
-  // );
-
-  const { me, lockers, isLoading } = props;
+  const { id, lockers, isLoading, setSelectedLocker } = props;
   const theme = useTheme();
 
-  const { mutate } = useShareLockerMutation();
+  const handleSharableLocker = (locker: LockerResponse) => {
+    if (id === locker.id) setSelectedLocker(undefined);
+    if (id !== locker.id) setSelectedLocker(locker);
+  };
 
   if (isLoading) return <Loader />;
 
@@ -74,11 +37,8 @@ const Sharable = (props: SharableProps) => {
   return (
     <Styled.Root>
       {lockers.map(item => (
-        <>
-          <Styled.SharedLocker
-            key={item.id}
-            onClick={() => mutate({ id: item.id, shared_id: me.id })}
-          >
+        <Fragment key={item.id}>
+          <Styled.SharedLocker isActive={id === item.id} onClick={() => handleSharableLocker(item)}>
             <div>
               {item.owned_id} / {getBuildingName(item.building_id)} / {item.floor}층 / {item.id}
             </div>
@@ -89,7 +49,7 @@ const Sharable = (props: SharableProps) => {
             </div>
           </Styled.SharedLocker>
           <Styled.Separator />
-        </>
+        </Fragment>
       ))}
     </Styled.Root>
   );
@@ -117,7 +77,7 @@ const Styled = {
     align-items: center;
   `,
 
-  SharedLocker: styled.div`
+  SharedLocker: styled.div<{ isActive: boolean }>`
     position: relative;
     padding: 20px;
     cursor: pointer;
@@ -129,6 +89,8 @@ const Styled = {
     gap: 5px;
 
     transition: color 0.15s ease-in-out;
+
+    color: ${({ isActive, theme }) => isActive && theme.colors.primary_200};
 
     &:hover {
       color: ${({ theme }) => theme.colors.primary_200};

@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { Theme, css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Root = styled.section`
@@ -43,12 +43,11 @@ export const Container = styled.div`
   }
 `;
 
-export const LockerInfo = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+export const Title = styled.h1`
+  color: ${({ theme }) => theme.colors.primary_200};
+  font-size: 1.2rem;
+
+  margin-bottom: 30px;
 `;
 
 export const InformBox = styled.div`
@@ -76,37 +75,48 @@ export const Separator = styled.hr`
   background: ${({ theme }) => theme.colors.light_grey_200};
 `;
 
-export const SelectWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+export const ExtendedButton = (theme: Theme) => css`
+  &.disabled {
+    background-color: ${theme.colors.light_grey_200};
+    color: ${theme.colors.black};
+  }
 
-  width: 100%;
-  margin: 50px 0 0 0;
+  &.disabled:hover {
+    background-color: ${theme.colors.grey_400};
+  }
 `;
 
-export const DateBox = styled.div`
-  width: 100%;
-  min-height: 46px;
-  padding: 10px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid ${({ theme }) => theme.colors.light_grey_200};
-  border-radius: 5px;
-  outline: none;
-`;
+// export const SelectWrapper = styled.div`
+//   display: grid;
+//   grid-template-columns: 1fr 1fr;
+//   gap: 10px;
 
-export const DateText = styled.span`
-  font-size: 14px;
-`;
+//   width: 100%;
+//   margin: 50px 0 0 0;
+// `;
 
-export const DateLabel = styled.span`
-  position: absolute;
-  left: 0;
-  top: -20px;
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.primary_300};
-  margin: 50px 0 30px 0;
-`;
+// export const DateBox = styled.div`
+//   width: 100%;
+//   min-height: 46px;
+//   padding: 10px;
+//   position: relative;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   border: 1px solid ${({ theme }) => theme.colors.light_grey_200};
+//   border-radius: 5px;
+//   outline: none;
+// `;
+
+// export const DateText = styled.span`
+//   font-size: 14px;
+// `;
+
+// export const DateLabel = styled.span`
+//   position: absolute;
+//   left: 0;
+//   top: -20px;
+//   font-size: 14px;
+//   color: ${({ theme }) => theme.colors.primary_300};
+//   margin: 50px 0 30px 0;
+// `;
