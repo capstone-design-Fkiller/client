@@ -27,22 +27,18 @@ export interface MajorResponse {
 }
 
 // export type MajorPriorityRequest = Omit<MajorResponse, 'name'>;
-export type MajorPriorityRequest = Omit<
-  MajorResponse,
-  'priority_1' | 'priority_2' | 'priority_3'
-> & {
-  priority_1: Pick<MajorResponse['priority_1'], 'name'>;
-  priority_2: Pick<MajorResponse['priority_2'], 'name'>;
-  priority_3: Pick<MajorResponse['priority_3'], 'name'>;
-};
+export type MajorPriorityRequest = RequestPriority;
 export type MajorPriorityResponse = Pick<MajorResponse, 'priority_1' | 'priority_2' | 'priority_3'>;
 
-export interface RequestPriority extends MajorResponse {
-  user: number;
+export interface RequestPriority {
+  id: number;
+  name: string;
+  start_date: string | null;
+  end_date: string | null;
   apply_start_date: string | null;
   apply_end_date: string | null;
   is_baserule_FCFS: boolean;
-  priority_first?: string | boolean;
-  priority_second?: string | boolean;
-  priority_third?: string | boolean;
+  priority_1?: string | null;
+  priority_2?: string | null;
+  priority_3?: string | null;
 }
