@@ -43,9 +43,9 @@ const Sharable = (props: SharableProps) => {
               {item.owned_id} / {getBuildingName(item.building_id)} / {item.floor}층 / {item.id}
             </div>
             <div>
-              {formatDate(new Date(item.share_start_date as string), false)}
+              {formatDate(item.share_start_date as Date, false)}
               {' ~ '}
-              {formatDate(new Date(item.share_end_date as string), false)}
+              {formatDate(item.share_end_date as Date, false)}
             </div>
           </Styled.SharedLocker>
           <Styled.Separator />
