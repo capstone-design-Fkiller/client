@@ -1,26 +1,52 @@
+import { useState } from 'react';
+
 import * as Styled from './style';
 
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import Sharable from '@/components/share/Sharable';
 import { MAJOR } from '@/constants/major';
-import { useFetchSharableLockers } from '@/query/locker';
+import { useFetchSharableLockers, useShareLockerMutation } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
+import { LockerResponse } from '@/types/locker';
 
 const ApplySharePage = () => {
   const { me } = useFetchMe();
+  const [selectedLocker, setSelectedLocker] = useState<LockerResponse | undefined>();
 
   if (!me) return <div>로그인 해주세요!</div>;
 
   const { sharableLockers, isLoading } = useFetchSharableLockers(MAJOR[me.major]);
+  const { mutate } = useShareLockerMutation();
+
+  const onSubmit = () => {
+    if (!selectedLocker) return;
+
+    const answer = confirm('정말 쉐어 신청 하시겠습니까?');
+
+    if (answer) mutate({ id: selectedLocker.id, shared_id: me.id });
+  };
 
   return (
     <PageTemplate>
       <Styled.Root>
+        <Styled.Title>쉐어할 사물함을 선택해주세요!</Styled.Title>
         <Styled.Container>
-          <Sharable me={me} lockers={sharableLockers || []} isLoading={isLoading} />
+          <Sharable
+            id={(selectedLocker && selectedLocker.id) || 0}
+            lockers={sharableLockers || []}
+            isLoading={isLoading}
+            setSelectedLocker={setSelectedLocker}
+          />
         </Styled.Container>
-        <Button variant='contained'>쉐어 신청하기</Button>
+        <Button
+          variant='contained'
+          className={selectedLocker ? '' : 'disabled'}
+          css={Styled.ExtendedButton}
+          onClick={onSubmit}
+        >
+          쉐어 신청하기
+        </Button>
       </Styled.Root>
     </PageTemplate>
   );

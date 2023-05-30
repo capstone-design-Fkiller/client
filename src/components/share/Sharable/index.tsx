@@ -1,24 +1,28 @@
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Fragment } from 'react';
 
 import Icon from '@/components/common/Icon';
 import Loader from '@/components/common/Loader';
 import { getBuildingName } from '@/constants/building';
-import { useShareLockerMutation } from '@/query/locker';
 import { LockerResponse } from '@/types/locker';
-import { UserResponse } from '@/types/user';
+import { formatDate } from '@/utils/date';
 
 interface SharableProps {
-  me: UserResponse;
+  id: number | undefined;
   lockers: LockerResponse[];
   isLoading: boolean;
+  setSelectedLocker: React.Dispatch<React.SetStateAction<LockerResponse | undefined>>;
 }
 
 const Sharable = (props: SharableProps) => {
-  const { me, lockers, isLoading } = props;
+  const { id, lockers, isLoading, setSelectedLocker } = props;
   const theme = useTheme();
 
-  const { mutate } = useShareLockerMutation();
+  const handleSharableLocker = (locker: LockerResponse) => {
+    if (id === locker.id) setSelectedLocker(undefined);
+    if (id !== locker.id) setSelectedLocker(locker);
+  };
 
   if (isLoading) return <Loader />;
 
@@ -33,12 +37,19 @@ const Sharable = (props: SharableProps) => {
   return (
     <Styled.Root>
       {lockers.map(item => (
-        <Styled.SharedLocker
-          key={item.id}
-          onClick={() => mutate({ id: item.id, shared_id: me.id })}
-        >
-          {getBuildingName(item.building_id)} / {item.floor}층 / {item.id}
-        </Styled.SharedLocker>
+        <Fragment key={item.id}>
+          <Styled.SharedLocker isActive={id === item.id} onClick={() => handleSharableLocker(item)}>
+            <div>
+              {item.owned_id} / {getBuildingName(item.building_id)} / {item.floor}층 / {item.id}
+            </div>
+            <div>
+              {formatDate(new Date(item.share_start_date as string), false)}
+              {' ~ '}
+              {formatDate(new Date(item.share_end_date as string), false)}
+            </div>
+          </Styled.SharedLocker>
+          <Styled.Separator />
+        </Fragment>
       ))}
     </Styled.Root>
   );
@@ -64,21 +75,28 @@ const Styled = {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
-    & div:first-of-type {
-      padding-top: 20px;
-    }
-    & div:last-of-type {
-      padding-bottom: 20px;
-    }
   `,
 
-  SharedLocker: styled.div`
+  SharedLocker: styled.div<{ isActive: boolean }>`
     position: relative;
     padding: 20px;
     cursor: pointer;
 
-    &::after {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    transition: color 0.15s ease-in-out;
+
+    color: ${({ isActive, theme }) => isActive && theme.colors.primary_200};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary_200};
+    }
+
+    /* &::after {
       content: '';
       width: 10px;
       height: 1px;
@@ -87,6 +105,15 @@ const Styled = {
       bottom: 0;
       transform: translate(-50%, 50%);
       background-color: ${({ theme }) => theme.colors.primary_200};
-    }
+    } */
+  `,
+
+  Separator: styled.hr`
+    width: 90%;
+    height: 1px;
+    padding-left: 10px;
+
+    border: 0;
+    background: ${({ theme }) => theme.colors.light_grey_200};
   `,
 };

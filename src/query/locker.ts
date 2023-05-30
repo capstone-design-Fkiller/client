@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import {
   getLockerCounts,
@@ -7,6 +8,7 @@ import {
   postApplyLocker,
   getShareableLockers,
   getMyLocker,
+  // putShareLocker,
   putMyLockerToShare,
   putLockerShare,
 } from '@/api/locker';
@@ -18,6 +20,7 @@ import {
   ConvertToShareRequest,
   ApplyShareRequest,
 } from '@/types/locker';
+import { PATH } from '@/utils/path';
 
 const QUERY_KEY = {
   apply: 'apply',
@@ -71,15 +74,15 @@ export const useApplyLockerMutation = () => {
 };
 
 export const useFetchMyLocker = (id: number) => {
-  const { data } = useQuery<LockerResponse[]>([QUERY_KEY.locker, id], () => getMyLocker(id));
+  const { data } = useQuery<LockerResponse>([QUERY_KEY.locker, id], () => getMyLocker(id));
 
-  return { data };
+  return { myLocker: data };
 };
 
 // ! Share Api 구현되면 추가
 export const useFetchSharableLockers = (id: number) => {
   const { data, isLoading } = useQuery(
-    [QUERY_KEY.locker, QUERY_KEY.share, 'sharable-lockers', id],
+    [QUERY_KEY.share, 'sharable-lockers', id],
     () => getShareableLockers(id),
     {
       enabled: !!id,
@@ -95,9 +98,17 @@ export const useFetchSharableLockers = (id: number) => {
 };
 
 export const useConvertShareMutation = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { createToastMessage } = useToast();
+
   const mutation = useMutation((body: ConvertToShareRequest) => putMyLockerToShare(body), {
-    onSuccess: () => createToastMessage('쉐어 신청 완료 !', 'success'),
+    onSuccess: ({ id }) => {
+      queryClient.invalidateQueries([QUERY_KEY.locker, id]);
+      createToastMessage('쉐어 신청 완료 !', 'success');
+
+      navigate(PATH.MAIN);
+    },
     onError: () => createToastMessage('다시 시도해주세요.', 'error'),
   });
 
@@ -105,9 +116,17 @@ export const useConvertShareMutation = () => {
 };
 
 export const useShareLockerMutation = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { createToastMessage } = useToast();
+
   const mutation = useMutation((body: ApplyShareRequest) => putLockerShare(body), {
-    onSuccess: () => createToastMessage('쉐어 신청 완료!', 'success'),
+    onSuccess: ({ id }) => {
+      queryClient.invalidateQueries([QUERY_KEY.locker, id]);
+      createToastMessage('쉐어 신청 완료 !', 'success');
+
+      navigate(PATH.MAIN);
+    },
     onError: () => createToastMessage('다시 시도해주세요.', 'error'),
   });
 
