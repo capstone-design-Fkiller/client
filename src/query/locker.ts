@@ -7,22 +7,22 @@ import {
   postApplyLocker,
   getShareableLockers,
   getMyLocker,
-  putShareLocker,
+  // putShareLocker,
+  putMyLockerToShare,
+  putLockerShare,
 } from '@/api/locker';
 import useToast from '@/hooks/useToast';
 import {
   LockerRequest,
   LockerResponse,
   RequestApplyLocker,
-  ShareApplyRequest,
-  ShareRegisterRequest,
-  ShareRequest,
+  ConvertToShareRequest,
+  ApplyShareRequest,
 } from '@/types/locker';
 
 const QUERY_KEY = {
   apply: 'apply',
   locker: 'locker',
-  myLocker: 'myLocker',
   share: 'share',
 };
 
@@ -72,7 +72,7 @@ export const useApplyLockerMutation = () => {
 };
 
 export const useFetchMyLocker = (id: number) => {
-  const { data } = useQuery<LockerResponse[]>([QUERY_KEY.myLocker], () => getMyLocker(id));
+  const { data } = useQuery<LockerResponse[]>([QUERY_KEY.locker, id], () => getMyLocker(id));
 
   return { data };
 };
@@ -99,8 +99,19 @@ export const useFetchSharableLockers = (id: number) => {
 
 export const useConvertShareMutation = () => {
   const { createToastMessage } = useToast();
-  const mutation = useMutation((body: ShareRegisterRequest | ShareApplyRequest) => putShareLocker(body), {
+  // const mutation = useMutation((body: ShareRegisterRequest | ShareApplyRequest) => putShareLocker(body), {
+  const mutation = useMutation((body: ConvertToShareRequest) => putMyLockerToShare(body), {
     onSuccess: () => createToastMessage('쉐어 신청 완료 !', 'success'),
+    onError: () => createToastMessage('다시 시도해주세요.', 'error'),
+  });
+
+  return mutation;
+};
+
+export const useShareLockerMutation = () => {
+  const { createToastMessage } = useToast();
+  const mutation = useMutation((body: ApplyShareRequest) => putLockerShare(body), {
+    onSuccess: () => createToastMessage('쉐어 신청 완료!', 'success'),
     onError: () => createToastMessage('다시 시도해주세요.', 'error'),
   });
 

@@ -2,7 +2,6 @@ export interface UserResponse {
   id: number;
   name: string;
   major: string;
-  // password: string;
   penalty: boolean;
   penalty_start_date: string | null;
   penalty_end_date: string | null;

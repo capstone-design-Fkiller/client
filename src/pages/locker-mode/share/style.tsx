@@ -15,8 +15,9 @@ export const Root = styled.section`
 `;
 
 export const Container = styled.div`
-  display: grid;
-  grid-template-rows: 350px 1fr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   width: 100%;
   height: 450px;
@@ -26,6 +27,20 @@ export const Container = styled.div`
   border-radius: 5px;
 
   margin-bottom: 30px;
+
+  overflow-y: auto;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: ${({ theme }) => theme.colors.background_2};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.primary_100};
+    border-radius: 10px;
+    height: 20px;
+  }
 `;
 
 export const LockerInfo = styled.div`

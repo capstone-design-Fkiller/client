@@ -1,14 +1,13 @@
-import { useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-
+import { instance } from '@/api/instance';
 import * as Styled from './style';
 
-import { instance } from '@/api/instance';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
-import { BUILDINGTOSTRING } from '@/constants/building';
+// import { BUILDINGTOSTRING } from '@/constants/building';
 import { useFetchMyLocker } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
+import { useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/utils/path';
 
 const ProfilePage = () => {
@@ -39,15 +38,17 @@ const ProfilePage = () => {
         <p>사물함 신청일 : 2023-03-05</p> <br />
         <p>사물함 배정일 : 2023-03-10</p>
         <br />
-        <p>
+        {/* <p>
           사물함 위치 : {`${BUILDINGTOSTRING[myLocker?.building_id ?? 0]} ${myLocker?.floor}층`}
-        </p>
+        </p> */}
+        <p>사물함 위치 : 인문관 3층</p>
         <br />
-        <Button onClick={handleLogout} variant='outlined'>
+        <Button onClick={handleLogout} variant='outlined' />
+        {/* <Button onClick={logout} variant='contained'>
           로그아웃
-        </Button>
+        </Button> */}
       </Styled.Root>
-    </PageTemplate>
+    </PageTemplate >
   );
 };
 

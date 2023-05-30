@@ -1,7 +1,4 @@
-export interface alertResponse {
-  alerts: alert[];
-}
-export interface alert {
+export interface AlertResponse {
   id: number;
   major: string;
   message: string;
@@ -10,7 +7,7 @@ export interface alert {
   created_at: string;
 }
 
-export interface alertRequest {
+export interface AlertRequest {
   major: number;
   message: string;
   sender: number;

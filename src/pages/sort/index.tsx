@@ -21,13 +21,13 @@ const TABLE_HEADER = ['학번', '1st', '2nd', '3rd', '건물', '삭제'];
 const SortPage = () => {
   const { me } = useFetchMe();
   const navigate = useNavigate();
-  const { data: lockers, isLoading: isLockerLoading } = useFetchSort(MAJOR[me!.major]);
+  const { data: sorts, isLoading: isSortLoading } = useFetchSort(MAJOR[me?.major ?? '학과']);
   const { mutate } = useLockerAssignMutation();
-  const [currentLocker, setCurrentLocker] = useState(lockers);
+  const [currentSort, setCurrentSort] = useState(sorts);
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleDeleteResult = (id: number) => {
-    setCurrentLocker(locks => {
+    setCurrentSort(locks => {
       const prevLockers = locks?.filter(l => l.id !== id);
 
       return prevLockers;
@@ -35,11 +35,9 @@ const SortPage = () => {
   };
 
   const handleSubmitResult = () => {
-    const request = currentLocker?.map(lock => lock.id);
-
+    const request = currentSort?.map(lock => lock.id);
     const requestData: SortRequest = { list: request || [] };
-    mutate({ major: MAJOR[me!.major], sortResult: requestData });
-
+    mutate({ major: MAJOR[me?.major ?? '학과'], sortResult: requestData });
     navigate(PATH.MAIN);
   };
 
@@ -47,11 +45,11 @@ const SortPage = () => {
     <PageTemplate>
       <Styled.Root>
         <Styled.Title>사물함 배정 예상 결과</Styled.Title>
-        {isLockerLoading ? (
+        {isSortLoading ? (
           <Loader />
         ) : (
           <>
-            {lockers && lockers.length === 0 ? (
+            {sorts && sorts.length === 0 ? (
               <Styled.Message>사물함 신청자가 없습니다.</Styled.Message>
             ) : (
               <>
@@ -59,7 +57,7 @@ const SortPage = () => {
                   <TableHead headers={TABLE_HEADER} />
                   <TableContent
                     contents={
-                      currentLocker?.slice(
+                      currentSort?.slice(
                         (currentPage - 1) * PAGE_OFFSET,
                         currentPage * PAGE_OFFSET
                       ) || []
@@ -70,7 +68,7 @@ const SortPage = () => {
                 <Styled.PaginationContainer>
                   <Pagination
                     currentPage={currentPage}
-                    totalItems={currentLocker?.length || 0}
+                    totalItems={currentSort?.length || 0}
                     itemsPerPage={PAGE_OFFSET}
                     setState={setCurrentPage}
                   />

@@ -3,9 +3,9 @@ import { instance } from './instance';
 import { NoticeRequest, NoticeResponse } from '@/types/notice';
 
 export const postNotice = async (notice: Omit<NoticeRequest, 'id'>) => {
-  const response = await instance.post<NoticeResponse>('notice/', notice);
+  const { data } = await instance.post<NoticeResponse>('notice/', notice);
 
-  return response.data;
+  return data;
 };
 
 export const getNotice = async (major: number) => {
@@ -23,9 +23,9 @@ export const getNoticeDetail = async (noticeId: number) => {
 export const putNotice = async (body: NoticeRequest) => {
   const { id, ...args } = body;
 
-  const response = await instance.put<NoticeResponse>(`notice/${id}`, args);
+  const { data } = await instance.put<NoticeResponse>(`notice/${id}`, args);
 
-  return response.data;
+  return data;
 };
 
 export const delNotice = async (id: number) => {

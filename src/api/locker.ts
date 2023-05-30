@@ -1,24 +1,24 @@
-import axios from 'axios';
-
 import { instance } from './instance';
 
 import {
   LockerRequest,
   LockerResponse,
   RequestApplyLocker,
-  ShareApplyRequest,
-  ShareRegisterRequest,
-  ShareRequest,
+  // ShareApplyRequest,
+  // ShareRegisterRequest,
+  // ShareRequest,
+  ConvertToShareRequest,
+  ApplyShareRequest,
 } from '@/types/locker';
 
 export const getLockerCounts = async (props: LockerRequest) => {
-  const { data } = await axios.get('http://127.0.0.1:8000/locker', { params: props });
+  const { data } = await instance.get('locker/', { params: props });
 
   return data;
 };
 
 export const getApplicant = async (props: LockerRequest) => {
-  const { data } = await axios.get(`http://127.0.0.1:8000/apply`, { params: props });
+  const { data } = await instance.get(`apply/`, { params: props });
 
   return data;
 };
@@ -29,13 +29,6 @@ export const postApplyLocker = async (body: RequestApplyLocker) => {
   return data;
 };
 
-// // ! Share Api 구현되면 추가
-// export const putShareLocker = async (id, body) => {
-//   const { data } = await instance.put(`locker/${id}`, body);
-
-//   return data;
-// };
-
 export const getLockerInfo = async (id: number) => {
   const { data } = await instance.get(`locker/${id}/`);
 
@@ -44,29 +37,27 @@ export const getLockerInfo = async (id: number) => {
 
 export const getMyLocker = async (id: number) => {
   const { data } = await instance.get<LockerResponse[]>(`locker/?owned_id=${id}`);
-  console.log(data, 'owned id - 배정된 사물함');
 
-  if (data.length == 0) {
+  if (data.length === 0) {
     const { data } = await instance.get(`locker/?shared_id=${id}`);
-    console.log(data, 'shared_id - 쉐어받은 사물함');
+
     return data;
   }
 
   return data;
 };
 
-export const putShareLocker = async (body: ShareRegisterRequest | ShareApplyRequest) => {
-  const { id, ...args } = body;
-  const { data } = await instance.put(`locker/${id}`, {
-    ...args,
-  });
+// export const putShareLocker = async (body: ShareRegisterRequest | ShareApplyRequest) => {
+//   const { id, ...args } = body;
+//   const { data } = await instance.put(`locker/${id}`, {
+//     ...args,
+//   });
 
-  return data;
-};
-
-export const putApplyShareRegisteredLocker = async (body: ShareApplyRequest) => {
+//   return data;
+// };
+export const putMyLockerToShare = async (body: ConvertToShareRequest) => {
   const { id, ...args } = body;
-  const { data } = await instance.put(`locker/${id}`, {
+  const { data } = await instance.put(`locker/${id}/`, {
     ...args,
   });
 
@@ -75,8 +66,17 @@ export const putApplyShareRegisteredLocker = async (body: ShareApplyRequest) => 
 
 export const getShareableLockers = async (id: number) => {
   const { data } = await instance.get<LockerResponse[]>(
-    `locker?major=${id}&is_share_registered=True`
+    `locker/?major=${id}&is_share_registered=True`
   );
+
+  return data;
+};
+
+export const putLockerShare = async (body: ApplyShareRequest) => {
+  const { id, shared_id } = body;
+  const { data } = await instance.put(`locker/${id}`, {
+    shared_id,
+  });
 
   return data;
 };

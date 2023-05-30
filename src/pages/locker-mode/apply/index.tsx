@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
-import { MajorPriorityResponse } from '@/api/major';
 import Condition from '@/components/apply/Condition';
 import Locker from '@/components/apply/Locker';
 import Button from '@/components/common/Button';
@@ -18,6 +17,7 @@ import useToast from '@/hooks/useToast';
 import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
 import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
+import { MajorPriorityResponse } from '@/types/major';
 import { PATH } from '@/utils/path';
 
 const ApplyPage = () => {
