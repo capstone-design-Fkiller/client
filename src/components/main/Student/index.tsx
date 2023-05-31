@@ -58,15 +58,6 @@ const Styled = {
     height: 100%;
   `,
 
-  Separator: styled.hr`
-    width: 100%;
-    height: 1px;
-    padding-left: 10px;
-
-    border: 0;
-    background: ${({ theme }) => theme.colors.light_grey_200};
-  `,
-
   SkeletonWrapper: styled.div`
     display: flex;
     flex-direction: column;
