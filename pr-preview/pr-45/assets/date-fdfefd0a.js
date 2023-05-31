@@ -1,1 +1,0 @@
-const s=["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],r=t=>{const e=t.getMonth()+1,n=t.getDate(),o=s[t.getDay()];return`${e}월 ${n}일 ${o}`},c=t=>{const e=new Date(t),n=e.getFullYear().toString().slice(-2),o=(e.getMonth()+1).toString().padStart(2,"0"),a=e.getDate().toString().padStart(2,"0");return`${n}${o}${a}`};export{c as Y,r as f};
