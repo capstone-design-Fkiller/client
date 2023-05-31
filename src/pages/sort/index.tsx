@@ -24,6 +24,7 @@ const SortPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { majorInfo } = useFetchMajor(MAJOR[me.major], false);
 
+  
   const handleDeleteResult = (id: number) => {
     setCurrentSort(locks => {
       const prevLockers = locks?.filter(l => l.id !== id);
@@ -51,7 +52,7 @@ const SortPage = () => {
       <Styled.Root>
         <Styled.Title>사물함 배정 예상 결과</Styled.Title>
         <Styled.InformText>
-          <p>사물함 신청 끝나면 배정 확정 버튼을 눌러주세요.</p>
+          <p>사물함 신청이 끝나면 배정 확정 버튼을 눌러주세요.</p>
           <p>배정 확정 이후에는 변경이 불가합니다.</p>
         </Styled.InformText>
         <SortResult
