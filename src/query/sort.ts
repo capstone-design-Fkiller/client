@@ -1,6 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
-import { postSortResult, getSortResult } from '@/api/sort';
+import { getSortResult, postSortResult } from '@/api/sort';
 import useToast from '@/hooks/useToast';
 import { SortRequest } from '@/types/sort';
 
@@ -10,15 +10,13 @@ const QUERY_KEY = {
 
 export const useFetchSort = (major: number) => {
   const { createToastMessage } = useToast();
-  const queryClient = useQueryClient();
 
   const { data: sorts, isLoading } = useQuery(QUERY_KEY.sort, () => getSortResult(major), {
     onError: () => {
       createToastMessage('오류가 발생했습니다.', 'error');
     },
+    staleTime: 60000,
   });
-
-  queryClient.invalidateQueries(QUERY_KEY.sort);
 
   return { data: sorts, isLoading };
 };
