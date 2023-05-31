@@ -10,6 +10,7 @@ export interface LockerResponse {
   is_share_registered: boolean;
   major: string;
   floor: number;
+  locker_number: number;
   owned_id: number | null;
   share_end_date: string | null;
   share_start_date: string | null;
