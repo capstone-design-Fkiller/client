@@ -10,7 +10,6 @@ const ProfilePage = () => {
   const { me, logout } = useFetchMe();
   const { myLocker } = useFetchMyLocker(me?.id || 0);
 
-  console.log(myLocker);
   if (!me) throw new Error();
 
   return (

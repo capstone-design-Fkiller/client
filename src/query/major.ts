@@ -2,14 +2,14 @@ import { useMutation, useQuery } from 'react-query';
 
 import { getMajor, putMajor } from '@/api/major';
 import useToast from '@/hooks/useToast';
-import { MajorPriorityRequest, MajorPriorityResponse, MajorResponse } from '@/types/major';
+import { MajorPriorityRequest, MajorPriorityResponse } from '@/types/major';
 
 const QUERY_KEY = {
   major: 'major',
 };
 
 export const useFetchMajor = (params: number, isCondt?: boolean) => {
-  const { data: majorInfo } = useQuery<MajorResponse | MajorPriorityResponse>(
+  const { data: majorInfo } = useQuery<MajorPriorityResponse>(
     [QUERY_KEY.major, params],
     () => getMajor(params),
     {
@@ -20,15 +20,6 @@ export const useFetchMajor = (params: number, isCondt?: boolean) => {
         return isCondt ? { priority_1, priority_2, priority_3 } : data;
       },
     }
-  );
-
-  return { majorInfo };
-};
-
-export const useFetchMyMajor = (params: number) => {
-  const { data: majorInfo } = useQuery<MajorResponse>(
-    [QUERY_KEY.major, params],
-    () => getMajor(params),
   );
 
   return { majorInfo };
