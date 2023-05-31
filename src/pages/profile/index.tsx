@@ -19,7 +19,7 @@ const ProfilePage = () => {
 
         <ProfileContainer me={me} locker={myLocker} />
 
-        <Button onClick={logout} variant='contained'>
+        <Button onClick={logout} color='error' variant='outlined'>
           로그아웃
         </Button>
       </Styled.Root>
