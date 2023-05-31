@@ -14,7 +14,7 @@ import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
-import { usePutMajor } from '@/query/major';
+import { useFetchSavedMajor, usePutMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { MajorPriorityRequest } from '@/types/major';
 import { formatDate } from '@/utils/date';
@@ -24,7 +24,7 @@ const AdminCriteriaPage = () => {
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
   const { me } = useFetchMe();
-  // const { majorInfo } = useFetchSavedMajor(MAJOR[me?.major ?? '학과']);
+  const { majorInfo } = useFetchSavedMajor(MAJOR[me?.major ?? '학과']);
 
   //모달 관리용
   const [alertOpen, setAlertOpen] = useState(false);
@@ -84,16 +84,6 @@ const AdminCriteriaPage = () => {
   const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
 
-  // const priorityKey1 = Object.keys(CRITERIA).find(
-  //   (key: string) => CRITERIA[key] === majorInfo?.priority_1?.name
-  // );
-  // const priorityKey2 = Object.keys(CRITERIA).find(
-  //   (key: string) => CRITERIA[key] === majorInfo?.priority_2?.name
-  // );
-  // const priorityKey3 = Object.keys(CRITERIA).find(
-  //   (key: string) => CRITERIA[key] === majorInfo?.priority_3?.name
-  // );
-
   //수정하기 모드로 설정
   const { mutate } = usePutMajor();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -123,20 +113,20 @@ const AdminCriteriaPage = () => {
   };
 
   const handlePutCriteria = () => {
-    // if (!selectedDate) {
-    //   createToastMessage('날짜 선택은 필수입니다.', 'error');
-    //   return;
-    // }
+    if (!selectedDate) {
+      createToastMessage('날짜 선택은 필수입니다.', 'error');
+      return;
+    }
 
-    // if (priority1 === '선택 없음' && priority2 !== '선택 없음') {
-    //   createToastMessage('1순위를 선택해야 2순위를 선택할 수 있습니다.', 'error');
-    //   return;
-    // }
+    if (priority1 === '선택 없음' && priority2 !== '선택 없음') {
+      createToastMessage('1순위를 선택해야 2순위를 선택할 수 있습니다.', 'error');
+      return;
+    }
 
-    // if (priority2 === '선택 없음' && priority3 !== '선택 없음') {
-    //   createToastMessage('2순위를 선택해야 3순위를 선택할 수 있습니다.', 'error');
-    //   return;
-    // }
+    if (priority2 === '선택 없음' && priority3 !== '선택 없음') {
+      createToastMessage('2순위를 선택해야 3순위를 선택할 수 있습니다.', 'error');
+      return;
+    }
 
     if (!selectedDate) return;
     if (!selectedLockerDate) return;
@@ -145,8 +135,6 @@ const AdminCriteriaPage = () => {
       .toString()
       .split(',')
       .map(date => new Date(date).toISOString());
-
-    console.log(start, end);
 
     const [startLocker, endLocker] = selectedLockerDate
       .toString()
@@ -159,10 +147,10 @@ const AdminCriteriaPage = () => {
       priority_1: CRITERIA[priority1],
       priority_2: CRITERIA[priority2],
       priority_3: CRITERIA[priority3],
-      start_date: start, //임시로 설정
-      end_date: end, //임시로 설정
-      apply_start_date: startLocker,
-      apply_end_date: endLocker,
+      start_date: startLocker, //임시로 설정
+      end_date: endLocker, //임시로 설정
+      apply_start_date: start,
+      apply_end_date: end,
       is_baserule_FCFS: baserule === '선착순' ? false : true,
     };
 
@@ -170,16 +158,23 @@ const AdminCriteriaPage = () => {
 
     mutate(body, {
       onSuccess: () => {
+        if (
+          !majorInfo?.start_date ||
+          !majorInfo?.end_date ||
+          !majorInfo?.apply_end_date ||
+          !majorInfo?.apply_start_date
+        )
+          throw Error;
         // 정보를 localStorage에 저장
         localStorage.setItem('isEditMode', 'true');
         localStorage.setItem('priority1', priority1);
         localStorage.setItem('priority2', priority2);
         localStorage.setItem('priority3', priority3);
         localStorage.setItem('baserule', baserule);
-        localStorage.setItem('startDate', date[0]);
-        localStorage.setItem('endDate', date[1]);
-        localStorage.setItem('startLockerDate', lockerDate[0]);
-        localStorage.setItem('endLockerDate', lockerDate[1]);
+        localStorage.setItem('startDate', majorInfo?.apply_start_date);
+        localStorage.setItem('endDate', majorInfo?.apply_end_date);
+        localStorage.setItem('startLockerDate', majorInfo?.start_date);
+        localStorage.setItem('endLockerDate', majorInfo?.end_date);
 
         setIsButtonDisabled(true);
         setIsEditMode(true);
