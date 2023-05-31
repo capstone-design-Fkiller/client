@@ -24,21 +24,26 @@ const SortPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { majorInfo } = useFetchMajor(MAJOR[me.major], false);
 
-  const handleDeleteResult = (id: number) => {
-    setCurrentSort(locks => {
-      const prevLockers = locks?.filter(l => l.id !== id);
-
-      return prevLockers;
-    });
-  };
-
-  const handleSubmitResult = () => {
+  const checkApplicationDate = (): void => {
     if (!majorInfo?.apply_end_date) throw new Error();
 
     const applyEndDate = new Date(majorInfo?.apply_end_date);
     const now = new Date();
 
     if (applyEndDate < now) return;
+  };
+
+  const handleDeleteResult = (id: number) => {
+    checkApplicationDate();
+
+    setCurrentSort(locks => {
+      const prevLockers = locks?.filter(l => l.id !== id);
+      return prevLockers;
+    });
+  };
+
+  const handleSubmitResult = () => {
+    checkApplicationDate();
 
     const request = currentSort?.map(lock => lock.id);
 
