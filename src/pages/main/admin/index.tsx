@@ -16,14 +16,14 @@ const AdminMainPage = () => {
     <PageTemplate>
       <Styled.Root>
         {me ? (
-          <Styled.Button>
+          <>
             <Button variant='contained' onClick={() => navigate(PATH.CRITERIA)}>
-              사물함 신청 설정
+              사물함 배정기준 설정
             </Button>
             <Button variant='contained' onClick={() => navigate(PATH.SORT)}>
-              사물함 배정하기
+              사물함 배정 확정
             </Button>
-          </Styled.Button>
+          </>
         ) : (
           <Loader />
         )}

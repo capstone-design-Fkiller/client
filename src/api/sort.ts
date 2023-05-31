@@ -5,6 +5,7 @@ import { SortRequest, SortResponse } from '@/types/sort';
 export const getSortResult = async (major: number) => {
   const majorNumber = major || 0;
   const { data } = await instance.get<SortResponse[]>(`sort/${majorNumber}`);
+
   return data;
 };
 
