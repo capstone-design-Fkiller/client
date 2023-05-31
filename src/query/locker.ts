@@ -74,7 +74,6 @@ export const useApplyLockerMutation = () => {
 
 export const useFetchMyLocker = (userId: number) => {
   const { data } = useQuery<LockerResponse>([QUERY_KEY.locker, userId], () => getMyLocker(userId));
-  console.log(data, '내사물함');
 
   return { myLocker: data };
 };

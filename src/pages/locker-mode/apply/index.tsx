@@ -18,7 +18,7 @@ import useToast from '@/hooks/useToast';
 import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
 import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
-import { MajorPriorityResponse } from '@/types/major';
+import { MajorPriorityAnswerRequest } from '@/types/major';
 import { PATH } from '@/utils/path';
 
 const ApplyPage = () => {
@@ -37,14 +37,13 @@ const ApplyPage = () => {
   }
 
   const [structure, setStructure] = useState<string>('건물');
-  const { value, setValue } = useInput<Partial<MajorPriorityResponse>>({
-    priority_1: null,
-    priority_2: null,
-    priority_3: null,
+  const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
+  const { value, setValue } = useInput<Partial<MajorPriorityAnswerRequest>>({
+    priority_1: majorInfo?.priority_1?.is_bool && false,
+    priority_2: majorInfo?.priority_2?.is_bool && false,
+    priority_3: majorInfo?.priority_3?.is_bool && false,
   });
   const { mutate } = useApplyLockerMutation();
-
-  const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
 
@@ -75,7 +74,11 @@ const ApplyPage = () => {
       user: me.id,
       ...value,
     });
-
+    setValue({
+      priority_1: majorInfo?.priority_1?.is_bool && false,
+      priority_2: majorInfo?.priority_2?.is_bool && false,
+      priority_3: majorInfo?.priority_3?.is_bool && false,
+    });
     handleModalOpen();
   };
 
