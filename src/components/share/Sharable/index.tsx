@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 
 import Icon from '@/components/common/Icon';
 import Loader from '@/components/common/Loader';
+import { Separator } from '@/components/common/Separator';
 import { getBuildingName } from '@/constants/building';
 import { LockerResponse } from '@/types/locker';
 import { formatDate } from '@/utils/date';
@@ -48,7 +49,7 @@ const Sharable = (props: SharableProps) => {
               {formatDate(new Date(item.share_end_date as string), false)}
             </div>
           </Styled.SharedLocker>
-          <Styled.Separator />
+          <Separator />
         </Fragment>
       ))}
     </Styled.Root>
@@ -106,14 +107,5 @@ const Styled = {
       transform: translate(-50%, 50%);
       background-color: ${({ theme }) => theme.colors.primary_200};
     } */
-  `,
-
-  Separator: styled.hr`
-    width: 90%;
-    height: 1px;
-    padding-left: 10px;
-
-    border: 0;
-    background: ${({ theme }) => theme.colors.light_grey_200};
   `,
 };

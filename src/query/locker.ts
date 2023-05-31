@@ -8,7 +8,6 @@ import {
   postApplyLocker,
   getShareableLockers,
   getMyLocker,
-  // putShareLocker,
   putMyLockerToShare,
   putLockerShare,
 } from '@/api/locker';
@@ -79,7 +78,6 @@ export const useFetchMyLocker = (id: number) => {
   return { myLocker: data };
 };
 
-// ! Share Api 구현되면 추가
 export const useFetchSharableLockers = (id: number) => {
   const { data, isLoading } = useQuery(
     [QUERY_KEY.share, 'sharable-lockers', id],
