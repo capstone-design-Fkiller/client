@@ -33,14 +33,12 @@ const AssignPage = () => {
   const navigate = useNavigate();
 
   const handleSendAlert = () => {
-    console.log(selectedAssign, '뭔데');
     createAlertMutation({ receiver: selectedAssign?.user ?? 0, message });
     navigate(PATH.ASSIGN);
     handleCloseModal();
   };
 
   const handleLockerClick = (assignId: number) => {
-    console.log(assignId, '뭔데');
     setSelectedAssignId(assignId);
     const selectAssign = assigns?.find(assign => assign.id == assignId);
     setSelectedAssign(selectAssign ?? null);
