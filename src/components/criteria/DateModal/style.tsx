@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const Root = styled.div`
   width: 380px;
-  height: 60%;
+  height: 65%;
   padding: 20px 20px;
 
   border-radius: 5px;

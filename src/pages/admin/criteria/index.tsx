@@ -25,7 +25,7 @@ const AdminCriteriaPage = () => {
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
   const { me } = useFetchMe();
-  const { majorInfo } = useFetchSavedMajor(MAJOR[me?.major ?? '학과']);
+  // const { majorInfo } = useFetchSavedMajor(MAJOR[me?.major ?? '학과']);
 
   //모달 관리용
   const [alertOpen, setAlertOpen] = useState(false);
@@ -35,14 +35,33 @@ const AdminCriteriaPage = () => {
   //달력 날짜용
   const [selectedDate, setSelectedDate] = useState<Value | undefined>();
   const [selectedLockerDate, setSelectedLockerDate] = useState<Value | undefined>();
-  const [date, setDate] = useState<string[]>(['', '']);
-  const [lockerDate, setLockerDate] = useState<string[]>(['', '']);
 
-  //우선순위용
-  const [priority1, setPriority1] = useState<string>('선택 없음');
-  const [priority2, setPriority2] = useState<string>('선택 없음');
-  const [priority3, setPriority3] = useState<string>('선택 없음');
-  const [baserule, setBaserule] = useState<string>('선착순');
+  const [priority1, setPriority1] = useState<string>(() => {
+    const storedPriority1 = localStorage.getItem('priority1');
+    return storedPriority1 ?? '선택 없음';
+  });
+  const [priority2, setPriority2] = useState<string>(() => {
+    const storedPriority2 = localStorage.getItem('priority2');
+    return storedPriority2 ?? '선택 없음';
+  });
+  const [priority3, setPriority3] = useState<string>(() => {
+    const storedPriority3 = localStorage.getItem('priority3');
+    return storedPriority3 ?? '선택 없음';
+  });
+  const [baserule, setBaserule] = useState<string>(() => {
+    const storedBaseRule = localStorage.getItem('baserule');
+    return storedBaseRule ?? '선착순';
+  });
+  const [date, setDate] = useState<string[]>(() => {
+    const storedStartDate = localStorage.getItem('startDate');
+    const storedEndDate = localStorage.getItem('endDate');
+    return [storedStartDate ?? '', storedEndDate ?? ''];
+  });
+  const [lockerDate, setLockerDate] = useState<string[]>(() => {
+    const storedStartLockerDate = localStorage.getItem('startLockerDate');
+    const storedEndLockerDate = localStorage.getItem('endLockerDate');
+    return [storedStartLockerDate ?? '', storedEndLockerDate ?? ''];
+  });
 
   const handleAlertOpen = () => {
     setAlertOpen(!alertOpen);
@@ -65,16 +84,17 @@ const AdminCriteriaPage = () => {
   const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
 
-  const priorityKey1 = Object.keys(CRITERIA).find(
-    (key: string) => CRITERIA[key] === majorInfo?.priority_1?.name
-  );
-  const priorityKey2 = Object.keys(CRITERIA).find(
-    (key: string) => CRITERIA[key] === majorInfo?.priority_2?.name
-  );
-  const priorityKey3 = Object.keys(CRITERIA).find(
-    (key: string) => CRITERIA[key] === majorInfo?.priority_3?.name
-  );
+  // const priorityKey1 = Object.keys(CRITERIA).find(
+  //   (key: string) => CRITERIA[key] === majorInfo?.priority_1?.name
+  // );
+  // const priorityKey2 = Object.keys(CRITERIA).find(
+  //   (key: string) => CRITERIA[key] === majorInfo?.priority_2?.name
+  // );
+  // const priorityKey3 = Object.keys(CRITERIA).find(
+  //   (key: string) => CRITERIA[key] === majorInfo?.priority_3?.name
+  // );
 
+  //수정하기 모드로 설정
   const { mutate } = usePutMajor();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isEditMode, setIsEditMode] = useState(() => {
@@ -82,6 +102,7 @@ const AdminCriteriaPage = () => {
     return storedEditMode === 'true';
   });
 
+  //각 우선순위 옵션 리스트가 중복되지 않도록 설정
   const getPriorityList = (currentPriority: number) => {
     const criteriaList = Object.keys(CRITERIA);
     let filteredList = criteriaList;
@@ -142,6 +163,17 @@ const AdminCriteriaPage = () => {
 
     mutate(body, {
       onSuccess: () => {
+        // 정보를 localStorage에 저장
+        localStorage.setItem('isEditMode', 'true');
+        localStorage.setItem('priority1', priority1);
+        localStorage.setItem('priority2', priority2);
+        localStorage.setItem('priority3', priority3);
+        localStorage.setItem('baserule', baserule);
+        localStorage.setItem('startDate', date[0]);
+        localStorage.setItem('endDate', date[1]);
+        localStorage.setItem('startLockerDate', lockerDate[0]);
+        localStorage.setItem('endLockerDate', lockerDate[1]);
+
         setIsButtonDisabled(true);
         setIsEditMode(true);
         localStorage.setItem('isEditMode', 'true');
@@ -211,27 +243,15 @@ const AdminCriteriaPage = () => {
           <Styled.InformBox>
             <Styled.Labels>
               <span>1순위: </span>
-              <Select
-                value={isEditMode ? priorityKey1 ?? '선택 없음' : priority1}
-                list={getPriorityList(1)}
-                handleChange={handleChange1}
-              />
+              <Select value={priority1} list={getPriorityList(1)} handleChange={handleChange1} />
             </Styled.Labels>
             <Styled.Labels>
               <span>2순위:</span>
-              <Select
-                value={isEditMode ? priorityKey2 ?? '선택 없음' : priority2}
-                list={getPriorityList(2)}
-                handleChange={handleChange2}
-              />
+              <Select value={priority2} list={getPriorityList(2)} handleChange={handleChange2} />
             </Styled.Labels>
             <Styled.Labels>
               <span>3순위:</span>
-              <Select
-                value={isEditMode ? priorityKey3 ?? '선택 없음' : priority3}
-                list={getPriorityList(3)}
-                handleChange={handleChange3}
-              />
+              <Select value={priority3} list={getPriorityList(3)} handleChange={handleChange3} />
             </Styled.Labels>
             <Styled.Labels>
               <span>동점자 기준:</span>
