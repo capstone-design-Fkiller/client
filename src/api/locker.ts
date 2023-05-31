@@ -44,6 +44,11 @@ export const getMyLocker = async (id: number) => {
   return data[0];
 };
 
+export const getApplicableBuilding = async (id: number) => {
+  const { data } = await instance.get<number[]>(`locker/building/?major=${id}`);
+  return data;
+};
+
 export const patchConvertMyLockerShare = async (body: ConvertToShareRequest) => {
   const { id, ...args } = body;
   const { data } = await instance.patch<LockerResponse>(`locker/${id}`, {

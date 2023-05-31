@@ -15,7 +15,11 @@ import { MAJOR } from '@/constants/major';
 import useInput from '@/hooks/useInput';
 import useModal from '@/hooks/useModal';
 import useToast from '@/hooks/useToast';
-import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
+import {
+  useApplyLockerMutation,
+  useFetchApplicableBuilding,
+  useFetchApplicant
+} from '@/query/locker';
 import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { MajorPriorityResponse } from '@/types/major';
@@ -45,6 +49,7 @@ const ApplyPage = () => {
   const { mutate } = useApplyLockerMutation();
 
   const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
+  const { applicableBuildings } = useFetchApplicableBuilding(MAJOR[me.major]);
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
 
@@ -93,7 +98,7 @@ const ApplyPage = () => {
             <Select
               value={structure}
               handleChange={handleSelect}
-              list={Object.keys(BUILDING).slice(1)}
+              list={applicableBuildings}
             />
             <Separator />
             <div>{me.major || '학과'}</div>

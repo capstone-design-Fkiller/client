@@ -10,7 +10,9 @@ import {
   getMyLocker,
   patchConvertMyLockerShare,
   patchLockerShare,
+  getApplicableBuilding,
 } from '@/api/locker';
+import { getBuildingName } from '@/constants/building';
 import useToast from '@/hooks/useToast';
 import {
   LockerRequest,
@@ -74,9 +76,17 @@ export const useApplyLockerMutation = () => {
 
 export const useFetchMyLocker = (userId: number) => {
   const { data } = useQuery<LockerResponse>([QUERY_KEY.locker, userId], () => getMyLocker(userId));
-  console.log(data, '내사물함');
 
   return { myLocker: data };
+};
+
+export const useFetchApplicableBuilding = (majorId: number) => {
+  const { data } = useQuery<number[]>(['building', majorId], () => getApplicableBuilding(majorId));
+
+  const buildingNames = data?.map((building_id) => getBuildingName(building_id) ?? "건물") ?? ["건물"]
+  // console.log(buildingNames,"빌딩 이름들")
+
+  return { applicableBuildings: buildingNames };
 };
 
 export const useFetchSharableLockers = (id: number) => {

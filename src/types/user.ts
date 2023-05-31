@@ -1,4 +1,3 @@
-import { LockerResponse } from './locker';
 
 export interface UserResponse {
   id: number;
@@ -12,7 +11,8 @@ export interface UserResponse {
   is_adminable: boolean;
   is_valid: boolean;
   created_at: string;
-  locker: number | undefined;
+  locker_id: number | undefined;
+  // locker: LockerResponse | undefined;
 }
 
 export interface LoginRequest {
