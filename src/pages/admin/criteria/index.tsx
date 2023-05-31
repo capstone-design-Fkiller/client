@@ -8,14 +8,13 @@ import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
-import LockerCalendar from '@/components/criteria/Calendar';
 import DateModal from '@/components/criteria/DateModal';
 import CustomCalendar from '@/components/share/Calendar';
 import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
-import { useFetchSavedMajor, usePutMajor } from '@/query/major';
+import { usePutMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { MajorPriorityRequest } from '@/types/major';
 import { formatDate } from '@/utils/date';
@@ -38,29 +37,30 @@ const AdminCriteriaPage = () => {
 
   const [priority1, setPriority1] = useState<string>(() => {
     const storedPriority1 = localStorage.getItem('priority1');
-    return storedPriority1 ?? '선택 없음';
+    return storedPriority1 || '선택 없음';
   });
   const [priority2, setPriority2] = useState<string>(() => {
     const storedPriority2 = localStorage.getItem('priority2');
-    return storedPriority2 ?? '선택 없음';
+    return storedPriority2 || '선택 없음';
   });
   const [priority3, setPriority3] = useState<string>(() => {
     const storedPriority3 = localStorage.getItem('priority3');
-    return storedPriority3 ?? '선택 없음';
+    return storedPriority3 || '선택 없음';
   });
   const [baserule, setBaserule] = useState<string>(() => {
     const storedBaseRule = localStorage.getItem('baserule');
-    return storedBaseRule ?? '선착순';
+    return storedBaseRule || '선착순';
   });
   const [date, setDate] = useState<string[]>(() => {
     const storedStartDate = localStorage.getItem('startDate');
     const storedEndDate = localStorage.getItem('endDate');
-    return [storedStartDate ?? '', storedEndDate ?? ''];
+    return [storedStartDate || '', storedEndDate || ''];
   });
+  console.log(date);
   const [lockerDate, setLockerDate] = useState<string[]>(() => {
     const storedStartLockerDate = localStorage.getItem('startLockerDate');
     const storedEndLockerDate = localStorage.getItem('endLockerDate');
-    return [storedStartLockerDate ?? '', storedEndLockerDate ?? ''];
+    return [storedStartLockerDate || '', storedEndLockerDate ?? ''];
   });
 
   const handleAlertOpen = () => {
@@ -123,25 +123,30 @@ const AdminCriteriaPage = () => {
   };
 
   const handlePutCriteria = () => {
-    if (!selectedDate) {
-      createToastMessage('날짜 선택은 필수입니다.', 'error');
-      return;
-    }
+    // if (!selectedDate) {
+    //   createToastMessage('날짜 선택은 필수입니다.', 'error');
+    //   return;
+    // }
 
-    if (priority1 === '선택 없음' && priority2 !== '선택 없음') {
-      createToastMessage('1순위를 선택해야 2순위를 선택할 수 있습니다.', 'error');
-      return;
-    }
+    // if (priority1 === '선택 없음' && priority2 !== '선택 없음') {
+    //   createToastMessage('1순위를 선택해야 2순위를 선택할 수 있습니다.', 'error');
+    //   return;
+    // }
 
-    if (priority2 === '선택 없음' && priority3 !== '선택 없음') {
-      createToastMessage('2순위를 선택해야 3순위를 선택할 수 있습니다.', 'error');
-      return;
-    }
+    // if (priority2 === '선택 없음' && priority3 !== '선택 없음') {
+    //   createToastMessage('2순위를 선택해야 3순위를 선택할 수 있습니다.', 'error');
+    //   return;
+    // }
+
+    if (!selectedDate) return;
+    if (!selectedLockerDate) return;
 
     const [start, end] = selectedDate
       .toString()
       .split(',')
       .map(date => new Date(date).toISOString());
+
+    console.log(start, end);
 
     const [startLocker, endLocker] = selectedLockerDate
       .toString()
@@ -151,15 +156,17 @@ const AdminCriteriaPage = () => {
     const body: Partial<MajorPriorityRequest> = {
       id: MAJOR[me?.major ?? '학과'],
       name: me?.major ?? '학과',
-      priority_1: priority1 === '선택 없음' ? null : CRITERIA[priority1],
-      priority_2: priority2 === '선택 없음' ? null : CRITERIA[priority2],
-      priority_3: priority3 === '선택 없음' ? null : CRITERIA[priority3],
-      start_date: startLocker, //임시로 설정
-      end_date: endLocker, //임시로 설정
-      apply_start_date: start,
-      apply_end_date: end,
+      priority_1: CRITERIA[priority1],
+      priority_2: CRITERIA[priority2],
+      priority_3: CRITERIA[priority3],
+      start_date: start, //임시로 설정
+      end_date: end, //임시로 설정
+      apply_start_date: startLocker,
+      apply_end_date: endLocker,
       is_baserule_FCFS: baserule === '선착순' ? false : true,
     };
+
+    console.log(body);
 
     mutate(body, {
       onSuccess: () => {
@@ -281,9 +288,9 @@ const AdminCriteriaPage = () => {
           <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
         )}
         {isLockerDateSelectOpen && (
-          <LockerCalendar
-            selectedLockerDate={selectedLockerDate}
-            setSelectedLockerDate={setSelectedLockerDate}
+          <CustomCalendar
+            selectedDate={selectedLockerDate}
+            setSelectedDate={setSelectedLockerDate}
           />
         )}
         <Button onClick={handleAlertOpen}>확인</Button>
