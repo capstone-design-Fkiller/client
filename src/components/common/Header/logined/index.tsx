@@ -19,7 +19,7 @@ const LoginedHeader = (headerProps: LoginedProps) => {
   const { me } = headerProps;
   const [alertOpen, setAlertOpen] = useState(false);
   const queryClient = useQueryClient();
-  
+
   const { data: alerts, isLoading } = useFetchAlerts(me.id);
 
   const handleAlertOpen = () => {

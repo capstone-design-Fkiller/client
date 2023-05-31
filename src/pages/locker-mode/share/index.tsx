@@ -6,13 +6,14 @@ import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import Sharable from '@/components/share/Sharable';
 import { MAJOR } from '@/constants/major';
-import { useFetchSharableLockers, useShareLockerMutation } from '@/query/locker';
+import { useFetchMyLocker, useFetchSharableLockers, useShareLockerMutation } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 import { LockerResponse } from '@/types/locker';
 
 const ApplySharePage = () => {
   const { me } = useFetchMe();
   const [selectedLocker, setSelectedLocker] = useState<LockerResponse | undefined>();
+  const { myLocker } = useFetchMyLocker(me?.id ?? 0);
 
   if (!me) return <div>로그인 해주세요!</div>;
 
@@ -39,14 +40,33 @@ const ApplySharePage = () => {
             setSelectedLocker={setSelectedLocker}
           />
         </Styled.Container>
-        <Button
-          variant='contained'
-          className={selectedLocker ? '' : 'disabled'}
-          css={Styled.ExtendedButton}
-          onClick={onSubmit}
-        >
-          쉐어 신청하기
-        </Button>
+        {myLocker ? (
+          <>
+            <Styled.Inform>사물함이 이미 존재합니다.</Styled.Inform>
+            <Styled.Inform>쉐어 신청을 할 수 없습니다.</Styled.Inform>
+            <br />
+            <Button
+              variant='outlined'
+              // className={selectedLocker ? '' : 'disabled'}
+              color='error'
+              // css={Styled.ExtendedButton}
+              disableFocusRipple
+              disableTouchRipple
+              disabled
+            >
+              쉐어 신청불가
+            </Button>
+          </>
+        ) : (
+          <Button
+            variant='contained'
+            className={selectedLocker ? '' : 'disabled'}
+            css={Styled.ExtendedButton}
+            onClick={onSubmit}
+          >
+            쉐어 신청하기
+          </Button>
+        )}
       </Styled.Root>
     </PageTemplate>
   );

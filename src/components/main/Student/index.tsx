@@ -45,8 +45,6 @@ const Styled = {
     background-color: ${({ theme }) => theme.colors.white_300};
     border: 1px solid ${({ theme }) => theme.colors.light_grey_100};
     border-radius: 5px;
-
-    margin-bottom: 30px;
   `,
 
   LockerInfo: styled.div`

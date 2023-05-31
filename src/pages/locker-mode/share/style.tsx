@@ -50,6 +50,9 @@ export const Title = styled.h1`
   margin-bottom: 30px;
 `;
 
+export const Inform = styled.p`
+  color: ${({ theme }) => theme.colors.grey_100};
+`;
 export const InformBox = styled.div`
   display: flex;
   flex-direction: column;

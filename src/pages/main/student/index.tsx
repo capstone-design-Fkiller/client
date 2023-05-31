@@ -5,7 +5,7 @@ import * as Styled from '../style';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import Student from '@/components/main/Student';
-import { useFetchMyLocker } from '@/query/locker';
+import { useConvertShareMutation, useFetchMyLocker } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
@@ -19,13 +19,15 @@ const StudentMainPage = () => {
     navigate(path);
   };
 
+  const { mutate } = useConvertShareMutation();
+
   return (
     <PageTemplate>
       <Styled.Root>
         {me ? (
           <>
             <Student user={me} />
-            {myLocker?.shared_id && myLocker?.is_share_registered && (
+            {myLocker && !myLocker?.shared_id && !myLocker?.is_share_registered && (
               <Button
                 variant='contained'
                 onClick={() => {
@@ -34,6 +36,24 @@ const StudentMainPage = () => {
               >
                 사물함 쉐어하기
               </Button>
+            )}
+            {myLocker?.owned_id === me?.id &&
+            !myLocker?.shared_id &&
+            myLocker?.is_share_registered ? (
+                <Button
+                  variant='outlined'
+                onClick={() =>
+                  mutate({
+                    id: myLocker?.id || 0,
+                    share_start_date: null,
+                    share_end_date: null,
+                  })
+                }
+              >
+                쉐어 취소
+              </Button>
+            ) : (
+              undefined
             )}
           </>
         ) : (
