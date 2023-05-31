@@ -6,15 +6,17 @@ export const ProfileContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
   width: 100%;
+  padding: 0 15px;
   margin-bottom: 20px;
+
   border: 1px solid ${({ theme }) => theme.colors.light_grey_200};
   border-radius: 5px;
-  padding: 0 15px;
 `;
 
 export const InnerBox = styled.div`
-  width: 40%;
+  width: auto;
 
   display: flex;
   flex-direction: column;
@@ -26,6 +28,7 @@ export const InnerBox = styled.div`
 export const InfoRow = styled.div`
   display: flex;
   align-items: center;
+
   margin-bottom: 8px;
 `;
 
