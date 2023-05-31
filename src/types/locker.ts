@@ -26,10 +26,19 @@ export interface RequestApplyLocker extends LockerRequest {
   priority_3?: number | boolean | string | null | undefined;
 }
 
-export interface ConvertToShareRequest {
-  id: number;
-  major: number;
-  building_id: number;
-}
+// export interface ShareRequest {
+//   id: number;
+//   share_start_date: Date;
+//   share_end_date: Date;
+//   is_share_registered: boolean;
+//   shared_id: number;
+// }
+
+// export type ShareRegisterRequest = Pick<ShareRequest, 'id' | 'share_start_date' | 'share_end_date'>;
+// export type ShareApplyRequest = Pick<ShareRequest, 'id' | 'shared_id' | 'is_share_registered'>;
+export type ConvertToShareRequest = Pick<LockerResponse, 'id'> & {
+  share_end_date: Date | null;
+  share_start_date: Date | null;
+};
 
 export type ApplyShareRequest = Pick<LockerResponse, 'id' | 'shared_id'>;
