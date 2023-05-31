@@ -6,6 +6,7 @@ import * as Styled from './style';
 
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
+import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
 import CustomCalendar from '@/components/share/Calendar';
@@ -25,12 +26,18 @@ const AdminCriteriaPage = () => {
   const { me } = useFetchMe();
   const { majorInfo } = useFetchSavedMajor(MAJOR[me?.major ?? '학과']);
 
+  const [alertOpen, setAlertOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Value | undefined>();
+  const [selectedLockerDate, setSelectedLockerDate] = useState<Value | undefined>();
   const [date, setDate] = useState<string[]>(['', '']);
   const [priority1, setPriority1] = useState<string>('선택 없음');
   const [priority2, setPriority2] = useState<string>('선택 없음');
   const [priority3, setPriority3] = useState<string>('선택 없음');
   const [baserule, setBaserule] = useState<string>('선착순');
+
+  const handleAlertOpen = () => {
+    setAlertOpen(!alertOpen);
+  };
 
   const handleChange1 = (e: MouseEvent<HTMLLIElement>) => setPriority1(e.currentTarget.innerText);
   const handleChange2 = (e: MouseEvent<HTMLLIElement>) => setPriority2(e.currentTarget.innerText);
@@ -150,9 +157,12 @@ const AdminCriteriaPage = () => {
           <br />
           <span>배정 날짜와 동점자 배정 기준은 필수 항목입니다.</span>
         </Styled.InformText>
-        <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
-        <Styled.SelectWrapper>
+        <Styled.SelectWrapper onClick={handleAlertOpen}>
+          <DateBox label='사물함 이용 시작일' date={date[0]} />
+          <DateBox label='사물함 이용 종료일' date={date[1]} />
+        </Styled.SelectWrapper>
+        <Styled.SelectWrapper onClick={handleAlertOpen}>
           <DateBox label='배정 접수 시작일' date={date[0]} />
           <DateBox label='배정 접수 종료일' date={date[1]} />
         </Styled.SelectWrapper>
@@ -200,6 +210,21 @@ const AdminCriteriaPage = () => {
           {isEditMode ? '수정하기' : '배정 기준 설정하기'}
         </Button>
       </Styled.Root>
+      <Modal
+        className='modal'
+        title='알림'
+        open={alertOpen}
+        onClose={handleAlertOpen}
+        css={`
+          width: 70%;
+          height: 50%;
+        `}
+      >
+        <Styled.AlertModalTitle>날짜 선택</Styled.AlertModalTitle>
+        <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+        <CustomCalendar selectedDate={selectedLockerDate} setSelectedDate={setSelectedLockerDate} />
+        <Button onClick={handleAlertOpen}>확인</Button>
+      </Modal>
     </PageTemplate>
   );
 };
