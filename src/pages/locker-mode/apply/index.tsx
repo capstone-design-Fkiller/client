@@ -17,7 +17,7 @@ import useToast from '@/hooks/useToast';
 import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
 import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
-import { MajorPriorityResponse } from '@/types/major';
+import { MajorPriorityAnswerRequest } from '@/types/major';
 import { PATH } from '@/utils/path';
 
 const ApplyPage = () => {
@@ -36,7 +36,7 @@ const ApplyPage = () => {
   }
 
   const [structure, setStructure] = useState<string>('건물');
-  const { value, setValue } = useInput<Partial<MajorPriorityResponse>>({
+  const { value, setValue } = useInput<Partial<MajorPriorityAnswerRequest>>({
     priority_1: null,
     priority_2: null,
     priority_3: null,
@@ -68,13 +68,18 @@ const ApplyPage = () => {
   };
 
   const handleApplyButton = () => {
+    console.log(value);
     mutate({
       building_id: BUILDING[structure],
       major: MAJOR[me.major],
       user: me.id,
       ...value,
     });
-
+    setValue({
+      priority_1: null,
+      priority_2: null,
+      priority_3: null,
+    });
     handleModalOpen();
   };
 
