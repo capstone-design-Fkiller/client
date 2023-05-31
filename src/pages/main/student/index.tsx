@@ -40,8 +40,8 @@ const StudentMainPage = () => {
             {myLocker?.owned_id === me?.id &&
             !myLocker?.shared_id &&
             myLocker?.is_share_registered ? (
-                <Button
-                  variant='outlined'
+              <Button
+                variant='outlined'
                 onClick={() =>
                   mutate({
                     id: myLocker?.id || 0,
@@ -52,9 +52,7 @@ const StudentMainPage = () => {
               >
                 쉐어 취소
               </Button>
-            ) : (
-              undefined
-            )}
+            ) : undefined}
           </>
         ) : (
           <>

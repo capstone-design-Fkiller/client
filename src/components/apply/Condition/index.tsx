@@ -21,10 +21,12 @@ const Condition = (props: ConditionProps) => {
     let value: number | boolean;
 
     if (e.target.type === 'checkbox') {
-      value = e.target.checked || e.target.defaultChecked;
+      value = e.target.checked || false;
     } else {
       value = Number(e.target.value);
     }
+
+    console.log(value);
 
     setValue(prev => {
       const prevValue = { ...prev };
@@ -40,9 +42,11 @@ const Condition = (props: ConditionProps) => {
   return (
     <Styled.Root>
       <div>
-        {majorConditionList.map(([order, condt]) => (
+        {majorConditionList.map(([order, condt], idx) => (
           <Styled.ConditionWrapper key={order}>
-            <Styled.Name>{condt.name}</Styled.Name>
+            <Styled.Name>
+              {idx + 1}순위: {condt.name}
+            </Styled.Name>
             {condt.is_bool ? (
               <Styled.Label>
                 <Styled.Input type='checkbox' onChange={e => onChangeInput(e, order)} />
@@ -74,18 +78,19 @@ const Styled = {
 
   ConditionWrapper: styled.div`
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
   `,
 
   Name: styled.div`
     margin-bottom: 10px;
+    font-size: 15px;
   `,
 
   Label: styled.label`
     position: relative;
     display: inline-block;
     width: 60px;
-    height: 34px;
+    height: 29px;
 
     & input {
       opacity: 0;
@@ -103,14 +108,14 @@ const Styled = {
       background-color: #ccc;
       -webkit-transition: 0.4s;
       transition: 0.4s;
-      border-radius: 50%;
+      border-radius: 29px;
     }
 
     & .slider:before {
       position: absolute;
       content: '';
-      height: 26px;
-      width: 26px;
+      height: 21px;
+      width: 21px;
       left: 4px;
       bottom: 4px;
       background-color: white;
@@ -128,17 +133,9 @@ const Styled = {
     }
 
     & input:checked + .slider:before {
-      -webkit-transform: translateX(26px);
-      -ms-transform: translateX(26px);
-      transform: translateX(26px);
-    }
-
-    & .slider {
-      border-radius: 34px;
-    }
-
-    & .slider:before {
-      border-radius: 50%;
+      -webkit-transform: translateX(31px);
+      -ms-transform: translateX(31px);
+      transform: translateX(31px);
     }
   `,
 
