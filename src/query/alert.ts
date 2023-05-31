@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { useFetchMe } from './user';
 
@@ -14,6 +14,7 @@ const QUERY_KEY = {
 export const useCreateAlertMutation = () => {
   const { me } = useFetchMe();
   const { createToastMessage } = useToast();
+  const queryClient = useQueryClient();
 
   const createAlert = (body: Pick<AlertRequest, 'message' | 'receiver'>) => {
     if (!me) throw new Error();
@@ -24,6 +25,7 @@ export const useCreateAlertMutation = () => {
   const mutation = useMutation(createAlert, {
     onSuccess: () => {
       createToastMessage('알림 전송 완료!', 'success');
+      queryClient.invalidateQueries([QUERY_KEY.alert]);
     },
     onError: () => {
       createToastMessage('다시 시도해주세요.', 'error');
@@ -33,8 +35,8 @@ export const useCreateAlertMutation = () => {
   return mutation;
 };
 
-export const useFetchAlerts = (id: number) => {
-  const { data, isLoading, isError } = useQuery([QUERY_KEY.alert], () => getMyAlerts(id), {
+export const useFetchAlerts = (userId: number) => {
+  const { data, isLoading, isError } = useQuery([QUERY_KEY.alert], () => getMyAlerts(userId), {
     suspense: false,
     refetchOnWindowFocus: false,
     staleTime: 10000,
