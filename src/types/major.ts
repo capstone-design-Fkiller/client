@@ -16,9 +16,8 @@ export interface MajorResponse {
   priority_3: Priority | null;
 }
 
-// export type MajorPriorityRequest = Omit<MajorResponse, 'name'>;
 export type MajorPriorityRequest = MajorResponse;
-export type MajorPriorityResponse = Pick<MajorResponse, 'priority_1' | 'priority_2' | 'priority_3'>;
+export type MajorPriorityResponse = Partial<MajorResponse>;
 
 export interface MajorPriorityAnswerRequest {
   priority_1: string | null;

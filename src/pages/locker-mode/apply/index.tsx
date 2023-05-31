@@ -9,6 +9,7 @@ import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
+import { Separator } from '@/components/common/Separator';
 import { BUILDING } from '@/constants/building';
 import { MAJOR } from '@/constants/major';
 import useInput from '@/hooks/useInput';
@@ -68,7 +69,6 @@ const ApplyPage = () => {
   };
 
   const handleApplyButton = () => {
-    console.log(value);
     mutate({
       building_id: BUILDING[structure],
       major: MAJOR[me.major],
@@ -99,7 +99,7 @@ const ApplyPage = () => {
               handleChange={handleSelect}
               list={Object.keys(BUILDING).slice(1)}
             />
-            <Styled.Separator />
+            <Separator />
             <div>{me.major || '학과'}</div>
           </Styled.InformBox>
         </Styled.Container>
