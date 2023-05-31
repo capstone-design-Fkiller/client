@@ -28,19 +28,16 @@ const AssignPage = () => {
   const [message, setMessage] = useState<string>('');
   const [selectedAssignId, setSelectedAssignId] = useState<number | null>(null);
   const [selectedAssign, setSelectedAssign] = useState<AssignResponse | null>(null);
-  // const selectedAssign = assigns?.at(selectedLockerId ?? 0);
 
   const navigate = useNavigate();
 
   const handleSendAlert = () => {
-    console.log(selectedAssign, '뭔데');
     createAlertMutation({ receiver: selectedAssign?.user ?? 0, message });
     navigate(PATH.ASSIGN);
     handleCloseModal();
   };
 
   const handleLockerClick = (assignId: number) => {
-    console.log(assignId, '뭔데');
     setSelectedAssignId(assignId);
     const selectAssign = assigns?.find(assign => assign.id == assignId);
     setSelectedAssign(selectAssign ?? null);

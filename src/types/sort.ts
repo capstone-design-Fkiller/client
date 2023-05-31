@@ -1,6 +1,5 @@
 export interface SortResponse {
   id: number;
-  rank: number;
   priority_1_answer: boolean | number | null;
   priority_2_answer: boolean | number | null;
   priority_3_answer: boolean | number | null;

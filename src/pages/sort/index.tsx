@@ -19,7 +19,7 @@ const SortPage = () => {
 
   const navigate = useNavigate();
   const { data: sorts, isLoading: isSortLoading } = useFetchSort(MAJOR[me?.major ?? '학과']);
-  const { mutate } = useLockerAssignMutation();
+  const { mutate: assignMutate } = useLockerAssignMutation();
   const [currentSort, setCurrentSort] = useState(sorts);
   const [currentPage, setCurrentPage] = useState(1);
   const { majorInfo } = useFetchMajor(MAJOR[me.major], false);
@@ -42,7 +42,7 @@ const SortPage = () => {
 
     const request = currentSort?.map(lock => lock.id);
 
-    mutate({ major: MAJOR[me.major], sortResult: { list: request || [] } });
+    assignMutate({ major: MAJOR[me.major], sortResult: { list: request || [] } });
     navigate(PATH.MAIN);
   };
 
