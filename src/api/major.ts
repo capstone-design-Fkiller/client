@@ -10,7 +10,7 @@ export const getMajor = async (params: number) => {
 
 export const putMajor = async (body: Partial<MajorPriorityRequest>) => {
   const { id, ...args } = body;
-  const { data } = await instance.put<MajorResponse>(`/major/${id}`, args);
+  const { data } = await instance.patch<MajorResponse>(`/major/${id}`, args);
 
   return data;
 };

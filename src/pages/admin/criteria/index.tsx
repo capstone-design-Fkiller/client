@@ -69,11 +69,10 @@ const AdminCriteriaPage = () => {
     const [start, end] = selectedDate
       .toString()
       .split(',')
-      .map(date => new Date(date).toISOString());
+      .map(date => new Date(date));
 
     const body: Partial<MajorPriorityRequest> = {
       id: MAJOR[me?.major ?? '학과'],
-      name: me?.major ?? '학과',
       priority_1: priority1 === '선택 없음' ? null : CRITERIA[priority1],
       priority_2: priority2 === '선택 없음' ? null : CRITERIA[priority2],
       priority_3: priority3 === '선택 없음' ? null : CRITERIA[priority3],

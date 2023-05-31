@@ -14,3 +14,5 @@ export interface NoticeResponse {
   major: number;
   writer: number;
 }
+
+export type EditNoticeRequest = Pick<NoticeRequest, 'id' | 'content' | 'title'>;

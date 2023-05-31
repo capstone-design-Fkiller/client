@@ -8,8 +8,8 @@ import {
   postApplyLocker,
   getShareableLockers,
   getMyLocker,
-  putMyLockerToShare as putConvertMyLockerShare,
-  putLockerShare,
+  patchConvertMyLockerShare,
+  patchLockerShare,
 } from '@/api/locker';
 import useToast from '@/hooks/useToast';
 import {
@@ -101,7 +101,7 @@ export const useConvertShareMutation = () => {
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
 
-  const mutation = useMutation((body: ConvertToShareRequest) => putConvertMyLockerShare(body), {
+  const mutation = useMutation((body: ConvertToShareRequest) => patchConvertMyLockerShare(body), {
     onSuccess: ({ owned_id }) => {
       queryClient.invalidateQueries([QUERY_KEY.locker, owned_id]);
       createToastMessage('쉐어 여부 변경 완료 !', 'success');
@@ -114,12 +114,12 @@ export const useConvertShareMutation = () => {
   return mutation;
 };
 
-export const useShareLockerMutation = () => {
+export const useApplyShareLockerMutation = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
 
-  const mutation = useMutation((body: ApplyShareRequest) => putLockerShare(body), {
+  const mutation = useMutation((body: ApplyShareRequest) => patchLockerShare(body), {
     onSuccess: ({ shared_id }) => {
       // queryClient.invalidateQueries([QUERY_KEY.locker, id]); // 내 사물함 갱신
       queryClient.invalidateQueries([QUERY_KEY.locker, shared_id]); // 내 사물함 갱신
