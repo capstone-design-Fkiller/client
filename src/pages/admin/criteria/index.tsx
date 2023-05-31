@@ -6,9 +6,10 @@ import * as Styled from './style';
 
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
-import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
+import LockerCalendar from '@/components/criteria/Calendar';
+import DateModal from '@/components/criteria/DateModal';
 import CustomCalendar from '@/components/share/Calendar';
 import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
@@ -26,10 +27,18 @@ const AdminCriteriaPage = () => {
   const { me } = useFetchMe();
   const { majorInfo } = useFetchSavedMajor(MAJOR[me?.major ?? '학과']);
 
+  //모달 관리용
   const [alertOpen, setAlertOpen] = useState(false);
+  const [isDateSelectOpen, setDateSelectOpen] = useState(false);
+  const [isLockerDateSelectOpen, setLockerDateSelectOpen] = useState(false);
+
+  //달력 날짜용
   const [selectedDate, setSelectedDate] = useState<Value | undefined>();
   const [selectedLockerDate, setSelectedLockerDate] = useState<Value | undefined>();
   const [date, setDate] = useState<string[]>(['', '']);
+  const [lockerDate, setLockerDate] = useState<string[]>(['', '']);
+
+  //우선순위용
   const [priority1, setPriority1] = useState<string>('선택 없음');
   const [priority2, setPriority2] = useState<string>('선택 없음');
   const [priority3, setPriority3] = useState<string>('선택 없음');
@@ -37,6 +46,18 @@ const AdminCriteriaPage = () => {
 
   const handleAlertOpen = () => {
     setAlertOpen(!alertOpen);
+    setDateSelectOpen(false);
+    setLockerDateSelectOpen(false);
+  };
+
+  const handleDateSelectOpen = () => {
+    setDateSelectOpen(true);
+    setLockerDateSelectOpen(false);
+  };
+
+  const handleLockerDateSelectOpen = () => {
+    setDateSelectOpen(false);
+    setLockerDateSelectOpen(true);
   };
 
   const handleChange1 = (e: MouseEvent<HTMLLIElement>) => setPriority1(e.currentTarget.innerText);
@@ -101,14 +122,19 @@ const AdminCriteriaPage = () => {
       .split(',')
       .map(date => new Date(date).toISOString());
 
+    const [startLocker, endLocker] = selectedLockerDate
+      .toString()
+      .split(',')
+      .map(lockerDate => new Date(lockerDate).toISOString());
+
     const body: Partial<MajorPriorityRequest> = {
       id: MAJOR[me?.major ?? '학과'],
       name: me?.major ?? '학과',
       priority_1: priority1 === '선택 없음' ? null : CRITERIA[priority1],
       priority_2: priority2 === '선택 없음' ? null : CRITERIA[priority2],
       priority_3: priority3 === '선택 없음' ? null : CRITERIA[priority3],
-      start_date: start, //임시로 설정
-      end_date: end, //임시로 설정
+      start_date: startLocker, //임시로 설정
+      end_date: endLocker, //임시로 설정
       apply_start_date: start,
       apply_end_date: end,
       is_baserule_FCFS: baserule === '선착순' ? false : true,
@@ -146,6 +172,20 @@ const AdminCriteriaPage = () => {
     }
   }, [selectedDate]);
 
+  useEffect(() => {
+    if (!selectedLockerDate) return;
+    else {
+      const [startLocker, endLocker] = selectedLockerDate
+        .toString()
+        .split(',')
+        .map(lockerDate => new Date(lockerDate));
+      const formattedStartLockerDate = formatDate(startLocker);
+      const formattedEndLockerDate = formatDate(endLocker);
+
+      setLockerDate([formattedStartLockerDate, formattedEndLockerDate]);
+    }
+  }, [selectedLockerDate]);
+
   return (
     <PageTemplate>
       <Styled.Root>
@@ -158,11 +198,11 @@ const AdminCriteriaPage = () => {
           <span>배정 날짜와 동점자 배정 기준은 필수 항목입니다.</span>
         </Styled.InformText>
 
-        <Styled.SelectWrapper onClick={handleAlertOpen}>
-          <DateBox label='사물함 이용 시작일' date={date[0]} />
-          <DateBox label='사물함 이용 종료일' date={date[1]} />
+        <Styled.SelectWrapper onClick={handleLockerDateSelectOpen}>
+          <DateBox label='사물함 이용 시작일' date={lockerDate[0]} />
+          <DateBox label='사물함 이용 종료일' date={lockerDate[1]} />
         </Styled.SelectWrapper>
-        <Styled.SelectWrapper onClick={handleAlertOpen}>
+        <Styled.SelectWrapper onClick={handleDateSelectOpen}>
           <DateBox label='배정 접수 시작일' date={date[0]} />
           <DateBox label='배정 접수 종료일' date={date[1]} />
         </Styled.SelectWrapper>
@@ -210,21 +250,24 @@ const AdminCriteriaPage = () => {
           {isEditMode ? '수정하기' : '배정 기준 설정하기'}
         </Button>
       </Styled.Root>
-      <Modal
+      <DateModal
         className='modal'
-        title='알림'
-        open={alertOpen}
+        title='날짜선택'
+        open={isDateSelectOpen || isLockerDateSelectOpen}
         onClose={handleAlertOpen}
-        css={`
-          width: 70%;
-          height: 50%;
-        `}
       >
         <Styled.AlertModalTitle>날짜 선택</Styled.AlertModalTitle>
-        <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-        <CustomCalendar selectedDate={selectedLockerDate} setSelectedDate={setSelectedLockerDate} />
+        {isDateSelectOpen && (
+          <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+        )}
+        {isLockerDateSelectOpen && (
+          <LockerCalendar
+            selectedLockerDate={selectedLockerDate}
+            setSelectedLockerDate={setSelectedLockerDate}
+          />
+        )}
         <Button onClick={handleAlertOpen}>확인</Button>
-      </Modal>
+      </DateModal>
     </PageTemplate>
   );
 };

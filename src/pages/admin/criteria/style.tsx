@@ -101,9 +101,10 @@ export const InformBox = styled.div`
 export const AlertModalTitle = styled.div`
   text-align: center;
 
-  margin-bottom: 15px;
+  margin-top: 5px;
+  margin-bottom: 20px;
 
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 
   ${({ theme }) =>
