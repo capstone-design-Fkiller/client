@@ -10,7 +10,6 @@ import { MAJOR } from '@/constants/major';
 import { useFetchMajor } from '@/query/major';
 import { useFetchSort, useLockerAssignMutation } from '@/query/sort';
 import { useFetchMe } from '@/query/user';
-import { MajorResponse } from '@/types/major';
 import { PATH } from '@/utils/path';
 
 const SortPage = () => {
