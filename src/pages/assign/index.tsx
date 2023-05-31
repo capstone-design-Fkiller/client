@@ -15,6 +15,7 @@ import { PAGE_OFFSET } from '@/constants/page_offset';
 import { useCreateAlertMutation } from '@/query/alert';
 import { useFetchAssign } from '@/query/assign';
 import { useFetchMe } from '@/query/user';
+import { AssignResponse } from '@/types/assign';
 import { PATH } from '@/utils/path';
 
 const TABLE_HEADER = ['사물함', '건물', '학번', '이름', '알림'];
@@ -25,23 +26,28 @@ const AssignPage = () => {
   const { data: assigns, isLoading: isAssignLoading } = useFetchAssign(MAJOR[me?.major ?? '학과']);
   const [currentPage, setCurrentPage] = useState(1);
   const [message, setMessage] = useState<string>('');
-  const [selectedLocker, setSelectedLocker] = useState<number | null>(null);
-  const selectedLockerInfo = assigns?.at(selectedLocker ?? 0);
+  const [selectedAssignId, setSelectedAssignId] = useState<number | null>(null);
+  const [selectedAssign, setSelectedAssign] = useState<AssignResponse | null>(null);
+  // const selectedAssign = assigns?.at(selectedLockerId ?? 0);
 
   const navigate = useNavigate();
 
   const handleSendAlert = () => {
-    createAlertMutation({ receiver: selectedLockerInfo?.user ?? 0, message });
+    console.log(selectedAssign, '뭔데');
+    createAlertMutation({ receiver: selectedAssign?.user ?? 0, message });
     navigate(PATH.ASSIGN);
     handleCloseModal();
   };
 
-  const handleLockerClick = (lockerId: number) => {
-    setSelectedLocker(lockerId - 1);
+  const handleLockerClick = (assignId: number) => {
+    console.log(assignId, '뭔데');
+    setSelectedAssignId(assignId);
+    const selectAssign = assigns?.find(assign => assign.id == assignId);
+    setSelectedAssign(selectAssign ?? null);
   };
 
   const handleCloseModal = () => {
-    setSelectedLocker(null);
+    setSelectedAssignId(null);
     setMessage('');
   };
 
@@ -79,8 +85,8 @@ const AssignPage = () => {
                     setState={setCurrentPage}
                   />
                 </Styled.PaginationContainer>
-                {selectedLocker !== null && (
-                  <Modal title='개별 알림' onClose={handleCloseModal} open={!!selectedLocker}>
+                {selectedAssignId !== null && (
+                  <Modal title='개별 알림' onClose={handleCloseModal} open={!!selectedAssignId}>
                     <Styled.textarea
                       onChange={handleInputChange}
                       value={message}
