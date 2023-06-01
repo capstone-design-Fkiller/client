@@ -1,3 +1,5 @@
+import { MajorPriorityAnswerRequest } from './major';
+
 export interface LockerRequest {
   major: number;
   building_id: number;
@@ -18,13 +20,10 @@ export interface LockerResponse {
   start_date: string | null;
 }
 
-export interface RequestApplyLocker extends LockerRequest {
+export interface RequestApplyLocker extends Partial<MajorPriorityAnswerRequest> {
   building_id: number;
   major: number;
   user: number;
-  priority_1?: number | boolean | string | null | undefined;
-  priority_2?: number | boolean | string | null | undefined;
-  priority_3?: number | boolean | string | null | undefined;
 }
 
 export type ConvertToShareRequest = Pick<LockerResponse, 'id'> & {
