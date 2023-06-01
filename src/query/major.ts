@@ -2,7 +2,7 @@ import { useMutation, useQuery } from 'react-query';
 
 import { getMajor, putMajor } from '@/api/major';
 import useToast from '@/hooks/useToast';
-import { MajorPriorityRequest, MajorPriorityResponse } from '@/types/major';
+import { MajorPriorityRequest, MajorPriorityResponse, MajorResponse } from '@/types/major';
 
 const QUERY_KEY = {
   major: 'major',
