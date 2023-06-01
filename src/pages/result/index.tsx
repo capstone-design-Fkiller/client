@@ -20,8 +20,10 @@ const ResultPage = () => {
   if (!me) throw new Error();
 
   const { data: results, isLoading } = useFetchSort(MAJOR[me?.major ?? '학과']);
-  const currentApplyResult = useState(results);
+  const [currentApplyResult, setCurrentApplyResult] = useState(results); // 수정된 부분
   const [currentPage, setCurrentPage] = useState(1);
+
+  console.log(results);
 
   return (
     <PageTemplate>
@@ -39,14 +41,16 @@ const ResultPage = () => {
                   <TableHead headers={TABLE_HEADER} />
                   <TableContent
                     contents={
-                      results?.slice((currentPage - 1) * PAGE_OFFSET, currentPage * PAGE_OFFSET) ||
-                      []
+                      currentApplyResult?.slice(
+                        (currentPage - 1) * PAGE_OFFSET,
+                        currentPage * PAGE_OFFSET
+                      ) || []
                     }
                   />
                 </Styled.TableContainer>
                 <Pagination
                   currentPage={currentPage}
-                  totalItems={currentApplyResult?.length || 0}
+                  totalItems={currentApplyResult?.length || 0} // 수정된 부분
                   itemsPerPage={PAGE_OFFSET}
                   setState={setCurrentPage}
                 />
