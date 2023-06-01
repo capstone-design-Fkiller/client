@@ -15,12 +15,14 @@ const InformBoxContent = (props: InformBoxProps) => {
   if (!locker) {
     return (
       <Styled.InformBox className='nothing'>
-        <div className='inform__user'>
-          <span>이름: {name}</span>
-          <span>학번: {id}</span>
-        </div>
-        <div>
-          <p>아직 배정된 사물함이 없습니다.</p> <p>사물함을 신청하세요</p>
+        <div className='nothing-inner'>
+          <div className='inform__user'>
+            <span>이름: {name}</span>
+            <span>학번: {id}</span>
+          </div>
+          <div>
+            <p>아직 배정된 사물함이 없습니다.</p> <p>사물함을 신청하세요</p>
+          </div>
         </div>
       </Styled.InformBox>
     );
@@ -71,18 +73,23 @@ const Styled = {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
-      gap: 10px;
+      align-items: center;
 
       p {
         color: ${({ theme }) => theme.colors.error_100};
       }
     }
 
+    & .nothing-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+
     & .inform__user {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      justify-items: flex-start;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
       width: 100%;
     }

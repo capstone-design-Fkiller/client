@@ -39,9 +39,9 @@ const ApplyPage = () => {
   const [structure, setStructure] = useState<string>('건물');
   const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
   const { value, setValue } = useInput<Partial<MajorPriorityAnswerRequest>>({
-    priority_1: majorInfo?.priority_1?.is_bool && false,
-    priority_2: majorInfo?.priority_2?.is_bool && false,
-    priority_3: majorInfo?.priority_3?.is_bool && false,
+    priority_1_answer: majorInfo?.priority_1?.is_bool && false,
+    priority_2_answer: majorInfo?.priority_2?.is_bool && false,
+    priority_3_answer: majorInfo?.priority_3?.is_bool && false,
   });
   const { mutate } = useApplyLockerMutation();
 
@@ -75,9 +75,9 @@ const ApplyPage = () => {
       ...value,
     });
     setValue({
-      priority_1: majorInfo?.priority_1?.is_bool && false,
-      priority_2: majorInfo?.priority_2?.is_bool && false,
-      priority_3: majorInfo?.priority_3?.is_bool && false,
+      priority_1_answer: majorInfo?.priority_1?.is_bool && false,
+      priority_2_answer: majorInfo?.priority_2?.is_bool && false,
+      priority_3_answer: majorInfo?.priority_3?.is_bool && false,
     });
     handleModalOpen();
   };
