@@ -22,7 +22,6 @@ const ResultPage = () => {
   const { data: results, isLoading } = useFetchSort(MAJOR[me?.major ?? '학과']);
   const currentApplyResult = useState(results);
   const [currentPage, setCurrentPage] = useState(1);
-  const applyResults = results ? results.slice().reverse() : [];
 
   return (
     <PageTemplate>
@@ -40,10 +39,8 @@ const ResultPage = () => {
                   <TableHead headers={TABLE_HEADER} />
                   <TableContent
                     contents={
-                      applyResults?.slice(
-                        (currentPage - 1) * PAGE_OFFSET,
-                        currentPage * PAGE_OFFSET
-                      ) || []
+                      results?.slice((currentPage - 1) * PAGE_OFFSET, currentPage * PAGE_OFFSET) ||
+                      []
                     }
                   />
                 </Styled.TableContainer>
