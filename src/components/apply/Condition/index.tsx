@@ -23,7 +23,11 @@ const Condition = (props: ConditionProps) => {
     if (e.target.type === 'checkbox') {
       value = e.target.checked || false;
     } else {
-      value = Number(e.target.value);
+      const inputValue = Number(e.target.value);
+      if (inputValue < 0) {
+        value = 0;
+      } // 음수 작성 못하게
+      value = inputValue;
     }
 
     console.log(value);
