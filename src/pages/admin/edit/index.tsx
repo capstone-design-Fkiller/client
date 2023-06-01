@@ -14,7 +14,7 @@ import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
-import { useFetchSavedMajor, usePutMajor } from '@/query/major';
+import { useFetchSavedMajor, usePatchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { MajorPriorityRequest } from '@/types/major';
 import { formatDate } from '@/utils/date';
@@ -54,14 +54,28 @@ const AdminEditPage = () => {
   });
 
   const [date, setDate] = useState<string[]>(() => {
-    const storedStartDate = majorInfo?.apply_start_date;
-    const storedEndDate = majorInfo?.apply_end_date;
-    return [storedStartDate || '', storedEndDate || ''];
+    let storedStartDate = majorInfo?.apply_start_date; // 서버 저장된 배정 시작 날짜
+    let storedEndDate = majorInfo?.apply_end_date; // 서버 저장된 배정 종료 날짜
+    if (majorInfo?.apply_start_date && majorInfo?.apply_end_date) {
+      const existStartDate = new Date(majorInfo?.apply_start_date);
+      storedStartDate = formatDate(existStartDate);
+
+      const existEndDate = new Date(majorInfo?.apply_end_date);
+      storedEndDate = formatDate(existEndDate);
+    }
+    return [storedStartDate || '', storedEndDate || '']; // 초기 설정시 ''
   });
 
   const [lockerDate, setLockerDate] = useState<string[]>(() => {
-    const storedStartLockerDate = majorInfo?.start_date;
-    const storedEndLockerDate = majorInfo?.end_date;
+    let storedStartLockerDate = majorInfo?.start_date; // 서버에서 가져온 DATE
+    let storedEndLockerDate = majorInfo?.end_date;
+    if (majorInfo?.start_date && majorInfo?.end_date) {
+      const existStartDate = new Date(majorInfo?.start_date);
+      storedStartLockerDate = formatDate(existStartDate);
+
+      const existEndDate = new Date(majorInfo?.end_date);
+      storedEndLockerDate = formatDate(existEndDate);
+    }
     return [storedStartLockerDate || '', storedEndLockerDate ?? ''];
   });
 
@@ -87,7 +101,7 @@ const AdminEditPage = () => {
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
 
   //수정하기 모드로 설정
-  const { mutate } = usePutMajor();
+  const { mutate } = usePatchMajor();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -128,15 +142,17 @@ const AdminEditPage = () => {
       return;
     }
 
-    const [start, end] = selectedDate
-      .toString()
-      .split(',')
-      .map(date => new Date(date).toISOString());
+    const [start, end] =
+      selectedDate
+        ?.toString()
+        ?.split(',')
+        .map(date => new Date(date).toISOString()) || [];
 
-    const [startLocker, endLocker] = selectedLockerDate
-      .toString()
-      .split(',')
-      .map(lockerDate => new Date(lockerDate).toISOString());
+    const [startLocker, endLocker] =
+      selectedLockerDate
+        ?.toString()
+        ?.split(',')
+        .map(lockerDate => new Date(lockerDate).toISOString()) || [];
 
     const body: Partial<MajorPriorityRequest> = {
       id: MAJOR[me?.major ?? '학과'],
@@ -151,18 +167,13 @@ const AdminEditPage = () => {
       is_baserule_FCFS: baserule === '선착순' ? false : true,
     };
 
-    console.log(body);
+    // console.log(body);
 
     mutate(body, {
-      onSuccess: () => {
-        if (
-          !majorInfo?.start_date ||
-          !majorInfo?.end_date ||
-          !majorInfo?.apply_end_date ||
-          !majorInfo?.apply_start_date
-        )
+      onSuccess: data => {
+        if (!data.start_date || !data.end_date || !data.apply_end_date || !data.apply_start_date) {
           throw Error;
-        else {
+        } else {
           setIsButtonDisabled(true);
           setIsEditMode(true);
           setPriority1(storedPriority1);
@@ -173,7 +184,7 @@ const AdminEditPage = () => {
           navigate(PATH.MAIN);
         }
       },
-      onError: error => console.error('PutMajor Error:', error),
+      onError: error => console.error('PatchMajor Error:', error),
     });
   };
 

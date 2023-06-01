@@ -8,7 +8,7 @@ import { useFetchMe } from '@/query/user';
 const AdminPage = () => {
   const { me } = useFetchMe();
   const { majorInfo } = useFetchSavedMajor(MAJOR[me?.major ?? '학과']);
-  console.log(majorInfo);
+  console.log(majorInfo, "들어와서 체크할 학과 데이터");
 
   if (
     !majorInfo?.apply_start_date &&

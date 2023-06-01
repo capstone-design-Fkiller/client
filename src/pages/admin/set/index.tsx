@@ -14,7 +14,7 @@ import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
-import { useFetchSavedMajor, usePutMajor } from '@/query/major';
+import { useFetchSavedMajor, usePatchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { MajorPriorityRequest } from '@/types/major';
 import { formatDate } from '@/utils/date';
@@ -70,7 +70,7 @@ const AdminSetPage = () => {
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
 
   //수정하기 모드로 설정
-  const { mutate } = usePutMajor();
+  const { mutate } = usePatchMajor();
   //각 우선순위 옵션 리스트가 중복되지 않도록 설정
   const getPriorityList = (currentPriority: number) => {
     const criteriaList = Object.keys(CRITERIA);
