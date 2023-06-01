@@ -76,8 +76,8 @@ const AdminCriteriaPage = () => {
       priority_1: priority1 === '선택 없음' ? null : CRITERIA[priority1],
       priority_2: priority2 === '선택 없음' ? null : CRITERIA[priority2],
       priority_3: priority3 === '선택 없음' ? null : CRITERIA[priority3],
-      apply_start_date: start,
-      apply_end_date: end,
+      apply_start_date: new Date(start),
+      apply_end_date: new Date(end),
       is_baserule_FCFS: baserule === '선착순' ? false : true,
     };
 

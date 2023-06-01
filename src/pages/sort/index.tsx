@@ -24,22 +24,28 @@ const SortPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { majorInfo } = useFetchMajor(MAJOR[me.major], false);
 
-  
-  const handleDeleteResult = (id: number) => {
-    setCurrentSort(locks => {
-      const prevLockers = locks?.filter(l => l.id !== id);
-
-      return prevLockers;
-    });
-  };
-
-  const handleSubmitResult = () => {
+  const checkApplicationDate = () => {
     if (!majorInfo?.apply_end_date) throw new Error();
 
     const applyEndDate = new Date(majorInfo?.apply_end_date);
     const now = new Date();
 
-    if (applyEndDate < now) return;
+    if (applyEndDate < now) return true;
+  };
+
+  const handleDeleteResult = (id: number) => {
+    const validate = checkApplicationDate();
+    if (validate) return;
+
+    setCurrentSort(locks => {
+      const prevLockers = locks?.filter(l => l.id !== id);
+      return prevLockers;
+    });
+  };
+
+  const handleSubmitResult = () => {
+    const validate = checkApplicationDate();
+    if (validate) return;
 
     const request = currentSort?.map(lock => lock.id);
 
@@ -52,8 +58,8 @@ const SortPage = () => {
       <Styled.Root>
         <Styled.Title>사물함 배정 예상 결과</Styled.Title>
         <Styled.InformText>
-          <p>사물함 신청이 끝나면 배정 확정 버튼을 눌러주세요.</p>
-          <p>배정 확정 이후에는 변경이 불가합니다.</p>
+          <p>사물함 신청이 끝나면 배정 확정 버튼이 활성화됩니다.</p>
+          <p>페이지를 나가면 변경사항이 모두 사라집니다.</p>
         </Styled.InformText>
         <SortResult
           isLoading={isSortLoading}
@@ -63,6 +69,9 @@ const SortPage = () => {
           setCurrentPage={setCurrentPage}
           handleDelete={handleDeleteResult}
         />
+        <Styled.InformText>
+          <p>배정 확정 버튼을 누른 이후엔 변경이 불가합니다!!</p>
+        </Styled.InformText>
         <Button variant='contained' color='primary' onClick={handleSubmitResult}>
           배정 확정하기
         </Button>

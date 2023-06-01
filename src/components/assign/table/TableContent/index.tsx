@@ -14,12 +14,12 @@ const TableContent = ({ contents, handleContent }: TableContentProps) => {
     <tbody>
       {contents.map((result: AssignResponse) => (
         <Styled.Row key={result.id}>
-          <Styled.Item>{result.locker}</Styled.Item>
+          <Styled.Item>{result.locker_number}</Styled.Item>
           <Styled.Item>{getBuildingName(result.building_id)}</Styled.Item>
           <Styled.Item>{result.user}</Styled.Item>
           <Styled.Item>{result.user_name}</Styled.Item>
           <Styled.IconItem onClick={() => handleContent(result.id)}>
-            <Icon iconName='bell' size='18' />
+            <Icon iconName='bell' size='20' />
           </Styled.IconItem>
         </Styled.Row>
       ))}
@@ -37,7 +37,6 @@ const Styled = {
   `,
 
   Item: styled.td`
-    width: 25%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
