@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'react-query';
+import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { getMajor, patchMajor } from '@/api/major';
 import useToast from '@/hooks/useToast';
@@ -27,9 +27,11 @@ export const useFetchMajor = (params: number, isCondt?: boolean) => {
 
 export const usePatchMajor = () => {
   const { createToastMessage } = useToast();
+  const queryClient = useQueryClient();
   const mutation = useMutation((body: Partial<MajorPriorityRequest>) => patchMajor(body), {
     onSuccess: () => {
       createToastMessage('배정 기준 설정이 완료되었습니다.', 'success');
+      queryClient.invalidateQueries([QUERY_KEY.major]);
     },
     onError: () => {
       createToastMessage('배정 기준 설정에 실패했습니다.', 'error');
