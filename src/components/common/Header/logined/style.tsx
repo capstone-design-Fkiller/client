@@ -37,6 +37,7 @@ export const HeaderIconsArrange = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 export const AlertModalTitle = styled.div`
   text-align: center;
 
@@ -92,4 +93,10 @@ export const AlertModalListItems = styled.div`
       color: ${theme.colors.black};
       background-color: ${theme.colors.background_2};
     `}
+`;
+
+export const alertInfo = styled.p`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `;

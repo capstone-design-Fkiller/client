@@ -19,7 +19,7 @@ const TableContent = ({ contents, handleContent }: TableContentProps) => {
           <Styled.Item>{result.user}</Styled.Item>
           <Styled.Item>{result.user_name}</Styled.Item>
           <Styled.IconItem onClick={() => handleContent(result.id)}>
-            <Icon iconName='bell' size='18' />
+            <Icon iconName='bell' size='20' />
           </Styled.IconItem>
         </Styled.Row>
       ))}
@@ -37,7 +37,6 @@ const Styled = {
   `,
 
   Item: styled.td`
-    width: 25%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

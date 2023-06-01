@@ -50,7 +50,7 @@ const LoginedHeader = (headerProps: LoginedProps) => {
                 </Styled.AlertModalListItems>
               ))
             ) : (
-              <p>알림이 없습니다.</p>
+              <Styled.alertInfo>받은 알림이 없습니다.</Styled.alertInfo>
             )}
           </Styled.ModalBody>
         </Modal>
