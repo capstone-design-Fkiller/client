@@ -67,9 +67,9 @@ const SortPage = () => {
           setCurrentPage={setCurrentPage}
           handleDelete={handleDeleteResult}
         />
-        <Styled.InformText2>
+        <Styled.InformText>
           <p>배정 확정 버튼을 누른 이후엔 변경이 불가합니다!!</p>
-        </Styled.InformText2>
+        </Styled.InformText>
         <Button variant='contained' color='primary' onClick={handleSubmitResult}>
           배정 확정하기
         </Button>

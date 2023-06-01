@@ -16,7 +16,7 @@ export const MyInfo = styled.div`
 
   border: 1px solid ${({ theme }) => theme.colors.light_grey_200};
   border-radius: 5px;
-  height: 120px;
+  height: 150px;
 `;
 
 export const InnerBox = styled.div`
