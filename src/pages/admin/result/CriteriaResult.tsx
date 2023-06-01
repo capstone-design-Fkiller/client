@@ -65,7 +65,7 @@ const CriteriaResultPage = (props: ResultProps) => {
               <b>• 1순위</b>: {major.priority_1?.name ?? '선택 없음'}
             </span>
             <span>
-              <b>• 2순위</b>: {major.priority_2?.name ?? '선택 없음'}{' '}
+              <b>• 2순위</b>: {major.priority_2?.name ?? '선택 없음'}
             </span>
             <span>
               <b>• 3순위</b>: {major.priority_3?.name ?? '선택 없음'}
