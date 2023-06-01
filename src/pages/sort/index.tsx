@@ -23,6 +23,7 @@ const SortPage = () => {
   const [currentSort, setCurrentSort] = useState(sorts);
   const [currentPage, setCurrentPage] = useState(1);
   const { majorInfo } = useFetchMajor(MAJOR[me.major], false);
+  const [confirmed, setConfirmed] = useState(false);
 
   const checkApplicationDate = () => {
     if (!majorInfo?.apply_end_date) throw new Error();
@@ -48,9 +49,15 @@ const SortPage = () => {
     if (validate) return;
 
     const request = currentSort?.map(lock => lock.id);
-
-    assignMutate({ major: MAJOR[me.major], sortResult: { list: request || [] } });
-    navigate(PATH.MAIN);
+    assignMutate(
+      { major: MAJOR[me.major], sortResult: { list: request || [] } },
+      {
+        onSuccess: () => {
+          setConfirmed(true);
+          navigate(PATH.MAIN);
+        },
+      }
+    );
   };
 
   return (
