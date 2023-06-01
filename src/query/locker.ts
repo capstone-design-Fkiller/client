@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -57,6 +58,12 @@ export const useFetchLockerInfo = (id: number) => {
   return { locker: data };
 };
 
+export const useFetchMyLocker = (userId: number) => {
+  const { data } = useQuery<LockerResponse>([QUERY_KEY.locker, userId], () => getMyLocker(userId));
+
+  return { myLocker: data };
+};
+
 export const useApplyLockerMutation = () => {
   const queryClient = useQueryClient();
   const { createToastMessage } = useToast();
@@ -66,42 +73,36 @@ export const useApplyLockerMutation = () => {
       createToastMessage('신청 완료 !', 'success');
       queryClient.invalidateQueries([QUERY_KEY.apply, 'applicant', major, building_id]);
     },
-    onError: () => {
-      createToastMessage('다시 시도해주세요.', 'error');
+    onError: (error: AxiosError<{ message: string }>) => {
+      const res = error.response?.data;
+      if (!res) return;
+
+      createToastMessage(res.message, 'error');
     },
   });
 
   return mutation;
 };
 
-export const useFetchMyLocker = (userId: number) => {
-  const { data } = useQuery<LockerResponse>([QUERY_KEY.locker, userId], () => getMyLocker(userId));
-
-  return { myLocker: data };
-};
-
 export const useFetchApplicableBuilding = (majorId: number) => {
   const { data } = useQuery<number[]>(['building', majorId], () => getApplicableBuilding(majorId));
 
-  const buildingNames = data?.map((building_id) => getBuildingName(building_id) ?? "건물") ?? ["건물"]
-  // console.log(buildingNames,"빌딩 이름들")
+  const buildingNames = data?.map(building_id => getBuildingName(building_id) || '건물') || [
+    '선택할 수 있는 건물이 없습니다.',
+  ];
 
   return { applicableBuildings: buildingNames };
 };
 
-export const useFetchSharableLockers = (id: number) => {
-  const { data, isLoading } = useQuery(
-    [QUERY_KEY.share, 'sharable-lockers', id],
-    () => getShareableLockers(id),
-    {
-      enabled: !!id,
-      onSuccess: res => {
-        const now = new Date();
+export const useFetchSharableLockers = () => {
+  const { data, isLoading } = useQuery([QUERY_KEY.share, 'sharable-lockers'], getShareableLockers, {
+    staleTime: 6000,
+    onSuccess: res => {
+      const now = new Date();
 
-        return res.filter(({ end_date }) => end_date && new Date(end_date) > now);
-      },
-    }
-  );
+      return res.filter(({ end_date }) => end_date && new Date(end_date) > now);
+    },
+  });
 
   return { sharableLockers: data, isLoading };
 };
