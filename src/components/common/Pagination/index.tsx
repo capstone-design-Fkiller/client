@@ -15,6 +15,7 @@ const Pagination = (props: PaginationProps) => {
   const { currentPage, totalItems, itemsPerPage, setState } = props;
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const maxPageNumbers = 10;
 
   useEffect(() => {
     if (currentPage > totalPages) {
@@ -39,9 +40,13 @@ const Pagination = (props: PaginationProps) => {
     setState(page);
   };
 
+  const currentGroup = Math.ceil(currentPage / maxPageNumbers);
+  const startPage = (currentGroup - 1) * maxPageNumbers + 1;
+  const endPage = Math.min(startPage + maxPageNumbers - 1, totalPages);
+
   const pageLists = useMemo(
-    () => Array.from({ length: totalPages }, (_, idx) => idx + 1),
-    [totalPages]
+    () => Array.from({ length: endPage - startPage + 1 }, (_, idx) => startPage + idx),
+    [startPage, endPage]
   );
 
   return (
