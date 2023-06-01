@@ -83,10 +83,10 @@ export const ModalBody = styled.div`
 export const AlertModalListItems = styled.div`
   margin: 0 0 5px 0;
   padding: 10px;
-  width: 100px;
 
   font-size: 13px;
   border-radius: 5px;
+  width: 97%;
 
   ${({ theme }) =>
     css`
