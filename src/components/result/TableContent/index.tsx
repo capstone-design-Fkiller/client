@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Fragment } from 'react';
 
 import { getBuildingName2 } from '@/constants/building';
 import { SortResponse } from '@/types/sort';
@@ -23,17 +22,15 @@ const TableContent = ({ contents }: TableContentProps) => {
   return (
     <tbody>
       {contents.map((result: SortResponse, index: number) => (
-        <Fragment key={result.id}>
-          <Styled.Row>
-            <Styled.Item>{index + 1}</Styled.Item>
-            <Styled.Item>{result.user}</Styled.Item>
-            <Styled.Item>{renderItem(result.priority_1_answer)}</Styled.Item>
-            <Styled.Item>{renderItem(result.priority_2_answer)}</Styled.Item>
-            <Styled.Item>{renderItem(result.priority_3_answer)}</Styled.Item>
-            <Styled.Item>{YYMMDD(result.created_at, true)}</Styled.Item>
-            <Styled.Item>{getBuildingName2(result.building_id)}</Styled.Item>
-          </Styled.Row>
-        </Fragment>
+        <Styled.Row key={result.id}>
+          <Styled.Item>{index + 1}</Styled.Item>
+          <Styled.Item>{result.user}</Styled.Item>
+          <Styled.Item>{renderItem(result.priority_1_answer)}</Styled.Item>
+          <Styled.Item>{renderItem(result.priority_2_answer)}</Styled.Item>
+          <Styled.Item>{renderItem(result.priority_3_answer)}</Styled.Item>
+          <Styled.Item>{YYMMDD(result.created_at, true)}</Styled.Item>
+          <Styled.Item>{getBuildingName2(result.building_id)}</Styled.Item>
+        </Styled.Row>
       ))}
     </tbody>
   );
