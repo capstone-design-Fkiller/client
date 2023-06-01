@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import * as Styled from './style';
-import TableContent from '../table/TableContent';
-import TableHead from '../table/TableHead';
+import TableContent from '../TableContent';
 
 import Loader from '@/components/common/Loader';
 import { Pagination } from '@/components/common/Pagination';
+import TableHead from '@/components/common/TableHead';
 import { PAGE_OFFSET } from '@/constants/page_offset';
 import { SortResponse } from '@/types/sort';
 
