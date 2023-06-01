@@ -22,11 +22,11 @@ export const Title = styled.h1`
 `;
 
 export const TableContainer = styled.table`
-  display: grid;
-  align-items: center;
   width: 100%;
   margin-top: 15px;
+
   border-collapse: collapse;
+
   & tr > td,
   & tr > th {
     padding: 10px 5px;
