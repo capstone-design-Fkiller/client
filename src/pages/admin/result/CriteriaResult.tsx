@@ -36,7 +36,10 @@ const CriteriaResultPage = (props: ResultProps) => {
   return (
     <PageTemplate>
       <Styled.Root>
-        <h2>{major.name} 사물함 배정 기준</h2>
+        <h2>
+          {major.name} <br />
+          사물함 배정 기준
+        </h2>
         <Styled.Container>
           <Styled.Subject>
             <h3>사물함 배정 기간</h3>
