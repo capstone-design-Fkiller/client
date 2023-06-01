@@ -32,7 +32,7 @@ const Condition = (props: ConditionProps) => {
       const prevValue = { ...prev };
       const next = {
         ...prevValue,
-        [order]: value,
+        [`${order}_answer`]: value,
       };
 
       return next;
@@ -42,21 +42,30 @@ const Condition = (props: ConditionProps) => {
   return (
     <Styled.Root>
       <div>
-        {majorConditionList.map(([order, condt], idx) => (
-          <Styled.ConditionWrapper key={order}>
-            <Styled.Name>
-              {idx + 1}순위: {condt.name}
-            </Styled.Name>
-            {condt.is_bool ? (
-              <Styled.Label>
-                <Styled.Input type='checkbox' onChange={e => onChangeInput(e, order)} />
-                <span className='slider' />
-              </Styled.Label>
-            ) : (
-              <Styled.Input placeholder={condt.question} onChange={e => onChangeInput(e, order)} />
-            )}
-          </Styled.ConditionWrapper>
-        ))}
+        {/* {majorConditionList || <p>동점자에 대해서 선착순으로 우선배정됩니다</p>} */}
+        {majorConditionList.length ? (
+          majorConditionList.map(([order, condt], idx) => (
+            <Styled.ConditionWrapper key={order}>
+              <Styled.Name>
+                {idx + 1}순위: {condt.name}
+              </Styled.Name>
+              {condt.is_bool ? (
+                <Styled.Label>
+                  <Styled.Input type='checkbox' onChange={e => onChangeInput(e, order)} />
+                  <span className='slider' />
+                </Styled.Label>
+              ) : (
+                <Styled.Input
+                  type='number'
+                  placeholder={condt.question}
+                  onChange={e => onChangeInput(e, order)}
+                />
+              )}
+            </Styled.ConditionWrapper>
+          ))
+        ) : (
+          <Styled.Description>동점자에 대해서 선착순으로 우선배정됩니다 😊</Styled.Description>
+        )}
       </div>
       <Button variant='contained' onClick={handleApplyButton}>
         신청
@@ -146,5 +155,9 @@ const Styled = {
     &::placeholder {
       font-size: 14px;
     }
+  `,
+
+  Description: styled.p`
+    color: ${({ theme }) => theme.colors.grey_100};
   `,
 };

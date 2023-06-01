@@ -57,3 +57,12 @@ export interface RequestPriority {
   priority_2?: string | null;
   priority_3?: string | null;
 }
+
+// export type MajorPriorityRequest = MajorRequest;
+// export type MajorPriorityResponse = Partial<MajorResponse>;
+
+export interface MajorPriorityAnswerRequest {
+  priority_1_answer: string | boolean | null;
+  priority_2_answer: string | boolean | null;
+  priority_3_answer: string | boolean | null;
+}

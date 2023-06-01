@@ -22,7 +22,6 @@ const Styled = {
   InfoRow: styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
   `,
 
   InfoLabel: styled.p`

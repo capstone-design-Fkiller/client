@@ -25,13 +25,5 @@ export const InformText = styled.div`
   font-size: 14px;
   font-weight: 400;
   text-align: center;
-
-  ${({ theme }) =>
-    css`
-      color: ${theme.colors.primary_200};
-
-      & p {
-        color: ${theme.colors.grey_300};
-      }
-    `};
+  color: ${({ theme }) => theme.colors.grey_300};
 `;

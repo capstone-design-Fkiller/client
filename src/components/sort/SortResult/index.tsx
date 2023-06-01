@@ -19,7 +19,7 @@ interface SortResultProps {
   handleDelete: (id: number) => void;
 }
 
-const TABLE_HEADER = ['학번', '1st', '2nd', '3rd', '건물', '삭제'];
+const TABLE_HEADER = ['학번', '1st', '2nd', '3rd', '신청시간', '건물', '삭제'];
 
 const SortResult = (props: SortResultProps) => {
   const { currentPage, setCurrentPage, currentSort, handleDelete, isLoading, sorts } = props;

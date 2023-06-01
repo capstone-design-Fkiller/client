@@ -111,7 +111,7 @@ const AdminSetPage = () => {
     const [start, end] = selectedDate
       .toString()
       .split(',')
-      .map(date => new Date(date).toISOString());
+      .map(date => new Date(date));
 
     const [startLocker, endLocker] = selectedLockerDate
       .toString()
@@ -126,8 +126,13 @@ const AdminSetPage = () => {
       priority_3: CRITERIA[priority3],
       start_date: startLocker, //임시로 설정
       end_date: endLocker, //임시로 설정
-      apply_start_date: start,
-      apply_end_date: end,
+      // apply_start_date: start,
+      // apply_end_date: end,
+      // priority_1: priority1 === '선택 없음' ? null : CRITERIA[priority1],
+      // priority_2: priority2 === '선택 없음' ? null : CRITERIA[priority2],
+      // priority_3: priority3 === '선택 없음' ? null : CRITERIA[priority3],
+      // apply_start_date: new Date(start),
+      // apply_end_date: new Date(end),
       is_baserule_FCFS: baserule === '선착순' ? false : true,
     };
 

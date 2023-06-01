@@ -10,6 +10,7 @@ import { UserResponse } from '@/types/user';
 const Student = ({ user }: { user: UserResponse }) => {
   const { name, id } = user;
   const { myLocker } = useFetchMyLocker(id);
+  // const myLocker = user.locker_id # 유저한테 락커 정보 받는 거로 리펙토링 여부 결정 필요.
 
   return (
     <Styled.Container>

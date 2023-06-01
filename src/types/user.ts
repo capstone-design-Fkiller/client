@@ -1,3 +1,4 @@
+
 export interface UserResponse {
   id: number;
   name: string;
@@ -10,6 +11,8 @@ export interface UserResponse {
   is_adminable: boolean;
   is_valid: boolean;
   created_at: string;
+  locker_id: number | undefined;
+  // locker: LockerResponse | undefined;
 }
 
 export interface LoginRequest {

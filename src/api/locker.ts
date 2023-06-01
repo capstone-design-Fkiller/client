@@ -44,18 +44,24 @@ export const getMyLocker = async (id: number) => {
   return data[0];
 };
 
-export const putMyLockerToShare = async (body: ConvertToShareRequest) => {
+export const getApplicableBuilding = async (id: number) => {
+  const { data } = await instance.get<number[]>(`locker/building/?major=${id}`);
+
+  return data;
+};
+
+export const patchConvertMyLockerShare = async (body: ConvertToShareRequest) => {
   const { id, ...args } = body;
-  const { data } = await instance.put<LockerResponse>(`locker/${id}`, {
+  const { data } = await instance.patch<LockerResponse>(`locker/${id}`, {
     ...args,
   });
 
   return data;
 };
 
-export const getShareableLockers = async (id: number) => {
+export const getShareableLockers = async () => {
   const { data } = await instance.get<LockerResponse[]>(
-    `locker/sharable/?major=${id}&is_share_registered=True`
+    `locker/sharable/?is_share_registered=True`
   );
 
   return data;
@@ -73,9 +79,9 @@ export const getShareableLockers = async (id: number) => {
 // shared_id: number | null;
 // start_date: string | null;
 
-export const putLockerShare = async (body: ApplyShareRequest) => {
+export const patchLockerShare = async (body: ApplyShareRequest) => {
   const { id, shared_id } = body;
-  const { data } = await instance.put<LockerResponse>(`locker/${id}`, {
+  const { data } = await instance.patch<LockerResponse>(`locker/${id}`, {
     shared_id,
   });
 
