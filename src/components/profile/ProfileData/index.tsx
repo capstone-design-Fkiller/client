@@ -2,7 +2,6 @@ import * as Styled from './style';
 import ProfileInfo from '../ProfileInfo';
 
 import Icon from '@/components/common/Icon';
-import { Separator } from '@/components/common/Separator';
 import { LockerResponse } from '@/types/locker';
 import { UserResponse } from '@/types/user';
 import { YYMMDD } from '@/utils/date';
@@ -17,19 +16,21 @@ const ProfileContainer = (props: ProfileProps) => {
 
   return (
     <Styled.ProfileContainer>
-      <Icon iconName='user' size='100' hasCursor={false} />
-      <Styled.InnerBox css={{ paddingTop: 0 }}>
-        <ProfileInfo label='이름' value={me.name} />
-        <ProfileInfo label='학과' value={me.major} />
-        <ProfileInfo label='학번' value={`${me.id}`} />
-        <ProfileInfo label='상태' value={me.is_usermode ? '사용자' : '관리자'} />
-      </Styled.InnerBox>
-
-      <Separator />
+      <Styled.MyInfo>
+        <Icon iconName='user' size='100' hasCursor={false} />
+        <Styled.InnerBox>
+          <ProfileInfo label='이름' value={me.name} />
+          <ProfileInfo label='학과' value={me.major} />
+          <ProfileInfo label='학번' value={`${me.id}`} />
+          <ProfileInfo label='상태' value={me.is_usermode ? '사용자' : '관리자'} />
+        </Styled.InnerBox>
+      </Styled.MyInfo>
 
       {locker ? (
-        <>
-          <Icon iconName='locker' size='80' css={Styled.LockerIcon} hasCursor={false} />
+        <Styled.MyInfo>
+          <Styled.IconContainer>
+            <Icon iconName='locker' size='70' css={Styled.LockerIcon} hasCursor={false} />
+          </Styled.IconContainer>
           <Styled.InnerBox>
             <ProfileInfo label='사물함' value={`${locker.id}`} />
             <ProfileInfo
@@ -41,9 +42,14 @@ const ProfileContainer = (props: ProfileProps) => {
               value={locker.end_date ? YYMMDD(locker.end_date) : '-'}
             />
           </Styled.InnerBox>
-        </>
+        </Styled.MyInfo>
       ) : (
-        <Styled.InfoRow>사물함이 없습니다.</Styled.InfoRow>
+        <Styled.MyInfo>
+          <Styled.IconContainer>
+            <Icon iconName='locker' size='70' css={Styled.LockerIcon} hasCursor={false} />
+          </Styled.IconContainer>
+          <Styled.InfoRow>내 사물함이 없습니다.</Styled.InfoRow>
+        </Styled.MyInfo>
       )}
     </Styled.ProfileContainer>
   );
