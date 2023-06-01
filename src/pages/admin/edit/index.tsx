@@ -20,11 +20,16 @@ import { MajorPriorityRequest } from '@/types/major';
 import { formatDate } from '@/utils/date';
 import { PATH } from '@/utils/path';
 
-const AdminCriteriaPage = () => {
+const AdminEditPage = () => {
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
   const { me } = useFetchMe();
   const { majorInfo } = useFetchSavedMajor(MAJOR[me?.major ?? '학과']);
+
+  const startDate = new Date(majorInfo?.start_date ?? '');
+  const endDate = new Date(majorInfo?.end_date ?? '');
+  const applyStartDate = new Date(majorInfo?.apply_start_date ?? '');
+  const applyEndDate = new Date(majorInfo?.apply_end_date ?? '');
 
   //모달 관리용
   const [alertOpen, setAlertOpen] = useState(false);
@@ -35,31 +40,28 @@ const AdminCriteriaPage = () => {
   const [selectedDate, setSelectedDate] = useState<Value | undefined>();
   const [selectedLockerDate, setSelectedLockerDate] = useState<Value | undefined>();
 
-  const [priority1, setPriority1] = useState<string>(() => {
-    const storedPriority1 = localStorage.getItem('priority1');
-    return storedPriority1 || '선택 없음';
-  });
-  const [priority2, setPriority2] = useState<string>(() => {
-    const storedPriority2 = localStorage.getItem('priority2');
-    return storedPriority2 || '선택 없음';
-  });
-  const [priority3, setPriority3] = useState<string>(() => {
-    const storedPriority3 = localStorage.getItem('priority3');
-    return storedPriority3 || '선택 없음';
-  });
+  //수정하기 때 불러올 애들
+  const storedPriority1 = majorInfo?.priority_1?.name || '선택 없음';
+  const storedPriority2 = majorInfo?.priority_2?.name || '선택 없음';
+  const storedPriority3 = majorInfo?.priority_3?.name || '선택 없음';
+
+  const [priority1, setPriority1] = useState<string>('선택 없음');
+  const [priority2, setPriority2] = useState<string>('선택 없음');
+  const [priority3, setPriority3] = useState<string>('선택 없음');
   const [baserule, setBaserule] = useState<string>(() => {
-    const storedBaseRule = localStorage.getItem('baserule');
-    return storedBaseRule || '선착순';
+    const storedBaseRule = majorInfo?.is_baserule_FCFS;
+    return storedBaseRule ? '선착순' : '랜덤';
   });
+
   const [date, setDate] = useState<string[]>(() => {
-    const storedStartDate = localStorage.getItem('startDate');
-    const storedEndDate = localStorage.getItem('endDate');
+    const storedStartDate = majorInfo?.apply_start_date;
+    const storedEndDate = majorInfo?.apply_end_date;
     return [storedStartDate || '', storedEndDate || ''];
   });
-  console.log(date);
+
   const [lockerDate, setLockerDate] = useState<string[]>(() => {
-    const storedStartLockerDate = localStorage.getItem('startLockerDate');
-    const storedEndLockerDate = localStorage.getItem('endLockerDate');
+    const storedStartLockerDate = majorInfo?.start_date;
+    const storedEndLockerDate = majorInfo?.end_date;
     return [storedStartLockerDate || '', storedEndLockerDate ?? ''];
   });
 
@@ -87,10 +89,7 @@ const AdminCriteriaPage = () => {
   //수정하기 모드로 설정
   const { mutate } = usePutMajor();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(() => {
-    const storedEditMode = localStorage.getItem('isEditMode');
-    return storedEditMode === 'true';
-  });
+  const [isEditMode, setIsEditMode] = useState(false);
 
   //각 우선순위 옵션 리스트가 중복되지 않도록 설정
   const getPriorityList = (currentPriority: number) => {
@@ -112,8 +111,9 @@ const AdminCriteriaPage = () => {
     return filteredList;
   };
 
+  //폼 작성한 정보 put으로 보내기
   const handlePutCriteria = () => {
-    if (!selectedDate) {
+    if (!isEditMode && (!selectedDate || !selectedLockerDate)) {
       createToastMessage('날짜 선택은 필수입니다.', 'error');
       return;
     }
@@ -128,9 +128,6 @@ const AdminCriteriaPage = () => {
       return;
     }
 
-    if (!selectedDate) return;
-    if (!selectedLockerDate) return;
-
     const [start, end] = selectedDate
       .toString()
       .split(',')
@@ -143,7 +140,7 @@ const AdminCriteriaPage = () => {
 
     const body: Partial<MajorPriorityRequest> = {
       id: MAJOR[me?.major ?? '학과'],
-      name: me?.major ?? '학과',
+      // name: me?.major ?? '학과',
       priority_1: CRITERIA[priority1],
       priority_2: CRITERIA[priority2],
       priority_3: CRITERIA[priority3],
@@ -165,29 +162,28 @@ const AdminCriteriaPage = () => {
           !majorInfo?.apply_start_date
         )
           throw Error;
-        // 정보를 localStorage에 저장
-        localStorage.setItem('isEditMode', 'true');
-        localStorage.setItem('priority1', priority1);
-        localStorage.setItem('priority2', priority2);
-        localStorage.setItem('priority3', priority3);
-        localStorage.setItem('baserule', baserule);
-        localStorage.setItem('startDate', majorInfo?.apply_start_date);
-        localStorage.setItem('endDate', majorInfo?.apply_end_date);
-        localStorage.setItem('startLockerDate', majorInfo?.start_date);
-        localStorage.setItem('endLockerDate', majorInfo?.end_date);
-
-        setIsButtonDisabled(true);
-        setIsEditMode(true);
-        localStorage.setItem('isEditMode', 'true');
-        navigate(PATH.MAIN);
+        else {
+          setIsButtonDisabled(true);
+          setIsEditMode(true);
+          setPriority1(storedPriority1);
+          setPriority2(storedPriority2);
+          setPriority3(storedPriority3);
+          setSelectedDate([applyStartDate, applyEndDate]);
+          setSelectedLockerDate([startDate, endDate]);
+          navigate(PATH.MAIN);
+        }
       },
       onError: error => console.error('PutMajor Error:', error),
     });
   };
 
   useEffect(() => {
-    const storedEditMode = localStorage.getItem('isEditMode');
-    if (storedEditMode === 'true') {
+    if (
+      majorInfo?.start_date &&
+      majorInfo?.end_date &&
+      majorInfo?.apply_end_date &&
+      majorInfo?.apply_start_date
+    ) {
       setIsEditMode(true);
     }
   }, []);
@@ -269,7 +265,7 @@ const AdminCriteriaPage = () => {
           onClick={handlePutCriteria}
           disabled={isButtonDisabled}
         >
-          {isEditMode ? '수정하기' : '배정 기준 설정하기'}
+          수정하기
         </Button>
       </Styled.Root>
       <DateModal
@@ -294,4 +290,4 @@ const AdminCriteriaPage = () => {
   );
 };
 
-export default AdminCriteriaPage;
+export default AdminEditPage;
