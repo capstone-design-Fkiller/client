@@ -1,3 +1,10 @@
+export interface Priority {
+  name: string;
+  question: string;
+  is_bool: boolean;
+  is_ascending: boolean;
+}
+
 export interface MajorResponse {
   id: number;
   priority_1: {
@@ -23,6 +30,14 @@ export interface MajorResponse {
   end_date: string | null;
   apply_end_date: string | null;
   apply_start_date: string | null;
+  is_baserule_FCFS: boolean;
+}
+
+export interface MajorRequest {
+  apply_end_date: Date | null;
+  apply_start_date: Date | null;
+  start_date: Date | null;
+  end_date: Date | null;
   is_baserule_FCFS: boolean;
 }
 

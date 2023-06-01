@@ -15,53 +15,23 @@ export const Root = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: ${({ theme }) => theme.colors.primary_200};
+  color: ${({ theme }) => theme.colors.primary_300};
 `;
 
-export const TableContainer = styled.table`
-  width: 100%;
-  margin-top: 15px;
-  border-collapse: collapse;
-  & tr > td,
-  & tr > th {
-    padding: 10px 5px;
-    white-space: nowrap;
+export const InformText = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
 
-    &:first-of-type {
-      padding-left: 10px;
-    }
-  }
+  ${({ theme }) =>
+    css`
+      color: ${theme.colors.primary_200};
 
-  & tbody tr {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.light_grey_100};
-  }
-`;
-
-export const Message = styled.h1`
-  display: flex;
-  font-size: 18px;
-  justify-content: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
-`;
-
-export const ModalContent = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 80%;
-  font-size: 16px;
-
-  p {
-    margin-bottom: 15px;
-  }
-`;
-
-export const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+      & p {
+        color: ${theme.colors.grey_300};
+      }
+    `};
 `;

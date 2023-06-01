@@ -9,6 +9,7 @@ import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
 import Select from '@/components/common/Select';
+import { Separator } from '@/components/common/Separator';
 import { BUILDING } from '@/constants/building';
 import { MAJOR } from '@/constants/major';
 import useInput from '@/hooks/useInput';
@@ -17,7 +18,7 @@ import useToast from '@/hooks/useToast';
 import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
 import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
-import { MajorPriorityResponse } from '@/types/major';
+import { MajorPriorityAnswerRequest } from '@/types/major';
 import { PATH } from '@/utils/path';
 
 const ApplyPage = () => {
@@ -36,14 +37,13 @@ const ApplyPage = () => {
   }
 
   const [structure, setStructure] = useState<string>('건물');
-  const { value, setValue } = useInput<Partial<MajorPriorityResponse>>({
-    priority_1: null,
-    priority_2: null,
-    priority_3: null,
+  const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
+  const { value, setValue } = useInput<Partial<MajorPriorityAnswerRequest>>({
+    priority_1: majorInfo?.priority_1?.is_bool && false,
+    priority_2: majorInfo?.priority_2?.is_bool && false,
+    priority_3: majorInfo?.priority_3?.is_bool && false,
   });
   const { mutate } = useApplyLockerMutation();
-
-  const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
 
@@ -74,7 +74,11 @@ const ApplyPage = () => {
       user: me.id,
       ...value,
     });
-
+    setValue({
+      priority_1: majorInfo?.priority_1?.is_bool && false,
+      priority_2: majorInfo?.priority_2?.is_bool && false,
+      priority_3: majorInfo?.priority_3?.is_bool && false,
+    });
     handleModalOpen();
   };
 
@@ -94,7 +98,7 @@ const ApplyPage = () => {
               handleChange={handleSelect}
               list={Object.keys(BUILDING).slice(1)}
             />
-            <Styled.Separator />
+            <Separator />
             <div>{me.major || '학과'}</div>
           </Styled.InformBox>
         </Styled.Container>

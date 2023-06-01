@@ -13,20 +13,10 @@ export const Root = styled.section`
       min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight});
     `};
 `;
-
-export const SelectWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-
-  width: 100%;
-  margin: 50px 0 30px 0;
-`;
-
 export const Title = styled.h1`
   font-size: 30px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 

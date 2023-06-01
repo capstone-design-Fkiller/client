@@ -45,8 +45,6 @@ const Styled = {
     background-color: ${({ theme }) => theme.colors.white_300};
     border: 1px solid ${({ theme }) => theme.colors.light_grey_100};
     border-radius: 5px;
-
-    margin-bottom: 30px;
   `,
 
   LockerInfo: styled.div`
@@ -56,15 +54,6 @@ const Styled = {
     align-items: center;
     width: 100%;
     height: 100%;
-  `,
-
-  Separator: styled.hr`
-    width: 100%;
-    height: 1px;
-    padding-left: 10px;
-
-    border: 0;
-    background: ${({ theme }) => theme.colors.light_grey_200};
   `,
 
   SkeletonWrapper: styled.div`

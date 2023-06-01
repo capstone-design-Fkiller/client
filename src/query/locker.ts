@@ -8,8 +8,7 @@ import {
   postApplyLocker,
   getShareableLockers,
   getMyLocker,
-  // putShareLocker,
-  putMyLockerToShare,
+  putMyLockerToShare as putConvertMyLockerShare,
   putLockerShare,
 } from '@/api/locker';
 import useToast from '@/hooks/useToast';
@@ -73,13 +72,12 @@ export const useApplyLockerMutation = () => {
   return mutation;
 };
 
-export const useFetchMyLocker = (id: number) => {
-  const { data } = useQuery<LockerResponse>([QUERY_KEY.locker, id], () => getMyLocker(id));
+export const useFetchMyLocker = (userId: number) => {
+  const { data } = useQuery<LockerResponse>([QUERY_KEY.locker, userId], () => getMyLocker(userId));
 
   return { myLocker: data };
 };
 
-// ! Share Api 구현되면 추가
 export const useFetchSharableLockers = (id: number) => {
   const { data, isLoading } = useQuery(
     [QUERY_KEY.share, 'sharable-lockers', id],
@@ -102,10 +100,10 @@ export const useConvertShareMutation = () => {
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
 
-  const mutation = useMutation((body: ConvertToShareRequest) => putMyLockerToShare(body), {
-    onSuccess: ({ id }) => {
-      queryClient.invalidateQueries([QUERY_KEY.locker, id]);
-      createToastMessage('쉐어 신청 완료 !', 'success');
+  const mutation = useMutation((body: ConvertToShareRequest) => putConvertMyLockerShare(body), {
+    onSuccess: ({ owned_id }) => {
+      queryClient.invalidateQueries([QUERY_KEY.locker, owned_id]);
+      createToastMessage('쉐어 여부 변경 완료 !', 'success');
 
       navigate(PATH.MAIN);
     },
@@ -121,8 +119,9 @@ export const useShareLockerMutation = () => {
   const { createToastMessage } = useToast();
 
   const mutation = useMutation((body: ApplyShareRequest) => putLockerShare(body), {
-    onSuccess: ({ id }) => {
-      queryClient.invalidateQueries([QUERY_KEY.locker, id]);
+    onSuccess: ({ shared_id }) => {
+      // queryClient.invalidateQueries([QUERY_KEY.locker, id]); // 내 사물함 갱신
+      queryClient.invalidateQueries([QUERY_KEY.locker, shared_id]); // 내 사물함 갱신
       createToastMessage('쉐어 신청 완료 !', 'success');
 
       navigate(PATH.MAIN);

@@ -50,6 +50,9 @@ export const Title = styled.h1`
   margin-bottom: 30px;
 `;
 
+export const Inform = styled.p`
+  color: ${({ theme }) => theme.colors.grey_100};
+`;
 export const InformBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -85,38 +88,3 @@ export const ExtendedButton = (theme: Theme) => css`
     background-color: ${theme.colors.grey_400};
   }
 `;
-
-// export const SelectWrapper = styled.div`
-//   display: grid;
-//   grid-template-columns: 1fr 1fr;
-//   gap: 10px;
-
-//   width: 100%;
-//   margin: 50px 0 0 0;
-// `;
-
-// export const DateBox = styled.div`
-//   width: 100%;
-//   min-height: 46px;
-//   padding: 10px;
-//   position: relative;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   border: 1px solid ${({ theme }) => theme.colors.light_grey_200};
-//   border-radius: 5px;
-//   outline: none;
-// `;
-
-// export const DateText = styled.span`
-//   font-size: 14px;
-// `;
-
-// export const DateLabel = styled.span`
-//   position: absolute;
-//   left: 0;
-//   top: -20px;
-//   font-size: 14px;
-//   color: ${({ theme }) => theme.colors.primary_300};
-//   margin: 50px 0 30px 0;
-// `;

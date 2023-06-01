@@ -46,7 +46,7 @@ export const getMyLocker = async (id: number) => {
 
 export const putMyLockerToShare = async (body: ConvertToShareRequest) => {
   const { id, ...args } = body;
-  const { data } = await instance.put<LockerResponse>(`locker/${id}/`, {
+  const { data } = await instance.put<LockerResponse>(`locker/${id}`, {
     ...args,
   });
 
@@ -55,7 +55,7 @@ export const putMyLockerToShare = async (body: ConvertToShareRequest) => {
 
 export const getShareableLockers = async (id: number) => {
   const { data } = await instance.get<LockerResponse[]>(
-    `locker/?major=${id}&is_share_registered=True`
+    `locker/sharable/?major=${id}&is_share_registered=True`
   );
 
   return data;
