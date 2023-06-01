@@ -46,8 +46,8 @@ export const Message = styled.h1`
   display: flex;
   font-size: 18px;
   justify-content: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 150px;
+  margin-bottom: 150px;
 `;
 
 export const ModalContent = styled.div`
