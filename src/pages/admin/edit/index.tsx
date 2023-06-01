@@ -239,13 +239,13 @@ const AdminEditPage = () => {
           <span>배정 날짜와 동점자 배정 기준은 필수 항목입니다.</span>
         </Styled.InformText>
 
-        <Styled.SelectWrapper onClick={handleLockerDateSelectOpen}>
-          <DateBox label='사물함 이용 시작일' date={lockerDate[0]} />
-          <DateBox label='사물함 이용 종료일' date={lockerDate[1]} />
-        </Styled.SelectWrapper>
         <Styled.SelectWrapper onClick={handleDateSelectOpen}>
           <DateBox label='배정 접수 시작일' date={date[0]} />
           <DateBox label='배정 접수 종료일' date={date[1]} />
+        </Styled.SelectWrapper>
+        <Styled.SelectWrapper onClick={handleLockerDateSelectOpen}>
+          <DateBox label='사물함 이용 시작일' date={lockerDate[0]} />
+          <DateBox label='사물함 이용 종료일' date={lockerDate[1]} />
         </Styled.SelectWrapper>
 
         <Styled.Container>
