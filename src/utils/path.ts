@@ -12,5 +12,6 @@ export const PATH = {
   ASSIGN: '/assign',
   USER_SHARE: '/user/share',
   PROFILE: '/profile',
-  CRITERIA: '/admin/criteria',
+  CRITERIA: '/admin',
+  CRITERIA_EDIT: '/admin/edit',
 };
