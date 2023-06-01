@@ -5,10 +5,10 @@ import * as Styled from '../style';
 import Button from '@/components/common/Button';
 import Loader from '@/components/common/Loader';
 import PageTemplate from '@/components/common/PageTamplate';
+import { MAJOR } from '@/constants/major';
+import { useFetchAssign } from '@/query/assign';
 import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
-import { useFetchAssign } from '@/query/assign';
-import { MAJOR } from '@/constants/major';
 
 const AdminMainPage = () => {
   const navigate = useNavigate();
