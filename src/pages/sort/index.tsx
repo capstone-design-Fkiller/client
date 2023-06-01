@@ -49,9 +49,15 @@ const SortPage = () => {
     if (validate) return;
 
     const request = currentSort?.map(lock => lock.id);
-    assignMutate({ major: MAJOR[me.major], sortResult: { list: request || [] } });
-    setConfirmed(true);
-    navigate(PATH.MAIN);
+    assignMutate(
+      { major: MAJOR[me.major], sortResult: { list: request || [] } },
+      {
+        onSuccess: () => {
+          setConfirmed(true);
+          navigate(PATH.MAIN);
+        },
+      }
+    );
   };
 
   return (
