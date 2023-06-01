@@ -23,8 +23,7 @@ export const Message = styled.h1`
   display: flex;
   font-size: 18px;
   justify-content: center;
-  margin-top: 150px;
-  margin-bottom: 150px;
+  margin: 150px 0;
 `;
 
 export const ModalContent = styled.div`
