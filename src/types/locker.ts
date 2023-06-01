@@ -7,6 +7,7 @@ export interface LockerResponse {
   building_id: number;
   end_date: string | null;
   id: number;
+  locker_number: number;
   is_share_registered: boolean;
   major: string;
   floor: number;

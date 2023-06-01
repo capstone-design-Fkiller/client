@@ -2,6 +2,7 @@ import * as Styled from './style';
 import ProfileInfo from '../ProfileInfo';
 
 import Icon from '@/components/common/Icon';
+import { getBuildingName } from '@/constants/building';
 import { LockerResponse } from '@/types/locker';
 import { UserResponse } from '@/types/user';
 import { YYMMDD } from '@/utils/date';
@@ -34,14 +35,18 @@ const ProfileContainer = (props: ProfileProps) => {
             <Icon iconName='locker' size='70' css={Styled.LockerIcon} hasCursor={false} />
           </div>
           <Styled.InnerBox style={{ width: '70%' }}>
-            <ProfileInfo label='사물함' value={`${locker.id}`} />
+            <ProfileInfo label='사물함 번호' value={`${locker.locker_number}번`} />
+            <ProfileInfo
+              label='사물함 위치'
+              value={`${getBuildingName(locker.building_id)} ${locker.floor}층`}
+            />
             <ProfileInfo
               label='사용 시작일'
-              value={locker.start_date ? YYMMDD(locker.start_date) : '220008'}
+              value={locker.start_date ? YYMMDD(locker.start_date) : '-'}
             />
             <ProfileInfo
               label='반납 예정일'
-              value={locker.end_date ? YYMMDD(locker.end_date) : '220008'}
+              value={locker.end_date ? YYMMDD(locker.end_date) : '-'}
             />
           </Styled.InnerBox>
         </Styled.MyInfo>
