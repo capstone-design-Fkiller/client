@@ -4,38 +4,34 @@ import styled from '@emotion/styled';
 export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const MyInfo = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-
   padding: 0 15px;
   margin-bottom: 10px;
 
   border: 1px solid ${({ theme }) => theme.colors.light_grey_200};
   border-radius: 5px;
+  height: 120px;
 `;
 
 export const InnerBox = styled.div`
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 10px;
-  padding: 10px 0;
 `;
 
 export const InfoRow = styled.div`
   display: flex;
   align-items: center;
+  padding: 0 15px;
   margin: 8px 0;
 `;
 
 export const LockerIcon = css`
-  margin: 20px 0 10px;
-`;
-
-export const IconContainer = styled.div`
-  margin: 0 13px 0 16px;
+  margin-left: 15px;
 `;

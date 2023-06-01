@@ -17,8 +17,10 @@ const ProfileContainer = (props: ProfileProps) => {
   return (
     <Styled.ProfileContainer>
       <Styled.MyInfo>
-        <Icon iconName='user' size='100' hasCursor={false} />
-        <Styled.InnerBox>
+        <div style={{ width: '30%' }}>
+          <Icon iconName='user' size='100' hasCursor={false} />
+        </div>
+        <Styled.InnerBox style={{ width: '70%' }}>
           <ProfileInfo label='이름' value={me.name} />
           <ProfileInfo label='학과' value={me.major} />
           <ProfileInfo label='학번' value={`${me.id}`} />
@@ -28,27 +30,26 @@ const ProfileContainer = (props: ProfileProps) => {
 
       {locker ? (
         <Styled.MyInfo>
-          <Styled.IconContainer>
+          <div style={{ width: '30%' }}>
             <Icon iconName='locker' size='70' css={Styled.LockerIcon} hasCursor={false} />
-          </Styled.IconContainer>
-          <Styled.InnerBox>
+          </div>
+          <Styled.InnerBox style={{ width: '70%' }}>
             <ProfileInfo label='사물함' value={`${locker.id}`} />
             <ProfileInfo
               label='사용 시작일'
-              value={locker.start_date ? YYMMDD(locker.start_date) : '-'}
+              value={locker.start_date ? YYMMDD(locker.start_date) : '220008'}
             />
             <ProfileInfo
               label='반납 예정일'
-              value={locker.end_date ? YYMMDD(locker.end_date) : '-'}
+              value={locker.end_date ? YYMMDD(locker.end_date) : '220008'}
             />
           </Styled.InnerBox>
         </Styled.MyInfo>
       ) : (
         <Styled.MyInfo>
-          <Styled.IconContainer>
-            <Icon iconName='locker' size='70' css={Styled.LockerIcon} hasCursor={false} />
-          </Styled.IconContainer>
-          <Styled.InfoRow>내 사물함이 없습니다.</Styled.InfoRow>
+          <Styled.InfoRow>
+            <p>내 사물함이 없습니다.</p>
+          </Styled.InfoRow>
         </Styled.MyInfo>
       )}
     </Styled.ProfileContainer>
