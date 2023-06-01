@@ -18,6 +18,7 @@ const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
 const SortPage = lazy(() => import('@/pages/sort'));
+const ResultPage = lazy(() => import('@/pages/result'));
 const AssignPage = lazy(() => import('@/pages/assign'));
 const ProfilePage = lazy(() => import('@/pages/profile'));
 const AdminCriteriaPage = lazy(() => import('@/pages/admin/criteria'));
@@ -62,6 +63,7 @@ function App() {
             <Route path={PATH.NOTICE_DETAIL} element={<NoticeDetailPage />} />
             <Route path={PATH.NOTICE_EDIT} element={<NoticeEditPage />} />
             <Route path={PATH.SORT} element={<SortPage />} />
+            <Route path={PATH.RESULT} element={<ResultPage />} />
             <Route path={PATH.ASSIGN} element={<AssignPage />} />
             <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
             <Route path={PATH.PROFILE} element={<ProfilePage />} />
