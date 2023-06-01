@@ -9,6 +9,7 @@ export interface LockerResponse {
   building_id: number;
   end_date: string | null;
   id: number;
+  locker_number: number;
   is_share_registered: boolean;
   major: string;
   floor: number;
@@ -23,9 +24,6 @@ export interface RequestApplyLocker extends Partial<MajorPriorityAnswerRequest> 
   building_id: number;
   major: number;
   user: number;
-  // priority_1_answer?: number | boolean | string | null | undefined;
-  // priority_2_answer?: number | boolean | string | null | undefined;
-  // priority_3_answer?: number | boolean | string | null | undefined;
 }
 
 export type ConvertToShareRequest = Pick<LockerResponse, 'id'> & {

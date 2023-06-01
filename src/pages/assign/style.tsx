@@ -22,11 +22,11 @@ export const Title = styled.h1`
 `;
 
 export const TableContainer = styled.table`
-  display: grid;
-  align-items: center;
   width: 100%;
   margin-top: 15px;
+
   border-collapse: collapse;
+
   & tr > td,
   & tr > th {
     padding: 10px 5px;
@@ -46,8 +46,7 @@ export const Message = styled.h1`
   display: flex;
   font-size: 18px;
   justify-content: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin: 150px 0;
 `;
 
 export const ModalContent = styled.div`

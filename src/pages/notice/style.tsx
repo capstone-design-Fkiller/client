@@ -53,6 +53,5 @@ export const Message = styled.h1`
   display: flex;
   font-size: 18px;
   justify-content: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin: 150px 0;
 `;

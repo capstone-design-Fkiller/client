@@ -29,7 +29,6 @@ const Styled = {
   `,
 
   Item: styled.th`
-    width: 25%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
