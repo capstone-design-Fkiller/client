@@ -23,7 +23,7 @@ export default TableHead;
 const Styled = {
   Head: styled.thead`
     width: 100%;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     background-color: ${({ theme }) => theme.colors.primary_200};
     border-radius: 5px;

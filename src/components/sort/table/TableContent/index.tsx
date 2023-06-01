@@ -2,8 +2,9 @@ import styled from '@emotion/styled';
 import { Fragment } from 'react';
 
 import Icon from '@/components/common/Icon';
-import { getBuildingName } from '@/constants/building';
+import { getBuildingName2 } from '@/constants/building';
 import { SortResponse } from '@/types/sort';
+import { YYMMDD } from '@/utils/date';
 
 interface TableContentProps {
   contents: SortResponse[];
@@ -36,7 +37,8 @@ const TableContent = ({ contents, handleDelete }: TableContentProps) => {
             <Styled.Item>{renderItem(result.priority_1_answer)}</Styled.Item>
             <Styled.Item>{renderItem(result.priority_2_answer)}</Styled.Item>
             <Styled.Item>{renderItem(result.priority_3_answer)}</Styled.Item>
-            <Styled.Item>{getBuildingName(result.building_id)}</Styled.Item>
+            <Styled.Item>{YYMMDD(result.created_at, true)}</Styled.Item>
+            <Styled.Item>{getBuildingName2(result.building_id)}</Styled.Item>
             <Styled.IconItem onClick={() => handleColumns(result.id)}>
               <Icon iconName='trashcan' size='18' />
             </Styled.IconItem>
@@ -51,7 +53,7 @@ export default TableContent;
 
 const Styled = {
   Row: styled.tr`
-    font-size: 14px;
+    font-size: 13px;
     padding: 10px;
     width: 100%;
     transition: 0.1s color ease-in-out;

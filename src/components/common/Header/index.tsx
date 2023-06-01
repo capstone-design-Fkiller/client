@@ -39,8 +39,10 @@ const Header = () => {
             alerts.map(alert => (
               <Styled.AlertModalListItems key={alert.id}>
                 <p>{alert.message}</p>
-                <p>{alert.major.slice(0, -2)}관리자</p>
-                <p>{YYMMDD(alert.created_at)}</p>
+                <br />
+                <p>
+                  {alert.major}/{YYMMDD(alert.created_at)}
+                </p>
               </Styled.AlertModalListItems>
             ))
           ) : (
