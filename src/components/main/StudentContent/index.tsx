@@ -28,20 +28,17 @@ const InformBoxContent = (props: InformBoxProps) => {
     );
   }
 
-  const {
-    owned_id,
-    building_id,
-    id: lockerId,
-    shared_id,
-    is_share_registered,
-  } = locker as LockerResponse;
+  const { major, owned_id, building_id, locker_number, shared_id, floor, is_share_registered } =
+    locker as LockerResponse;
 
   return (
     <Styled.InformBox>
       <span>이름: {name}</span>
+      <span>학과: {major}</span>
       <span>학번: {id}</span>
+      <span>위치: {floor}층</span>
       <span>건물: {getBuildingName(building_id)}</span>
-      <span>사물함 번호: {lockerId}</span>
+      <span>사물함 번호: {locker_number}</span>
       {owned_id === id && (
         <span>
           {!shared_id

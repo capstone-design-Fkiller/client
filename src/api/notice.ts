@@ -1,6 +1,6 @@
 import { instance } from './instance';
 
-import { NoticeRequest, NoticeResponse } from '@/types/notice';
+import { EditNoticeRequest, NoticeRequest, NoticeResponse } from '@/types/notice';
 
 export const postNotice = async (notice: Omit<NoticeRequest, 'id'>) => {
   const { data } = await instance.post<NoticeResponse>('notice/', notice);
@@ -20,10 +20,10 @@ export const getNoticeDetail = async (noticeId: number) => {
   return data;
 };
 
-export const putNotice = async (body: NoticeRequest) => {
+export const patchNotice = async (body: EditNoticeRequest) => {
   const { id, ...args } = body;
 
-  const { data } = await instance.put<NoticeResponse>(`notice/${id}`, args);
+  const { data } = await instance.patch<NoticeResponse>(`notice/${id}`, args);
 
   return data;
 };

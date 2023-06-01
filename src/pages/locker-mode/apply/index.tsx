@@ -15,7 +15,11 @@ import { MAJOR } from '@/constants/major';
 import useInput from '@/hooks/useInput';
 import useModal from '@/hooks/useModal';
 import useToast from '@/hooks/useToast';
-import { useFetchApplicant, useApplyLockerMutation } from '@/query/locker';
+import {
+  useApplyLockerMutation,
+  useFetchApplicableBuilding,
+  useFetchApplicant,
+} from '@/query/locker';
 import { useFetchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { MajorPriorityAnswerRequest } from '@/types/major';
@@ -43,6 +47,7 @@ const ApplyPage = () => {
     priority_2_answer: majorInfo?.priority_2?.is_bool && false,
     priority_3_answer: majorInfo?.priority_3?.is_bool && false,
   });
+  const { applicableBuildings } = useFetchApplicableBuilding(MAJOR[me.major]);
   const { mutate } = useApplyLockerMutation();
 
   const handleSelect = (e: MouseEvent<HTMLLIElement>) => setStructure(e.currentTarget.innerText);
@@ -93,11 +98,7 @@ const ApplyPage = () => {
             applyCount={apply ? apply.length : undefined}
           />
           <Styled.InformBox>
-            <Select
-              value={structure}
-              handleChange={handleSelect}
-              list={Object.keys(BUILDING).slice(1)}
-            />
+            <Select value={structure} handleChange={handleSelect} list={applicableBuildings} />
             <Separator />
             <div>{me.major || '학과'}</div>
           </Styled.InformBox>

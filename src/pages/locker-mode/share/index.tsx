@@ -6,7 +6,11 @@ import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import Sharable from '@/components/share/Sharable';
 import { MAJOR } from '@/constants/major';
-import { useFetchMyLocker, useFetchSharableLockers, useShareLockerMutation } from '@/query/locker';
+import {
+  useFetchMyLocker,
+  useFetchSharableLockers,
+  useApplyShareLockerMutation,
+} from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 import { LockerResponse } from '@/types/locker';
 
@@ -18,7 +22,7 @@ const ApplySharePage = () => {
   if (!me) return <div>로그인 해주세요!</div>;
 
   const { sharableLockers, isLoading } = useFetchSharableLockers(MAJOR[me.major]);
-  const { mutate } = useShareLockerMutation();
+  const { mutate } = useApplyShareLockerMutation();
 
   const onSubmit = () => {
     if (!selectedLocker) return;
