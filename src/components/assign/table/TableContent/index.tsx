@@ -14,7 +14,7 @@ const TableContent = ({ contents, handleContent }: TableContentProps) => {
     <tbody>
       {contents.map((result: AssignResponse) => (
         <Styled.Row key={result.id}>
-          <Styled.Item>{result.locker}</Styled.Item>
+          <Styled.Item>{result.locker_number}</Styled.Item>
           <Styled.Item>{getBuildingName(result.building_id)}</Styled.Item>
           <Styled.Item>{result.user}</Styled.Item>
           <Styled.Item>{result.user_name}</Styled.Item>

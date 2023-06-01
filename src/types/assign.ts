@@ -4,6 +4,7 @@ export interface AssignResponse {
   user: number;
   building_id: number;
   locker: number;
+  locker_number: number;
   major: number;
   apply: number;
 }

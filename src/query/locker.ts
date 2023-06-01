@@ -8,7 +8,7 @@ import {
   postApplyLocker,
   getShareableLockers,
   getMyLocker,
-  putMyLockerToShare,
+  putMyLockerToShare as putConvertMyLockerShare,
   putLockerShare,
 } from '@/api/locker';
 import useToast from '@/hooks/useToast';
@@ -100,11 +100,10 @@ export const useConvertShareMutation = () => {
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
 
-  const mutation = useMutation((body: ConvertToShareRequest) => putMyLockerToShare(body), {
-
+  const mutation = useMutation((body: ConvertToShareRequest) => putConvertMyLockerShare(body), {
     onSuccess: ({ owned_id }) => {
       queryClient.invalidateQueries([QUERY_KEY.locker, owned_id]);
-      createToastMessage('쉐어 신청 완료 !', 'success');
+      createToastMessage('쉐어 여부 변경 완료 !', 'success');
 
       navigate(PATH.MAIN);
     },
