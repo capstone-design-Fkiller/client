@@ -15,22 +15,22 @@ export const Root = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   margin-bottom: 10px;
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
 export const TitleMajor = styled.h1`
-  font-size: 20px;
+  font-size: 17px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   color: ${({ theme }) => theme.colors.primary_100};
 `;
 
 export const Content = styled.h1`
   margin-bottom: 10px;
-  font-size: 17px;
+  font-size: 15px;
   color: ${({ theme }) => theme.colors.black};
 `;
 
@@ -62,7 +62,7 @@ export const ContentBody = styled.h2`
 
 export const ContentInfo = styled.div`
   display: flex;
-  font-size: 13px;
+  font-size: 12px;
   margin-bottom: 10px;
   justify-content: right;
 `;
