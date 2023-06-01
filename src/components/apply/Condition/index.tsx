@@ -32,7 +32,7 @@ const Condition = (props: ConditionProps) => {
       const prevValue = { ...prev };
       const next = {
         ...prevValue,
-        [order]: value,
+        [`${order}_answer`]: value,
       };
 
       return next;
@@ -53,7 +53,11 @@ const Condition = (props: ConditionProps) => {
                 <span className='slider' />
               </Styled.Label>
             ) : (
-              <Styled.Input placeholder={condt.question} onChange={e => onChangeInput(e, order)} />
+              <Styled.Input
+                type='number'
+                placeholder={condt.question}
+                onChange={e => onChangeInput(e, order)}
+              />
             )}
           </Styled.ConditionWrapper>
         ))}

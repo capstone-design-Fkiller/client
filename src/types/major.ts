@@ -35,7 +35,7 @@ export type MajorPriorityRequest = MajorRequest;
 export type MajorPriorityResponse = Partial<MajorResponse>;
 
 export interface MajorPriorityAnswerRequest {
-  priority_1: string | boolean | null;
-  priority_2: string | boolean | null;
-  priority_3: string | boolean | null;
+  priority_1_answer: string | boolean | null;
+  priority_2_answer: string | boolean | null;
+  priority_3_answer: string | boolean | null;
 }

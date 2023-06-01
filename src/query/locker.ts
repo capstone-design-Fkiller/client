@@ -8,9 +8,11 @@ import {
   postApplyLocker,
   getShareableLockers,
   getMyLocker,
-  putMyLockerToShare as putConvertMyLockerShare,
-  putLockerShare,
+  patchConvertMyLockerShare,
+  patchLockerShare,
+  getApplicableBuilding,
 } from '@/api/locker';
+import { getBuildingName } from '@/constants/building';
 import useToast from '@/hooks/useToast';
 import {
   LockerRequest,
@@ -78,6 +80,15 @@ export const useFetchMyLocker = (userId: number) => {
   return { myLocker: data };
 };
 
+export const useFetchApplicableBuilding = (majorId: number) => {
+  const { data } = useQuery<number[]>(['building', majorId], () => getApplicableBuilding(majorId));
+
+  const buildingNames = data?.map((building_id) => getBuildingName(building_id) ?? "건물") ?? ["건물"]
+  // console.log(buildingNames,"빌딩 이름들")
+
+  return { applicableBuildings: buildingNames };
+};
+
 export const useFetchSharableLockers = (id: number) => {
   const { data, isLoading } = useQuery(
     [QUERY_KEY.share, 'sharable-lockers', id],
@@ -100,7 +111,7 @@ export const useConvertShareMutation = () => {
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
 
-  const mutation = useMutation((body: ConvertToShareRequest) => putConvertMyLockerShare(body), {
+  const mutation = useMutation((body: ConvertToShareRequest) => patchConvertMyLockerShare(body), {
     onSuccess: ({ owned_id }) => {
       queryClient.invalidateQueries([QUERY_KEY.locker, owned_id]);
       createToastMessage('쉐어 여부 변경 완료 !', 'success');
@@ -113,12 +124,12 @@ export const useConvertShareMutation = () => {
   return mutation;
 };
 
-export const useShareLockerMutation = () => {
+export const useApplyShareLockerMutation = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { createToastMessage } = useToast();
 
-  const mutation = useMutation((body: ApplyShareRequest) => putLockerShare(body), {
+  const mutation = useMutation((body: ApplyShareRequest) => patchLockerShare(body), {
     onSuccess: ({ shared_id }) => {
       // queryClient.invalidateQueries([QUERY_KEY.locker, id]); // 내 사물함 갱신
       queryClient.invalidateQueries([QUERY_KEY.locker, shared_id]); // 내 사물함 갱신

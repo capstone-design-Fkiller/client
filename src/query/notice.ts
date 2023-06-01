@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { delNotice, getNotice, getNoticeDetail, postNotice, putNotice } from '@/api/notice';
+import { delNotice, getNotice, getNoticeDetail, postNotice, patchNotice } from '@/api/notice';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
 import { useFetchMe } from '@/query/user';
-import { NoticeRequest } from '@/types/notice';
+import { EditNoticeRequest, NoticeRequest } from '@/types/notice';
 
 const QUERY_KEY = {
   notice: 'notice',
@@ -69,17 +69,13 @@ export const useEditNoticeMutation = () => {
 
   if (!me) throw new Error();
 
-  const mutation = useMutation(
-    (body: Pick<NoticeRequest, 'id' | 'content' | 'title'>) =>
-      putNotice({ ...body, major: MAJOR[me.major], writer: me.id }),
-    {
-      onSuccess: () => {
-        createToastMessage('공지사항 수정 완료!', 'success');
-        queryClient.invalidateQueries(QUERY_KEY.notice);
-      },
-      onError: () => createToastMessage('다시 시도해주세요.', 'error'),
-    }
-  );
+  const mutation = useMutation((body: EditNoticeRequest) => patchNotice({ ...body }), {
+    onSuccess: () => {
+      createToastMessage('공지사항 수정 완료!', 'success');
+      queryClient.invalidateQueries(QUERY_KEY.notice);
+    },
+    onError: () => createToastMessage('다시 시도해주세요.', 'error'),
+  });
 
   return mutation;
 };
