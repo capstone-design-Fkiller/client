@@ -13,3 +13,9 @@ export const postLogin = async (type: LoginRequest) => {
 
   return data;
 };
+
+export const getShareUser = async (userId:number) => {
+  const { data } = await instance.get<UserResponse>(`user/${userId}`);
+
+  return data;
+};

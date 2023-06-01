@@ -1,12 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { instance } from '@/api/instance';
-import { postLogin as postLogin, getMe } from '@/api/user';
+import { postLogin as postLogin, getMe, getShareUser } from '@/api/user';
 import useToast from '@/hooks/useToast';
 import { LoginRequest, UserResponse } from '@/types/user';
 
 const QUERY_KEY = {
   user: 'user',
+  shareUser: 'shareUser',
 };
 
 export const useLogin = () => {
@@ -52,4 +53,19 @@ export const useFetchMe = () => {
   };
 
   return { me: isError ? undefined : data, isLoading, logout };
+};
+
+export const useFetchShareUser = (userId: number) => {
+  const { data, isLoading, isError } = useQuery<UserResponse>(
+    [QUERY_KEY.shareUser],
+    () => getShareUser(userId),
+    {
+      suspense: false,
+      refetchOnWindowFocus: false,
+      staleTime: 10000,
+      useErrorBoundary: false,
+    }
+  );
+
+  return { user: isError ? undefined : data, isLoading };
 };

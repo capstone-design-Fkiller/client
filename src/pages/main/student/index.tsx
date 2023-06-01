@@ -5,6 +5,7 @@ import * as Styled from '../style';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import Student from '@/components/main/Student';
+import StudentLocker from '@/components/main/StudentLocker';
 import { useConvertShareMutation, useFetchMyLocker } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
@@ -26,7 +27,7 @@ const StudentMainPage = () => {
       <Styled.Root>
         {me ? (
           <>
-            <Student user={me} />
+            <StudentLocker me={me} locker={myLocker} />
             {myLocker && !myLocker?.shared_id && !myLocker?.is_share_registered && (
               <Button
                 variant='contained'

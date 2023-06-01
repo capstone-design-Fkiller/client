@@ -43,7 +43,7 @@ const Sharable = (props: SharableProps) => {
             <div>
               {item.owned_id} / {getBuildingName(item.building_id)} / {item.floor}층
               <br />
-              {item.id} / {item.major}
+              {item.locker_number}번 / {item.major}
             </div>
             <div>
               {formatDate(new Date(item.share_start_date as string), false)}

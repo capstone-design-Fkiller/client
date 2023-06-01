@@ -12,6 +12,7 @@ import {
   patchConvertMyLockerShare,
   patchLockerShare,
   getApplicableBuilding,
+  getApplicantCheck,
 } from '@/api/locker';
 import { getBuildingName } from '@/constants/building';
 import useToast from '@/hooks/useToast';
@@ -22,10 +23,12 @@ import {
   ConvertToShareRequest,
   ApplyShareRequest,
 } from '@/types/locker';
+import { SortResponse } from '@/types/sort';
 import { PATH } from '@/utils/path';
 
 const QUERY_KEY = {
   apply: 'apply',
+  applyCheck: 'applyCheck',
   locker: 'locker',
   share: 'share',
 };
@@ -52,6 +55,13 @@ export const useFetchApplicant = (props: LockerRequest) => {
   return { data: { apply, lockerCounts } };
 };
 
+export const useFetchApplicantCheck = (majorId: number, userId: number) => {
+  const { data: applyUser } = useQuery<SortResponse>([QUERY_KEY.applyCheck], () =>
+    getApplicantCheck(majorId, userId)
+  );
+  return { data: applyUser };
+};
+
 export const useFetchLockerInfo = (id: number) => {
   const { data } = useQuery([QUERY_KEY.locker, 'locker-info', id], () => getLockerInfo(id));
 
@@ -70,8 +80,9 @@ export const useApplyLockerMutation = () => {
 
   const mutation = useMutation((body: RequestApplyLocker) => postApplyLocker(body), {
     onSuccess: ({ major, building_id }) => {
-      createToastMessage('신청 완료 !', 'success');
+      createToastMessage('사물함 신청 완료 !', 'success');
       queryClient.invalidateQueries([QUERY_KEY.apply, 'applicant', major, building_id]);
+      queryClient.invalidateQueries([QUERY_KEY.applyCheck]);
     },
     onError: (error: AxiosError<{ message: string }>) => {
       const res = error.response?.data;
@@ -133,13 +144,15 @@ export const useApplyShareLockerMutation = () => {
   const mutation = useMutation((body: ApplyShareRequest) => patchLockerShare(body), {
     onSuccess: ({ shared_id }) => {
       // queryClient.invalidateQueries([QUERY_KEY.locker, id]); // 내 사물함 갱신
-      queryClient.invalidateQueries([QUERY_KEY.locker, shared_id]); // 내 사물함 갱신
-      createToastMessage('쉐어 신청 완료 !', 'success');
+      queryClient.invalidateQueries([QUERY_KEY.locker, shared_id]).then(() => {
+        createToastMessage('쉐어 신청 완료 !', 'success');
 
-      navigate(PATH.MAIN);
+        navigate(PATH.MAIN);
+      }); // 내 사물함 갱신
     },
     onError: () => createToastMessage('다시 시도해주세요.', 'error'),
   });
+  console.log();
 
   return mutation;
 };
