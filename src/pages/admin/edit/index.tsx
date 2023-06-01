@@ -164,7 +164,7 @@ const AdminEditPage = () => {
       end_date: endLocker, //임시로 설정
       apply_start_date: start,
       apply_end_date: end,
-      is_baserule_FCFS: baserule === '선착순' ? false : true,
+      is_baserule_FCFS: baserule === '선착순' ? true : false,
     };
 
     // console.log(body);
