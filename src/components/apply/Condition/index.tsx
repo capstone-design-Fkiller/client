@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 import Button from '@/components/common/Button';
+import useToast from '@/hooks/useToast';
 import { MajorPriorityAnswerRequest, MajorPriorityResponse, MajorResponse } from '@/types/major';
 
 interface ConditionProps {
@@ -25,12 +26,13 @@ const Condition = (props: ConditionProps) => {
     } else {
       const inputValue = Number(e.target.value);
       if (inputValue < 0) {
-        value = 0;
+        e.target.value = '0';
+        alert('0 이상인 값만 입력 가능합니다.');
       } // 음수 작성 못하게
-      value = inputValue;
+      else {
+        value = inputValue;
+      }
     }
-
-    console.log(value);
 
     setValue(prev => {
       const prevValue = { ...prev };
