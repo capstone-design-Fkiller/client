@@ -15,7 +15,7 @@ export const Root = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   margin-bottom: 10px;
   color: ${({ theme }) => theme.colors.primary_200};
@@ -34,7 +34,7 @@ export const Container = styled.div`
 
 export const Label = styled.label`
   margin-bottom: 10px;
-  font-size: 17px;
+  font-size: 15px;
   color: ${({ theme }) => theme.colors.grey_400};
 `;
 

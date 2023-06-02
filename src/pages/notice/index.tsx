@@ -7,15 +7,15 @@ import Button from '@/components/common/Button';
 import Loader from '@/components/common/Loader';
 import PageTemplate from '@/components/common/PageTamplate';
 import { Pagination } from '@/components/common/Pagination';
-import TableContent from '@/components/notice/table/TableContent';
-import TableHead from '@/components/notice/table/TableHead';
+import TableHead from '@/components/common/TableHead';
+import TableContent from '@/components/notice/TableContent';
 import { MAJOR } from '@/constants/major';
 import { PAGE_OFFSET } from '@/constants/page_offset';
 import { useFetchNotice } from '@/query/notice';
 import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
-const TABLE_HEADER = ['ID', '제목', '작성일'];
+const TABLE_HEADER = ['ID', '제목', '작성자','작성일'];
 
 const NoticePage = () => {
   const { me } = useFetchMe();

@@ -23,7 +23,6 @@ const SortPage = () => {
   const [currentSort, setCurrentSort] = useState(sorts);
   const [currentPage, setCurrentPage] = useState(1);
   const { majorInfo } = useFetchMajor(MAJOR[me.major], false);
-  const [confirmed, setConfirmed] = useState(false);
 
   const checkApplicationDate = () => {
     if (!majorInfo?.apply_end_date) throw new Error();
@@ -31,13 +30,10 @@ const SortPage = () => {
     const applyEndDate = new Date(majorInfo?.apply_end_date);
     const now = new Date();
 
-    if (applyEndDate < now) return true;
+    if (applyEndDate <= now) return true;
   };
 
   const handleDeleteResult = (id: number) => {
-    const validate = checkApplicationDate();
-    if (validate) return;
-
     setCurrentSort(locks => {
       const prevLockers = locks?.filter(l => l.id !== id);
       return prevLockers;
@@ -45,19 +41,18 @@ const SortPage = () => {
   };
 
   const handleSubmitResult = () => {
-    const validate = checkApplicationDate();
-    if (validate) return;
-
     const request = currentSort?.map(lock => lock.id);
-    assignMutate(
-      { major: MAJOR[me.major], sortResult: { list: request || [] } },
-      {
-        onSuccess: () => {
-          setConfirmed(true);
-          navigate(PATH.MAIN);
-        },
-      }
-    );
+    const res = confirm('확정 후엔 변경이 불가합니다.');
+    if (res) {
+      assignMutate(
+        { major: MAJOR[me.major], sortResult: { list: request || [] } },
+        {
+          onSuccess: () => {
+            navigate(PATH.MAIN);
+          },
+        }
+      );
+    }
   };
 
   return (
@@ -76,12 +71,12 @@ const SortPage = () => {
           setCurrentPage={setCurrentPage}
           handleDelete={handleDeleteResult}
         />
-        <Styled.InformText>
-          <p>배정 확정 버튼을 누른 이후엔 변경이 불가합니다!!</p>
-        </Styled.InformText>
-        <Button variant='contained' color='primary' onClick={handleSubmitResult}>
-          배정 확정하기
-        </Button>
+        {/* 이 조건은 테스트할 땐 빼야할 듯! */}
+        {checkApplicationDate() && (
+          <Button variant='contained' color='primary' onClick={handleSubmitResult}>
+            배정 확정하기
+          </Button>
+        )}
       </Styled.Root>
     </PageTemplate>
   );

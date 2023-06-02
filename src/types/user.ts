@@ -1,4 +1,3 @@
-
 export interface UserResponse {
   id: number;
   name: string;
@@ -25,4 +24,13 @@ export interface LoginResponse {
   user: UserResponse;
   refresh_token: string;
   access_token: string;
+}
+
+export interface SignUpRequest {
+  password1: string;
+  password2: string;
+  id: string;
+  major: number;
+  name: string;
+  is_adminable: boolean;
 }

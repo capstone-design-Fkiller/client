@@ -86,6 +86,7 @@ export const AlertModalListItems = styled.div`
 
   font-size: 13px;
   border-radius: 5px;
+  width: 97%;
 
   ${({ theme }) =>
     css`

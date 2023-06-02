@@ -14,7 +14,7 @@ export const Root = styled.section`
     `};
 `;
 export const Title = styled.h1`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   margin-bottom: 30px;
   color: ${({ theme }) => theme.colors.primary_200};

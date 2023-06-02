@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
 
-import TableContent from '@/components/assign/table/TableContent';
-import TableHead from '@/components/assign/table/TableHead';
+import TableContent from '@/components/assign/TableContent';
 import Button from '@/components/common/Button';
 import Loader from '@/components/common/Loader';
 import Modal from '@/components/common/Modal';
 import PageTemplate from '@/components/common/PageTamplate';
 import { Pagination } from '@/components/common/Pagination';
+import TableHead from '@/components/common/TableHead';
 import { MAJOR } from '@/constants/major';
 import { PAGE_OFFSET } from '@/constants/page_offset';
 import { useCreateAlertMutation } from '@/query/alert';
@@ -61,7 +61,7 @@ const AssignPage = () => {
         ) : (
           <>
             {assigns && assigns.length === 0 ? (
-              <Styled.Message>사물함 배정 기간이 아닙니다.</Styled.Message>
+              <Styled.Message>배정된 사물함이 없습니다.</Styled.Message>
             ) : (
               <>
                 <Styled.TableContainer>
