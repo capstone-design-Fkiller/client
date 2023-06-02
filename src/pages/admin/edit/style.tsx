@@ -98,6 +98,20 @@ export const InformBox = styled.div`
     width: 68%;
   }
 `;
+export const AlertModalTitle = styled.div`
+  text-align: center;
+
+  margin-top: 5px;
+  margin-bottom: 20px;
+
+  font-size: 20px;
+  font-weight: bold;
+
+  ${({ theme }) =>
+    css`
+      color: ${theme.colors.primary_300};
+    `}
+`;
 
 export const Labels = styled.div`
   span {

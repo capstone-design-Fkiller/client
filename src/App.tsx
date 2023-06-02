@@ -21,7 +21,8 @@ const SortPage = lazy(() => import('@/pages/sort'));
 const ResultPage = lazy(() => import('@/pages/result'));
 const AssignPage = lazy(() => import('@/pages/assign'));
 const ProfilePage = lazy(() => import('@/pages/profile'));
-const AdminCriteriaPage = lazy(() => import('@/pages/admin/criteria'));
+const AdminPage = lazy(() => import('@/pages/admin/index'));
+const AdminEditPage = lazy(() => import('@/pages/admin/edit'));
 
 function setScreenSize() {
   const vh = window.innerHeight * 0.01;
@@ -67,7 +68,8 @@ function App() {
             <Route path={PATH.ASSIGN} element={<AssignPage />} />
             <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
             <Route path={PATH.PROFILE} element={<ProfilePage />} />
-            <Route path={PATH.CRITERIA} element={<AdminCriteriaPage />} />
+            <Route path={PATH.CRITERIA} element={<AdminPage />} />
+            <Route path={PATH.CRITERIA_EDIT} element={<AdminEditPage />} />
           </Route>
         </Routes>
       </Suspense>

@@ -41,6 +41,11 @@ const colors = {
 
   background_1: '#F7F7F7',
   background_2: '#F5F4F3',
+
+  blue_400: '#002b49',
+  blue_300: '#00365b',
+  blue_200: '#004372',
+  blue_100: '#00548f',
 };
 
 const shadow = {
