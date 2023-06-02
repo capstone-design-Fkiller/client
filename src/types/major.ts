@@ -43,7 +43,7 @@ export interface MajorRequest {
 
 // export type MajorPriorityRequest = Omit<MajorResponse, 'name'>;
 export type MajorPriorityRequest = RequestPriority;
-export type MajorPriorityResponse = Pick<MajorResponse, 'priority_1' | 'priority_2' | 'priority_3'>;
+export type MajorPriorityResponse = Partial<MajorResponse>;
 
 export interface RequestPriority {
   id: number;
