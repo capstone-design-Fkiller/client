@@ -15,9 +15,9 @@ export const useFetchMajor = (params: number, isCondt?: boolean) => {
     {
       enabled: !!params,
       select: data => {
-        const { priority_1, priority_2, priority_3 } = data;
+        const { priority_1, priority_2, priority_3, is_baserule_FCFS } = data;
 
-        return isCondt ? { priority_1, priority_2, priority_3 } : data;
+        return isCondt ? { priority_1, priority_2, priority_3, is_baserule_FCFS } : data;
       },
     }
   );

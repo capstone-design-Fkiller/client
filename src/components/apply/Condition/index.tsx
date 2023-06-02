@@ -15,7 +15,9 @@ const Condition = (props: ConditionProps) => {
 
   if (!majorInfo) return <span>추가 조건이 없습니다!</span>;
 
-  const majorConditionList = Object.entries(majorInfo).filter(([, condt]) => condt);
+  const majorConditionList = Object.entries(majorInfo).filter(
+    ([key, condt]) => condt && key !== 'is_baserule_FCFS'
+  );
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>, order: string) => {
     let value: number | boolean;
@@ -25,8 +27,6 @@ const Condition = (props: ConditionProps) => {
     } else {
       value = Number(e.target.value);
     }
-
-    console.log(value);
 
     setValue(prev => {
       const prevValue = { ...prev };
@@ -42,30 +42,31 @@ const Condition = (props: ConditionProps) => {
   return (
     <Styled.Root>
       <div>
-        {/* {majorConditionList || <p>동점자에 대해서 선착순으로 우선배정됩니다</p>} */}
-        {majorConditionList.length ? (
-          majorConditionList.map(([order, condt], idx) => (
-            <Styled.ConditionWrapper key={order}>
-              <Styled.Name>
-                {idx + 1}순위: {condt.name}
-              </Styled.Name>
-              {condt.is_bool ? (
-                <Styled.Label>
-                  <Styled.Input type='checkbox' onChange={e => onChangeInput(e, order)} />
-                  <span className='slider' />
-                </Styled.Label>
-              ) : (
-                <Styled.Input
-                  type='number'
-                  placeholder={condt.question}
-                  onChange={e => onChangeInput(e, order)}
-                />
-              )}
-            </Styled.ConditionWrapper>
-          ))
-        ) : (
-          <Styled.Description>동점자에 대해서 선착순으로 우선배정됩니다 😊</Styled.Description>
-        )}
+        <Styled.Description>
+          동점자는 {majorInfo.is_baserule_FCFS ? '선착순' : '랜덤'} 우선배정됩니다 😊
+        </Styled.Description>
+        <br />
+        {majorConditionList.length
+          ? majorConditionList.map(([order, condt], idx) => (
+              <Styled.ConditionWrapper key={order}>
+                <Styled.Name>
+                  {idx + 1}순위: {condt.name}
+                </Styled.Name>
+                {condt.is_bool ? (
+                  <Styled.Label>
+                    <Styled.Input type='checkbox' onChange={e => onChangeInput(e, order)} />
+                    <span className='slider' />
+                  </Styled.Label>
+                ) : (
+                  <Styled.Input
+                    type='number'
+                    placeholder={condt.question}
+                    onChange={e => onChangeInput(e, order)}
+                  />
+                )}
+              </Styled.ConditionWrapper>
+            ))
+          : null}
       </div>
       <Button variant='contained' onClick={handleApplyButton}>
         신청
@@ -158,6 +159,8 @@ const Styled = {
   `,
 
   Description: styled.p`
-    color: ${({ theme }) => theme.colors.grey_100};
+    color: ${({ theme }) => theme.colors.grey_300};
+    font-size: 15px;
+    text-align: center;
   `,
 };
