@@ -1,0 +1,1 @@
+import{i,f as o,h as u,g as c}from"./index-1b168d93.js";const g=async s=>{const a=s||0,{data:e}=await i.get(`assign/${a}`);return e},t={assign:"assignResult"},l=s=>{const{createToastMessage:a}=o(),e=u(),{data:n,isLoading:r}=c(t.assign,()=>g(s),{onSuccess:()=>{e.invalidateQueries([t.assign])},onError:()=>{a("오류가 발생했습니다.","error")}});return{data:n,isLoading:r}};export{l as u};
