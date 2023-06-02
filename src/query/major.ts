@@ -6,6 +6,7 @@ import { MajorPriorityRequest, MajorPriorityResponse, MajorResponse } from '@/ty
 
 const QUERY_KEY = {
   major: 'major',
+  assign: 'assignResult',
 };
 
 export const useFetchMajor = (params: number, isCondt?: boolean) => {
@@ -31,6 +32,7 @@ export const usePatchMajor = () => {
   const mutation = useMutation((body: Partial<MajorPriorityRequest>) => patchMajor(body), {
     onSuccess: () => {
       createToastMessage('배정 기준 설정이 완료되었습니다.', 'success');
+      queryClient.invalidateQueries([QUERY_KEY.assign]);
       queryClient.invalidateQueries([QUERY_KEY.major]);
     },
     onError: () => {
