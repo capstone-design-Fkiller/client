@@ -15,12 +15,14 @@ const SharePage = lazy(() => import('@/pages/locker-mode/share'));
 const UserSharePage = lazy(() => import('@/pages/register-share'));
 const MainPage = lazy(() => import('@/pages/main'));
 const SelectApplyMode = lazy(() => import('@/pages/locker-mode'));
-const LoginPage = lazy(() => import('@/pages/login'));
+const LoginPage = lazy(() => import('@/pages/auth'));
 const ApplyPage = lazy(() => import('@/pages/locker-mode/apply'));
 const SortPage = lazy(() => import('@/pages/sort'));
+const ResultPage = lazy(() => import('@/pages/result'));
 const AssignPage = lazy(() => import('@/pages/assign'));
 const ProfilePage = lazy(() => import('@/pages/profile'));
-const AdminCriteriaPage = lazy(() => import('@/pages/admin/criteria'));
+const AdminPage = lazy(() => import('@/pages/admin/index'));
+const AdminEditPage = lazy(() => import('@/pages/admin/edit'));
 
 function setScreenSize() {
   const vh = window.innerHeight * 0.01;
@@ -44,7 +46,7 @@ function App() {
       window.removeEventListener('resize', onResize);
     };
   }, []);
-  // 여기에서 토큰 있는지 확인하고 없으면 다른 화면으로 라우팅 되도록 하고, 있으면 토큰 넘겨주면서 메인 화면으로 연결해주면 된다.
+
   return (
     <ToastProvider>
       <Suspense fallback={<Loader />}>
@@ -62,10 +64,12 @@ function App() {
             <Route path={PATH.NOTICE_DETAIL} element={<NoticeDetailPage />} />
             <Route path={PATH.NOTICE_EDIT} element={<NoticeEditPage />} />
             <Route path={PATH.SORT} element={<SortPage />} />
+            <Route path={PATH.RESULT} element={<ResultPage />} />
             <Route path={PATH.ASSIGN} element={<AssignPage />} />
             <Route path={PATH.USER_SHARE} element={<UserSharePage />} />
             <Route path={PATH.PROFILE} element={<ProfilePage />} />
-            <Route path={PATH.CRITERIA} element={<AdminCriteriaPage />} />
+            <Route path={PATH.CRITERIA} element={<AdminPage />} />
+            <Route path={PATH.CRITERIA_EDIT} element={<AdminEditPage />} />
           </Route>
         </Routes>
       </Suspense>

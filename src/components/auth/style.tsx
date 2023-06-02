@@ -1,27 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const Root = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 30px;
-
-  ${({ theme }) =>
-    css`
-      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight} - 60px);
-    `};
-`;
-
-export const Title = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
-
-  margin-bottom: 30px;
-  color: ${({ theme }) => theme.colors.primary_200};
-`;
-
 export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
@@ -47,8 +26,6 @@ export const Input = styled.input`
   border: none;
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadow.type_1};
-<<<<<<< Updated upstream:src/pages/login/style.tsx
-=======
 
   &[type='number']::-webkit-outer-spin-button,
   &[type='number']::-webkit-inner-spin-button {
@@ -61,7 +38,7 @@ export const Label = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 13px;
+
   margin: 20px 0;
 
   & input[type='checkbox'] {
@@ -71,7 +48,6 @@ export const Label = styled.label`
 
     outline: none;
   }
->>>>>>> Stashed changes:src/components/auth/style.tsx
 `;
 
 export const ExtendedButton = css`

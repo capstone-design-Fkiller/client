@@ -69,15 +69,15 @@ const NoticeDetailPage = () => {
         </Styled.ContentContainer>
         {me?.is_usermode || (
           <Styled.ButtonContainer>
-            <Button variant='contained' onClick={handleEdit}>
+            <Button variant='outlined' onClick={handleEdit}>
               수정하기
             </Button>
-            <Button variant='contained' onClick={handleDelete}>
+            <Button variant='outlined' onClick={handleDelete} color='warning'>
               삭제하기
             </Button>
           </Styled.ButtonContainer>
         )}
-        <Button variant='outlined' onClick={() => navigate(PATH.NOTICE)}>
+        <Button variant='contained' onClick={() => navigate(PATH.NOTICE)}>
           닫기
         </Button>
       </Styled.Root>

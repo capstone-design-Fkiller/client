@@ -8,6 +8,15 @@ export const formatDate = (date: Date, withWeekday = true) => {
   return withWeekday ? `${month}월 ${day}일 ${weekday}` : `${month}월 ${day}일`;
 };
 
+export const formatResultDate = (date: Date, withWeekday = true) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const weekday = weeks[date.getDay()];
+
+  return withWeekday ? `${year}년 ${month}월 ${day}일 ${weekday}` : `${year}년 ${month}월 ${day}일`;
+};
+
 export const YYMMDD = (inputDate: string, time = false) => {
   const date = new Date(inputDate);
 
