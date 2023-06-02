@@ -51,7 +51,15 @@ const ToastProvider = (props: PropsWithChildren) => {
           <Alert
             onClose={handleClose}
             severity={state}
-            sx={{ minWidth: '300px', maxWidth: '340px', width: '80%', marginTop: '20%', fontFamily: 'NanumSquare' }}
+            sx={{
+              minWidth: '300px',
+              display: message.length> 30 ? 'block' : 'flex',
+              textOverflow: 'inherit',
+              maxWidth: '340px',
+              width: '80%',
+              marginTop: '20%',
+              fontFamily: 'NanumSquare',
+            }}
           >
             {message}
           </Alert>
