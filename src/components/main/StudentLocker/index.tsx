@@ -36,11 +36,11 @@ const StudentLocker = (props: ProfileProps) => {
 
   return (
     <Styled.ProfileContainer>
-      내 사물함
+      <Styled.InfoLabel>[ 내 사물함 ]</Styled.InfoLabel>
       <Styled.MyInfo className={locker ? 'grid' : 'none'}>
         {locker ? (
           <>
-            <Icon iconName='locker' size='70' css={Styled.LockerIcon} hasCursor={false} />
+            <Icon iconName='locker' size='70' hasCursor={false} />
             <Styled.InnerBox>
               <LockerInfo
                 label='사물함 위치'
@@ -93,9 +93,9 @@ const StudentLocker = (props: ProfileProps) => {
       </Styled.MyInfo>
       {!locker && applyCheck ? (
         <>
-          신청 상태
+          <Styled.InfoLabel>[ 쉐어 대여자 ]</Styled.InfoLabel>
           <Styled.MyInfo className={locker ? 'grid' : 'none'}>
-            <Icon iconName='user' size='70' css={Styled.LockerIcon} hasCursor={false} />
+            <Icon iconName='user' size='70' hasCursor={false} />
             <Styled.InnerBox>
               <LockerInfo label='학과' value={`${getMajorName(applyCheck.major)}`} />
               <LockerInfo label='신청 위치' value={`${getBuildingName(applyCheck.building_id)}`} />
@@ -106,9 +106,9 @@ const StudentLocker = (props: ProfileProps) => {
       ) : undefined}
       {locker?.owned_id == me.id && locker.shared_id ? (
         <>
-          쉐어 이용자
+          <Styled.InfoLabel>[ 쉐어 대여자 ]</Styled.InfoLabel>
           <Styled.MyInfo className={locker ? 'grid' : 'none'}>
-            <Icon iconName='share' size='70' css={Styled.LockerIcon} hasCursor={false} />
+            <Icon iconName='share' size='70' hasCursor={false} />
             <Styled.InnerBox>
               <LockerInfo label='빌린 학우' value={`${sharedUser?.name}`} />
               <LockerInfo label='학과' value={`${sharedUser?.major}`} />
@@ -126,9 +126,9 @@ const StudentLocker = (props: ProfileProps) => {
       ) : undefined}
       {locker?.shared_id == me.id ? (
         <>
-          쉐어 대여자
+          <Styled.InfoLabel>[ 쉐어 대여자 ]</Styled.InfoLabel>
           <Styled.MyInfo className={locker ? 'grid' : 'none'}>
-            <Icon iconName='user' size='70' css={Styled.LockerIcon} hasCursor={false} />
+            <Icon iconName='user' size='70' hasCursor={false} />
             <Styled.InnerBox>
               <LockerInfo label='빌려준 학우' value={`${sharedUser?.name}`} />
               <LockerInfo label='학과' value={`${sharedUser?.major}`} />

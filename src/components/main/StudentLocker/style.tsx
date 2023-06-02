@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const ProfileContainer = styled.div`
@@ -11,13 +10,16 @@ export const ProfileContainer = styled.div`
 
 export const MyInfo = styled.div`
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
   align-items: center;
   padding: 0 15px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  /* font-size: 15px; */
 
   border: 1px solid ${({ theme }) => theme.colors.light_grey_200};
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   height: 150px;
   /* p {
     color: ${({ theme }) => theme.colors.error_100};
@@ -38,6 +40,15 @@ export const InnerBox = styled.div`
   gap: 6px;
 `;
 
-export const LockerIcon = css`
-  margin-left: 15px;
+export const InfoLabel = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  justify-content: center;
+  color: ${({ theme }) => theme.colors.white_300};
+  background-color: ${({ theme }) => theme.colors.primary_200};
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 40px;
 `;

@@ -47,6 +47,31 @@ export const Input = styled.input`
   border: none;
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadow.type_1};
+<<<<<<< Updated upstream:src/pages/login/style.tsx
+=======
+
+  &[type='number']::-webkit-outer-spin-button,
+  &[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+`;
+
+export const Label = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  margin: 20px 0;
+
+  & input[type='checkbox'] {
+    width: 15px;
+    height: 15px;
+    margin: 0 10px 0 0;
+
+    outline: none;
+  }
+>>>>>>> Stashed changes:src/components/auth/style.tsx
 `;
 
 export const ExtendedButton = css`
