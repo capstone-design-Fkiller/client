@@ -29,6 +29,15 @@ const CriteriaResultPage = (props: ResultProps) => {
   const endDate = new Date(major?.end_date || '');
   const formatEndDate = formatResultDate(endDate);
 
+  const checkApplicationDate = () => {
+    if (!major?.apply_end_date) throw new Error();
+
+    const applyEndDate = new Date(major?.apply_end_date);
+    const now = new Date();
+
+    if (applyEndDate >= now) return true;
+  };
+
   if (!major) {
     return <></>;
   }
@@ -75,14 +84,16 @@ const CriteriaResultPage = (props: ResultProps) => {
             </span>
           </Styled.Subject>
         </Styled.Container>
-        <Button
-          type='submit'
-          variant='outlined'
-          startIcon={<Icon iconName='box' />}
-          onClick={handleClick}
-        >
-          수정하기
-        </Button>
+        {checkApplicationDate() && (
+          <Button
+            type='submit'
+            variant='outlined'
+            startIcon={<Icon iconName='box' />}
+            onClick={handleClick}
+          >
+            수정하기
+          </Button>
+        )}
       </Styled.Root>
     </PageTemplate>
   );
