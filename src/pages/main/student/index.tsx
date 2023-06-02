@@ -30,6 +30,7 @@ const StudentMainPage = () => {
             <StudentLocker me={me} locker={myLocker} />
             {myLocker && !myLocker?.shared_id && !myLocker?.is_share_registered && (
               <Button
+                style={{ marginTop: '-50px' }}
                 variant='contained'
                 onClick={() => {
                   return handleNavigate(PATH.USER_SHARE);
@@ -42,6 +43,7 @@ const StudentMainPage = () => {
             !myLocker?.shared_id &&
             myLocker?.is_share_registered ? (
               <Button
+                style={{ marginTop: '-50px' }}
                 variant='outlined'
                 onClick={() =>
                   mutate({
