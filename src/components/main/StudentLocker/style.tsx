@@ -25,6 +25,12 @@ export const MyInfo = styled.div`
     color: ${({ theme }) => theme.colors.error_100};
   } */
 
+  &.default {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   &.none {
     display: flex;
     justify-content: center;

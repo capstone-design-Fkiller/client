@@ -5,6 +5,7 @@ import Icon from '@/components/common/Icon';
 import { getBuildingName } from '@/constants/building';
 import { MAJOR, getMajorName } from '@/constants/major';
 import { useFetchApplicantCheck } from '@/query/locker';
+import { useFetchMajor } from '@/query/major';
 import { useFetchShareUser } from '@/query/user';
 import { LockerResponse } from '@/types/locker';
 import { UserResponse } from '@/types/user';
@@ -19,6 +20,7 @@ const StudentLocker = (props: ProfileProps) => {
   const { me, locker } = props;
   let sharedUser;
   let createdDate;
+  let myMajor;
 
   if (locker?.owned_id == me.id && locker.shared_id) {
     const { user } = useFetchShareUser(locker.shared_id);
@@ -32,12 +34,15 @@ const StudentLocker = (props: ProfileProps) => {
 
   if (applyCheck) {
     createdDate = formatDate(new Date(applyCheck?.created_at));
+    const { majorInfo } = useFetchMajor(applyCheck.major);
+    myMajor = majorInfo;
+    // apply_start_date = formatDate(new Date(majorInfo?.apply_start_date));
   }
 
   return (
     <Styled.ProfileContainer>
       <Styled.InfoLabel>[ 내 사물함 ]</Styled.InfoLabel>
-      <Styled.MyInfo className={locker ? 'grid' : 'none'}>
+      <Styled.MyInfo className={locker ? 'grid' : 'default'}>
         {locker ? (
           <>
             <Icon iconName='locker' size='70' hasCursor={false} />
@@ -84,18 +89,42 @@ const StudentLocker = (props: ProfileProps) => {
             </Styled.InnerBox>
           </>
         ) : applyCheck ? (
-          <p>신청중</p>
+          <>
+            <LockerInfo
+              label='신청 시작 시간'
+              value={
+                myMajor?.apply_start_date
+                  ? `${new Date(myMajor?.apply_start_date).toLocaleString().slice(6, -3)}`
+                  : ''
+              }
+            />
+            <LockerInfo
+              label='신청 종료 시간'
+              value={
+                myMajor?.apply_end_date
+                  ? `${new Date(myMajor?.apply_end_date).toLocaleString().slice(6, -3)}`
+                  : ''
+              }
+            />
+            {/* ?.slice(5,10) */}
+            {/* <br /> */}
+            <p>신청 여부 : ✔️</p>
+          </>
         ) : (
-          <p>
-            배정된 사물함이 없습니다. <br /> 사물함을 신청하세요.
-          </p>
+          <>
+            <p>배정된 사물함이 없습니다.</p>
+            <p>사물함을 신청하세요.</p>
+            <p>
+              신청 여부 : <span style={{ color: 'red', fontWeight: '900' }}>❌</span>
+            </p>
+          </>
         )}
       </Styled.MyInfo>
       {!locker && applyCheck ? (
         <>
-          <Styled.InfoLabel>[ 쉐어 대여자 ]</Styled.InfoLabel>
-          <Styled.MyInfo className={locker ? 'grid' : 'none'}>
-            <Icon iconName='user' size='70' hasCursor={false} />
+          <Styled.InfoLabel>[ 사물함 신청 정보 ]</Styled.InfoLabel>
+          <Styled.MyInfo className={'grid'}>
+            <Icon iconName='user' size='90' hasCursor={false} />
             <Styled.InnerBox>
               <LockerInfo label='학과' value={`${getMajorName(applyCheck.major)}`} />
               <LockerInfo label='신청 위치' value={`${getBuildingName(applyCheck.building_id)}`} />
@@ -106,7 +135,7 @@ const StudentLocker = (props: ProfileProps) => {
       ) : undefined}
       {locker?.owned_id == me.id && locker.shared_id ? (
         <>
-          <Styled.InfoLabel>[ 쉐어 대여자 ]</Styled.InfoLabel>
+          <Styled.InfoLabel>[ 쉐어 이용자 ]</Styled.InfoLabel>
           <Styled.MyInfo className={locker ? 'grid' : 'none'}>
             <Icon iconName='share' size='70' hasCursor={false} />
             <Styled.InnerBox>
