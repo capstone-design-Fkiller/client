@@ -13,7 +13,7 @@ import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
-import { usePutMajor } from '@/query/major';
+import { usePatchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { MajorPriorityRequest } from '@/types/major';
 import { formatDate } from '@/utils/date';
@@ -33,7 +33,7 @@ const AdminCriteriaPage = () => {
   const handleChange2 = (e: MouseEvent<HTMLLIElement>) => setPriority2(e.currentTarget.innerText);
   const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
-  const { mutate } = usePutMajor();
+  const { mutate } = usePatchMajor();
 
   const getPriorityList = (currentPriority: number) => {
     const criteriaList = Object.keys(CRITERIA);
