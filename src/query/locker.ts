@@ -150,7 +150,12 @@ export const useApplyShareLockerMutation = () => {
         navigate(PATH.MAIN);
       }); // 내 사물함 갱신
     },
-    onError: () => createToastMessage('다시 시도해주세요.', 'error'),
+    onError: (error: AxiosError<{ message: string }>) => {
+      const res = error.response?.data;
+      if (!res) return;
+
+      createToastMessage(res.message, 'error');
+    },
   });
   console.log();
 
