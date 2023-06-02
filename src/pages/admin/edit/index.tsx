@@ -3,6 +3,7 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
+import TimePickerValue from '../TimePicker';
 
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
@@ -243,6 +244,7 @@ const AdminEditPage = () => {
           <DateBox label='배정 접수 시작일' date={date[0]} />
           <DateBox label='배정 접수 종료일' date={date[1]} />
         </Styled.SelectWrapper>
+        <TimePickerValue />
         <Styled.SelectWrapper onClick={handleLockerDateSelectOpen}>
           <DateBox label='사물함 이용 시작일' date={lockerDate[0]} />
           <DateBox label='사물함 이용 종료일' date={lockerDate[1]} />
@@ -287,7 +289,10 @@ const AdminEditPage = () => {
       >
         <Styled.AlertModalTitle>날짜 선택</Styled.AlertModalTitle>
         {isDateSelectOpen && (
-          <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+          <div style={{ width: '100%' }}>
+            <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+            {/* <TimePickerValue /> */}
+          </div>
         )}
         {isLockerDateSelectOpen && (
           <CustomCalendar
