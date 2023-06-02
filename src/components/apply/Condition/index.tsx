@@ -38,7 +38,7 @@ const Condition = (props: ConditionProps) => {
       const prevValue = { ...prev };
       const next = {
         ...prevValue,
-        [`priority_${order}_answer`]: value,
+        [`${order}_answer`]: value,
       };
 
       const isAllAnswersFilled = majorConditionList.every(([order]) => {
