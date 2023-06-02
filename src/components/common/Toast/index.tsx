@@ -43,7 +43,7 @@ const ToastProvider = (props: PropsWithChildren) => {
       {children}
       <Stack spacing={2} sx={{ width: '100%' }}>
         <Snackbar
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={open}
           autoHideDuration={2000}
           onClose={handleClose}
@@ -51,7 +51,7 @@ const ToastProvider = (props: PropsWithChildren) => {
           <Alert
             onClose={handleClose}
             severity={state}
-            sx={{ width: '100%', fontFamily: 'NanumSquare' }}
+            sx={{ minWidth: '300px', maxWidth: '340px', width: '80%', marginTop: '20%', fontFamily: 'NanumSquare' }}
           >
             {message}
           </Alert>
