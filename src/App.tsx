@@ -46,7 +46,7 @@ function App() {
       window.removeEventListener('resize', onResize);
     };
   }, []);
-  // 여기에서 토큰 있는지 확인하고 없으면 다른 화면으로 라우팅 되도록 하고, 있으면 토큰 넘겨주면서 메인 화면으로 연결해주면 된다.
+
   return (
     <ToastProvider>
       <Suspense fallback={<Loader />}>

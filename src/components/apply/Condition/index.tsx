@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import Button from '@/components/common/Button';
 import { MajorPriorityAnswerRequest, MajorPriorityResponse, MajorResponse } from '@/types/major';
@@ -12,6 +12,7 @@ interface ConditionProps {
 
 const Condition = (props: ConditionProps) => {
   const { majorInfo, setValue, handleApplyButton } = props;
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true); // 초기에는 버튼 비활성화 상태로 설정
 
   if (!majorInfo) return <span>추가 조건이 없습니다!</span>;
 
@@ -25,7 +26,14 @@ const Condition = (props: ConditionProps) => {
     if (e.target.type === 'checkbox') {
       value = e.target.checked || false;
     } else {
-      value = Number(e.target.value);
+      const inputValue = Number(e.target.value);
+      if (inputValue < 0) {
+        alert('0 이상인 값만 입력 가능합니다.');
+        e.target.value = '';
+      } // 음수 작성 못하게
+      else {
+        value = inputValue;
+      }
     }
 
     setValue(prev => {
@@ -34,6 +42,13 @@ const Condition = (props: ConditionProps) => {
         ...prevValue,
         [`${order}_answer`]: value,
       };
+
+      const isAllAnswersFilled = majorConditionList.every(([order]) => {
+        const answer = next[`${order}_answer` as keyof MajorPriorityAnswerRequest];
+        return answer !== undefined && answer !== null && answer !== '';
+      });
+
+      setIsSubmitDisabled(!isAllAnswersFilled); // 모든 답변이 입력되었는지에 따라 버튼 활성화 상태 변경
 
       return next;
     });
@@ -68,7 +83,7 @@ const Condition = (props: ConditionProps) => {
             ))
           : null}
       </div>
-      <Button variant='contained' onClick={handleApplyButton}>
+      <Button variant='contained' onClick={handleApplyButton} disabled={isSubmitDisabled}>
         신청
       </Button>
     </Styled.Root>
