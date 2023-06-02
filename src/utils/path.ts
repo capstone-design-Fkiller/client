@@ -9,6 +9,7 @@ export const PATH = {
   APPLY: '/locker/apply',
   SHARE: '/locker/share',
   SORT: '/sort',
+  RESULT: 'applyresult',
   ASSIGN: '/assign',
   USER_SHARE: '/user/share',
   PROFILE: '/profile',

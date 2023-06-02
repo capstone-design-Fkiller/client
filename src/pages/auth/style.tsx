@@ -10,21 +10,23 @@ export const Root = styled.div`
 
   ${({ theme }) =>
     css`
-      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight});
+      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight} - 60px);
     `};
 `;
 
 export const Title = styled.h1`
-  font-size: 25px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 700;
+
+  margin-bottom: 30px;
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
-export const InformText = styled.div`
+export const Toggle = styled.p`
   font-size: 14px;
-  font-weight: 400;
-  text-align: center;
-  margin-bottom: 5px;
-  color: ${({ theme }) => theme.colors.grey_300};
+  color: ${({ theme }) => theme.colors.grey_200};
+  text-decoration: underline;
+
+  margin-top: 20px;
+  cursor: pointer;
 `;

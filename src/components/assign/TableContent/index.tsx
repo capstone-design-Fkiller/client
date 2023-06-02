@@ -19,7 +19,7 @@ const TableContent = ({ contents, handleContent }: TableContentProps) => {
           <Styled.Item>{result.user}</Styled.Item>
           <Styled.Item>{result.user_name}</Styled.Item>
           <Styled.IconItem onClick={() => handleContent(result.id)}>
-            <Icon iconName='bell' size='20' />
+            <Icon iconName='bell' size='16' />
           </Styled.IconItem>
         </Styled.Row>
       ))}
@@ -31,7 +31,7 @@ export default TableContent;
 
 const Styled = {
   Row: styled.tr`
-    font-size: 14px;
+    font-size: 13px;
     padding: 10px;
     width: 100%;
   `,

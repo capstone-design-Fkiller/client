@@ -3,12 +3,10 @@ import * as Styled from './style';
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
 import ProfileContainer from '@/components/profile/ProfileData';
-import { useFetchMyLocker } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 
 const ProfilePage = () => {
   const { me, logout } = useFetchMe();
-  const { myLocker } = useFetchMyLocker(me?.id || 0);
 
   if (!me) throw new Error();
 
@@ -17,7 +15,7 @@ const ProfilePage = () => {
       <Styled.Root>
         <Styled.Title>내 정보</Styled.Title>
 
-        <ProfileContainer me={me} locker={myLocker} />
+        <ProfileContainer me={me} />
 
         <Button onClick={logout} color='error' variant='outlined'>
           로그아웃
