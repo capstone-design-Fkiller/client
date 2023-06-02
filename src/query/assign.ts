@@ -9,12 +9,10 @@ const QUERY_KEY = {
 
 export const useFetchAssign = (major: number) => {
   const { createToastMessage } = useToast();
-  const queryClient = useQueryClient();
 
   const { data: assigns, isLoading } = useQuery(QUERY_KEY.assign, () => getAssignResult(major), {
-    onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEY.assign]);
-    },
+    // onSuccess: () => {
+    // },
     onError: () => {
       createToastMessage('오류가 발생했습니다.', 'error');
     },
