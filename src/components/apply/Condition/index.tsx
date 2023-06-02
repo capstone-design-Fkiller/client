@@ -15,7 +15,9 @@ const Condition = (props: ConditionProps) => {
 
   if (!majorInfo) return <span>추가 조건이 없습니다!</span>;
 
-  const majorConditionList = Object.entries(majorInfo).filter(([, condt]) => condt);
+  const majorConditionList = Object.entries(majorInfo).filter(
+    ([key, condt]) => condt && key !== 'is_baserule_FCFS'
+  );
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>, order: string) => {
     let value: number | boolean;
@@ -25,8 +27,6 @@ const Condition = (props: ConditionProps) => {
     } else {
       value = Number(e.target.value);
     }
-
-    console.log(value);
 
     setValue(prev => {
       const prevValue = { ...prev };
@@ -38,7 +38,7 @@ const Condition = (props: ConditionProps) => {
       return next;
     });
   };
-  
+
   return (
     <Styled.Root>
       <div>

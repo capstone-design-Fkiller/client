@@ -22,8 +22,6 @@ const ResultPage = () => {
   const { data: results, isLoading } = useFetchSort(MAJOR[me?.major ?? '학과']);
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log(results);
-
   return (
     <PageTemplate>
       <Styled.Root>
