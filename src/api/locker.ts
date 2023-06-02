@@ -93,7 +93,6 @@ export const patchLockerShare = async (body: ApplyShareRequest) => {
   const { data } = await instance.patch<LockerResponse>(`locker/${id}`, {
     shared_id,
   });
-  console.log(data, '뭔데?')
 
   return data;
 };

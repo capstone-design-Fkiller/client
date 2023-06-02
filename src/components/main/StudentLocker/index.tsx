@@ -20,7 +20,8 @@ const StudentLocker = (props: ProfileProps) => {
   const { me, locker } = props;
   let sharedUser;
   let createdDate;
-  let myMajor;
+  // let myMajor;
+  const { majorInfo: myMajor } = useFetchMajor(MAJOR[me.major]);
 
   if (locker?.owned_id == me.id && locker.shared_id) {
     const { user } = useFetchShareUser(locker.shared_id);
@@ -34,8 +35,7 @@ const StudentLocker = (props: ProfileProps) => {
 
   if (applyCheck) {
     createdDate = formatDate(new Date(applyCheck?.created_at));
-    const { majorInfo } = useFetchMajor(applyCheck.major);
-    myMajor = majorInfo;
+    // myMajor = majorInfo;
     // apply_start_date = formatDate(new Date(majorInfo?.apply_start_date));
   }
 
