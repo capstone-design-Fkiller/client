@@ -44,7 +44,7 @@ const Condition = (props: ConditionProps) => {
       };
 
       const isAllAnswersFilled = majorConditionList.every(([order]) => {
-        const answer = next[`priority_${order}_answer` as keyof MajorPriorityAnswerRequest];
+        const answer = next[`${order}_answer` as keyof MajorPriorityAnswerRequest];
         return answer !== undefined && answer !== null && answer !== '';
       });
 
