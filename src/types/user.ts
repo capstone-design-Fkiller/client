@@ -32,4 +32,5 @@ export interface SignUpRequest {
   id: string;
   major: number;
   name: string;
+  is_adminable: boolean;
 }

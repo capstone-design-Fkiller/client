@@ -14,18 +14,25 @@ interface SignUpProps {
 const SignUp = (props: SignUpProps) => {
   const { setMode } = props;
 
-  const [isAdminable, setIsAdminable] = useState(false);
   const majorList = Object.keys(MAJOR);
 
   const { value: id, handleValue: handleId } = useInput<string>('');
   const { value: pw, handleValue: handlePw } = useInput<string>('');
   const { value: name, handleValue: handleName } = useInput<string>('');
   const { value: major, handleValue: handleMajor } = useInput<string>('');
+  const [isAdminable, setIsAdminable] = useState(false);
   const { mutate } = useSignUp();
 
   const onSubmit = () => {
     mutate(
-      { id: id, password1: pw, password2: pw, major: MAJOR[major], name: name },
+      {
+        id: id,
+        password1: pw,
+        password2: pw,
+        major: MAJOR[major],
+        name: name,
+        is_adminable: isAdminable,
+      },
       {
         onSuccess: () => setMode(false),
       }
