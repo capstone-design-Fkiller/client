@@ -61,7 +61,7 @@ const AssignPage = () => {
         ) : (
           <>
             {assigns && assigns.length === 0 ? (
-              <Styled.Message>사물함 배정 기간이 아닙니다.</Styled.Message>
+              <Styled.Message>배정된 사물함이 없습니다.</Styled.Message>
             ) : (
               <>
                 <Styled.TableContainer>
