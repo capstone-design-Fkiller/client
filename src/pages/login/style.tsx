@@ -22,33 +22,11 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary_200};
 `;
 
-export const FormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-`;
-
-export const ButtonWrapper = styled.div`
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  margin-bottom: 30px;
-`;
-
-export const Input = styled.input`
-  padding: 15px 10px;
-  width: 100%;
+export const Toggle = styled.p`
   font-size: 14px;
-  margin-bottom: 10px;
-  border: none;
-  border-radius: 5px;
-  box-shadow: ${({ theme }) => theme.shadow.type_1};
-`;
+  color: ${({ theme }) => theme.colors.grey_200};
+  text-decoration: underline;
 
-export const ExtendedButton = css`
   margin-top: 20px;
+  cursor: pointer;
 `;

@@ -1,87 +1,26 @@
-import { useState, KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import * as Styled from './style';
 
-import Button from '@/components/common/Button';
+import Login from '@/components/auth/login';
+import SignUp from '@/components/auth/signup';
 import PageTemplate from '@/components/common/PageTamplate';
-import useInput from '@/hooks/useInput';
-import { useLogin } from '@/query/user';
-import { PATH } from '@/utils/path';
-
-const USER_TYPE = {
-  STUDENT: 'student',
-  ADMIN: 'admin',
-};
-type LoginType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
+import { Separator } from '@/components/common/Separator';
 
 function LoginPage() {
-  const navigate = useNavigate();
-  const [loginType, setLoginType] = useState<LoginType>(USER_TYPE.STUDENT);
-
-  const { value: id, handleValue: handleId } = useInput<string>('');
-  const { value: pw, handleValue: handlePw } = useInput<string>('');
-  const { mutate } = useLogin();
-
-  const handleLoginType = (type: LoginType) => {
-    setLoginType(type);
-  };
-
-  const onSubmit = () => {
-    mutate(
-      { is_usermode: USER_TYPE.STUDENT === loginType, id: id, password: pw },
-      {
-        onSuccess: () => navigate(PATH.MAIN),
-      }
-    );
-  };
-
-  const handleKeyboard = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') onSubmit();
-  };
-
-  const handleButton = () => {
-    onSubmit();
-  };
+  const [mode, setMode] = useState(false);
 
   return (
     <PageTemplate>
       <Styled.Root>
         <Styled.Title>HUFS LOCKER</Styled.Title>
-        <Styled.FormContainer onSubmit={onSubmit}>
-          <Styled.ButtonWrapper>
-            <Button
-              variant={loginType === USER_TYPE.STUDENT ? 'contained' : 'outlined'}
-              onClick={() => handleLoginType(USER_TYPE.STUDENT)}
-            >
-              학생 로그인
-            </Button>
-            <Button
-              variant={loginType === USER_TYPE.ADMIN ? 'contained' : 'outlined'}
-              onClick={() => handleLoginType(USER_TYPE.ADMIN)}
-            >
-              관리자 로그인
-            </Button>
-          </Styled.ButtonWrapper>
-          <Styled.Input
-            type='text'
-            placeholder='아이디를 입력해주세요.'
-            value={id}
-            autoFocus
-            onChange={handleId}
-            onKeyDown={handleKeyboard}
-          />
-          <Styled.Input
-            type='password'
-            placeholder='비밀번호를 입력해주세요.'
-            value={pw}
-            onChange={handlePw}
-            onKeyDown={handleKeyboard}
-          />
-          <Button variant='contained' onClick={handleButton} css={Styled.ExtendedButton}>
-            로그인하기
-          </Button>
-        </Styled.FormContainer>
+        {mode ? <SignUp setMode={setMode} /> : <Login />}
+
+        <Separator css={{ marginTop: '30px' }} />
+
+        <Styled.Toggle onClick={() => setMode(!mode)}>
+          {mode ? '로그인' : '회원가입'}하러 가기
+        </Styled.Toggle>
       </Styled.Root>
     </PageTemplate>
   );
