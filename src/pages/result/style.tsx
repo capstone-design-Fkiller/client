@@ -22,7 +22,7 @@ export const Title = styled.h1`
 `;
 
 export const TitleMajor = styled.h1`
-  font-size: 17px;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
   color: ${({ theme }) => theme.colors.primary_100};

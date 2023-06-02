@@ -18,12 +18,13 @@ export const Title = styled.h1`
   font-size: 25px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: ${({ theme }) => theme.colors.primary_300};
+  color: ${({ theme }) => theme.colors.primary_200};
 `;
 
 export const InformText = styled.div`
   font-size: 14px;
   font-weight: 400;
   text-align: center;
+  margin-bottom: 5px;
   color: ${({ theme }) => theme.colors.grey_300};
 `;
