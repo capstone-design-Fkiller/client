@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const TableContainer = styled.table`
   width: 100%;
+
   margin-top: 15px;
   border-collapse: collapse;
   & tr > td,
@@ -19,12 +20,30 @@ export const TableContainer = styled.table`
   }
 `;
 
+export const Wrapper = styled.div`
+  width: 340px;
+  overflow-x: scroll;
+
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: ${({ theme }) => theme.colors.background_2};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.primary_100};
+    border-radius: 10px;
+    height: 5px;
+  }
+`;
+
 export const Message = styled.h1`
   display: flex;
   font-size: 18px;
   justify-content: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin: 150px 0;
 `;
 
 export const ModalContent = styled.div`

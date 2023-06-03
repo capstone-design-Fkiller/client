@@ -37,6 +37,7 @@ export const HeaderIconsArrange = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 export const AlertModalTitle = styled.div`
   text-align: center;
 
@@ -55,6 +56,7 @@ export const ModalBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   height: 90%;
   padding-top: 30px;
@@ -84,6 +86,7 @@ export const AlertModalListItems = styled.div`
 
   font-size: 13px;
   border-radius: 5px;
+  width: 97%;
 
   ${({ theme }) =>
     css`

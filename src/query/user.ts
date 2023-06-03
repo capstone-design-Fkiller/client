@@ -1,12 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { instance } from '@/api/instance';
-import { postLogin as postLogin, getMe } from '@/api/user';
+import { postLogin as postLogin, getMe, postSignUp, getShareUser } from '@/api/user';
 import useToast from '@/hooks/useToast';
-import { LoginRequest, UserResponse } from '@/types/user';
+import { LoginRequest, SignUpRequest, UserResponse } from '@/types/user';
 
 const QUERY_KEY = {
   user: 'user',
+  shareUser: 'shareUser',
 };
 
 export const useLogin = () => {
@@ -26,6 +27,20 @@ export const useLogin = () => {
       createToastMessage('아이디와 비밀번호를 확인해주세요!', 'error');
     },
   });
+  return mutation;
+};
+
+export const useSignUp = () => {
+  const { createToastMessage } = useToast();
+  const mutation = useMutation((body: SignUpRequest) => postSignUp(body), {
+    onSuccess: () => {
+      createToastMessage('회원가입에 성공했습니다.', 'success');
+    },
+    onError: () => {
+      createToastMessage('다시 시도해주세요!', 'error');
+    },
+  });
+
   return mutation;
 };
 
@@ -52,4 +67,19 @@ export const useFetchMe = () => {
   };
 
   return { me: isError ? undefined : data, isLoading, logout };
+};
+
+export const useFetchShareUser = (userId: number) => {
+  const { data, isLoading, isError } = useQuery<UserResponse>(
+    [QUERY_KEY.shareUser],
+    () => getShareUser(userId),
+    {
+      suspense: false,
+      refetchOnWindowFocus: false,
+      staleTime: 10000,
+      useErrorBoundary: false,
+    }
+  );
+
+  return { user: isError ? undefined : data, isLoading };
 };

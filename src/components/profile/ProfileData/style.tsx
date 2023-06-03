@@ -1,37 +1,34 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
+export const MyInfo = styled.div`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 50px;
+
+  p {
+    font-size: 20px;
+    font-weight: bold;
+  }
+`;
 
 export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
   width: 100%;
-  padding: 0 15px;
-  margin-bottom: 20px;
-
-  border: 1px solid ${({ theme }) => theme.colors.light_grey_200};
-  border-radius: 5px;
+  margin-bottom: 30px;
 `;
 
 export const InnerBox = styled.div`
-  width: auto;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  padding: 10px 0;
+  justify-content: center;
+  margin-left: 10px;
+  gap: 20px;
 `;
 
-export const InfoRow = styled.div`
-  display: flex;
-  align-items: center;
-
-  margin-bottom: 8px;
-`;
-
-export const LockerIcon = css`
-  margin: 20px 0 10px;
+export const BoldText = styled.b`
+  font-weight: bold;
 `;

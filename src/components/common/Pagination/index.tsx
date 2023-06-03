@@ -3,6 +3,7 @@ import { MouseEvent, Dispatch, SetStateAction, useMemo, useEffect } from 'react'
 import * as Styled from './style';
 
 import Icon from '@/components/common/Icon';
+import { PAGE_OFFSET } from '@/constants/page_offset';
 
 interface PaginationProps {
   currentPage: number;
@@ -39,9 +40,13 @@ const Pagination = (props: PaginationProps) => {
     setState(page);
   };
 
+  const currentGroup = Math.ceil(currentPage / PAGE_OFFSET);
+  const startPage = (currentGroup - 1) * PAGE_OFFSET + 1;
+  const endPage = Math.min(startPage + PAGE_OFFSET - 1, totalPages);
+
   const pageLists = useMemo(
-    () => Array.from({ length: totalPages }, (_, idx) => idx + 1),
-    [totalPages]
+    () => Array.from({ length: endPage - startPage + 1 }, (_, idx) => startPage + idx),
+    [startPage, endPage]
   );
 
   return (

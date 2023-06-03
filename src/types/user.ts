@@ -10,6 +10,8 @@ export interface UserResponse {
   is_adminable: boolean;
   is_valid: boolean;
   created_at: string;
+  locker_id: number | undefined;
+  // locker: LockerResponse | undefined;
 }
 
 export interface LoginRequest {
@@ -22,4 +24,13 @@ export interface LoginResponse {
   user: UserResponse;
   refresh_token: string;
   access_token: string;
+}
+
+export interface SignUpRequest {
+  password1: string;
+  password2: string;
+  id: string;
+  major: number;
+  name: string;
+  is_adminable: boolean;
 }

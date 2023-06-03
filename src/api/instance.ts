@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 export const BASE_URL = `http://${
-  import.meta.env.VITE_DEV_SERVER
-  // import.meta.env.PROD ? import.meta.env.VITE_PROD_SERVER : import.meta.env.VITE_DEV_SERVER
+  import.meta.env.PROD ? import.meta.env.VITE_PROD_SERVER : import.meta.env.VITE_DEV_SERVER
 }`;
 
 export const instance = axios.create({

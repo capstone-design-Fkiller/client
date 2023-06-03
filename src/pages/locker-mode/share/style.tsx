@@ -80,11 +80,11 @@ export const Separator = styled.hr`
 
 export const ExtendedButton = (theme: Theme) => css`
   &.disabled {
-    background-color: ${theme.colors.light_grey_200};
+    background-color: ${theme.colors.light_grey_100};
     color: ${theme.colors.black};
   }
 
   &.disabled:hover {
-    background-color: ${theme.colors.grey_400};
+    background-color: ${theme.colors.light_grey_200};
   }
 `;

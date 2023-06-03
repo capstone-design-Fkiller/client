@@ -13,7 +13,7 @@ import DateBox from '@/components/share/DateBox';
 import { CRITERIA } from '@/constants/criteria';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
-import { usePutMajor } from '@/query/major';
+import { usePatchMajor } from '@/query/major';
 import { useFetchMe } from '@/query/user';
 import { MajorPriorityRequest } from '@/types/major';
 import { formatDate } from '@/utils/date';
@@ -33,7 +33,7 @@ const AdminCriteriaPage = () => {
   const handleChange2 = (e: MouseEvent<HTMLLIElement>) => setPriority2(e.currentTarget.innerText);
   const handleChange3 = (e: MouseEvent<HTMLLIElement>) => setPriority3(e.currentTarget.innerText);
   const handleChangeBase = (e: MouseEvent<HTMLLIElement>) => setBaserule(e.currentTarget.innerText);
-  const { mutate } = usePutMajor();
+  const { mutate } = usePatchMajor();
 
   const getPriorityList = (currentPriority: number) => {
     const criteriaList = Object.keys(CRITERIA);
@@ -69,16 +69,15 @@ const AdminCriteriaPage = () => {
     const [start, end] = selectedDate
       .toString()
       .split(',')
-      .map(date => new Date(date).toISOString());
+      .map(date => new Date(date));
 
     const body: Partial<MajorPriorityRequest> = {
       id: MAJOR[me?.major ?? '학과'],
-      name: me?.major ?? '학과',
       priority_1: priority1 === '선택 없음' ? null : CRITERIA[priority1],
       priority_2: priority2 === '선택 없음' ? null : CRITERIA[priority2],
       priority_3: priority3 === '선택 없음' ? null : CRITERIA[priority3],
-      apply_start_date: new Date(start),
-      apply_end_date: new Date(end),
+      apply_start_date: `${start}`,
+      apply_end_date: `${end}`,
       is_baserule_FCFS: baserule === '선착순' ? false : true,
     };
 
@@ -118,8 +117,8 @@ const AdminCriteriaPage = () => {
         <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
         <Styled.SelectWrapper>
-          <DateBox label='배정 접수 시작일' date={date[0]} />
-          <DateBox label='배정 접수 종료일' date={date[1]} />
+          <DateBox label='사물함 신청 시작일' date={date[0]} />
+          <DateBox label='사물함 신청 종료일' date={date[1]} />
         </Styled.SelectWrapper>
 
         <Styled.Container>
