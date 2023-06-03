@@ -43,7 +43,11 @@ const AdminMainPage = () => {
                 </Button>
               </>
             ) : (
-              <Button variant='contained' onClick={() => navigate(PATH.SORT)}>
+              <Button
+                variant='contained'
+                startIcon={<Icon iconName='box' />}
+                onClick={() => navigate(PATH.SORT)}
+              >
                 사물함 배정 확정
               </Button>
             )}
