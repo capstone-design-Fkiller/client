@@ -78,7 +78,7 @@ const SortPage = () => {
           handleDelete={handleDeleteResult}
         />
         {/* 이 조건은 테스트할 땐 빼야할 듯! */}
-        {(checkApplicationDate() && sorts?.length) ? (
+        {sorts?.length ? (
           <Button variant='contained' color='primary' onClick={handleSubmitResult}>
             배정 확정하기
           </Button>
