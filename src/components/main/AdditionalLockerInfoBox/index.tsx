@@ -1,5 +1,4 @@
 import * as Styled from './style';
-import DateInfo from '../DateInfo';
 import LockerLabel from '../LockerLabel';
 
 import Icon from '@/components/common/Icon';

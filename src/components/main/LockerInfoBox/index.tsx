@@ -4,8 +4,7 @@ import LockerLabel from '../LockerLabel';
 
 import Icon from '@/components/common/Icon';
 import { getBuildingName } from '@/constants/building';
-import { MAJOR, getMajorName } from '@/constants/major';
-import { useFetchApplicantCheck } from '@/query/locker';
+import { getMajorName } from '@/constants/major';
 import { LockerResponse } from '@/types/locker';
 import { SortResponse } from '@/types/sort';
 import { UserResponse } from '@/types/user';
