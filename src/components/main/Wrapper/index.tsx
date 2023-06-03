@@ -23,21 +23,21 @@ const StudentLocker = (props: ProfileProps) => {
 
       {<LockerInfoBox.Status locker={locker} me={me} applyCheck={applyCheck} />}
 
-      {locker?.owned_id == me.id && locker.shared_id && (
+      {locker?.shared_id == me.id && (
         <AdditionalLockerInfoBox
           locker={locker}
           userId={locker?.owned_id}
           me={me}
-          shareType='빌린 사람'
+          shareType='빌려준 사람'
         />
       )}
 
-      {locker?.shared_id == me.id && (
+      {locker?.owned_id == me.id && locker.shared_id && (
         <AdditionalLockerInfoBox
           locker={locker}
           userId={locker?.shared_id}
           me={me}
-          shareType='빌려준 사람'
+          shareType='빌린 사람'
         />
       )}
 
