@@ -11,7 +11,6 @@ import { SortResponse } from '@/types/sort';
 
 interface SortResultProps {
   isLoading: boolean;
-  sorts: SortResponse[] | undefined;
 
   currentSort: SortResponse[] | undefined;
   currentPage: number;
@@ -19,26 +18,27 @@ interface SortResultProps {
   handleDelete: (id: number) => void;
 }
 
-const TABLE_HEADER = ['학번', '1st', '2nd', '3rd', '신청시간', '건물', '삭제'];
+const TABLE_HEADER = ['No.', '학번', '1st', '2nd', '3rd', '신청시간', '건물', '삭제'];
 
 const SortResult = (props: SortResultProps) => {
-  const { currentPage, setCurrentPage, currentSort, handleDelete, isLoading, sorts } = props;
+  const { currentPage, setCurrentPage, currentSort, handleDelete, isLoading } = props;
 
   if (isLoading) return <Loader />;
-
-  if (sorts && !sorts.length) return <Styled.Message>사물함 신청자가 없습니다.</Styled.Message>;
+  if (!currentSort?.length) return <Styled.Message>사물함 신청자가 없습니다.</Styled.Message>;
 
   return (
     <>
-      <Styled.TableContainer>
-        <TableHead headers={TABLE_HEADER} />
-        <TableContent
-          contents={
-            currentSort?.slice((currentPage - 1) * PAGE_OFFSET, currentPage * PAGE_OFFSET) || []
-          }
-          handleDelete={handleDelete}
-        />
-      </Styled.TableContainer>
+      <Styled.Wrapper>
+        <Styled.TableContainer>
+          <TableHead headers={TABLE_HEADER} />
+          <TableContent
+            contents={
+              currentSort?.slice((currentPage - 1) * PAGE_OFFSET, currentPage * PAGE_OFFSET) || []
+            }
+            handleDelete={handleDelete}
+          />
+        </Styled.TableContainer>
+      </Styled.Wrapper>
       <Pagination
         currentPage={currentPage}
         totalItems={currentSort?.length || 0}

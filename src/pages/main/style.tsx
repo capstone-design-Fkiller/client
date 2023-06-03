@@ -14,3 +14,12 @@ export const Root = styled.section`
       min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight});
     `};
 `;
+
+export const LockerInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;

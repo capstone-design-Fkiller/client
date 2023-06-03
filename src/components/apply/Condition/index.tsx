@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 
 import Button from '@/components/common/Button';
 import { MajorPriorityAnswerRequest, MajorPriorityResponse, MajorResponse } from '@/types/major';
@@ -20,21 +20,22 @@ const Condition = (props: ConditionProps) => {
     ([key, condt]) => condt && key !== 'is_baserule_FCFS'
   );
 
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>, order: string) => {
-    let value: number | boolean;
-
+  const calculateValue = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.type === 'checkbox') {
-      value = e.target.checked || false;
-    } else {
-      const inputValue = Number(e.target.value);
-      if (inputValue < 0) {
-        alert('0 이상인 값만 입력 가능합니다.');
-        e.target.value = '';
-      } // 음수 작성 못하게
-      else {
-        value = inputValue;
-      }
+      return e.target.checked || false;
     }
+    const inputValue = Number(e.target.value);
+
+    if (inputValue < 0) {
+      alert('0 이상인 값만 입력 가능합니다.');
+      e.target.value = '';
+    } else {
+      return inputValue;
+    }
+  };
+
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>, order: string) => {
+    const value = calculateValue(e);
 
     setValue(prev => {
       const prevValue = { ...prev };
@@ -84,7 +85,7 @@ const Condition = (props: ConditionProps) => {
           : null}
       </div>
       <Button variant='contained' onClick={handleApplyButton} disabled={isSubmitDisabled}>
-        신청
+        {isSubmitDisabled ? '신청 기간이 아닙니다!' : '신청'}
       </Button>
     </Styled.Root>
   );

@@ -7,7 +7,8 @@ import dayjs, { Dayjs } from 'dayjs';
 import * as React from 'react';
 
 export default function TimePickerValue() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
+  const [applyStart, setApplyStart] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
+  const [applyEnd, setApplyEnd] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -16,17 +17,17 @@ export default function TimePickerValue() {
         sx={{ width: '100%', maxWidth: '340px' }}
       >
         <TimePicker
-          label='배정 시작 시간'
-          value={value}
-          onChange={newValue => setValue(newValue)}
+          label='사물함 신청 시작 시간'
+          value={applyStart}
+          onChange={newValue => setApplyStart(newValue)}
           sx={{ minWidth: '340px', width: '100%', maxWidth: '340px' }}
           //   css={Styled.ExtendedTimePicker}
         />
-
+        {/* 신청 시작일과 종료일이 같을 경우, 사물함 신청 종료 시간이 신청 시작 시간보다 빠를 수 있음 */}
         <TimePicker
-          label='배정 끝나는 시간'
-          value={value}
-          onChange={newValue => setValue(newValue)}
+          label='사물함 신청 종료 시간'
+          value={applyEnd}
+          onChange={newValue => setApplyEnd(newValue)}
           sx={{ minWidth: '340px', width: '100%', maxWidth: '340px' }}
           //   css={Styled.ExtendedTimePicker}
         />

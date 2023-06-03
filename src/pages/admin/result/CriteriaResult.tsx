@@ -51,7 +51,7 @@ const CriteriaResultPage = (props: ResultProps) => {
         </h2>
         <Styled.Container>
           <Styled.Subject>
-            <h3>사물함 배정 기간</h3>
+            <h3>사물함 신청 기간</h3>
             <span>
               <b>• 시작일:</b> {formatApplyStartDate}
             </span>

@@ -7,6 +7,7 @@ import {
   ConvertToShareRequest,
   ApplyShareRequest,
 } from '@/types/locker';
+import { SortResponse } from '@/types/sort';
 
 export const getLockerCounts = async (props: LockerRequest) => {
   const { data } = await instance.get('locker/', { params: props });
@@ -18,6 +19,14 @@ export const getApplicant = async (props: LockerRequest) => {
   const { data } = await instance.get(`apply/`, { params: props });
 
   return data;
+};
+
+export const getApplicantCheck = async (majorId: number, userId: number) => {
+  const { data } = await instance.get<SortResponse[]>(`apply/`, {
+    params: { major: majorId, user: userId },
+  });
+
+  return data[0];
 };
 
 export const postApplyLocker = async (body: RequestApplyLocker) => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
@@ -18,7 +18,7 @@ const SortPage = () => {
   if (!me) throw new Error();
 
   const navigate = useNavigate();
-  const { data: sorts, isLoading: isSortLoading } = useFetchSort(MAJOR[me?.major ?? '학과']);
+  const { data: sorts, isLoading: isSortLoading } = useFetchSort(MAJOR[me?.major || '학과']);
   const { mutate: assignMutate } = useLockerAssignMutation();
   const [currentSort, setCurrentSort] = useState(sorts);
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,11 +43,22 @@ const SortPage = () => {
   const handleSubmitResult = () => {
     const request = currentSort?.map(lock => lock.id);
     const res = confirm('확정 후엔 변경이 불가합니다.');
+
     if (res) {
-      assignMutate({ major: MAJOR[me.major], sortResult: { list: request || [] } });
-      navigate(PATH.MAIN);
+      assignMutate(
+        { major: MAJOR[me.major], sortResult: { list: request || [] } },
+        {
+          onSuccess: () => {
+            navigate(PATH.MAIN);
+          },
+        }
+      );
     }
   };
+
+  useEffect(() => {
+    setCurrentSort(sorts);
+  }, [sorts]);
 
   return (
     <PageTemplate>
@@ -59,7 +70,6 @@ const SortPage = () => {
         </Styled.InformText>
         <SortResult
           isLoading={isSortLoading}
-          sorts={sorts}
           currentSort={currentSort}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

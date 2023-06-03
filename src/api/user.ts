@@ -14,6 +14,11 @@ export const postLogin = async (type: LoginRequest) => {
   return data;
 };
 
+export const getShareUser = async (userId:number) => {
+  const { data } = await instance.get<UserResponse>(`user/${userId}`);
+
+  return data;
+};
 export const postSignUp = async (type: SignUpRequest) => {
   const { data } = await instance.post('registration/', type, {
     headers: {

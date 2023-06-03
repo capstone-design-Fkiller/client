@@ -40,7 +40,8 @@ const SignUp = (props: SignUpProps) => {
   };
 
   const handleKeyboard = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (['e', 'E', '+', '-'].includes(e.key)) e.preventDefault();
+    if (e.currentTarget.type === 'number' && ['e', 'E', '+', '-'].includes(e.key))
+      e.preventDefault();
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') e.preventDefault();
 
     if (e.key === 'Enter') onSubmit();
