@@ -30,9 +30,10 @@ const TableContent = ({ contents, handleDelete }: TableContentProps) => {
 
   return (
     <tbody>
-      {contents.map((result: SortResponse) => (
+      {contents.map((result: SortResponse, idx) => (
         <Fragment key={result.id}>
           <Styled.Row>
+            <Styled.Item>{idx + 1}</Styled.Item>
             <Styled.Item>{result.user}</Styled.Item>
             <Styled.Item>{renderItem(result.priority_1_answer)}</Styled.Item>
             <Styled.Item>{renderItem(result.priority_2_answer)}</Styled.Item>

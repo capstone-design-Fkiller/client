@@ -7,17 +7,17 @@ export interface LockerRequest {
 
 export interface LockerResponse {
   building_id: number;
-  end_date: string | null;
+  end_date: string;
   id: number;
   is_share_registered: boolean;
   major: string;
   floor: number;
   locker_number: number;
   owned_id: number | null;
-  share_end_date: string | null;
-  share_start_date: string | null;
+  share_end_date: string;
+  share_start_date: string;
   shared_id: number | null;
-  start_date: string | null;
+  start_date: string;
 }
 
 export interface RequestApplyLocker extends Partial<MajorPriorityAnswerRequest> {

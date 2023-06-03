@@ -4,8 +4,8 @@ import * as Styled from '../style';
 
 import Button from '@/components/common/Button';
 import PageTemplate from '@/components/common/PageTamplate';
-import Student from '@/components/main/Student';
-import StudentLocker from '@/components/main/StudentLocker';
+// import Student from '@/components/main/Student';
+import StudentLocker from '@/components/main/Wrapper';
 import { useConvertShareMutation, useFetchMyLocker } from '@/query/locker';
 import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
@@ -14,7 +14,11 @@ const StudentMainPage = () => {
   const navigate = useNavigate();
   const { me } = useFetchMe();
 
-  const { myLocker } = useFetchMyLocker(me?.id || 0);
+  if (!me) throw new Error('로그인을 해주세요!');
+
+  const { myLocker } = useFetchMyLocker(me.id || 0);
+
+  if (!myLocker) throw new Error('다시 시도해주세요!');
 
   const handleNavigate = (path: string) => {
     navigate(path);
@@ -22,10 +26,14 @@ const StudentMainPage = () => {
 
   const { mutate } = useConvertShareMutation();
 
+  const handleShareDelete = () => {
+    mutate({ id: myLocker.id, share_end_date: null, share_start_date: null });
+  };
+
   return (
     <PageTemplate>
       <Styled.Root>
-        {me ? (
+        {me && (
           <>
             <StudentLocker me={me} locker={myLocker} />
             {myLocker && !myLocker?.shared_id && !myLocker?.is_share_registered && (
@@ -40,29 +48,12 @@ const StudentMainPage = () => {
               </Button>
             )}
             {myLocker?.owned_id === me?.id &&
-            !myLocker?.shared_id &&
-            myLocker?.is_share_registered ? (
-              <Button
-                style={{ marginTop: '-50px' }}
-                variant='outlined'
-                onClick={() =>
-                  mutate({
-                    id: myLocker?.id || 0,
-                    share_start_date: null,
-                    share_end_date: null,
-                  })
-                }
-              >
-                쉐어 취소
-              </Button>
-            ) : undefined}
-          </>
-        ) : (
-          <>
-            <Student.Skeleton />
-            <Button variant='contained' onClick={() => handleNavigate(PATH.LOGIN)}>
-              로그인 하러 가기
-            </Button>
+              !myLocker?.shared_id &&
+              myLocker?.is_share_registered && (
+                <Button variant='outlined' onClick={handleShareDelete}>
+                  쉐어 취소
+                </Button>
+              )}
           </>
         )}
       </Styled.Root>

@@ -7,6 +7,7 @@ import { MajorPriorityRequest, MajorPriorityResponse, MajorResponse } from '@/ty
 const QUERY_KEY = {
   major: 'major',
   assign: 'assignResult',
+  sort: 'sort',
 };
 
 export const useFetchMajor = (params: number, isCondt?: boolean) => {

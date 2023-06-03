@@ -130,7 +130,12 @@ export const useConvertShareMutation = () => {
 
       navigate(PATH.MAIN);
     },
-    onError: () => createToastMessage('다시 시도해주세요.', 'error'),
+    onError: (error: AxiosError<{ message: string }>) => {
+      const res = error.response?.data;
+      if (!res) return;
+
+      createToastMessage(res.message, 'error');
+    },
   });
 
   return mutation;
@@ -143,7 +148,6 @@ export const useApplyShareLockerMutation = () => {
 
   const mutation = useMutation((body: ApplyShareRequest) => patchLockerShare(body), {
     onSuccess: ({ shared_id }) => {
-      // queryClient.invalidateQueries([QUERY_KEY.locker, id]); // 내 사물함 갱신
       queryClient.invalidateQueries([QUERY_KEY.locker, shared_id]).then(() => {
         createToastMessage('쉐어 신청 완료 !', 'success');
 

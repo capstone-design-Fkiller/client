@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 
-interface LockerInfoProps {
+interface LockerLabelProps {
   label: string;
   value: string;
 }
 
-const LockerInfo = (props: LockerInfoProps) => {
+const LockerLabel = (props: LockerLabelProps) => {
   const { label, value } = props;
 
   return (
@@ -16,7 +16,7 @@ const LockerInfo = (props: LockerInfoProps) => {
   );
 };
 
-export default LockerInfo;
+export default LockerLabel;
 
 const Styled = {
   InfoRow: styled.div`
