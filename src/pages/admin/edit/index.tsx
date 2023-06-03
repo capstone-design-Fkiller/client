@@ -244,7 +244,7 @@ const AdminEditPage = () => {
           <DateBox label='사물함 신청 시작일' date={date[0]} />
           <DateBox label='사물함 신청 종료일' date={date[1]} />
         </Styled.SelectWrapper>
-        <TimePickerValue />
+        {/* <TimePickerValue /> */}
         <Styled.SelectWrapper onClick={handleLockerDateSelectOpen}>
           <DateBox label='사물함 이용 시작일' date={lockerDate[0]} />
           <DateBox label='사물함 이용 종료일' date={lockerDate[1]} />
