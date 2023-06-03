@@ -56,7 +56,7 @@ const AdminMainPage = () => {
               startIcon={<Icon iconName='box' />}
               onClick={() => navigate(PATH.RESULT)}
             >
-              사물함 신청내역 확인
+              이번 학기 사물함 신청내역
             </Button>
           </>
         ) : (
