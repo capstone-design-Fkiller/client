@@ -25,7 +25,7 @@ const SortPage = () => {
   const { majorInfo } = useFetchMajor(MAJOR[me.major], false);
 
   const checkApplicationDate = () => {
-    if (!majorInfo?.apply_end_date) throw new Error();
+    if (!majorInfo?.apply_end_date) return false; //throw new Error();
 
     const applyEndDate = new Date(majorInfo?.apply_end_date);
     const now = new Date();
