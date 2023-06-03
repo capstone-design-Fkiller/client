@@ -30,12 +30,13 @@ const CriteriaResultPage = (props: ResultProps) => {
   const formatEndDate = formatResultDate(endDate);
 
   const checkApplicationDate = () => {
-    if (!major?.apply_end_date) throw new Error();
+    if (!major?.apply_start_date) return false; // throw new Error();
 
-    const applyEndDate = new Date(major?.apply_end_date);
+    const applyStartDate = new Date(major?.apply_start_date);
     const now = new Date();
 
-    if (applyEndDate >= now) return true;
+    // 신청 시간 전에는 허용
+    if (applyStartDate > now) return true;
   };
 
   if (!major) {

@@ -25,7 +25,9 @@ const SortPage = () => {
   const { majorInfo } = useFetchMajor(MAJOR[me.major], false);
 
   const checkApplicationDate = () => {
-    if (!majorInfo?.apply_end_date) throw new Error();
+    // if (!majorInfo?.apply_end_date) return false; //throw new Error();
+    // 테스트를 위해 허용으로 변경
+    if (!majorInfo?.apply_end_date) return false; //throw new Error();
 
     const applyEndDate = new Date(majorInfo?.apply_end_date);
     const now = new Date();
@@ -76,11 +78,11 @@ const SortPage = () => {
           handleDelete={handleDeleteResult}
         />
         {/* 이 조건은 테스트할 땐 빼야할 듯! */}
-        {checkApplicationDate() && (
+        {(checkApplicationDate() && sorts?.length) ? (
           <Button variant='contained' color='primary' onClick={handleSubmitResult}>
             배정 확정하기
           </Button>
-        )}
+        ): undefined}
       </Styled.Root>
     </PageTemplate>
   );
