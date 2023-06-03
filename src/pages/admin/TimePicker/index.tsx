@@ -7,8 +7,8 @@ import dayjs, { Dayjs } from 'dayjs';
 import * as React from 'react';
 
 export default function TimePickerValue() {
-  const [applyStart, setApplyStart] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
-  const [applyEnd, setApplyEnd] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
+  const [applyStart, setApplyStart] = React.useState<Dayjs | null>(dayjs());
+  const [applyEnd, setApplyEnd] = React.useState<Dayjs | null>(dayjs());
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
