@@ -117,8 +117,8 @@ const AdminCriteriaPage = () => {
         <CustomCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
         <Styled.SelectWrapper>
-          <DateBox label='배정 접수 시작일' date={date[0]} />
-          <DateBox label='배정 접수 종료일' date={date[1]} />
+          <DateBox label='사물함 신청 시작일' date={date[0]} />
+          <DateBox label='사물함 신청 종료일' date={date[1]} />
         </Styled.SelectWrapper>
 
         <Styled.Container>

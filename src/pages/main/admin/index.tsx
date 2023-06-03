@@ -28,13 +28,6 @@ const AdminMainPage = () => {
             >
               사물함 배정기준 설정
             </Button>
-            <Button
-              variant='contained'
-              startIcon={<Icon iconName='box' />}
-              onClick={() => navigate(PATH.RESULT)}
-            >
-              사물함 신청내역 확인
-            </Button>
             {assign?.at(0) ?? undefined ? (
               <>
                 <Button
@@ -54,6 +47,13 @@ const AdminMainPage = () => {
                 사물함 배정 확정
               </Button>
             )}
+            <Button
+              variant='contained'
+              startIcon={<Icon iconName='box' />}
+              onClick={() => navigate(PATH.RESULT)}
+            >
+              사물함 신청내역 확인
+            </Button>
           </>
         ) : (
           <Loader />
