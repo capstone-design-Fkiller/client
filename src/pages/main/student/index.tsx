@@ -50,7 +50,11 @@ const StudentMainPage = () => {
             {myLocker?.owned_id === me?.id &&
               !myLocker?.shared_id &&
               myLocker?.is_share_registered && (
-                <Button variant='outlined' onClick={handleShareDelete}>
+                <Button
+                  style={{ marginTop: '-50px' }}
+                  variant='outlined'
+                  onClick={handleShareDelete}
+                >
                   쉐어 취소
                 </Button>
               )}
