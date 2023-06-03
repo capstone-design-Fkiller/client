@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
@@ -86,6 +86,17 @@ const ApplyPage = () => {
     });
     handleModalOpen();
   };
+
+  // 신청 모달 닫으면 응답 값 초기화
+  useEffect(() => {
+    if (!open) {
+      setValue({
+        priority_1_answer: majorInfo?.priority_1?.is_bool && false,
+        priority_2_answer: majorInfo?.priority_2?.is_bool && false,
+        priority_3_answer: majorInfo?.priority_3?.is_bool && false,
+      });
+    }
+  }, [open]);
 
   return (
     <PageTemplate>
