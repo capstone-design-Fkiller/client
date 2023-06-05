@@ -42,7 +42,15 @@ const Locker = (props: LockerProps) => {
         </Styled.Building>
       </Styled.GradientWrapper>
       <Styled.Title>
-        {value} ( {applyCount} / {total} )
+        <p>신청자 수 : {applyCount}명</p>
+        <p>사물함 수 : {total}개</p>
+        <p>
+          배정 확률 :{' '}
+          <span style={{ fontWeight: '600', color: 'red' }}>
+            [{(applyCount / total).toFixed(2)} : 1]{' '}
+          </span>
+        </p>
+        {/* {value} ( {applyCount} / {total} ) */}
       </Styled.Title>
     </Styled.Root>
   );
@@ -84,5 +92,9 @@ const Styled = {
     border: 5px solid ${({ theme }) => theme.colors.light_grey_200};
   `,
 
-  Title: styled.h1``,
+  Title: styled.div`
+    display: grid;
+    grid-template-columns: auto;
+    font-size: 15px;
+  `,
 };
