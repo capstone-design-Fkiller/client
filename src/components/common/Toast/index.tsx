@@ -53,8 +53,6 @@ const ToastProvider = (props: PropsWithChildren) => {
             severity={state}
             sx={{
               minWidth: '300px',
-              display: Number(message.length) > 30 ? 'block' : 'flex',
-              textOverflow: 'inherit',
               maxWidth: '340px',
               width: '80%',
               marginTop: '20%',
