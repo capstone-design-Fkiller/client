@@ -8,6 +8,7 @@ if (process.env.PREVIEW_PATH) baseUrl += `${process.env.PREVIEW_PATH}`;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  appType: 'mpa',
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
