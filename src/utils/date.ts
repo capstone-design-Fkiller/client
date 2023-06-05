@@ -33,5 +33,21 @@ export const YYMMDD = (inputDate: string, time = false) => {
     return `${month}/${day} ${hour}:${minute}`;
   }
 
-  return `${year}${month}${day}`;
+  return `${year}.${month}.${day}`;
+};
+
+export const MMDD = (inputDate: string, time = false) => {
+  const date = new Date(inputDate);
+
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  if (time) {
+    const hour = date.getHours().toString().padStart(2, '0');
+    const minute = date.getMinutes().toString().padStart(2, '0');
+
+    return `${month}/${day} ${hour}:${minute}`;
+  }
+
+  return `${month}.${day}`;
 };
