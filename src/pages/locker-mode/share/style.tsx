@@ -20,7 +20,7 @@ export const Container = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 450px;
+  height: 350px;
 
   background-color: ${({ theme }) => theme.colors.white_300};
   border: 1px solid ${({ theme }) => theme.colors.light_grey_100};
@@ -45,13 +45,14 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary_200};
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 export const Inform = styled.p`
   color: ${({ theme }) => theme.colors.grey_100};
+  font-size: 14px;
 `;
 export const InformBox = styled.div`
   display: flex;

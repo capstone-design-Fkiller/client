@@ -41,11 +41,8 @@ const Sharable = (props: SharableProps) => {
         <Fragment key={item.id}>
           <Styled.SharedLocker isActive={id === item.id} onClick={() => handleSharableLocker(item)}>
             <div>
-              {item.owned_id} / {getBuildingName(item.building_id)} / {item.floor}층
-              <br />
-              {item.locker_number}번 / {item.major}
-            </div>
-            <div>
+              ✅ {item.owned_id} / {getBuildingName(item.building_id)} / {item.floor}층
+              <br /> {item.locker_number}번 / {item.major} /{' '}
               {formatDate(new Date(item.share_start_date as string), false)}
               {' ~ '}
               {formatDate(new Date(item.share_end_date as string), false)}
@@ -89,6 +86,7 @@ const Styled = {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 14px;
     gap: 5px;
 
     transition: color 0.15s ease-in-out;
