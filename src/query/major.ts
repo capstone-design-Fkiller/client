@@ -24,7 +24,25 @@ export const useFetchMajor = (params: number, isCondt?: boolean) => {
     }
   );
 
-  return { majorInfo };
+  const initPriorityValue = {
+    priority_1_answer: majorInfo?.priority_1?.name
+      ? majorInfo?.priority_1?.is_bool
+        ? false
+        : '-1'
+      : undefined,
+    priority_2_answer: majorInfo?.priority_2?.name
+      ? majorInfo?.priority_2?.is_bool
+        ? false
+        : '-1'
+      : undefined,
+    priority_3_answer: majorInfo?.priority_3?.name
+      ? majorInfo?.priority_3?.is_bool
+        ? false
+        : '-1'
+      : undefined,
+  };
+
+  return { majorInfo, initPriorityValue };
 };
 
 export const usePatchMajor = () => {

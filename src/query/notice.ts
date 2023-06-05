@@ -17,6 +17,9 @@ export const useFetchNotice = (major: number) => {
     onError: () => {
       createToastMessage('다시 시도해주세요.', 'error');
     },
+    staleTime: 60000,
+    refetchInterval: 60000,
+    refetchOnWindowFocus: false,
   });
   return { data: notices, isLoading };
 };
@@ -32,6 +35,9 @@ export const useFetchNoticeDetail = (noticeId: number) => {
       onError: () => {
         createToastMessage('다시 시도해주세요.', 'error');
       },
+      staleTime: 60000,
+      refetchInterval: 60000,
+      refetchOnWindowFocus: false,
     }
   );
   queryClient.invalidateQueries(QUERY_KEY.noticeDetail);

@@ -3,7 +3,6 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 
 import Button from '@/components/common/Button';
 import { MajorPriorityAnswerRequest, MajorPriorityResponse, MajorResponse } from '@/types/major';
-import { formatDate } from '@/utils/date';
 
 interface ConditionProps {
   majorInfo: MajorResponse | MajorPriorityResponse | undefined;
@@ -45,14 +44,23 @@ const Condition = (props: ConditionProps) => {
         [`${order}_answer`]: value,
       };
 
-      const isAllAnswersFilled = majorConditionList.every(([order]) => {
-        const answer = next[`${order}_answer` as keyof MajorPriorityAnswerRequest];
-        return answer && answer !== undefined && answer !== null && answer !== '';
-      });
-      setIsSubmitDisabled(!isAllAnswersFilled); // 모든 답변이 입력되었는지에 따라 버튼 활성화 상태 변경
+      handleDisabled(next);
 
       return next;
     });
+  };
+
+  const handleDisabled = (next: Partial<MajorPriorityAnswerRequest>) => {
+    const arr = Object.entries(next).filter(([, value]) => value !== undefined);
+
+    const isAllAnswersFilled = arr.every(([, value]) => {
+      if (value === '-1') return false;
+      if (typeof value !== 'boolean' && !value) return false;
+
+      return true;
+    });
+
+    setIsSubmitDisabled(!isAllAnswersFilled); // 모든 답변이 입력되었는지에 따라 버튼 활성화 상태 변경
   };
 
   return (
@@ -85,11 +93,9 @@ const Condition = (props: ConditionProps) => {
           : null}
       </div>
       <Button variant='contained' onClick={handleApplyButton} disabled={isSubmitDisabled}>
-        {
-          isSubmitDisabled // 다 입력 안했으면?
-            ? '신청' // 비활성화
-            : '신청'
-        }
+        {isSubmitDisabled // 다 입력 안했으면?
+          ? '신청' // 비활성화
+          : '신청'}
       </Button>
     </Styled.Root>
   );

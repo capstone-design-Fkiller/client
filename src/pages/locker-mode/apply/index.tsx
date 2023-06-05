@@ -41,12 +41,9 @@ const ApplyPage = () => {
   }
 
   const [structure, setStructure] = useState<string>('건물');
-  const { majorInfo } = useFetchMajor(MAJOR[me.major], true);
-  const { value, setValue } = useInput<Partial<MajorPriorityAnswerRequest>>({
-    priority_1_answer: majorInfo?.priority_1?.is_bool && false,
-    priority_2_answer: majorInfo?.priority_2?.is_bool && false,
-    priority_3_answer: majorInfo?.priority_3?.is_bool && false,
-  });
+  const { majorInfo, initPriorityValue } = useFetchMajor(MAJOR[me.major], true);
+
+  const { value, setValue } = useInput<Partial<MajorPriorityAnswerRequest>>(initPriorityValue);
   const { applicableBuildings } = useFetchApplicableBuilding(MAJOR[me.major]);
   const { mutate } = useApplyLockerMutation();
 
@@ -79,22 +76,14 @@ const ApplyPage = () => {
       user: me.id,
       ...value,
     });
-    setValue({
-      priority_1_answer: majorInfo?.priority_1?.is_bool && false,
-      priority_2_answer: majorInfo?.priority_2?.is_bool && false,
-      priority_3_answer: majorInfo?.priority_3?.is_bool && false,
-    });
+    setValue(initPriorityValue);
     handleModalOpen();
   };
 
   // 신청 모달 닫으면 응답 값 초기화
   useEffect(() => {
     if (!open) {
-      setValue({
-        priority_1_answer: majorInfo?.priority_1?.is_bool && false,
-        priority_2_answer: majorInfo?.priority_2?.is_bool && false,
-        priority_3_answer: majorInfo?.priority_3?.is_bool && false,
-      });
+      setValue(initPriorityValue);
     }
   }, [open]);
 
