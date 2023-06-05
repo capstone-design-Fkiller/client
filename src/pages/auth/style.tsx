@@ -8,10 +8,7 @@ export const Root = styled.div`
   align-items: center;
   padding: 0 30px;
 
-  ${({ theme }) =>
-    css`
-      min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight} - 60px);
-    `};
+  min-height: calc(var(--vh, 1vh) * 100);
 `;
 
 export const Title = styled.h1`

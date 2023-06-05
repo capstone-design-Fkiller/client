@@ -27,7 +27,7 @@ PageTemplate.WithoutOption = function PageTemplate(props: PropsWithChildren) {
   return (
     <Styled.Root>
       <Styled.Container>
-        <Styled.Main>{children}</Styled.Main>
+        <Styled.Main className='without'>{children}</Styled.Main>
       </Styled.Container>
     </Styled.Root>
   );

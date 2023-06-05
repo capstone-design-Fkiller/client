@@ -25,4 +25,8 @@ export const Container = styled.div`
 
 export const Main = styled.main`
   padding: 90px 0 125px 0;
+
+  &.without {
+    padding: 0;
+  }
 `;

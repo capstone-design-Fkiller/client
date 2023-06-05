@@ -11,7 +11,7 @@ function LoginPage() {
   const [mode, setMode] = useState(false);
 
   return (
-    <PageTemplate>
+    <PageTemplate.WithoutOption>
       <Styled.Root>
         <Styled.Title>HUFS LOCKER</Styled.Title>
         {mode ? <SignUp setMode={setMode} /> : <Login />}
@@ -22,7 +22,7 @@ function LoginPage() {
           {mode ? '로그인' : '회원가입'}하러 가기
         </Styled.Toggle>
       </Styled.Root>
-    </PageTemplate>
+    </PageTemplate.WithoutOption>
   );
 }
 
