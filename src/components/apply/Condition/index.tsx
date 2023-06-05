@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import Button from '@/components/common/Button';
 import { MajorPriorityAnswerRequest, MajorPriorityResponse, MajorResponse } from '@/types/major';
@@ -12,7 +12,7 @@ interface ConditionProps {
 
 const Condition = (props: ConditionProps) => {
   const { majorInfo, setValue, handleApplyButton } = props;
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true); // 초기에는 버튼 비활성화 상태로 설정
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false); // 초기에는 버튼 비활성화 상태로 설정
 
   if (!majorInfo) return <span>추가 조건이 없습니다!</span>;
 
@@ -62,6 +62,11 @@ const Condition = (props: ConditionProps) => {
 
     setIsSubmitDisabled(!isAllAnswersFilled); // 모든 답변이 입력되었는지에 따라 버튼 활성화 상태 변경
   };
+
+  useEffect(() => {
+    if (!majorConditionList.length) setIsSubmitDisabled(false);
+    else setIsSubmitDisabled(true);
+  }, []);
 
   return (
     <Styled.Root>

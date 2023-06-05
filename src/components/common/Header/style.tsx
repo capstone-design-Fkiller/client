@@ -55,7 +55,7 @@ export const AlertModalTitle = styled.div`
 export const ModalBody = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   height: 90%;
