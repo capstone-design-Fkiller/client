@@ -45,9 +45,9 @@ const Locker = (props: LockerProps) => {
         <p>신청자 수 : {applyCount}명</p>
         <p>사물함 수 : {total}개</p>
         <p>
-          배정 확률 :{' '}
+          {'경쟁률 : '}
           <span style={{ fontWeight: '600', color: 'red' }}>
-            [{(applyCount / total).toFixed(2)} : 1]{' '}
+            [{(applyCount / total).toFixed(2)} : 1]
           </span>
         </p>
         {/* {value} ( {applyCount} / {total} ) */}
