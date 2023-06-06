@@ -5,10 +5,11 @@ export const TableContainer = styled.table`
   margin-top: 15px;
 
   border-collapse: collapse;
+  text-overflow: ellipsis;
 
   & tr > td,
   & tr > th {
-    padding: 10px 0;
+    padding: 10px 5px;
     white-space: nowrap;
 
     &:first-of-type {
