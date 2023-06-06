@@ -26,7 +26,7 @@ export const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.light_grey_100};
   border-radius: 5px;
 
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 
   overflow-y: auto;
   scrollbar-width: thin;
@@ -47,7 +47,7 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary_200};
   font-size: 1.1rem;
 
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 `;
 
 export const Inform = styled.p`
