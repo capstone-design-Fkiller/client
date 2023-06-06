@@ -12,7 +12,7 @@ import Select from '@/components/common/Select';
 import DateModal from '@/components/criteria/DateModal';
 import CustomCalendar from '@/components/share/Calendar';
 import DateBox from '@/components/share/DateBox';
-import { CRITERIA } from '@/constants/criteria';
+import { CRITERIA, getCRITERIA } from '@/constants/criteria';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
 import { useFetchSavedMajor, usePatchMajor } from '@/query/major';
@@ -46,9 +46,9 @@ const AdminEditPage = () => {
   const storedPriority2 = majorInfo?.priority_2?.name || '선택 없음';
   const storedPriority3 = majorInfo?.priority_3?.name || '선택 없음';
 
-  const [priority1, setPriority1] = useState<string>('선택 없음');
-  const [priority2, setPriority2] = useState<string>('선택 없음');
-  const [priority3, setPriority3] = useState<string>('선택 없음');
+  const [priority1, setPriority1] = useState<string>(getCRITERIA(storedPriority1)); // 저장된 데이터를 초기 value로 설정.
+  const [priority2, setPriority2] = useState<string>(getCRITERIA(storedPriority2));
+  const [priority3, setPriority3] = useState<string>(getCRITERIA(storedPriority3));
   const [baserule, setBaserule] = useState<string>(() => {
     const storedBaseRule = majorInfo?.is_baserule_FCFS;
     return storedBaseRule ? '선착순' : '랜덤';
