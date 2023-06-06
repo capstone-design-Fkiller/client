@@ -94,7 +94,7 @@ export const Textarea = styled.textarea`
     font-size: 14px;
   }
 
-  &::-webkit-scrollbar {
+  &::-webkit- {
     width: 5px;
     background-color: ${({ theme }) => theme.colors.background_2};
   }

@@ -108,13 +108,15 @@ const ApplyPage = () => {
       </Styled.Root>
 
       <Modal title='학과별 조건 입력' open={open} onClose={handleModalOpen}>
-        {me && (
-          <Condition
-            majorInfo={majorInfo}
-            setValue={setValue}
-            handleApplyButton={handleApplyButton}
-          />
-        )}
+        <Styled.ModalContent>
+          {me && (
+            <Condition
+              majorInfo={majorInfo}
+              setValue={setValue}
+              handleApplyButton={handleApplyButton}
+            />
+          )}
+        </Styled.ModalContent>
       </Modal>
     </PageTemplate>
   );

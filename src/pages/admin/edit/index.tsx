@@ -240,7 +240,10 @@ const AdminEditPage = () => {
           <span>배정 날짜와 동점자 배정 기준은 필수 항목입니다.</span>
         </Styled.InformText>
         <Styled.Explanation>
-          <span>학과 학생에게 사물함 신청 받을 기간을 설정합니다</span>
+          <span>
+            <span style={{ fontSize: '16px' }}>⏷</span> 학과 학생에게 사물함 신청 받을 기간을
+            설정합니다
+          </span>
           <br />
           <span>예: 3월 10일 목요일 ~ 3월 15일 일요일</span>
         </Styled.Explanation>
@@ -250,7 +253,10 @@ const AdminEditPage = () => {
         </Styled.SelectWrapper>
         {/* <TimePickerValue /> */}
         <Styled.Explanation>
-          <span>학과 학생이 사물함을 이용할 기간을 설정합니다</span>
+          <span>
+            <span style={{ fontSize: '16px' }}>⏷</span> 학과 학생이 사물함을 이용할 기간을
+            설정합니다
+          </span>
           <br />
           <span>예: 한 학기(3월 15일 수요일 ~ 8월 19일 금요일)</span>
         </Styled.Explanation>

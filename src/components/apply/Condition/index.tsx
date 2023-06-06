@@ -105,11 +105,13 @@ const Condition = (props: ConditionProps) => {
             ))
           : null}
       </div>
-      <Button variant='contained' onClick={handleApplyButton} disabled={isSubmitDisabled}>
-        {isSubmitDisabled // 다 입력 안했으면?
-          ? '신청' // 비활성화
-          : '신청'}
-      </Button>
+      <Styled.ApplyButton>
+        <Button variant='contained' onClick={handleApplyButton} disabled={isSubmitDisabled}>
+          {isSubmitDisabled // 다 입력 안했으면?
+            ? '신청' // 비활성화
+            : '신청'}
+        </Button>
+      </Styled.ApplyButton>
     </Styled.Root>
   );
 };
@@ -123,6 +125,9 @@ const Styled = {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  `,
+  ApplyButton: styled.div`
+    padding-bottom: 20px;
   `,
 
   ConditionWrapper: styled.div`
