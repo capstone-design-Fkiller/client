@@ -12,8 +12,6 @@ interface DateInfoProps {
 const DateInfo = (props: DateInfoProps) => {
   const { start_label, start_date, end_label, end_date } = props;
 
-  console.log(start_date);
-
   return (
     <>
       <LockerLabel label={start_label} value={YYMMDD(start_date) ?? '-'} />

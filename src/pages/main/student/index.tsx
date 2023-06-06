@@ -18,8 +18,6 @@ const StudentMainPage = () => {
 
   const { myLocker } = useFetchMyLocker(me.id || 0);
 
-  // if (!myLocker) throw new Error('다시 시도해주세요!');
-
   const handleNavigate = (path: string) => {
     navigate(path);
   };
@@ -28,6 +26,7 @@ const StudentMainPage = () => {
 
   const handleShareDelete = () => {
     if (!myLocker) return;
+
     mutate({ id: myLocker.id, share_end_date: null, share_start_date: null });
   };
 
@@ -41,9 +40,7 @@ const StudentMainPage = () => {
               <Button
                 style={{ marginTop: '-50px' }}
                 variant='contained'
-                onClick={() => {
-                  return handleNavigate(PATH.USER_SHARE);
-                }}
+                onClick={() => handleNavigate(PATH.USER_SHARE)}
               >
                 사물함 쉐어하기
               </Button>
