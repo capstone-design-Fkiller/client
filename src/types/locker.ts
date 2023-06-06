@@ -14,9 +14,11 @@ export interface LockerResponse {
   floor: number;
   locker_number: number;
   owned_id: number | null;
+  owned_name: string | null;
   share_end_date: string;
   share_start_date: string;
   shared_id: number | null;
+  shared_name: string | null;
   start_date: string;
 }
 
