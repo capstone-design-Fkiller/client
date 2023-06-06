@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { Theme, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
@@ -80,32 +80,28 @@ export const ModalBody = styled.div`
   }
 `;
 
-export const AlertModalListItems = styled.div`
-  margin: 0 0 5px 0;
-  padding: 10px;
+export const ExtendedAlertIcon = (theme: Theme) => css`
+  position: relative;
 
-  font-size: 13px;
-  border-radius: 5px;
-  width: 97%;
+  &::before {
+    content: '';
+    position: absolute;
+    right: 1px;
+    top: 4px;
 
-  ${({ theme }) =>
-    css`
-      color: ${theme.colors.black};
-      background-color: ${theme.colors.background_2};
-    `}
-`;
-
-export const AlertInfo = styled.p`
-  font-size: 11px;
-  text-align: end;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: ${theme.colors.error_100};
+  }
 `;
 
 export const CountAlert = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background-color: red;
   color: white;
