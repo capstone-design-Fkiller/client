@@ -72,7 +72,15 @@ const Condition = (props: ConditionProps) => {
     <Styled.Root>
       <div>
         <Styled.Description>
-          동점자는 {majorInfo.is_baserule_FCFS ? '선착순' : '랜덤'} 우선배정됩니다 😊
+          • 동점자는 {majorInfo.is_baserule_FCFS ? '선착순' : '랜덤'} 우선배정됩니다 😊
+        </Styled.Description>
+        <br />
+        <Styled.Description>
+          • 우선순위가 높은 학생부터 차례대로 사물함이 배정됩니다.
+        </Styled.Description>
+        <br />
+        <Styled.Description>
+          • 허위 답변의 경우, 관리자 확인 후 신청이 취소될 수 있습니다.
         </Styled.Description>
         <br />
         {majorConditionList.length
@@ -191,7 +199,7 @@ const Styled = {
 
   Description: styled.p`
     color: ${({ theme }) => theme.colors.grey_300};
-    font-size: 15px;
-    text-align: center;
+    font-size: 13px;
+    text-align: left;
   `,
 };

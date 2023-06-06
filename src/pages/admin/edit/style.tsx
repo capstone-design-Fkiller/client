@@ -39,7 +39,7 @@ export const SelectWrapper = styled.div`
   gap: 10px;
 
   width: 100%;
-  margin: 20px 0 10px 0;
+  margin-top: 20px;
 `;
 
 export const DateText = styled.span`
@@ -76,7 +76,7 @@ export const InformBox = styled.div`
   align-items: flex-start;
 
   width: 100%;
-  padding: 10px;
+  padding: 0 10px 10px 10px;
 
   border: 1px solid ${({ theme }) => theme.colors.light_grey_100};
   border-top: 1px solid ${({ theme }) => theme.colors.background_2};
@@ -118,4 +118,27 @@ export const Labels = styled.div`
     font-weight: 400;
     color: ${({ theme }) => theme.colors.primary_300};
   }
+`;
+
+export const Explanation = styled.span`
+  font-weight: 300;
+  font-size: 13px;
+  color: ${({ theme }) => theme.colors.grey_200};
+  text-align: center;
+  position: relative;
+  /* top: -10px; */
+  top: 13px;
+`;
+
+export const PriorityExplanation = styled.span`
+  position: relative;
+  /* top: -10px; */
+
+  display: flex;
+  flex-direction: column;
+
+  font-weight: 300;
+  font-size: 12.5px;
+  color: ${({ theme }) => theme.colors.grey_200};
+  text-align: center;
 `;

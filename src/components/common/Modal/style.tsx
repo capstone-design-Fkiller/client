@@ -4,6 +4,8 @@ export const Root = styled.div`
   width: 300px;
   height: 50%;
   padding: 20px 30px;
+  max-height: 50%;
+  overflow-y: auto;
 
   border-radius: 5px;
 

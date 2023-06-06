@@ -11,6 +11,10 @@ export const Root = styled.section`
     css`
       min-height: calc(var(--vh, 1vh) * 100 - ${theme.layouts.fixedHeight});
     `};
+
+  .modal_contents {
+    width: 70%;
+  }
 `;
 
 export const Container = styled.div`
