@@ -161,7 +161,6 @@ export const useApplyShareLockerMutation = () => {
       createToastMessage(res.message, 'error');
     },
   });
-  console.log();
 
   return mutation;
 };

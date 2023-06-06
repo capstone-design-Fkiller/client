@@ -40,11 +40,10 @@ export const useConvertAlertMutation = () => {
 
   const mutation = useMutation(({ receiver }: AlertConvertIsRead) => patchAlert({ receiver }), {
     onSuccess: () => {
-      console.log('알림 읽음 변경 완료!');
       queryClient.invalidateQueries([QUERY_KEY.alert]);
     },
     onError: err => {
-      console.log(err, '알림 읽음 변경 오류');
+      console.error('ConvertAlert Error', err);
     },
   });
 
