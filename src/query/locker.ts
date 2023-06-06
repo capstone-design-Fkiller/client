@@ -148,12 +148,12 @@ export const useApplyShareLockerMutation = () => {
 
   const mutation = useMutation((body: ApplyShareRequest) => patchLockerShare(body), {
     onSuccess: ({ shared_id }) => {
-      queryClient.invalidateQueries([QUERY_KEY.locker, shared_id]).then(() => {
-        createToastMessage('쉐어 신청 완료 !', 'success');
+      queryClient.invalidateQueries([QUERY_KEY.locker, shared_id]);
+      createToastMessage('쉐어 신청 완료 !', 'success');
 
-        navigate(PATH.MAIN);
-      }); // 내 사물함 갱신
-    },
+      navigate(PATH.MAIN);
+    }, // 내 사물함 갱신
+
     onError: (error: AxiosError<{ message: string }>) => {
       const res = error.response?.data;
       if (!res) return;

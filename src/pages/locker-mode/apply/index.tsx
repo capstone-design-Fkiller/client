@@ -93,7 +93,6 @@ const ApplyPage = () => {
         <Styled.Container>
           <Locker
             me={me}
-            value={structure}
             total={lockerCounts ? lockerCounts.length : undefined}
             applyCount={apply ? apply.length : undefined}
           />

@@ -15,15 +15,15 @@ import { useFetchNotice } from '@/query/notice';
 import { useFetchMe } from '@/query/user';
 import { PATH } from '@/utils/path';
 
-const TABLE_HEADER = ['ID', '제목', '작성자','작성일'];
+const TABLE_HEADER = ['ID', '제목', '작성자', '작성일'];
 
 const NoticePage = () => {
   const { me } = useFetchMe();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedNotice, setSelectedNotice] = useState<number>(0);
+  const [, setSelectedNotice] = useState<number>(0);
   const { data: notices, isLoading } = useFetchNotice(MAJOR[me?.major || 0]);
-  const sortedNotices = notices ? notices.slice().reverse() : [];
+  const sortedNotices = notices ? notices.slice() : [];
 
   const handleNoticeClick = (noticeId: number) => {
     setSelectedNotice(noticeId);

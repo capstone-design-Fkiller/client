@@ -7,13 +7,12 @@ import { UserResponse } from '@/types/user';
 
 interface LockerProps {
   me: UserResponse;
-  value: string;
   total: number | undefined;
   applyCount: number;
 }
 
 const Locker = (props: LockerProps) => {
-  const { me, value, total, applyCount } = props;
+  const { me, total, applyCount } = props;
 
   const theme = useTheme();
 
@@ -41,17 +40,16 @@ const Locker = (props: LockerProps) => {
           <Styled.Floor />
         </Styled.Building>
       </Styled.GradientWrapper>
-      <Styled.Title>
+      <Styled.Description>
         <p>신청자 수 : {applyCount}명</p>
         <p>사물함 수 : {total}개</p>
         <p>
-          {'경쟁률 : '}
-          <span style={{ fontWeight: '600', color: 'red' }}>
-            [{(applyCount / total).toFixed(2)} : 1]
+          경쟁률 :&nbsp;
+          <span className={CHECK_POINT <= 40 ? 'good' : CHECK_POINT <= 70 ? 'warning' : 'bad'}>
+            [{(CHECK_POINT / 100).toFixed(2)} : 1]
           </span>
         </p>
-        {/* {value} ( {applyCount} / {total} ) */}
-      </Styled.Title>
+      </Styled.Description>
     </Styled.Root>
   );
 };
@@ -92,9 +90,23 @@ const Styled = {
     border: 5px solid ${({ theme }) => theme.colors.light_grey_200};
   `,
 
-  Title: styled.div`
-    display: grid;
-    grid-template-columns: auto;
+  Description: styled.div`
     font-size: 15px;
+
+    & span {
+      font-weight: 600;
+
+      &.good {
+        color: ${({ theme }) => theme.colors.primary_300};
+      }
+
+      &.warning {
+        color: ${({ theme }) => theme.colors.warning_100};
+      }
+
+      &.bad {
+        color: ${({ theme }) => theme.colors.error_100};
+      }
+    }
   `,
 };

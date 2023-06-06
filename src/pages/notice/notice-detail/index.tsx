@@ -72,7 +72,7 @@ const NoticeDetailPage = () => {
             <Button variant='outlined' onClick={handleEdit}>
               수정하기
             </Button>
-            <Button variant='outlined' onClick={handleDelete} color='warning'>
+            <Button variant='outlined' onClick={handleDelete} color='error'>
               삭제하기
             </Button>
           </Styled.ButtonContainer>
