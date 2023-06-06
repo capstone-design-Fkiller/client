@@ -94,3 +94,8 @@ export const AlertModalListItems = styled.div`
       background-color: ${theme.colors.background_2};
     `}
 `;
+
+export const AlertInfo = styled.p`
+  font-size: 11px;
+  text-align: end;
+`;

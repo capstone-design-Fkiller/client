@@ -40,9 +40,9 @@ const Header = () => {
               <Styled.AlertModalListItems key={alert.id}>
                 <p>{alert.message}</p>
                 <br />
-                <p>
+                <Styled.AlertInfo>
                   {alert.major}/{YYMMDD(alert.created_at)}
-                </p>
+                </Styled.AlertInfo>
               </Styled.AlertModalListItems>
             ))
           ) : (
