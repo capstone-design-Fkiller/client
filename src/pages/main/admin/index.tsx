@@ -39,7 +39,7 @@ const AdminMainPage = () => {
                   disableTouchRipple
                   disabled
                 >
-                  사물함 배정 불가
+                  사물함 배정 완료
                 </Button>
               </>
             ) : (

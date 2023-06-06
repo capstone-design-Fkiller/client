@@ -42,6 +42,8 @@ const Styled = {
   `,
 
   Item: styled.td`
+    max-width: 30px;
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

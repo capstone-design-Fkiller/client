@@ -8,7 +8,7 @@ import { getMajorName } from '@/constants/major';
 import { LockerResponse } from '@/types/locker';
 import { SortResponse } from '@/types/sort';
 import { UserResponse } from '@/types/user';
-import { formatDate } from '@/utils/date';
+import { MMDD, formatDate } from '@/utils/date';
 
 interface LockerInfoBoxProps {
   locker: LockerResponse | undefined;
@@ -25,7 +25,7 @@ const LockerInfoBox = (props: LockerInfoBoxProps) => {
         <Styled.InfoLabel>[ 내 사물함 ]</Styled.InfoLabel>
         <Styled.MyInfo className={'none'}>
           <p>배정된 사물함이 없습니다.</p>
-          <p>사물함을 신청하세요.</p>
+          {applyCheck ? '' : <p>사물함을 신청하세요.</p>}
           <p>
             신청 여부 :{' '}
             <span style={{ color: 'red', fontWeight: '900' }}>{applyCheck ? '✔️' : '❌'}</span>
@@ -55,10 +55,24 @@ const LockerInfoBox = (props: LockerInfoBoxProps) => {
               />
 
               {!locker.shared_id ? (
-                <LockerLabel
-                  label='쉐어등록여부'
-                  value={locker.is_share_registered ? '✔️' : '❌'}
-                />
+                <>
+                  <LockerLabel
+                    label={locker.is_share_registered ? '쉐어등록기간' : '쉐어등록여부'}
+                    value={
+                      locker.is_share_registered
+                        ? `${MMDD(locker.share_start_date)}~${MMDD(locker.share_end_date)}`
+                        : '❌'
+                    }
+                  />
+                  {/* <LockerLabel
+                    label='쉐어등록기간'
+                    value={
+                      locker.is_share_registered
+                        ? `${MMDD(locker.share_start_date)}~${MMDD(locker.share_end_date)}`
+                        : '❌'
+                    }
+                  /> */}
+                </>
               ) : (
                 <LockerLabel label='쉐어중' value={`✔️`} />
               )}
