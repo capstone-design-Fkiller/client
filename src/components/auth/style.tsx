@@ -21,11 +21,15 @@ export const ButtonWrapper = styled.div`
 export const Input = styled.input`
   padding: 15px 10px;
   width: 100%;
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 10px;
   border: none;
   border-radius: 5px;
   box-shadow: ${({ theme }) => theme.shadow.type_1};
+
+  &::placeholder {
+    font-size: 14px;
+  }
 
   &[type='number']::-webkit-outer-spin-button,
   &[type='number']::-webkit-inner-spin-button {

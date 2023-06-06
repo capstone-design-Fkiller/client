@@ -48,15 +48,7 @@ const ApplySharePage = () => {
             <Styled.Inform>사물함이 이미 존재합니다.</Styled.Inform>
             <Styled.Inform>쉐어 신청을 할 수 없습니다.</Styled.Inform>
             <br />
-            <Button
-              variant='outlined'
-              // className={selectedLocker ? '' : 'disabled'}
-              color='error'
-              // css={Styled.ExtendedButton}
-              disableFocusRipple
-              disableTouchRipple
-              disabled
-            >
+            <Button variant='outlined' color='error' disableFocusRipple disableTouchRipple disabled>
               쉐어 신청불가
             </Button>
           </>
