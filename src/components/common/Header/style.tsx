@@ -99,3 +99,17 @@ export const AlertInfo = styled.p`
   font-size: 11px;
   text-align: end;
 `;
+
+export const CountAlert = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  position: relative;
+  left: 11px;
+`;

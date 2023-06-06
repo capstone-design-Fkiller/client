@@ -2,10 +2,10 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { useFetchMe } from './user';
 
-import { getMyAlerts, postAlert } from '@/api/alert';
+import { getMyAlerts, patchAlert, postAlert } from '@/api/alert';
 import { MAJOR } from '@/constants/major';
 import useToast from '@/hooks/useToast';
-import { AlertRequest } from '@/types/alert';
+import { AlertConvertIsRead, AlertRequest } from '@/types/alert';
 
 const QUERY_KEY = {
   alert: 'alert',
@@ -29,6 +29,22 @@ export const useCreateAlertMutation = () => {
     },
     onError: () => {
       createToastMessage('다시 시도해주세요.', 'error');
+    },
+  });
+
+  return mutation;
+};
+
+export const useConvertAlertMutation = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(({ receiver }: AlertConvertIsRead) => patchAlert({ receiver }), {
+    onSuccess: () => {
+      console.log('알림 읽음 변경 완료!');
+      queryClient.invalidateQueries([QUERY_KEY.alert]);
+    },
+    onError: err => {
+      console.log(err, '알림 읽음 변경 오류');
     },
   });
 
