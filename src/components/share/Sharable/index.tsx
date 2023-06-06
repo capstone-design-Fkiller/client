@@ -97,15 +97,8 @@ const Styled = {
       color: ${({ theme }) => theme.colors.primary_200};
     }
 
-    /* &::after {
-      content: '';
-      width: 10px;
-      height: 1px;
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      transform: translate(-50%, 50%);
-      background-color: ${({ theme }) => theme.colors.primary_200};
-    } */
+    & div {
+      text-align: center;
+    }
   `,
 };

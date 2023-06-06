@@ -26,7 +26,7 @@ export const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.light_grey_100};
   border-radius: 5px;
 
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 
   overflow-y: auto;
   scrollbar-width: thin;
@@ -54,6 +54,7 @@ export const Inform = styled.p`
   color: ${({ theme }) => theme.colors.grey_100};
   font-size: 14px;
 `;
+
 export const InformBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -69,14 +70,6 @@ export const InformBox = styled.div`
   & > div {
     width: 100%;
   }
-`;
-
-export const Separator = styled.hr`
-  width: 100%;
-  height: 1px;
-
-  border: 0;
-  background: ${({ theme }) => theme.colors.light_grey_200};
 `;
 
 export const ExtendedButton = (theme: Theme) => css`
