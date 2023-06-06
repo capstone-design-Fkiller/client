@@ -18,13 +18,19 @@ const Header = () => {
 
   const { data: alerts } = useFetchAlerts(me.id);
 
-  const hasUnreadAlert = useMemo(() => alerts && alerts.some(alert => !alert.isRead), [alerts]);
+  const unreadAlertCount = useMemo(
+    () =>
+      alerts && alerts.length > 0
+        ? alerts.reduce((count, alert) => count + (!alert.isRead ? 1 : 0), 0)
+        : 0,
+    [alerts]
+  );
 
   const { mutate } = useConvertAlertMutation();
 
   const handleAlertOpen = () => {
     setAlertOpen(prevOpen => {
-      if (hasUnreadAlert && !prevOpen) {
+      if (unreadAlertCount != 0 && !prevOpen) {
         mutate({ receiver: me.id });
       }
 
@@ -36,12 +42,8 @@ const Header = () => {
     <Styled.Root>
       <Styled.Logo to={PATH.MAIN}>HUFS LOCKER</Styled.Logo>
       <Styled.HeaderIconsArrange>
-        <Icon
-          iconName='email'
-          size='32'
-          onClick={handleAlertOpen}
-          css={hasUnreadAlert && Styled.ExtendedAlertIcon}
-        />
+        {unreadAlertCount != 0 && <Styled.CountAlert>{unreadAlertCount}</Styled.CountAlert>}
+        <Icon iconName='email' size='32' onClick={handleAlertOpen} />
         <Link to={PATH.PROFILE}>
           <Icon iconName='user' size='32' />
         </Link>
