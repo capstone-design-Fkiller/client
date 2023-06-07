@@ -60,9 +60,10 @@ function App() {
             <Route path={PATH.APPLY} element={<ApplyPage />} />
             <Route path={PATH.SHARE} element={<SharePage />} />
             <Route path={PATH.NOTICE} element={<NoticePage />} />
+            <Route path={`${PATH.NOTICE}/:noticeId`} element={<NoticeDetailPage />} />
+            <Route path={`${PATH.NOTICE}/edit/:noticeId`} element={<NoticeEditPage />} />
+
             <Route path={PATH.NOTICE_CREATE} element={<NoticeCreatePage />} />
-            <Route path={PATH.NOTICE_DETAIL} element={<NoticeDetailPage />} />
-            <Route path={PATH.NOTICE_EDIT} element={<NoticeEditPage />} />
             <Route path={PATH.SORT} element={<SortPage />} />
             <Route path={PATH.RESULT} element={<ResultPage />} />
             <Route path={PATH.ASSIGN} element={<AssignPage />} />

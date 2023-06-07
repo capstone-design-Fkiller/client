@@ -26,21 +26,18 @@ export const useFetchNotice = (major: number) => {
 
 export const useFetchNoticeDetail = (noticeId: number) => {
   const { createToastMessage } = useToast();
-  const queryClient = useQueryClient();
 
   const { data: notice, isLoading } = useQuery(
-    [QUERY_KEY.noticeDetail, noticeId],
+    [QUERY_KEY.notice, noticeId],
     () => getNoticeDetail(noticeId),
     {
       onError: () => {
         createToastMessage('다시 시도해주세요.', 'error');
       },
-      staleTime: 60000,
-      refetchInterval: 60000,
-      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 60,
+      cacheTime: 1000 * 60 * 60 * 24,
     }
   );
-  queryClient.invalidateQueries(QUERY_KEY.noticeDetail);
 
   return { data: notice, isLoading };
 };
@@ -60,7 +57,7 @@ export const useCreateNoticeMutation = () => {
     onSuccess: () => {
       createToastMessage('공지사항 등록 완료!', 'success');
 
-      queryClient.invalidateQueries(QUERY_KEY.notice);
+      queryClient.invalidateQueries([QUERY_KEY.notice]);
     },
     onError: () => createToastMessage('다시 시도해주세요.', 'error'),
   });
@@ -78,7 +75,7 @@ export const useEditNoticeMutation = () => {
   const mutation = useMutation((body: EditNoticeRequest) => patchNotice({ ...body }), {
     onSuccess: () => {
       createToastMessage('공지사항 수정 완료!', 'success');
-      queryClient.invalidateQueries(QUERY_KEY.notice);
+      queryClient.invalidateQueries([QUERY_KEY.notice]);
     },
     onError: () => createToastMessage('다시 시도해주세요.', 'error'),
   });

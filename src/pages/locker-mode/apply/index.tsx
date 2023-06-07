@@ -93,7 +93,6 @@ const ApplyPage = () => {
         <Styled.Container>
           <Locker
             me={me}
-            value={structure}
             total={lockerCounts ? lockerCounts.length : undefined}
             applyCount={apply ? apply.length : undefined}
           />
@@ -109,13 +108,15 @@ const ApplyPage = () => {
       </Styled.Root>
 
       <Modal title='학과별 조건 입력' open={open} onClose={handleModalOpen}>
-        {me && (
-          <Condition
-            majorInfo={majorInfo}
-            setValue={setValue}
-            handleApplyButton={handleApplyButton}
-          />
-        )}
+        <Styled.ModalContent>
+          {me && (
+            <Condition
+              majorInfo={majorInfo}
+              setValue={setValue}
+              handleApplyButton={handleApplyButton}
+            />
+          )}
+        </Styled.ModalContent>
       </Modal>
     </PageTemplate>
   );

@@ -58,3 +58,13 @@ export const InformBox = styled.div`
     }
   }
 `;
+
+export const ModalContent = styled.div`
+  overflow-y: auto;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;

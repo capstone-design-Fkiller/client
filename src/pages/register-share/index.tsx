@@ -29,6 +29,8 @@ const UserSharePage = () => {
       .split(',')
       .map(date => new Date(date));
 
+    start.setHours(start.getHours() + 9);
+
     mutate({
       id: myLocker?.id || 0,
       share_start_date: start,
