@@ -95,3 +95,18 @@ export const ExtendedAlertIcon = (theme: Theme) => css`
     background-color: ${theme.colors.error_100};
   }
 `;
+
+
+export const CountAlert = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  position: relative;
+  left: 11px;
+`;
