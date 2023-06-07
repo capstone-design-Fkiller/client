@@ -3,7 +3,7 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './style';
-import TimePickerValue from '../TimePicker';
+// import TimePickerValue from '../TimePicker';
 
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
@@ -239,19 +239,36 @@ const AdminEditPage = () => {
           <br />
           <span>배정 날짜와 동점자 배정 기준은 필수 항목입니다.</span>
         </Styled.InformText>
-
+        <Styled.Explanation>
+          <span>
+            <span style={{ fontSize: '16px' }}>⏷</span> 학과 학생에게 사물함 신청 받을 기간을
+            설정합니다
+          </span>
+          <br />
+          <span>예: 3월 10일 목요일 ~ 3월 15일 일요일</span>
+        </Styled.Explanation>
         <Styled.SelectWrapper onClick={handleDateSelectOpen}>
           <DateBox label='사물함 신청 시작일' date={date[0]} />
           <DateBox label='사물함 신청 종료일' date={date[1]} />
         </Styled.SelectWrapper>
         {/* <TimePickerValue /> */}
+        <Styled.Explanation>
+          <span>
+            <span style={{ fontSize: '16px' }}>⏷</span> 학과 학생이 사물함을 이용할 기간을
+            설정합니다
+          </span>
+          <br />
+          <span>예: 한 학기(3월 15일 수요일 ~ 8월 19일 금요일)</span>
+        </Styled.Explanation>
         <Styled.SelectWrapper onClick={handleLockerDateSelectOpen}>
           <DateBox label='사물함 이용 시작일' date={lockerDate[0]} />
           <DateBox label='사물함 이용 종료일' date={lockerDate[1]} />
         </Styled.SelectWrapper>
-
         <Styled.Container>
           <Styled.InformBox>
+            <Styled.PriorityExplanation>
+              <span>✔︎ 우선순위가 높은 학생부터 차례대로 사물함이 배정됩니다.</span>
+            </Styled.PriorityExplanation>
             <Styled.Labels>
               <span>1순위: </span>
               <Select value={priority1} list={getPriorityList(1)} handleChange={handleChange1} />
@@ -270,7 +287,6 @@ const AdminEditPage = () => {
             </Styled.Labels>
           </Styled.InformBox>
         </Styled.Container>
-
         <Button
           type='submit'
           variant='contained'
