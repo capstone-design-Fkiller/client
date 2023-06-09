@@ -59,6 +59,7 @@ const AdminEditPage = () => {
     let storedEndDate = majorInfo?.apply_end_date; // 서버 저장된 배정 종료 날짜
     if (majorInfo?.apply_start_date && majorInfo?.apply_end_date) {
       const existStartDate = new Date(majorInfo?.apply_start_date);
+      existStartDate.setHours(existStartDate.getHours() + 9);
       storedStartDate = formatDate(existStartDate);
 
       const existEndDate = new Date(majorInfo?.apply_end_date);
@@ -72,6 +73,7 @@ const AdminEditPage = () => {
     let storedEndLockerDate = majorInfo?.end_date;
     if (majorInfo?.start_date && majorInfo?.end_date) {
       const existStartDate = new Date(majorInfo?.start_date);
+      existStartDate.setHours(existStartDate.getHours() + 9);
       storedStartLockerDate = formatDate(existStartDate);
 
       const existEndDate = new Date(majorInfo?.end_date);
