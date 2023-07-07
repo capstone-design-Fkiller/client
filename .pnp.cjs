@@ -28,6 +28,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@emotion/babel-plugin", "npm:11.11.0"],\
             ["@emotion/react", "virtual:520bc01947f0859a4d93bf7655c639d1de7976592055938f2533a89ca59f70aca5fbf9ab5742b8f403e6ea264368e1aa3c763a0756fe0dd58470ddcb8233cbd1#npm:11.11.1"],\
             ["@emotion/styled", "virtual:520bc01947f0859a4d93bf7655c639d1de7976592055938f2533a89ca59f70aca5fbf9ab5742b8f403e6ea264368e1aa3c763a0756fe0dd58470ddcb8233cbd1#npm:11.11.0"],\
             ["@mui/icons-material", "virtual:520bc01947f0859a4d93bf7655c639d1de7976592055938f2533a89ca59f70aca5fbf9ab5742b8f403e6ea264368e1aa3c763a0756fe0dd58470ddcb8233cbd1#npm:5.13.7"],\
@@ -2196,6 +2197,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["capstone-design", "workspace:."],\
+            ["@emotion/babel-plugin", "npm:11.11.0"],\
             ["@emotion/react", "virtual:520bc01947f0859a4d93bf7655c639d1de7976592055938f2533a89ca59f70aca5fbf9ab5742b8f403e6ea264368e1aa3c763a0756fe0dd58470ddcb8233cbd1#npm:11.11.1"],\
             ["@emotion/styled", "virtual:520bc01947f0859a4d93bf7655c639d1de7976592055938f2533a89ca59f70aca5fbf9ab5742b8f403e6ea264368e1aa3c763a0756fe0dd58470ddcb8233cbd1#npm:11.11.0"],\
             ["@mui/icons-material", "virtual:520bc01947f0859a4d93bf7655c639d1de7976592055938f2533a89ca59f70aca5fbf9ab5742b8f403e6ea264368e1aa3c763a0756fe0dd58470ddcb8233cbd1#npm:5.13.7"],\

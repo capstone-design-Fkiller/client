@@ -1632,6 +1632,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "capstone-design@workspace:."
   dependencies:
+    "@emotion/babel-plugin": ^11.11.0
     "@emotion/react": ^11.10.6
     "@emotion/styled": ^11.10.6
     "@mui/icons-material": ^5.11.16
