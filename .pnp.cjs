@@ -1247,9 +1247,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.22.6"],\
             ["@emotion/react", "virtual:520bc01947f0859a4d93bf7655c639d1de7976592055938f2533a89ca59f70aca5fbf9ab5742b8f403e6ea264368e1aa3c763a0756fe0dd58470ddcb8233cbd1#npm:11.11.1"],\
             ["@emotion/styled", "virtual:520bc01947f0859a4d93bf7655c639d1de7976592055938f2533a89ca59f70aca5fbf9ab5742b8f403e6ea264368e1aa3c763a0756fe0dd58470ddcb8233cbd1#npm:11.11.0"],\
-            ["@mui/base", null],\
+            ["@mui/base", "virtual:11033d53ab220cab4650b7a0a90262a83ef4df871bd99f3571bae98453cf66db302b6e671194c5883bbde533fdbceb9e5f19b472619d69bd5ea2a3dd93c60a73#npm:5.0.0-beta.6"],\
             ["@mui/material", "virtual:520bc01947f0859a4d93bf7655c639d1de7976592055938f2533a89ca59f70aca5fbf9ab5742b8f403e6ea264368e1aa3c763a0756fe0dd58470ddcb8233cbd1#npm:5.13.7"],\
-            ["@mui/system", null],\
+            ["@mui/system", "virtual:11033d53ab220cab4650b7a0a90262a83ef4df871bd99f3571bae98453cf66db302b6e671194c5883bbde533fdbceb9e5f19b472619d69bd5ea2a3dd93c60a73#npm:5.13.7"],\
             ["@mui/utils", "virtual:11033d53ab220cab4650b7a0a90262a83ef4df871bd99f3571bae98453cf66db302b6e671194c5883bbde533fdbceb9e5f19b472619d69bd5ea2a3dd93c60a73#npm:5.13.7"],\
             ["@types/date-fns", null],\
             ["@types/date-fns-jalali", null],\
@@ -1282,9 +1282,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@emotion/react",\
             "@emotion/styled",\
-            "@mui/base",\
             "@mui/material",\
-            "@mui/system",\
             "@types/date-fns-jalali",\
             "@types/date-fns",\
             "@types/dayjs",\
